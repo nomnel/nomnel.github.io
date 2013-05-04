@@ -4,7 +4,7 @@
   <title><![CDATA[Category: howto | 飲んだり寝たり]]></title>
   <link href="http://nomnel.github.io/blog/categories/howto/atom.xml" rel="self"/>
   <link href="http://nomnel.github.io/"/>
-  <updated>2013-05-04T20:01:11+09:00</updated>
+  <updated>2013-05-04T20:05:33+09:00</updated>
   <id>http://nomnel.github.io/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -27,11 +27,19 @@
 <li>公開鍵認証用の鍵の生成と登録</li>
 <li>プラグインのインストール</li>
 <li>ジョブを作成</li>
-<li><p>確認</p></li>
-<li><p>Jenkinsのインストールは<a href="http://nomnel.net/blog/install-jenkins/">こちら</a></p></li>
-<li>Octopressインストールは<a href="http://nomnel.net/blog/wordpress-to-octopress/">こちら</a></li>
+<li>確認</li>
 </ol>
 
+
+<p>なお,</p>
+
+<ul>
+<li>Jenkinsのインストールは<a href="http://nomnel.net/blog/install-jenkins/">こちら</a></li>
+<li>Octopressインストールは<a href="http://nomnel.net/blog/wordpress-to-octopress/">こちら</a></li>
+</ul>
+
+
+<p>を参照.</p>
 
 <h3>環境</h3>
 
