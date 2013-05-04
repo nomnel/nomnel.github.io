@@ -1,351 +1,351 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://nomnel.github.io/blog/sakura-vps-first-steps/</loc>
+        <loc>http://nomnel.net/blog/sakura-vps-first-steps/</loc>
         <lastmod>2013-05-04T17:31:05+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/install-apache/</loc>
+        <loc>http://nomnel.net/blog/install-apache/</loc>
         <lastmod>2013-05-04T17:34:38+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/install-mysql/</loc>
+        <loc>http://nomnel.net/blog/install-mysql/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/install-php/</loc>
+        <loc>http://nomnel.net/blog/install-php/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/install-wordpress/</loc>
+        <loc>http://nomnel.net/blog/install-wordpress/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/sign-up-sakura-vps/</loc>
+        <loc>http://nomnel.net/blog/sign-up-sakura-vps/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/vi-minimum-knowledge/</loc>
+        <loc>http://nomnel.net/blog/vi-minimum-knowledge/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/iptables-filter/</loc>
+        <loc>http://nomnel.net/blog/iptables-filter/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/set-domain-name/</loc>
+        <loc>http://nomnel.net/blog/set-domain-name/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/wordpress-first-steps/</loc>
+        <loc>http://nomnel.net/blog/wordpress-first-steps/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/wp-akismet/</loc>
+        <loc>http://nomnel.net/blog/wp-akismet/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/wordpress-with-sakura-vps/</loc>
+        <loc>http://nomnel.net/blog/wordpress-with-sakura-vps/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/st2-scheme-repl/</loc>
+        <loc>http://nomnel.net/blog/st2-scheme-repl/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/st2-scheme-syntax/</loc>
+        <loc>http://nomnel.net/blog/st2-scheme-syntax/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/gauche-lazy-sequence/</loc>
+        <loc>http://nomnel.net/blog/gauche-lazy-sequence/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/st2-gauche/</loc>
+        <loc>http://nomnel.net/blog/st2-gauche/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day1/</loc>
+        <loc>http://nomnel.net/blog/fjord-day1/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/dotinstall-needs-lecture-note/</loc>
+        <loc>http://nomnel.net/blog/dotinstall-needs-lecture-note/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day2/</loc>
+        <loc>http://nomnel.net/blog/fjord-day2/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day3/</loc>
+        <loc>http://nomnel.net/blog/fjord-day3/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day4/</loc>
+        <loc>http://nomnel.net/blog/fjord-day4/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/debian-enable-japanese/</loc>
+        <loc>http://nomnel.net/blog/debian-enable-japanese/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/debian-enable-sudo/</loc>
+        <loc>http://nomnel.net/blog/debian-enable-sudo/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/debian-install-ssh/</loc>
+        <loc>http://nomnel.net/blog/debian-install-ssh/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day5-day7/</loc>
+        <loc>http://nomnel.net/blog/fjord-day5-day7/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/install-debian-to-virtualbox/</loc>
+        <loc>http://nomnel.net/blog/install-debian-to-virtualbox/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day8/</loc>
+        <loc>http://nomnel.net/blog/fjord-day8/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/kowabana-idea/</loc>
+        <loc>http://nomnel.net/blog/kowabana-idea/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day9/</loc>
+        <loc>http://nomnel.net/blog/fjord-day9/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day10/</loc>
+        <loc>http://nomnel.net/blog/fjord-day10/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/rails-runner-keyword-arg/</loc>
+        <loc>http://nomnel.net/blog/rails-runner-keyword-arg/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day11/</loc>
+        <loc>http://nomnel.net/blog/fjord-day11/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/pull-req-to-github-private-repo/</loc>
+        <loc>http://nomnel.net/blog/pull-req-to-github-private-repo/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day12/</loc>
+        <loc>http://nomnel.net/blog/fjord-day12/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/mac-move-focus-to-next-window/</loc>
+        <loc>http://nomnel.net/blog/mac-move-focus-to-next-window/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/smart-app-banner/</loc>
+        <loc>http://nomnel.net/blog/smart-app-banner/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day13/</loc>
+        <loc>http://nomnel.net/blog/fjord-day13/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day14/</loc>
+        <loc>http://nomnel.net/blog/fjord-day14/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day15/</loc>
+        <loc>http://nomnel.net/blog/fjord-day15/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day16/</loc>
+        <loc>http://nomnel.net/blog/fjord-day16/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day17/</loc>
+        <loc>http://nomnel.net/blog/fjord-day17/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day18/</loc>
+        <loc>http://nomnel.net/blog/fjord-day18/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/pow-install/</loc>
+        <loc>http://nomnel.net/blog/pow-install/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day19/</loc>
+        <loc>http://nomnel.net/blog/fjord-day19/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/clean-rails-env/</loc>
+        <loc>http://nomnel.net/blog/clean-rails-env/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day20/</loc>
+        <loc>http://nomnel.net/blog/fjord-day20/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/rails-column-with-references-confusion/</loc>
+        <loc>http://nomnel.net/blog/rails-column-with-references-confusion/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day21/</loc>
+        <loc>http://nomnel.net/blog/fjord-day21/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day22/</loc>
+        <loc>http://nomnel.net/blog/fjord-day22/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day23/</loc>
+        <loc>http://nomnel.net/blog/fjord-day23/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/rails-change-each-page-title/</loc>
+        <loc>http://nomnel.net/blog/rails-change-each-page-title/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day24/</loc>
+        <loc>http://nomnel.net/blog/fjord-day24/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day26/</loc>
+        <loc>http://nomnel.net/blog/fjord-day26/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day27/</loc>
+        <loc>http://nomnel.net/blog/fjord-day27/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/install-ruby-1-9-3-p392/</loc>
+        <loc>http://nomnel.net/blog/install-ruby-1-9-3-p392/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/rails-record-not-unique-and-disable-with-option/</loc>
+        <loc>http://nomnel.net/blog/rails-record-not-unique-and-disable-with-option/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/st2-indentation-settings-per-syntax/</loc>
+        <loc>http://nomnel.net/blog/st2-indentation-settings-per-syntax/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day29/</loc>
+        <loc>http://nomnel.net/blog/fjord-day29/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day30/</loc>
+        <loc>http://nomnel.net/blog/fjord-day30/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day31/</loc>
+        <loc>http://nomnel.net/blog/fjord-day31/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/how-to-post-on-octopress/</loc>
+        <loc>http://nomnel.net/blog/how-to-post-on-octopress/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day32/</loc>
+        <loc>http://nomnel.net/blog/fjord-day32/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/octopress-cant-generate-including-multibyte-url/</loc>
+        <loc>http://nomnel.net/blog/octopress-cant-generate-including-multibyte-url/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day33/</loc>
+        <loc>http://nomnel.net/blog/fjord-day33/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/wordpress-to-octopress/</loc>
+        <loc>http://nomnel.net/blog/wordpress-to-octopress/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/rails-upload-image-using-paperclip/</loc>
+        <loc>http://nomnel.net/blog/rails-upload-image-using-paperclip/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day34/</loc>
+        <loc>http://nomnel.net/blog/fjord-day34/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl/</loc>
+        <loc>http://nomnel.net/blog/sublimerepl-cant-open-ruby-repl/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day35/</loc>
+        <loc>http://nomnel.net/blog/fjord-day35/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day36/</loc>
+        <loc>http://nomnel.net/blog/fjord-day36/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day37/</loc>
+        <loc>http://nomnel.net/blog/fjord-day37/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day38/</loc>
+        <loc>http://nomnel.net/blog/fjord-day38/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/rails-confirm-on-leaving-the-page/</loc>
+        <loc>http://nomnel.net/blog/rails-confirm-on-leaving-the-page/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day39/</loc>
+        <loc>http://nomnel.net/blog/fjord-day39/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/install-nginx-in-debian-using-apt-get/</loc>
+        <loc>http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day41/</loc>
+        <loc>http://nomnel.net/blog/fjord-day41/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/confirm-centos-version/</loc>
+        <loc>http://nomnel.net/blog/confirm-centos-version/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/uninstall-wordpress/</loc>
+        <loc>http://nomnel.net/blog/uninstall-wordpress/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/install-nginx-in-centos6-using-yum/</loc>
+        <loc>http://nomnel.net/blog/install-nginx-in-centos6-using-yum/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/install-jenkins/</loc>
+        <loc>http://nomnel.net/blog/install-jenkins/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/fjord-day42/</loc>
+        <loc>http://nomnel.net/blog/fjord-day42/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/centos-take-over-path-from-user-on-sudo/</loc>
+        <loc>http://nomnel.net/blog/centos-take-over-path-from-user-on-sudo/</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/centos-system-wide-rbenv-and-ruby-build/</loc>
+        <loc>http://nomnel.net/blog/centos-system-wide-rbenv-and-ruby-build/</loc>
         <lastmod>2013-05-04T17:31:05+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/jenkins-deploys-octopress/</loc>
+        <loc>http://nomnel.net/blog/jenkins-deploys-octopress/</loc>
         <lastmod>2013-05-04T20:05:23+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/robots.txt</loc>
+        <loc>http://nomnel.net/robots.txt</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/</loc>
+        <loc>http://nomnel.net/</loc>
         <lastmod>2013-05-04T20:05:23+09:00</lastmod>
     </url>
     <url>
-        <loc>http://nomnel.github.io/blog/archives/</loc>
+        <loc>http://nomnel.net/blog/archives/</loc>
         <lastmod>2013-05-04T20:05:23+09:00</lastmod>
     </url>
 </urlset>

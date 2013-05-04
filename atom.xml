@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[飲んだり寝たり]]></title>
-  <link href="http://nomnel.github.io/atom.xml" rel="self"/>
-  <link href="http://nomnel.github.io/"/>
-  <updated>2013-05-04T20:05:33+09:00</updated>
-  <id>http://nomnel.github.io/</id>
+  <link href="http://nomnel.net/atom.xml" rel="self"/>
+  <link href="http://nomnel.net/"/>
+  <updated>2013-05-04T20:20:34+09:00</updated>
+  <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[JenkinsにOctopressのデプロイを任せる]]></title>
-    <link href="http://nomnel.github.io/blog/jenkins-deploys-octopress/"/>
+    <link href="http://nomnel.net/blog/jenkins-deploys-octopress/"/>
     <updated>2013-05-04T20:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/jenkins-deploys-octopress</id>
+    <id>http://nomnel.net/blog/jenkins-deploys-octopress</id>
     <content type="html"><![CDATA[<p>BitbucketにOctopressのsourceブランチを置き, pushしたらJenkinsがGithub pageにデプロイするようにする.</p>
 
 <h3>目次</h3>
@@ -135,9 +135,9 @@
   
   <entry>
     <title type="html"><![CDATA[CentOSでsystem wideなrbenv+ruby-build環境を構築する]]></title>
-    <link href="http://nomnel.github.io/blog/centos-system-wide-rbenv-and-ruby-build/"/>
+    <link href="http://nomnel.net/blog/centos-system-wide-rbenv-and-ruby-build/"/>
     <updated>2013-05-04T12:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/centos-system-wide-rbenv-and-ruby-build</id>
+    <id>http://nomnel.net/blog/centos-system-wide-rbenv-and-ruby-build</id>
     <content type="html"><![CDATA[<h3>目次</h3>
 
 <ol>
@@ -236,9 +236,9 @@
   
   <entry>
     <title type="html"><![CDATA[sudo時にPATHを引き継ぐ]]></title>
-    <link href="http://nomnel.github.io/blog/centos-take-over-path-from-user-on-sudo/"/>
+    <link href="http://nomnel.net/blog/centos-take-over-path-from-user-on-sudo/"/>
     <updated>2013-05-04T11:50:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/centos-take-over-path-from-user-on-sudo</id>
+    <id>http://nomnel.net/blog/centos-take-over-path-from-user-on-sudo</id>
     <content type="html"><![CDATA[<h3>環境</h3>
 
 <ul>
@@ -291,9 +291,9 @@
   
   <entry>
     <title type="html"><![CDATA[インターン42日目]]></title>
-    <link href="http://nomnel.github.io/blog/fjord-day42/"/>
+    <link href="http://nomnel.net/blog/fjord-day42/"/>
     <updated>2013-05-02T17:20:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/fjord-day42</id>
+    <id>http://nomnel.net/blog/fjord-day42</id>
     <content type="html"><![CDATA[<p>さて今日は,</p>
 
 <ol>
@@ -315,9 +315,9 @@
   
   <entry>
     <title type="html"><![CDATA[Jenkins氏をさくらVPSに招聘する]]></title>
-    <link href="http://nomnel.github.io/blog/install-jenkins/"/>
+    <link href="http://nomnel.net/blog/install-jenkins/"/>
     <updated>2013-05-02T17:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/install-jenkins</id>
+    <id>http://nomnel.net/blog/install-jenkins</id>
     <content type="html"><![CDATA[<h3>目次</h3>
 
 <ol>
@@ -523,9 +523,9 @@
   
   <entry>
     <title type="html"><![CDATA[CentOS6で最新版のnginxをyumでインストールする]]></title>
-    <link href="http://nomnel.github.io/blog/install-nginx-in-centos6-using-yum/"/>
+    <link href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/"/>
     <updated>2013-05-02T12:20:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/install-nginx-in-centos6-using-yum</id>
+    <id>http://nomnel.net/blog/install-nginx-in-centos6-using-yum</id>
     <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/">Debianのとき</a>と同様, 標準のままではパッケージシステムで最新版をインストールすることが出来ないのでその対策.</p>
 
 <!-- more -->
@@ -583,9 +583,9 @@
   
   <entry>
     <title type="html"><![CDATA[WordPressのアンインストール]]></title>
-    <link href="http://nomnel.github.io/blog/uninstall-wordpress/"/>
+    <link href="http://nomnel.net/blog/uninstall-wordpress/"/>
     <updated>2013-05-02T11:45:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/uninstall-wordpress</id>
+    <id>http://nomnel.net/blog/uninstall-wordpress</id>
     <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/install-wordpress/">blogとしてインストールしていた場合</a></p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -609,9 +609,9 @@
   
   <entry>
     <title type="html"><![CDATA[CentOSのバージョンとアーキテクチャの確認]]></title>
-    <link href="http://nomnel.github.io/blog/confirm-centos-version/"/>
+    <link href="http://nomnel.net/blog/confirm-centos-version/"/>
     <updated>2013-05-02T11:40:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/confirm-centos-version</id>
+    <id>http://nomnel.net/blog/confirm-centos-version</id>
     <content type="html"><![CDATA[<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -633,9 +633,9 @@
   
   <entry>
     <title type="html"><![CDATA[インターン41日目]]></title>
-    <link href="http://nomnel.github.io/blog/fjord-day41/"/>
+    <link href="http://nomnel.net/blog/fjord-day41/"/>
     <updated>2013-05-01T23:30:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/fjord-day41</id>
+    <id>http://nomnel.net/blog/fjord-day41</id>
     <content type="html"><![CDATA[<p>(40日目は省略されました)</p>
 
 <p>さて, 大方のプラクティスを終えたこともあり, 今日から</p>
@@ -676,9 +676,9 @@
   
   <entry>
     <title type="html"><![CDATA[Debianで最新版のnginxをapt-getでインストールする]]></title>
-    <link href="http://nomnel.github.io/blog/install-nginx-in-debian-using-apt-get/"/>
+    <link href="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/"/>
     <updated>2013-04-30T15:30:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/install-nginx-in-debian-using-apt-get</id>
+    <id>http://nomnel.net/blog/install-nginx-in-debian-using-apt-get</id>
     <content type="html"><![CDATA[<p>(CentOSの場合は<a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">こちら</a>)</p>
 
 <p>普通に</p>
@@ -753,9 +753,9 @@
   
   <entry>
     <title type="html"><![CDATA[インターン39日目]]></title>
-    <link href="http://nomnel.github.io/blog/fjord-day39/"/>
+    <link href="http://nomnel.net/blog/fjord-day39/"/>
     <updated>2013-04-26T19:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/fjord-day39</id>
+    <id>http://nomnel.net/blog/fjord-day39</id>
     <content type="html"><![CDATA[<p>さて今日は,</p>
 
 <ol>
@@ -808,9 +808,9 @@
   
   <entry>
     <title type="html"><![CDATA[Railsでページ遷移前に確認ダイアログを表示する]]></title>
-    <link href="http://nomnel.github.io/blog/rails-confirm-on-leaving-the-page/"/>
+    <link href="http://nomnel.net/blog/rails-confirm-on-leaving-the-page/"/>
     <updated>2013-04-26T18:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/rails-confirm-on-leaving-the-page</id>
+    <id>http://nomnel.net/blog/rails-confirm-on-leaving-the-page</id>
     <content type="html"><![CDATA[<p>実装のみ簡単に.</p>
 
 <!-- more -->
@@ -868,9 +868,9 @@
   
   <entry>
     <title type="html"><![CDATA[インターン38日目]]></title>
-    <link href="http://nomnel.github.io/blog/fjord-day38/"/>
+    <link href="http://nomnel.net/blog/fjord-day38/"/>
     <updated>2013-04-25T19:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/fjord-day38</id>
+    <id>http://nomnel.net/blog/fjord-day38</id>
     <content type="html"><![CDATA[<p>さて今日は</p>
 
 <ol>
@@ -903,9 +903,9 @@
   
   <entry>
     <title type="html"><![CDATA[インターン37日目]]></title>
-    <link href="http://nomnel.github.io/blog/fjord-day37/"/>
+    <link href="http://nomnel.net/blog/fjord-day37/"/>
     <updated>2013-04-24T18:30:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/fjord-day37</id>
+    <id>http://nomnel.net/blog/fjord-day37</id>
     <content type="html"><![CDATA[<p>さて今日は</p>
 
 <ol>
@@ -932,9 +932,9 @@
   
   <entry>
     <title type="html"><![CDATA[インターン36日目]]></title>
-    <link href="http://nomnel.github.io/blog/fjord-day36/"/>
+    <link href="http://nomnel.net/blog/fjord-day36/"/>
     <updated>2013-04-23T19:30:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/fjord-day36</id>
+    <id>http://nomnel.net/blog/fjord-day36</id>
     <content type="html"><![CDATA[<p>さて今日は,</p>
 
 <ol>
@@ -961,9 +961,9 @@
   
   <entry>
     <title type="html"><![CDATA[インターン35日目]]></title>
-    <link href="http://nomnel.github.io/blog/fjord-day35/"/>
+    <link href="http://nomnel.net/blog/fjord-day35/"/>
     <updated>2013-04-22T20:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/fjord-day35</id>
+    <id>http://nomnel.net/blog/fjord-day35</id>
     <content type="html"><![CDATA[<p>さて今日は,</p>
 
 <ol>
@@ -1003,9 +1003,9 @@
   
   <entry>
     <title type="html"><![CDATA[rbenvを使っていてSublimeREPLでRubyのREPLが使えないとき]]></title>
-    <link href="http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl/"/>
+    <link href="http://nomnel.net/blog/sublimerepl-cant-open-ruby-repl/"/>
     <updated>2013-04-20T18:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl</id>
+    <id>http://nomnel.net/blog/sublimerepl-cant-open-ruby-repl</id>
     <content type="html"><![CDATA[<h3>現象</h3>
 
 <p>SublimeREPLでRubyのREPLを開くと,</p>
@@ -1057,9 +1057,9 @@
   
   <entry>
     <title type="html"><![CDATA[インターン34日目]]></title>
-    <link href="http://nomnel.github.io/blog/fjord-day34/"/>
+    <link href="http://nomnel.net/blog/fjord-day34/"/>
     <updated>2013-04-19T19:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/fjord-day34</id>
+    <id>http://nomnel.net/blog/fjord-day34</id>
     <content type="html"><![CDATA[<h3>今日</h3>
 
 <p>今日は午前中用事があって, 昼過ぎから</p>
@@ -1077,9 +1077,9 @@
   
   <entry>
     <title type="html"><![CDATA[RailsアプリにPaperclipを使って画像アップロード機能をつける]]></title>
-    <link href="http://nomnel.github.io/blog/rails-upload-image-using-paperclip/"/>
+    <link href="http://nomnel.net/blog/rails-upload-image-using-paperclip/"/>
     <updated>2013-04-19T18:30:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/rails-upload-image-using-paperclip</id>
+    <id>http://nomnel.net/blog/rails-upload-image-using-paperclip</id>
     <content type="html"><![CDATA[<h3>目次</h3>
 
 <ol>
@@ -1297,9 +1297,9 @@
   
   <entry>
     <title type="html"><![CDATA[WordpressからOctopressに移行する]]></title>
-    <link href="http://nomnel.github.io/blog/wordpress-to-octopress/"/>
+    <link href="http://nomnel.net/blog/wordpress-to-octopress/"/>
     <updated>2013-04-19T01:30:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/wordpress-to-octopress</id>
+    <id>http://nomnel.net/blog/wordpress-to-octopress</id>
     <content type="html"><![CDATA[<p><a href="http://wired.jp/2013/04/15/huge-attack-on-wordpress-sites-could-spawn-never-before-seen-super-botnet/">この前のWordpressサイトへの大規模攻撃</a>で, 僕のところにもアラートメールがいっぱい飛んできて嫌になってしまったので, Github Pages + Octopress(画像はDropboxのpublicフォルダ)に移行することにした.</p>
 
 <h3>目次</h3>

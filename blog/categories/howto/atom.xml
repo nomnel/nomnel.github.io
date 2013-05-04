@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: howto | 飲んだり寝たり]]></title>
-  <link href="http://nomnel.github.io/blog/categories/howto/atom.xml" rel="self"/>
-  <link href="http://nomnel.github.io/"/>
-  <updated>2013-05-04T20:05:33+09:00</updated>
-  <id>http://nomnel.github.io/</id>
+  <link href="http://nomnel.net/blog/categories/howto/atom.xml" rel="self"/>
+  <link href="http://nomnel.net/"/>
+  <updated>2013-05-04T20:20:34+09:00</updated>
+  <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[JenkinsにOctopressのデプロイを任せる]]></title>
-    <link href="http://nomnel.github.io/blog/jenkins-deploys-octopress/"/>
+    <link href="http://nomnel.net/blog/jenkins-deploys-octopress/"/>
     <updated>2013-05-04T20:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/jenkins-deploys-octopress</id>
+    <id>http://nomnel.net/blog/jenkins-deploys-octopress</id>
     <content type="html"><![CDATA[<p>BitbucketにOctopressのsourceブランチを置き, pushしたらJenkinsがGithub pageにデプロイするようにする.</p>
 
 <h3>目次</h3>
@@ -126,9 +126,9 @@ rbenv exec bundle exec rake gen_deploy
   
   <entry>
     <title type="html"><![CDATA[CentOSでsystem wideなrbenv+ruby-build環境を構築する]]></title>
-    <link href="http://nomnel.github.io/blog/centos-system-wide-rbenv-and-ruby-build/"/>
+    <link href="http://nomnel.net/blog/centos-system-wide-rbenv-and-ruby-build/"/>
     <updated>2013-05-04T12:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/centos-system-wide-rbenv-and-ruby-build</id>
+    <id>http://nomnel.net/blog/centos-system-wide-rbenv-and-ruby-build</id>
     <content type="html"><![CDATA[<h3>目次</h3>
 
 <ol>
@@ -209,9 +209,9 @@ rbenv global 2.0.0-p0
   
   <entry>
     <title type="html"><![CDATA[sudo時にPATHを引き継ぐ]]></title>
-    <link href="http://nomnel.github.io/blog/centos-take-over-path-from-user-on-sudo/"/>
+    <link href="http://nomnel.net/blog/centos-take-over-path-from-user-on-sudo/"/>
     <updated>2013-05-04T11:50:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/centos-take-over-path-from-user-on-sudo</id>
+    <id>http://nomnel.net/blog/centos-take-over-path-from-user-on-sudo</id>
     <content type="html"><![CDATA[<h3>環境</h3>
 
 <ul>
@@ -257,9 +257,9 @@ Defaults    env_keep += "PATH"
   
   <entry>
     <title type="html"><![CDATA[Jenkins氏をさくらVPSに招聘する]]></title>
-    <link href="http://nomnel.github.io/blog/install-jenkins/"/>
+    <link href="http://nomnel.net/blog/install-jenkins/"/>
     <updated>2013-05-02T17:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/install-jenkins</id>
+    <id>http://nomnel.net/blog/install-jenkins</id>
     <content type="html"><![CDATA[<h3>目次</h3>
 
 <ol>
@@ -436,9 +436,9 @@ sudo service jenkins restart
   
   <entry>
     <title type="html"><![CDATA[CentOS6で最新版のnginxをyumでインストールする]]></title>
-    <link href="http://nomnel.github.io/blog/install-nginx-in-centos6-using-yum/"/>
+    <link href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/"/>
     <updated>2013-05-02T12:20:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/install-nginx-in-centos6-using-yum</id>
+    <id>http://nomnel.net/blog/install-nginx-in-centos6-using-yum</id>
     <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/">Debianのとき</a>と同様, 標準のままではパッケージシステムで最新版をインストールすることが出来ないのでその対策.</p>
 
 <!-- more -->

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: misc | 飲んだり寝たり]]></title>
-  <link href="http://nomnel.github.io/blog/categories/misc/atom.xml" rel="self"/>
-  <link href="http://nomnel.github.io/"/>
-  <updated>2013-05-04T20:05:33+09:00</updated>
-  <id>http://nomnel.github.io/</id>
+  <link href="http://nomnel.net/blog/categories/misc/atom.xml" rel="self"/>
+  <link href="http://nomnel.net/"/>
+  <updated>2013-05-04T20:20:34+09:00</updated>
+  <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[ドットインストールに講義ノート欲しい話]]></title>
-    <link href="http://nomnel.github.io/blog/dotinstall-needs-lecture-note/"/>
+    <link href="http://nomnel.net/blog/dotinstall-needs-lecture-note/"/>
     <updated>2013-03-01T00:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/dotinstall-needs-lecture-note</id>
+    <id>http://nomnel.net/blog/dotinstall-needs-lecture-note</id>
     <content type="html"><![CDATA[<p>ドットインストールで<a href="http://dotinstall.com/lessons/basic_css">CSS入門</a>を見返してるんだけど, 正直動画見るの辛くなってきたので, Twitterで要望をつぶやいてみた. これはその単なるまとめ(Toggeterで良かったのでは感はある).</p>
 
 <blockquote><p>ドットインストールは「ドットインストールの講義ノート」みたいなん公開してくれないかな. スクリーンショットメインで喋ってる内容簡潔にまとまってるやつ. 復習用途だと動画形式は時間的につらいのとコードが見辛いときあるのよね</p>

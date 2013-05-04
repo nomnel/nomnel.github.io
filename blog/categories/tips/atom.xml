@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: tips | 飲んだり寝たり]]></title>
-  <link href="http://nomnel.github.io/blog/categories/tips/atom.xml" rel="self"/>
-  <link href="http://nomnel.github.io/"/>
-  <updated>2013-05-04T20:05:33+09:00</updated>
-  <id>http://nomnel.github.io/</id>
+  <link href="http://nomnel.net/blog/categories/tips/atom.xml" rel="self"/>
+  <link href="http://nomnel.net/"/>
+  <updated>2013-05-04T20:20:34+09:00</updated>
+  <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[CentOSのバージョンとアーキテクチャの確認]]></title>
-    <link href="http://nomnel.github.io/blog/confirm-centos-version/"/>
+    <link href="http://nomnel.net/blog/confirm-centos-version/"/>
     <updated>2013-05-02T11:40:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/confirm-centos-version</id>
+    <id>http://nomnel.net/blog/confirm-centos-version</id>
     <content type="html"><![CDATA[<p>```sh</p>
 
 <h1>バージョン確認</h1>
@@ -38,9 +38,9 @@
   
   <entry>
     <title type="html"><![CDATA[Railsでページ遷移前に確認ダイアログを表示する]]></title>
-    <link href="http://nomnel.github.io/blog/rails-confirm-on-leaving-the-page/"/>
+    <link href="http://nomnel.net/blog/rails-confirm-on-leaving-the-page/"/>
     <updated>2013-04-26T18:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/rails-confirm-on-leaving-the-page</id>
+    <id>http://nomnel.net/blog/rails-confirm-on-leaving-the-page</id>
     <content type="html"><![CDATA[<p>実装のみ簡単に.</p>
 
 <!-- more -->
@@ -80,9 +80,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[rbenvを使っていてSublimeREPLでRubyのREPLが使えないとき]]></title>
-    <link href="http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl/"/>
+    <link href="http://nomnel.net/blog/sublimerepl-cant-open-ruby-repl/"/>
     <updated>2013-04-20T18:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl</id>
+    <id>http://nomnel.net/blog/sublimerepl-cant-open-ruby-repl</id>
     <content type="html"><![CDATA[<h3>現象</h3>
 
 <p>SublimeREPLでRubyのREPLを開くと,</p>
@@ -122,9 +122,9 @@ rbenv exec gem install pry
   
   <entry>
     <title type="html"><![CDATA[Octopressでrake generateに失敗する]]></title>
-    <link href="http://nomnel.github.io/blog/octopress-cant-generate-including-multibyte-url/"/>
+    <link href="http://nomnel.net/blog/octopress-cant-generate-including-multibyte-url/"/>
     <updated>2013-04-18T02:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/octopress-cant-generate-including-multibyte-url</id>
+    <id>http://nomnel.net/blog/octopress-cant-generate-including-multibyte-url</id>
     <content type="html"><![CDATA[<p>こんな感じに失敗するとき,</p>
 
 <p>```sh
@@ -163,9 +163,9 @@ Liquid Exception: invalid byte sequence in UTF-8 in atom.xml</p>
   
   <entry>
     <title type="html"><![CDATA[Sublime Text2で言語別にインデント幅を設定する]]></title>
-    <link href="http://nomnel.github.io/blog/st2-indentation-settings-per-syntax/"/>
+    <link href="http://nomnel.net/blog/st2-indentation-settings-per-syntax/"/>
     <updated>2013-04-09T00:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/st2-indentation-settings-per-syntax</id>
+    <id>http://nomnel.net/blog/st2-indentation-settings-per-syntax</id>
     <content type="html"><![CDATA[<p>正確にはシンタックス定義別に, だけれども.</p>
 
 <ol>

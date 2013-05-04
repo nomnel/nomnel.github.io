@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: rails | 飲んだり寝たり]]></title>
-  <link href="http://nomnel.github.io/blog/categories/rails/atom.xml" rel="self"/>
-  <link href="http://nomnel.github.io/"/>
-  <updated>2013-05-04T20:05:33+09:00</updated>
-  <id>http://nomnel.github.io/</id>
+  <link href="http://nomnel.net/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://nomnel.net/"/>
+  <updated>2013-05-04T20:20:34+09:00</updated>
+  <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[RailsアプリにPaperclipを使って画像アップロード機能をつける]]></title>
-    <link href="http://nomnel.github.io/blog/rails-upload-image-using-paperclip/"/>
+    <link href="http://nomnel.net/blog/rails-upload-image-using-paperclip/"/>
     <updated>2013-04-19T18:30:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/rails-upload-image-using-paperclip</id>
+    <id>http://nomnel.net/blog/rails-upload-image-using-paperclip</id>
     <content type="html"><![CDATA[<h3>目次</h3>
 
 <ol>

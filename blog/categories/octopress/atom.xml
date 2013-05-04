@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: octopress | 飲んだり寝たり]]></title>
-  <link href="http://nomnel.github.io/blog/categories/octopress/atom.xml" rel="self"/>
-  <link href="http://nomnel.github.io/"/>
-  <updated>2013-05-04T20:05:33+09:00</updated>
-  <id>http://nomnel.github.io/</id>
+  <link href="http://nomnel.net/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://nomnel.net/"/>
+  <updated>2013-05-04T20:20:34+09:00</updated>
+  <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[WordpressからOctopressに移行する]]></title>
-    <link href="http://nomnel.github.io/blog/wordpress-to-octopress/"/>
+    <link href="http://nomnel.net/blog/wordpress-to-octopress/"/>
     <updated>2013-04-19T01:30:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/wordpress-to-octopress</id>
+    <id>http://nomnel.net/blog/wordpress-to-octopress</id>
     <content type="html"><![CDATA[<p><a href="http://wired.jp/2013/04/15/huge-attack-on-wordpress-sites-could-spawn-never-before-seen-super-botnet/">この前のWordpressサイトへの大規模攻撃</a>で, 僕のところにもアラートメールがいっぱい飛んできて嫌になってしまったので, Github Pages + Octopress(画像はDropboxのpublicフォルダ)に移行することにした.</p>
 
 <h3>目次</h3>
@@ -132,9 +132,9 @@ $ echo 'your-domain.com' &gt;&gt; source/CNAME
   
   <entry>
     <title type="html"><![CDATA[Octopressで新規記事を投稿する]]></title>
-    <link href="http://nomnel.github.io/blog/how-to-post-on-octopress/"/>
+    <link href="http://nomnel.net/blog/how-to-post-on-octopress/"/>
     <updated>2013-04-16T23:00:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/how-to-post-on-octopress</id>
+    <id>http://nomnel.net/blog/how-to-post-on-octopress</id>
     <content type="html"><![CDATA[<p><code>source</code>ブランチで次のコマンドを入力する(zshの場合, \でエスケープが必要).</p>
 
 <p><code>sh
