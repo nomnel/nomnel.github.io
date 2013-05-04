@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: SublimeText | 飲んだり寝たり]]></title>
+  <link href="http://nomnel.github.io/blog/categories/sublimetext/atom.xml" rel="self"/>
+  <link href="http://nomnel.github.io/"/>
+  <updated>2013-05-04T17:08:32+09:00</updated>
+  <id>http://nomnel.github.io/</id>
+  <author>
+    <name><![CDATA[nomnel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[rbenvを使っていてSublimeREPLでRubyのREPLが使えないとき]]></title>
+    <link href="http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl/"/>
+    <updated>2013-04-20T18:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl</id>
+    <content type="html"><![CDATA[<h3>現象</h3>
+
+<p>SublimeREPLでRubyのREPLを開くと,</p>
+
+<p><code>``ruby
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:777:in</code>report_activate_error': Could not find RubyGem pry (>= 0) (Gem::LoadError)
+  from /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:211:in <code>activate'
+  from /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:1056:in</code>gem'
+  from /Users/nomnel/Library/Application Support/Sublime Text 2/Packages/SublimeREPL/config/Ruby/pry_repl.rb:2</p>
+
+<p><strong><em>Repl Closed</em></strong>
+```</p>
+
+<p>というエラーが表示されるのみでREPLは使えない. <!-- more --></p>
+
+<h3>対策</h3>
+
+<p>まず, pryが入っていなかったら入れておく.</p>
+
+<p><code>sh
+rbenv exec gem install pry
+</code></p>
+
+<p>pryがインストール出来たら<code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/SublimeREPL/config/Ruby/Main.sublime-menu</code>を開き</p>
+
+<p><code>json
+"osx":[
+  "ruby",
+  "${packages}/SublimeREPL/config/Ruby/pry_repl.rb",
+  "$editor"
+]
+</code></p>
+
+<p>となっている箇所を探す. この2行目の<code>ruby</code>を<code>/Users/username/.rbenv/shims/ruby</code>に変えればおーけー. <code>~/.rbenv/shims/ruby</code>でないことに注意.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: diary | 飲んだり寝たり]]></title>
+  <link href="http://nomnel.github.io/blog/categories/diary/atom.xml" rel="self"/>
+  <link href="http://nomnel.github.io/"/>
+  <updated>2013-05-04T17:08:32+09:00</updated>
+  <id>http://nomnel.github.io/</id>
+  <author>
+    <name><![CDATA[nomnel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[インターン42日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day42/"/>
+    <updated>2013-05-02T17:20:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day42</id>
+    <content type="html"><![CDATA[<p>さて今日は,</p>
+
+<ol>
+<li><a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a></li>
+<li><a href="http://nomnel.net/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a></li>
+</ol>
+
+
+<p>をした. Jenkinsを入れたのは, せっかくwebサービスを作るなら継続的インテグレーションも経験したいと思ったからだ.</p>
+
+<!-- more -->
+
+
+<p>http://domain.com/jenkins としてアクセスするためには, Jenkins側でもprefixを指定しなければいけないことに気づかず手間取ったが, nginxでリバースプロキシを使う方法も分かったし良い勉強になった.</p>
+
+<p>とりあえずJenkins氏には, このブログのデプロイを任せてみようと思う.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン41日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day41/"/>
+    <updated>2013-05-01T23:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day41</id>
+    <content type="html"><![CDATA[<p>(40日目は省略されました)</p>
+
+<p>さて, 大方のプラクティスを終えたこともあり, 今日から</p>
+
+<ol>
+<li><a href="http://256interns.com/practices/75">webアプリ, サービスを作る</a></li>
+</ol>
+
+
+<p>というプラクティスを始めることになった. これがFjordでのインターン総まとめになると思う.</p>
+
+<!-- more -->
+
+
+<p>そもそもインターンを始めたのはプログラマとして就職するための準備だった(あわよくば紹介してもらうことも含めて). で, 準備というのは</p>
+
+<ul>
+<li>プログラマとして必要な知識を得る</li>
+<li>いまどきなプルリクベースの開発を経験する</li>
+<li>稼働中なサービスの改良を経験する</li>
+</ul>
+
+
+<p>の上で</p>
+
+<ul>
+<li>小規模サービスなら1人で構築, 運営できるようになる</li>
+</ul>
+
+
+<p>ことだと考えた. なのでこのプラクティスを完了したときには最初の目標を達成したことになる(サービスの運営は除く).</p>
+
+<p>本音を言うと就活するのは怖いのだが, いつまでもインターンを続けるわけにもいかないし, いい頃合いだとして納得できるものを作って終えたい.</p>
+
+<p>※ 作ったものが残念だったらまた別のを作るので延びるかもしれん</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン39日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day39/"/>
+    <updated>2013-04-26T19:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day39</id>
+    <content type="html"><![CDATA[<p>さて今日は,</p>
+
+<ol>
+<li>怖い話を執筆中にページを離脱した場合, 警告を出す</li>
+</ol>
+
+
+<p>をした.</p>
+
+<!-- more -->
+
+
+<p>実装は<a href="http://nomnel.net/blog/rails-confirm-on-leaving-the-page/">こんな感じ</a>ですぐ出来たんだけど, テストを回すと</p>
+
+<p>```
+3) なんかテストの説明</p>
+
+<pre><code> Failure/Error: fill_in 'hoge', with: 'foo'
+ Capybara::Webkit::InvalidResponseError:
+   Unable to load URL: http://127.0.0.1:58549/ because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=*********&amp;origin=http://127.0.0.1:58549&amp;channel_path=/users/sign_in?fb_xd_fragment#xd_sig=***********: Connection closed
+</code></pre>
+
+<p>```</p>
+
+<p>というエラーが全く関係無いところにも出る. さらに全くエラーが出ないときもあったりする. なので追加したテストが正しいのかも確認できない状況だった.</p>
+
+<p>対策を探そうと, ずっと</p>
+
+<p>```
+Capybara::Webkit::InvalidResponseError:</p>
+
+<pre><code>   Unable to load URL:
+</code></pre>
+
+<p>```</p>
+
+<p>の部分でググっていたが解決法は見つからなかった. が, 問題は</p>
+
+<p><code>
+because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=*********&amp;origin=http://127.0.0.1:58549&amp;channel_path=/users/sign_in?fb_xd_fragment#xd_sig=***********: Connection closed
+</code></p>
+
+<p>の方で, どうやらFacebookとの接続がうまくいっていなかったのではと思われる. 先に述べた「全くエラーが出ないときもあったりする」という現象から考えて, テスト回し過ぎ -> Facebookにアクセスしすぎ -> 拒否られる, という図式なんじゃないかと.</p>
+
+<p>実際, 15分ほど間隔を開けてからテストを回すと上のエラーは出なかった. (多分, 昨日手こずっていたエラーも同じ現象だったのだろう. )</p>
+
+<p>ただ, 実際にテストを何度も回したいときに15分待つのは辛いので, Facebookからなんか引っ張ってきている部分をコメントアウトすればよい.</p>
+
+<p>あー, 時間無駄にした.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン38日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day38/"/>
+    <updated>2013-04-25T19:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day38</id>
+    <content type="html"><![CDATA[<p>さて今日は</p>
+
+<ol>
+<li>怖いボタンを押したらflashで通知が出る</li>
+</ol>
+
+
+<p>をした.</p>
+
+<!-- more -->
+
+
+<p>しかしテストをすると関係ないところで(<code>git pull origin master</code>した後でも出る)</p>
+
+<p><code>
+Capybara::Webkit::InvalidResponseError:
+  Unable to load URL: http://127.0.0.1:56601/users/sign_in because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=f103bd7ee8&amp;origin=http://127.0.0.1:56601&amp;channel_path=/users/sign_in?fb_xd_fragment#xd_sig=f1c8a548f&amp;: Connection closed
+</code></p>
+
+<p>みたいなエラーが出るのでまだプルリクはしていない. むーん.</p>
+
+<p>【追記】
+<a href="https://github.com/thoughtbot/capybara-webkit/issues/499">capybaraとcapybara-webkitとのバージョンの問題</a>だったのかも？元々がcapybara2.1.0だったかは確認していないのだけど, 2.0.3であることを確認してからは通った.
+【追記終】</p>
+
+<p>後, 今日は来客だのなんだので割り込みが非常に多かった. 一日の半分以上取られた. 拒否しようにもお金を稼いでないやつに拒否権は無いらしい, つらい.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン37日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day37/"/>
+    <updated>2013-04-24T18:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day37</id>
+    <content type="html"><![CDATA[<p>さて今日は</p>
+
+<ol>
+<li>ユーザー個別ページの投稿した話の合計に下書きが含まれるので含まなくする</li>
+<li>怖いボタンの挙動が不自然(Ajax通信が終わる前に表示を変更していた)だったのを修正</li>
+<li>怖いボタンを押したらflashで通知が出る</li>
+</ol>
+
+
+<p>をしていた.</p>
+
+<!-- more -->
+
+
+<p>1.は条件を加えるだけなのですぐに終了.</p>
+
+<p>2.は, 3.に取り組もうとしたときに発見したので先にやっておいた.</p>
+
+<p>3.を実現するにはいくつか方法があるっぽいのだけれど, それを調べてる間に体調が酷くなって休んでしまった. ので, 続きはまた明日.</p>
+
+<p>それとは別に, 今日は駒形さんが休みなので, タスクが無くて困っている人がいたら割り振るように頼まれていた. 朝は「この人が来たらこのタスクお願いしよう…！」とか色々考えてたけど, 作業週の人はKuritaさんしか来ていなかったのでそれほど問題はなかった.</p>
+]]></content>
+  </entry>
+  
+</feed>

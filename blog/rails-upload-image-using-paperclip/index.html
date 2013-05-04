@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>RailsアプリにPaperclipを使って画像アップロード機能をつける - 飲んだり寝たり</title>
+  <meta name="author" content="nomnel">
+
+  
+  <meta name="description" content="目次 環境
+インストール
+実装
+テスト
+参考 環境 Ruby: 2.0.0-p0
+Rails: 3.2.13
+paperclip: 3.4.1 インストール ImageMagickが必要なので, 確認して無かったらインストールしておく. 1
+2
+which convert # &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nomnel.github.io/blog/rails-upload-image-using-paperclip">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35053482-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">飲んだり寝たり</a></h1>
+  
+    <h2>だいたいメモ</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nomnel.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">RailsアプリにPaperclipを使って画像アップロード機能をつける</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-19T18:30:00+09:00" pubdate data-updated="true">Apr 19<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>目次</h3>
+
+<ol>
+<li><a href="#a1">環境</a></li>
+<li><a href="#a2">インストール</a></li>
+<li><a href="#a3">実装</a></li>
+<li><a href="#a4">テスト</a></li>
+<li><a href="#a5">参考</a></li>
+</ol>
+
+
+<!-- more -->
+
+
+<h3><a id="a1">環境</a></h3>
+
+<ul>
+<li>Ruby: 2.0.0-p0</li>
+<li>Rails: 3.2.13</li>
+<li>paperclip: 3.4.1</li>
+</ul>
+
+
+<h3><a id="a2">インストール</a></h3>
+
+<p>ImageMagickが必要なので, 確認して無かったらインストールしておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>which convert  <span class="c"># 無かったら次でインストール</span>
+</span><span class='line'>brew install imagemagick
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後はいつも通り, Gemfileに<code>gem 'paperclip'</code>を追加して<code>bundle install</code>すればよい.</p>
+
+<h3><a id="a3">実装</a></h3>
+
+<p>既存のUserモデルにアイコンとしてavatarを追加し, 登録, 編集, 表示が出来るようにする.</p>
+
+<p>まずは, <code>rails g paperclip user avatar</code>して<code>rake db:migrate</code>しておく.</p>
+
+<p>生成されたマイグレーションファイルの中身はこんな感じ.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddAttachmentAvatarToUsers</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">change_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">attachment</span> <span class="ss">:avatar</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">drop_attached_file</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:avatar</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後は実装していく. <code>app/models/user.rb</code>に以下を追加.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">attr_accessible</span> <span class="ss">:avatar</span>
+</span><span class='line'>  <span class="n">has_attached_file</span> <span class="ss">:avatar</span><span class="p">,</span> <span class="ss">styles</span><span class="p">:</span> <span class="p">{</span> <span class="ss">medium</span><span class="p">:</span> <span class="s2">&quot;300x300&gt;&quot;</span><span class="p">,</span> <span class="ss">thumb</span><span class="p">:</span> <span class="s2">&quot;100x100&gt;&quot;</span> <span class="p">},</span> <span class="n">default_url</span><span class="p">:</span> <span class="s2">&quot;/system/missing/:style/missing.jpg&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">validates_attachment</span> <span class="ss">:avatar</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">content_type</span><span class="p">:</span> <span class="p">{</span> <span class="n">content_type</span><span class="p">:</span> <span class="o">[</span><span class="s2">&quot;image/jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;image/png&quot;</span><span class="o">]</span> <span class="p">},</span>
+</span><span class='line'>    <span class="ss">size</span><span class="p">:</span> <span class="p">{</span> <span class="n">less_than</span><span class="p">:</span> <span class="mi">2</span><span class="o">.</span><span class="n">megabytes</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>app/views/users/_form.html.erb</code>では, <code>&lt;%= form_for(@user) do |f| %&gt;</code>の中に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">  &lt;div class=&quot;field&quot;&gt;</span>
+</span><span class='line'><span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:avatar</span> <span class="cp">%&gt;</span><span class="x">&lt;br /&gt;</span>
+</span><span class='line'><span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">file_field</span> <span class="ss">:avatar</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>を追加. <code>app/views/users/show.html.erb</code>では, 画像を表示させたい箇所に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;p&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">image_tag</span> <span class="vi">@user</span><span class="o">.</span><span class="n">avatar</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="ss">:thumb</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>を追加. これだけで登録, 編集, 表示が出来るようになった.</p>
+
+<h3><a id="a4">テスト</a></h3>
+
+<p>まず, <code>spec/spec_helper.rb</code>に以下を追加しておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s2">&quot;paperclip/matchers&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">include</span> <span class="ss">Paperclip</span><span class="p">:</span><span class="ss">:Shoulda</span><span class="o">::</span><span class="no">Matchers</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>spec/models/user_spec.rb</code>はこんな感じ.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">User</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_attached_file</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">validate_attachment_presence</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">validate_attachment_content_type</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>                <span class="n">allowing</span><span class="p">(</span><span class="s1">&#39;image/jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;image/png&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">validate_attachment_size</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>                <span class="n">less_than</span><span class="p">(</span><span class="mi">2</span><span class="o">.</span><span class="n">megabytes</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>spec/controllers/users_controller_spec.rb</code>はこんな感じになる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">UsersController</span> <span class="k">do</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">valid_attributes</span>
+</span><span class='line'>    <span class="p">{</span> <span class="ss">username</span><span class="p">:</span> <span class="s2">&quot;MyString&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">email</span><span class="p">:</span> <span class="s2">&quot;MyString&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">avatar_file_name</span><span class="p">:</span> <span class="s1">&#39;私のテキスト_n&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">avatar_content_type</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">avatar_file_size</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">avatar_updated_at</span><span class="p">:</span> <span class="s1">&#39;2011-07-13 14:53:38&#39;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">valid_session</span>
+</span><span class='line'>    <span class="p">{}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">describe</span> <span class="s2">&quot;GET show&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;assigns the requested user as @user&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">create!</span> <span class="n">valid_attributes</span>
+</span><span class='line'>      <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="p">{</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">to_param</span><span class="p">},</span> <span class="n">valid_session</span>
+</span><span class='line'>      <span class="n">assigns</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span><span class="o">.</span><span class="n">should</span> <span class="n">eq</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><a id="a5">参考</a></h3>
+
+<ul>
+<li><a href="https://github.com/thoughtbot/paperclip">thoughtbot/paperclip · GitHub</a></li>
+<li><a href="http://docs.komagata.org/3880">Paperclipで画像を保存 - komagata</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">nomnel</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-19T18:30:00+09:00" pubdate data-updated="true">Apr 19<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/howto/'>howto</a>, <a class='category' href='/blog/categories/rails/'>rails</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.github.io/blog/rails-upload-image-using-paperclip/" data-via="nomnel" data-counturl="http://nomnel.github.io/blog/rails-upload-image-using-paperclip/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/wordpress-to-octopress/" title="Previous Post: WordpressからOctopressに移行する">&laquo; WordpressからOctopressに移行する</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/fjord-day34/" title="Next Post: インターン34日目">インターン34日目 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/centos-take-over-path-from-user-on-sudo/">sudo時にPATHを引き継ぐ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day42/">インターン42日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/confirm-centos-version/">CentOSのバージョンとアーキテクチャの確認</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day41/">インターン41日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day39/">インターン39日目</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - nomnel -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'nomnel';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nomnel.github.io/blog/rails-upload-image-using-paperclip/';
+        var disqus_url = 'http://nomnel.github.io/blog/rails-upload-image-using-paperclip/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

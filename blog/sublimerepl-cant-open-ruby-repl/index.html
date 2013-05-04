@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>rbenvを使っていてSublimeREPLでRubyのREPLが使えないとき - 飲んだり寝たり</title>
+  <meta name="author" content="nomnel">
+
+  
+  <meta name="description" content="現象 SublimeREPLでRubyのREPLを開くと, 1
+2
+3
+4
+5
+6
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:777:in ` &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35053482-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">飲んだり寝たり</a></h1>
+  
+    <h2>だいたいメモ</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nomnel.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">rbenvを使っていてSublimeREPLでRubyのREPLが使えないとき</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-20T18:00:00+09:00" pubdate data-updated="true">Apr 20<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>現象</h3>
+
+<p>SublimeREPLでRubyのREPLを開くと,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sr">/System/</span><span class="no">Library</span><span class="o">/</span><span class="no">Frameworks</span><span class="o">/</span><span class="no">Ruby</span><span class="o">.</span><span class="n">framework</span><span class="o">/</span><span class="no">Versions</span><span class="o">/</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">/</span><span class="n">rubygems</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">777</span><span class="ss">:in</span> <span class="sb">`report_activate_error&#39;: Could not find RubyGem pry (&gt;= 0) (Gem::LoadError)</span>
+</span><span class='line'><span class="sb">  from /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:211:in `</span><span class="n">activate</span><span class="s1">&#39;</span>
+</span><span class='line'><span class="s1">  from /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:1056:in `gem&#39;</span>
+</span><span class='line'>  <span class="n">from</span> <span class="sr">/Users/nomne</span><span class="n">l</span><span class="o">/</span><span class="no">Library</span><span class="o">/</span><span class="no">Application</span> <span class="no">Support</span><span class="o">/</span><span class="no">Sublime</span> <span class="no">Text</span> <span class="mi">2</span><span class="o">/</span><span class="no">Packages</span><span class="o">/</span><span class="no">SublimeREPL</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="no">Ruby</span><span class="o">/</span><span class="n">pry_repl</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">2</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">***</span><span class="no">Repl</span> <span class="no">Closed</span><span class="o">***</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>というエラーが表示されるのみでREPLは使えない. <!-- more --></p>
+
+<h3>対策</h3>
+
+<p>まず, pryが入っていなかったら入れておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rbenv <span class="nb">exec </span>gem install pry
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>pryがインストール出来たら<code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/SublimeREPL/config/Ruby/Main.sublime-menu</code>を開き</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="s2">&quot;osx&quot;</span><span class="err">:</span><span class="p">[</span>
+</span><span class='line'>  <span class="s2">&quot;ruby&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;${packages}/SublimeREPL/config/Ruby/pry_repl.rb&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;$editor&quot;</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>となっている箇所を探す. この2行目の<code>ruby</code>を<code>/Users/username/.rbenv/shims/ruby</code>に変えればおーけー. <code>~/.rbenv/shims/ruby</code>でないことに注意.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">nomnel</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-20T18:00:00+09:00" pubdate data-updated="true">Apr 20<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/sublimetext/'>SublimeText</a>, <a class='category' href='/blog/categories/tips/'>tips</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl/" data-via="nomnel" data-counturl="http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/fjord-day34/" title="Previous Post: インターン34日目">&laquo; インターン34日目</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/fjord-day35/" title="Next Post: インターン35日目">インターン35日目 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/centos-take-over-path-from-user-on-sudo/">sudo時にPATHを引き継ぐ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day42/">インターン42日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/confirm-centos-version/">CentOSのバージョンとアーキテクチャの確認</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day41/">インターン41日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day39/">インターン39日目</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - nomnel -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'nomnel';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl/';
+        var disqus_url = 'http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

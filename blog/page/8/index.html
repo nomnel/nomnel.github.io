@@ -1,0 +1,1484 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>飲んだり寝たり</title>
+  <meta name="author" content="nomnel">
+
+  
+  <meta name="description" content="(追記)まとめ -> Sublime Text 2でGaucheコードを書くために(追記終) Sublime Text 2に乗り換えようにも, REPLが無いエディタじゃLisp書けないよ！というわけでGaucheのREPLをよべるようにした. 他に(デフォルトで)Ruby,Python, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nomnel.github.io/blog/page/8">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35053482-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">飲んだり寝たり</a></h1>
+  
+    <h2>だいたいメモ</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nomnel.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/st2-scheme-repl/">Sublime Text 2からScheme(Gauche)のREPLをよぶ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-13T00:00:00+09:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(追記)まとめ -> <a href="http://nomnel.net/blog/st2-gauche/">Sublime Text 2でGaucheコードを書くために</a>(追記終)</p>
+
+<p>Sublime Text 2に乗り換えようにも, REPLが無いエディタじゃLisp書けないよ！というわけでGaucheのREPLをよべるようにした. 他に(デフォルトで)Ruby,Python,Clojure,Haskellもいけるらしいよ！</p>
+
+<h3>目次</h3>
+
+<ol>
+<li>SublimeREPLのインストール</li>
+<li>SublimeREPLにScheme用の設定ファイルを追加</li>
+<li>使ってみる</li>
+</ol>
+
+
+<hr />
+
+<h3>SublimeREPLのインストール</h3>
+
+<p>Package Controlでインストールする. コマンドパレットで</p>
+
+<pre><code>Package Control: Install Package SublimeREPL
+</code></pre>
+
+<p>すればよい.</p>
+
+<hr />
+
+<h3>SublimeREPLにScheme用の設定ファイルを追加</h3>
+
+<p><strong>SublimeREPLにGaucheが追加されたため必要なくなった. </strong></p>
+
+<p>する. 下の/PATH/TO/Packagesはパッケージフォルダの場所(メニューのSublime Text 2 -> Preferences -> Browse Packages…で開いたところ).</p>
+
+<pre><code># Macなら ~/Library/Application Support/Sublime Text 2/の下にある
+$ cd /PATH/TO/Packages/SublimeREPL/config/
+
+$ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
+</code></pre>
+
+<hr />
+
+<h3>使ってみる</h3>
+
+<p>メニューのTools -> SublimeREPL から, もしくはコマンドパレットでREPLをよびだせる. REPLは複数種類呼び出すことができる(goshとirbとか). 対応はシンタックスで行なっているので, goshを使う場合はファイルのシンタックスをGaucheにしておく.</p>
+
+<p>下はファイル全体を<code>Control ,, f</code>でREPLに読み込ませた後, 試しに実行してみた図.
+<img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/st2-scheme-repl.jpeg" alt="goshを呼び出して使ってみた図" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/wordpress-with-sakura-vps/">さくらのVPSでWordPressブログを始めるまで</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-01T00:00:00+09:00" pubdate data-updated="true">Oct 1<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>さくらのVPSを契約するところから, 初期設定, 必要ソフトのインストール, WordPressのインストールと初期設定までを個別に書いた記事をまとめておきます.</p>
+
+<p>まず, さくらのVPSを契約します. 起動できたらセキュリティ対策など, 基本的な設定をしておきます.</p>
+
+<ul>
+<li>[さくらのVPSを契約して起動するまで][1]</li>
+<li>[さくらのVPSで最初にやっておくこと][2]</li>
+<li>[vi(vim)の最低限の使い方][3]</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/wp-akismet/">AkismetのAPIキーを取得して設定する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-29T00:00:00+09:00" pubdate data-updated="true">Sep 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Akismetはコメントスパム対策に役立つプラグイン. WordPressにデフォルトでインストールされているが, 使用するにはAPIキーが必要になる. また, このAPIキーを複数サイトで使い回すことは出来ない.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>有効化</li>
+<li>APIキーの取得と設定</li>
+<li>使い方</li>
+</ol>
+
+
+<hr />
+
+<h3>有効化</h3>
+
+<p>サイドバーの プラグイン -> インストール済みプラグイン を開き, Akismetを有効化する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-01.jpeg" alt="Akismetの有効化" /></p>
+
+<hr />
+
+<h3>APIキーの取得と設定</h3>
+
+<p>有効化すると下のように表示されるので, [Akismet API キーを入力]部分をクリックするか, サイドバーの プラグイン -> Akismet設定 からAkismet設定ページを表示する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-02.jpeg" alt="Akismet有効化時のメッセージ" /></p>
+
+<p>APIキーを取得するため, <a href="http://akismet.com/wordpress/">Akismet.com</a>を開く.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-03.jpeg" alt="Akismet設定画面からAkismet.comを開く" /></p>
+
+<p>クリックしてAPIキーのサインアップ画面へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-04.jpeg" alt="APIキーのサインアップ画面へ" /></p>
+
+<p>個人ブログ用のプラン(Personal)を選択.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-05.jpeg" alt="プランの選択" /></p>
+
+<p>右側に表示されるバーを左端までスライドさせて無料にする.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-06.jpeg" alt="料金を無料に変更" /></p>
+
+<p>氏名とメールアドレスを入力してCONTINUE. チェックボックス(メルマガを受け取るか)は外しておいて良い.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-07.jpeg" alt="コンタクト情報の入力" /></p>
+
+<p>CONTINUEと書いてあったがこれで終了. 下のような画面が表示されるのでメールを確認する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-08.jpeg" alt="サインアップの完了" /></p>
+
+<p>Your Akismet API key is: に続く文字列がAPIキー. コピーしておく.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-09.jpeg" alt="メール中のAPIキーを確認" /></p>
+
+<p>Akismet設定ページに戻り, APIキーを入力して設定を更新.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-10.jpeg" alt="APIキーの入力" /></p>
+
+<p>次のように表示されたら成功.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-11.jpeg" alt="APIキーの認証完了" /></p>
+
+<hr />
+
+<h3>使い方</h3>
+
+<p>スパム判定されたコメントはコメント画面から確認できる.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-12.jpeg" alt="コメント画面からスパムを確認" /></p>
+
+<p>他に, サイドバーの ダッシュボード -> Akismet統計 ではスパムの統計情報が確認できる.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/wordpress-first-steps/">WordPressをインストールして初めにやったこと</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-28T00:00:00+09:00" pubdate data-updated="true">Sep 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>WordPressに初めてログインしたときにとりあえず行ったことをまとめた. プラグインのインストールと有効化でも述べるように, 最低でも<code>WP Multibyte Patch</code>と<code>Akismet</code>の有効化はしておく.</p>
+
+<h3>目次</h3>
+
+<ol>
+<li>パーマリンクの変更</li>
+<li>テーマのインストールと変更</li>
+<li>プラグインのインストールと有効化</li>
+<li>その他の設定変更</li>
+</ol>
+
+
+<hr />
+
+<h3>パーマリンクの変更</h3>
+
+<p>デフォルトの投稿URLは<code>http://doma.in/?p=123</code>形式でURLに情報がない. これが個人的にはイケてないので<code>http://doma.in/sample-post</code>形式に変更する.</p>
+
+<p>サイドバーの 設定 -> パーマリンク設定 を開き, 共通設定の[投稿名]にチェックを入れて[変更を保存]する. ページ上部に「パーマリンク構造を更新しました. 」と表示されるのを確認する. このとき, 「.htaccessを更新する必要があります」と表示されたらwordpressディレクトリに書き込み権限が無い -> 所有者がApacheのユーザになっていない 可能性がある.</p>
+
+<p>この状態で記事をパーマリンクで開くと404エラーになる. .htaccessを使用できるようにApacheの設定(httpd.conf)を変更する.</p>
+
+<pre><code># 設定ファイルを開く
+$ sudo vi /etc/httpd/conf/httpd.conf
+
+#  と  の間にある
+AllowOverride None
+-&gt;
+AllowOverride All
+
+# httpdを再起動して設定を反映
+sudo service httpd restart
+</code></pre>
+
+<p>これで<code>http://doma.in/sample-post</code>形式で個別の投稿を表示できるようになった.</p>
+
+<hr />
+
+<h3>テーマのインストールと変更</h3>
+
+<p>サイドバーの 外観 -> テーマ を開き, 上部の[テーマのインストール]から好みのテーマを検索してインストールする. [テーマの管理]からテーマの有効化しておくことを忘れずに. 先日, <a href="http://firegoby.jp/archives/3505">無料のWordPressテーマをググって使うのは超ハイリスクなので気をつけよう！</a>という記事も出ていたので, ネット上で無料テーマを探すのはやめておいた方がいいかもしれない.</p>
+
+<hr />
+
+<h3>プラグインのインストールと有効化</h3>
+
+<p>最低でもデフォルトでインストールされている<code>WP Multibyte Patch</code>と<code>Akismet</code>は有効化しておく. Akismetについては有効化するだけではなく, <a href="http://nomnel.net/blog/wp-akismet">APIキーを取得して設定しておく</a>必要があるので注意.</p>
+
+<p>他にインストールするプラグインは, <code>WordPress プラグイン</code>等で検索すればいろんな人がまとめているページが見つかるので, それぞれ必要な物をインストールすればよい.</p>
+
+<hr />
+
+<h3>その他の設定変更</h3>
+
+<p>少なくとも, サイドバーの 設定 -> 一般 で</p>
+
+<ul>
+<li>サイトのタイトル</li>
+<li>キャッチフレーズ</li>
+<li>日付のフォーマット</li>
+<li>時刻のフォーマット</li>
+</ul>
+
+
+<p>を確認し, ディスカッション設定で</p>
+
+<ul>
+<li>この投稿に含まれるすべてのリンクへの通知を試みる</li>
+</ul>
+
+
+<p>のチェックをはずしておく. 後は必要に応じて.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/set-domain-name/">独自ドメインを取得してさくらのVPSに設定する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-28T00:00:00+09:00" pubdate data-updated="true">Sep 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>独自ドメインを取得してさくらのVPSに設定した手順の覚え書き.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ul>
+<li>ドメイン事業者の選択</li>
+<li>ドメインの取得</li>
+<li>ドメインのDNS設定</li>
+<li>DNS逆引きの設定</li>
+</ul>
+
+
+<hr />
+
+<h3>ドメイン事業者の選択</h3>
+
+<p>代表的な事業者はこれらだろうか.</p>
+
+<ul>
+<li><a href="http://www.onamae.com/">お名前.com</a></li>
+<li><a href="http://muumuu-domain.com/">ムームードメイン</a></li>
+<li><a href="http://www.sakura.ne.jp/domain/">さくらのドメイン取得</a></li>
+</ul>
+
+
+<p>今回はお名前.comで取得したので, 以下, お名前.comでの手順になる.</p>
+
+<hr />
+
+<h3>ドメインの取得</h3>
+
+<p>まず, <a href="http://xn--t8jx73hngb.com/">トップページ</a>で使用したいドメインを検索する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-01.jpeg" alt="空きドメインの検索" /></p>
+
+<p>.com, .netなど, 使用したいドメインが登録可能ならチェックを入れて登録画面へ進む.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-02.jpeg" alt="ドメインの選択" /></p>
+
+<p>後は画面の指示に従えばよい. ただし, 更新忘れのドメイン失効を防ぐため, 契約更新は自動にしておくこと. また, 登録中にwhois情報公開公開代行も申し込めるなら, この時点で申し込んでおくこと. ドメインと一緒に申しこめば無料, などのキャンペーンをしていることがある.</p>
+
+<p>whois情報とはドメインの登録情報のことで, 公開が義務付けられている. つまり自分の本名や住所等を, <a href="http://www.networksolutions.com/whois/index.jsp">検索</a>すれば誰でも調べることができるようになるということ. 個人の場合このような状況は嬉しくないので, お名前.comなどに情報公開を代行してもらう.</p>
+
+<p>代行してもらうと, whoisの検索結果は次のようになる.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-03.jpeg" alt="whois情報公開代行の結果" /></p>
+
+<p>無事に登録が終わると完了通知メールが届く. もしドメインの登録中にwhois情報公開代行を申し込んでいなければ, 早めに申し込んでおく. (お名前.comでログイン -> ドメインNavi -> ドメイン設定 -> Whois情報公開代行)</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-04.jpeg" alt="whois情報公開代行の申し込み" /></p>
+
+<hr />
+
+<h3>ドメインのDNS設定</h3>
+
+<p>対応させるIPアドレスが必要なので前もって確認しておく.</p>
+
+<p>ログインしたら, ドメインNavi -> レンタルDNSレコード設定 と進む.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-05.jpeg" alt="レンタルDNSレコードの設定" /></p>
+
+<p>ドメインを選択してIPアドレスを入力し, 追加をクリックする. サブドメインは必要に応じて入力する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-06.jpeg" alt="IPアドレスの入力" /></p>
+
+<p>レコードを追加したら, [レンタルDNSレコード設定用のネームサーバー(01.dnsv.jp / 02.dnsv.jp)に変更する]にチェックを入れて[確認画面へ進む]をクリックする. (ここでチェックを入れなかった場合は, 後でネームサーバの変更をしておく)</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-07.jpeg" alt="ネームサーバの変更にチェック" /></p>
+
+<p>後は画面の指示に従えばよい. 完了後, メールが届く. 自分でもターミナルで以下のコマンドで確認しておく.</p>
+
+<pre><code>$ nslookup nomnet.net
+# -&gt; ドメインとIPアドレスが表示されればOK
+# -&gt; 表示されなければ時間を置いて再試行
+</code></pre>
+
+<hr />
+
+<h3>DNS逆引きの設定</h3>
+
+<p>さくらのVPSでもDNS逆引きの設定をしておく. <a href="http://support.sakura.ad.jp/manual/vps/domain/rdns_record.html">公式の解説ページ</a>を見ればよい.</p>
+
+<p>簡単には, VPSのコントロールパネルにログイン -> ホスト名欄の[変更] -> ホスト名を入力して[確認].</p>
+
+<p>もし失敗したら, 時間を置いて再試行する.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iptables-filter/">iptablesでパケットフィルタリングするための設定</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-27T00:00:00+09:00" pubdate data-updated="true">Sep 27<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>iptablesとはパケットフィルタリング, IPアドレスの変換, IPヘッダの書き換えの機能をもつソフトウェア. 設定ファイルでは機能(テーブル)毎に, 対象(チェイン)のパケットに対する処理(ルール)を定義していく.</p>
+
+<p>このページは, 以下のページを大いに参考にして書かれている.</p>
+
+<ul>
+<li><a href="http://www.nina.jp/server/redhat/iptables/iptables.html">iptablesの設定</a></li>
+<li><a href="http://d.hatena.ne.jp/yamasahi/20100206/1265444193">iptablesの設定 入門編</a></li>
+</ul>
+
+
+<hr />
+
+<h3>目次</h3>
+
+<p>用語の説明(テーブル, チェイン, ルール)はざっと眺め, 例の解説をメインに読むのが分かりやすいと思う.</p>
+
+<ol>
+<li>テーブル</li>
+<li>チェイン</li>
+<li>ルール</li>
+<li>例</li>
+<li>その他</li>
+</ol>
+
+
+<hr />
+
+<h3>テーブル</h3>
+
+<p>iptablesの機能毎にテーブル名が定義されている. 設定ファイルではそれぞれのテーブル名の下に設定を記述していく.</p>
+
+<table>
+<thead>
+<tr>
+<th>機能 </th>
+<th> テーブル名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>パケットフィルタリング </td>
+<td> *filter</td>
+</tr>
+<tr>
+<td>IPアドレスの変換      </td>
+<td> *nat</td>
+</tr>
+<tr>
+<td>IPヘッダの書き換え    </td>
+<td> *mangle</td>
+</tr>
+</tbody>
+</table>
+
+
+<hr />
+
+<h3>チェイン</h3>
+
+<p>対象のパケット毎にルールをまとめたもの. 該当するチェインのみ適用される. filterテーブルで使用するのは下の3つ.</p>
+
+<table>
+<thead>
+<tr>
+<th>チェイン </th>
+<th> 対象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INPUT   </td>
+<td> 送信先がローカルホストなパケット</td>
+</tr>
+<tr>
+<td>OUTPUT  </td>
+<td> 送信元がローカルホストなパケット</td>
+</tr>
+<tr>
+<td>FORWARD </td>
+<td> ローカルホストを経由するパケット</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>※ 他にもPREROUTING, POSTROUTINGがある.</p>
+
+<hr />
+
+<h3>ルール</h3>
+
+<p>特定のIPアドレスやプロトコルを条件に, パケットに対して適用する処理.</p>
+
+<h5>基本書式</h5>
+
+<pre><code>-A チェイン名 マッチング条件 -j ターゲット
+</code></pre>
+
+<p>ここでターゲットとはパケットをどう処理するかの指定で, ACCEPT(許可), DROP(破棄), REJECT(拒否), ユーザ定義チェーンなどが記述される.</p>
+
+<h5>マッチング条件の例</h5>
+
+<table>
+<thead>
+<tr>
+<th>指定子 </th>
+<th> 別名 </th>
+<th> 条件 </th>
+<th> 備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i </td>
+<td> –in-interface      </td>
+<td> 受信インターフェイス         </td>
+<td> INPUT/FORWARDチェインで使用</td>
+</tr>
+<tr>
+<td>-o </td>
+<td> –out-interface     </td>
+<td> 送信インターフェイス         </td>
+<td> OUTPUT/FORWARDチェインで使用</td>
+</tr>
+<tr>
+<td>-p </td>
+<td> –protocol          </td>
+<td> プロトコルまたはプロトコル番号 </td>
+<td> 指定できるプロトコルはtcp/udp/icmp/all</td>
+</tr>
+<tr>
+<td>-s </td>
+<td> –source, –src      </td>
+<td> 送信元アドレス               </td>
+<td> “192.168.0.1″,”192.168.0.0/24″,”192.168.0.0/255.255.255.0″のように指定</td>
+</tr>
+<tr>
+<td>-d </td>
+<td> –destination, –dst </td>
+<td> 送信先アドレス               </td>
+<td> “192.168.0.1″,”192.168.0.0/24″,”192.168.0.0/255.255.255.0″のように指定</td>
+</tr>
+</tbody>
+</table>
+
+
+<h5>拡張されたマッチングの例</h5>
+
+<table>
+<thead>
+<tr>
+<th>指定子 </th>
+<th> 条件 </th>
+<th> 備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-m tcp –sport   </td>
+<td> TCP送信元ポート </td>
+<td> “0:1023″のように指定</td>
+</tr>
+<tr>
+<td>-m tcp –dport   </td>
+<td> TCP送信先ポート </td>
+<td> “0:1023″のように指定</td>
+</tr>
+<tr>
+<td>-m udp –sport   </td>
+<td> UDP送信元ポート </td>
+<td> “0:1023″のように指定</td>
+</tr>
+<tr>
+<td>-m udp –dport   </td>
+<td> UDP送信先ポート </td>
+<td> “0:1023″のように指定</td>
+</tr>
+<tr>
+<td>-m state –state </td>
+<td> 接続状態       </td>
+<td> NEW/ESTABLISHED/RELATED/INVALID</td>
+</tr>
+<tr>
+<td>–icmp-type      </td>
+<td> ICMPタイプ     </td>
+<td> 指定できるICMPタイプは”iptables -p icmp -h”で確認</td>
+</tr>
+</tbody>
+</table>
+
+
+<hr />
+
+<h3>例</h3>
+
+<p><code>/etc/sysconfig/iptables</code>に記述する.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># テーブル名
+</span><span class='line'>*filter
+</span><span class='line'>
+</span><span class='line'># チェインの定義
+</span><span class='line'># :チェイン名 デフォルトポリシー [パケットカウント:バイトカウント]
+</span><span class='line'># デフォルトポリシーがACCEPTだと, ルールに明示されないパケットは許可. DROPだと破棄.
+</span><span class='line'>:INPUT   ACCEPT [0:0]
+</span><span class='line'>:FORWARD ACCEPT [0:0]
+</span><span class='line'>:OUTPUT  ACCEPT [0:0]
+</span><span class='line'># ユーザ定義チェイン
+</span><span class='line'>:RH-Firewall-1-INPUT - [0:0]
+</span><span class='line'>
+</span><span class='line'># ローカルホスト宛のパケットはRH-Firewall-1-INPUTで処理
+</span><span class='line'>-A INPUT -j RH-Firewall-1-INPUT
+</span><span class='line'># ローカルホスト経由のパケットはRH-Firewall-1-INPUTで処理
+</span><span class='line'>-A FORWARD -j RH-Firewall-1-INPUT
+</span><span class='line'># 受信インターフェイスがループバック(lo)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -i lo -j ACCEPT
+</span><span class='line'># プロトコルがicpmなら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p icmp --icmp-type any -j ACCEPT
+</span><span class='line'># プロトコル番号が50(ESP)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p 50 -j ACCEPT
+</span><span class='line'># プロトコル番号が51(AH)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p 51 -j ACCEPT
+</span><span class='line'># プロトコルがudpかつ, 送信先ポートが5353(Multicast DNS)かつ, 送信先IPアドレスが224.0.0.251なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p udp --dport 5353 -d 224.0.0.251 -j ACCEPT
+</span><span class='line'># プロトコルがudp/tcpかつ, 送信先ポートが631(Internet Printing Protocol)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p udp -m udp --dport 631 -j ACCEPT
+</span><span class='line'>-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 631 -j ACCEPT
+</span><span class='line'># すでに接続されている通信なら許可(この行が無いと通信できない)
+</span><span class='line'>-A RH-Firewall-1-INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+</span><span class='line'>
+</span><span class='line'># 新規の接続かつ, プロトコルがtcpかつ, 送信先ポートが22(ssh)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+</span><span class='line'># 新規の接続かつ, プロトコルがtcpかつ, 送信先ポートが80(http)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+</span><span class='line'>
+</span><span class='line'>ここまでで許可されなかったパケットはicmp-host-prohibitedを返して拒否
+</span><span class='line'>-A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited
+</span><span class='line'>
+</span><span class='line'># 以上を登録
+</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h3>その他</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># 起動
+</span><span class='line'>$ sudo service iptables start
+</span><span class='line'>
+</span><span class='line'># 再起動
+</span><span class='line'>$ sudo service iptables restart
+</span><span class='line'>
+</span><span class='line'># 現在の設定を確認
+</span><span class='line'>$ sudo iptables -L
+</span><span class='line'>
+</span><span class='line'># OS起動時にiptablesを起動するように
+</span><span class='line'>$ sudo chkconfig iptables on</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/vi-minimum-knowledge/">vi(vim)の最低限の使い方</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Unix系のOS(Linux, FreeBSD, Mac OSなど)の設定はテキストファイルで記述されている. よって, 設定ファイルを編集するにはテキストファイルを扱えるエディタなら何を使ってもよい. が, viはUnixならどのシステムにもインストールされているので, 基本的にはviを使う. 特にサーバを扱うなら, 簡単な編集はviでできるようになっておこう.</p>
+
+<p>ここでは設定ファイルを編集するのに必要最低限な知識を説明する.</p>
+
+<h3>目次</h3>
+
+<ol>
+<li>モード</li>
+<li>何か困ったことが起きたら</li>
+<li>カーソル移動と文字の削除</li>
+<li>文字の入力</li>
+<li>検索</li>
+<li>保存と終了</li>
+</ol>
+
+
+<hr />
+
+<h3>モード</h3>
+
+<p>viにはモードという概念があり, モードによって出来ることが違い, キーを押したときの動作も違う. とりあえず, コマンドモードと入力モードの2つを覚えておくとよい.</p>
+
+<ul>
+<li>コマンドモード = カーソル移動, コピー, ペースト, 削除やundo, redoなどの編集操作</li>
+<li>入力モード = 文字の入力</li>
+</ul>
+
+
+<p>コマンドモード -> 入力モードには<code>i</code>, 入力モード -> コマンドモードには<code>esc</code>で, それぞれ切り替えることができる.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/vi-mode.jpeg" alt="コマンドモードと入力モードの切り替え" /></p>
+
+<p>なお, ファイルを開いた状態ではコマンドモードになっている.</p>
+
+<hr />
+
+<h3>何か困ったことが起きたら</h3>
+
+<p><strong>とりあえず</strong><code>esc</code>を押して(連打も可)コマンドモードに戻る. 次に<strong>落ち着いて</strong><code>:q!</code>と入力する. 後でも説明するがこれは<code>保存せずに強制終了</code>するコマンドなので, 何も変更せずにターミナルに戻ることができる. <strong>深呼吸して</strong>落ち着いたら, もう一度viでファイルを開き, <strong>最初からやり直せばよい</strong>.</p>
+
+<hr />
+
+<h3>カーソル移動と文字の削除</h3>
+
+<p>カーソルを移動するには, コマンドモードで<code>h</code>, <code>j</code>, <code>k</code>, <code>l</code>を入力する. それぞれ, <code>左</code>, <code>下</code>, <code>上</code>, <code>右</code>に対応している.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/vi-hjkl.jpeg" alt="hjklと上下左右の対応" /></p>
+
+<p>また, 文字を削除するにはコマンドモードで<code>x</code>, <code>X</code>を入力する. それぞれ, カーソル位置の文字を削除(delete), カーソルの前の文字を削除(backspace)する.</p>
+
+<p>※ 現在なら, 大抵のviで入力モードでカーソルキーやdelete, backspaceキーを押せば期待通りに動く. しかしviに慣れるほど, コマンドモードに一度戻って移動した方が早くなるだろう.</p>
+
+<hr />
+
+<h3>文字の入力</h3>
+
+<p>コマンドモードで<code>i</code>を入力して入力モードに入る(どうしようもなく不安なら:とりあえず<code>esc</code>して<code>i</code>). その後は普通に入力すればよい. 入力が終わったら<code>esc</code>でコマンドモードに戻っておくのもよいかもしれない.</p>
+
+<hr />
+
+<h3>検索</h3>
+
+<p>コマンドモードで<code>/</code>を入力すると, 左下に<code>/</code>の記号が表示される. この状態で検索したい文字を入力して<code>Enter</code>すると, 最初にヒットした行に移動する. 次のヒットに移動するのは<code>n</code>, 前のヒットには<code>N</code>で戻ることができる.</p>
+
+<p>例えば下の2行目のコメントを外したいときは,</p>
+
+<pre><code>## FooBar is a sample variable.
+#FooBar 12345
+</code></pre>
+
+<p>まずコマンドモードで<code>/</code>を入力し, <code>FooBar</code>と入力して<code>Enter</code>を押す. すると1行目の”F”にカーソルが移動するので, <code>n</code>を入力して2行目の”F”に移動する. <code>h</code>で1文字戻って<code>x</code>でコメントを削除する(もちろん<code>X</code>でもよい).</p>
+
+<hr />
+
+<h3>保存と終了</h3>
+
+<p>まず, 下の例を見てほしい. すべてコマンドモードから行なっている.</p>
+
+<ul>
+<li><code>:wq</code> -> 保存してファイルを閉じる</li>
+<li><code>:wq!</code> -> 強制保存して強制的にファイルを閉じる</li>
+<li><code>:q!</code> -> 強制的にファイルを閉じる</li>
+</ul>
+
+
+<p>実際に使うのは, ほとんど1つ目と3つ目だろう. 最初の<code>:</code>(コロン)は誤って操作しないように必要だ, ぐらいにとりあえずは考えておけばよい. <code>w</code>は保存(write), <code>q</code>は終了(quit)を表している. さらに<code>!</code>がつけば, それらの処理を強制的に(例えば, ファイルの変更を”無視して”終了)行う. もちろん<code>:w!</code>や<code>:q</code>も使うことができる.</p>
+
+<hr />
+
+<p>viはなかなか癖のあるエディタだが, すべての操作をキーボードのみで高速に行えるため, 現在でもよく使われている. 今回説明した以外にも多くのコマンドがあるので, 慣れてきたら調べてみるとよいだろう.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sign-up-sakura-vps/">さくらのVPSを契約して起動するまで</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>さくらのVPSを契約して起動するまでの手順の覚え書き.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>申し込み</li>
+<li>VPSの起動</li>
+<li>仮登録から本登録へ</li>
+<li>リモートコンソールについて</li>
+<li>OSの再インストール</li>
+<li>次にすること</li>
+</ol>
+
+
+<hr />
+
+<h3>申し込み</h3>
+
+<p><a href="http://vps.sakura.ad.jp/">公式サイト</a>から申し込む. 申し込み完了後にプランの変更はできない(一度解約して再契約になる)こと, お試し2週間無料はクレジットカードでの支払いじゃないと適用されないことに注意(以下, クレジットカードで申し込んだとする).</p>
+
+<p>申し込み完了後, まず「お申込み受付完了のお知らせ」メールが来て, しばらくして「仮登録完了のお知らせ」メールが来る.</p>
+
+<hr />
+
+<h3>VPSの起動</h3>
+
+<p>「仮登録完了のお知らせ」メールが来たら, <a href="https://secure.sakura.ad.jp/vpscontrol/">VPSのコントロールパネル</a>を開き, メールに記載されているIPアドレスとパスワードを入力してログインする. ログイン後, [仮想サーバ操作]から[起動]ボタンを押すとサーバが起動し, [ステータス]が[起動中]になる.</p>
+
+<p>これ以降は<a href="http://nomnel.net/blog/sakura-vps-first-steps">さくらのVPSで最初にやっておくこと</a>を参照して進める.</p>
+
+<hr />
+
+<h3>仮登録から本登録へ</h3>
+
+<p>コントロールパネル上部の[会員メニュー]からさくらにログインし, [契約情報]->[契約サービスの確認]と進む. 下部の契約中のサーバ一覧から該当サーバの手続きを選択する. (解約もここから)</p>
+
+<hr />
+
+<h3>リモートコンソールについて</h3>
+
+<p>コントロールパネル左の[リモートコンソール]を開くことができる. sshの設定を失敗してリモートからログインできなくなった時などに使う.</p>
+
+<hr />
+
+<h3>OSの再インストール</h3>
+
+<p>コントロールパネル左の[OS再インストール]から行う. rootのパスワードが必要. 再インストール完了後, そのままOSが起動するので注意.</p>
+
+<hr />
+
+<h3>次にすること</h3>
+
+<p>VPSをどう使うかによらず, 共通の設定(<a href="http://nomnel.net/blog/sakura-vps-first-steps">さくらのVPSで最初にやっておくこと</a>)を行なっておく.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-wordpress/">さくらのVPSにWordPressをインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>さくらのVPSにWordPressをインストールした手順の覚え書き.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>前提</li>
+<li>ダウンロードと解凍</li>
+<li>データベースとユーザの作成</li>
+<li>配置とインストール</li>
+</ol>
+
+
+<hr />
+
+<h3>前提</h3>
+
+<p>先に最低限の設定とApache, MySQL, PHPのインストールと設定を済ませておく.</p>
+
+<ul>
+<li><a href="http://nomnel.net/blog/sakura-vps-first-steps">さくらのVPSで最初にやっておくこと</a></li>
+<li><a href="http://nomnel.net/blog/install-apache">Apacheのインストールと設定(CentOS 6)</a></li>
+<li><a href="http://nomnel.net/blog/install-mysql">MySQLのインストールと設定(CentOS 6)</a></li>
+<li><a href="http://nomnel.net/blog/install-php">PHPのインストールと設定(CentOS 6)</a></li>
+</ul>
+
+
+<p>また必要に応じて, ドメインの取得と設定をしておく(設定済みとして進めていく).</p>
+
+<hr />
+
+<h3>ダウンロードと解凍</h3>
+
+<p>WordPressの最新版をダウンロード, 解凍する.</p>
+
+<pre><code># 最新版をダウンロード
+$ wget http://ja.wordpress.org/latest-ja.tar.gz
+
+# 解凍
+$ tar -xzvf latest-ja.tar.gz
+
+# 不要なファイルの削除
+$ rm latest-ja.tar.gz
+</code></pre>
+
+<hr />
+
+<h3>データベースとユーザの作成</h3>
+
+<p>MySQLにWordPress用のデータベースとユーザ(今回は両方共wordpress)を作成する.</p>
+
+<pre><code># mysqlにrootでログイン
+$ mysql -u root -p
+
+# データベースの作成
+mysql&gt; CREATE DATABASE wordpress;
+
+# ユーザを作成してデータベースへの権限を与える(password部分にユーザのパスワードを入力)
+mysql&gt; GRANT ALL PRIVILEGES ON wordpress.* TO wordpress@localhost IDENTIFIED BY "password";
+mysql&gt; FLUSH PRIVILEGES;
+mysql&gt; exit
+</code></pre>
+
+<hr />
+
+<h3>配置とインストール</h3>
+
+<p>wordpressディレクトリをApacheのDocumentRoot(/var/www/html)下に置いてapacheユーザに権限を与える. 今回はブラウザから <code>http://ドメイン名/blog/</code> のようにアクセスしたいので下のようにする. もし <code>http://ドメイン名/</code> のようにアクセスしたい場合はwordpressディレクトリの<strong>中身だけ</strong>をDocumentRoot直下に置く.</p>
+
+<pre><code># wordpressをDocumentRoot下に移動
+$ sudo mv wordpress/ /var/www/html/blog/
+
+# 所有者の変更
+$ sudo chown -R apache:apache /var/www/html/blog/
+</code></pre>
+
+<p>この状態で <code>http://ドメイン名/blog/</code> にアクセスすると, 下のようにWordPressのセットアップ画面が表示される.</p>
+
+<p>「設定ファイルを作成する」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-01.jpeg" alt="設定ファイルを作成する" /></p>
+
+<p>「さあ, 始めましょう！」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-02.jpeg" alt="必要な情報の一覧" /></p>
+
+<p>先ほどMySQLに作成したデータベース名, ユーザ名, パスワードを入力し, 「送信」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-03.jpeg" alt="データベース接続情報の入力" /></p>
+
+<p>「インストール実行」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-04.jpeg" alt="インストール実行" /></p>
+
+<p>サイトのタイトル, (ブログにログインする用の)ユーザ名とパスワード, 管理者のメールアドレスを入力したら「WordPress をインストール」をクリック. これでWordPressがインストールされた.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-05.jpeg" alt="必要情報の入力" /></p>
+
+<p>ここに表示されるユーザ名でブログにログインする. 「ログイン」をクリックしてログイン画面を表示.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-06.jpeg" alt="インストール成功" /></p>
+
+<p>試しにログインしてみる.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-07.jpeg" alt="ログイン画面" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-php/">PHPのインストールと設定(CentOS 6)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>さくらのVPSでMySQLをインストール, 設定した手順の覚え書き.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>インストール</li>
+<li>設定ファイルの編集</li>
+</ol>
+
+
+<hr />
+
+<h3>インストール</h3>
+
+<p>yumでPHP関連のものをまるっと入れておく.</p>
+
+<pre><code>$ sudo yum -y install php php-devel php-mbstring php-mysql php-mcrypt php-gd php-pear php-pecl-apc
+
+# バージョン確認
+$ php -v    # -&gt; 5.3.3
+</code></pre>
+
+<hr />
+
+<h3>設定ファイルの編集</h3>
+
+<p>設定ファイルのバックアップをとってから編集する.</p>
+
+<pre><code>$ sudo cp /etc/php.ini /etc/php.ini.org
+$ sudo vi /etc/php.ini
+</code></pre>
+
+<p>変更内容は以下. (<a href="http://dotinstall.com/lessons/basic_sakura_vps/8015">参照:ドットインストール</a>)</p>
+
+<pre><code>エラーログの保存場所を変更
+;error_log = php_errors.log
+-&gt;
+error_log = /var/log/php_errors.log
+
+日本語の設定を有効に
+;mbstring.language = Japanese
+-&gt;
+mbstring.language = Japanese
+
+内部エンコーディングをUTF-8に変更
+;mbstring.internal_encoding = EUC-JP
+-&gt;
+mbstring.internal_encoding = UTF-8
+
+HTTPでの入力のエンコーディング
+;mbstring.http_input = auto
+-&gt;
+mbstring.http_input = auto
+
+エンコーディングの自動判別
+;mbstring.detect_order = auto
+-&gt;
+mbstring.detect_order = auto
+
+PHP情報をメッセージヘッダに記述しない
+expose_php = On
+-&gt;
+expose_php = Off
+
+タイムゾーンの設定
+;date.timezone =
+-&gt;
+date.timezone = Asia/Tokyo
+</code></pre>
+
+<p>終わったら設定を有効にするためにhttpdを再起動する.</p>
+
+<pre><code>$ sudo service httpd restart
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/9/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/7/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/centos-take-over-path-from-user-on-sudo/">sudo時にPATHを引き継ぐ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day42/">インターン42日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/confirm-centos-version/">CentOSのバージョンとアーキテクチャの確認</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day41/">インターン41日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day39/">インターン39日目</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - nomnel -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'nomnel';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

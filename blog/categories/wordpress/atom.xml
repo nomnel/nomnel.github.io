@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: wordpress | 飲んだり寝たり]]></title>
+  <link href="http://nomnel.github.io/blog/categories/wordpress/atom.xml" rel="self"/>
+  <link href="http://nomnel.github.io/"/>
+  <updated>2013-05-04T17:08:32+09:00</updated>
+  <id>http://nomnel.github.io/</id>
+  <author>
+    <name><![CDATA[nomnel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[AkismetのAPIキーを取得して設定する]]></title>
+    <link href="http://nomnel.github.io/blog/wp-akismet/"/>
+    <updated>2012-09-29T00:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/wp-akismet</id>
+    <content type="html"><![CDATA[<p>Akismetはコメントスパム対策に役立つプラグイン. WordPressにデフォルトでインストールされているが, 使用するにはAPIキーが必要になる. また, このAPIキーを複数サイトで使い回すことは出来ない.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>有効化</li>
+<li>APIキーの取得と設定</li>
+<li>使い方</li>
+</ol>
+
+
+<hr />
+
+<h3>有効化</h3>
+
+<p>サイドバーの プラグイン -> インストール済みプラグイン を開き, Akismetを有効化する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-01.jpeg" alt="Akismetの有効化" /></p>
+
+<hr />
+
+<h3>APIキーの取得と設定</h3>
+
+<p>有効化すると下のように表示されるので, [Akismet API キーを入力]部分をクリックするか, サイドバーの プラグイン -> Akismet設定 からAkismet設定ページを表示する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-02.jpeg" alt="Akismet有効化時のメッセージ" /></p>
+
+<p>APIキーを取得するため, <a href="http://akismet.com/wordpress/">Akismet.com</a>を開く.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-03.jpeg" alt="Akismet設定画面からAkismet.comを開く" /></p>
+
+<p>クリックしてAPIキーのサインアップ画面へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-04.jpeg" alt="APIキーのサインアップ画面へ" /></p>
+
+<p>個人ブログ用のプラン(Personal)を選択.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-05.jpeg" alt="プランの選択" /></p>
+
+<p>右側に表示されるバーを左端までスライドさせて無料にする.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-06.jpeg" alt="料金を無料に変更" /></p>
+
+<p>氏名とメールアドレスを入力してCONTINUE. チェックボックス(メルマガを受け取るか)は外しておいて良い.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-07.jpeg" alt="コンタクト情報の入力" /></p>
+
+<p>CONTINUEと書いてあったがこれで終了. 下のような画面が表示されるのでメールを確認する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-08.jpeg" alt="サインアップの完了" /></p>
+
+<p>Your Akismet API key is: に続く文字列がAPIキー. コピーしておく.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-09.jpeg" alt="メール中のAPIキーを確認" /></p>
+
+<p>Akismet設定ページに戻り, APIキーを入力して設定を更新.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-10.jpeg" alt="APIキーの入力" /></p>
+
+<p>次のように表示されたら成功.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-11.jpeg" alt="APIキーの認証完了" /></p>
+
+<hr />
+
+<h3>使い方</h3>
+
+<p>スパム判定されたコメントはコメント画面から確認できる.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-12.jpeg" alt="コメント画面からスパムを確認" /></p>
+
+<p>他に, サイドバーの ダッシュボード -> Akismet統計 ではスパムの統計情報が確認できる.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[さくらのVPSにWordPressをインストール]]></title>
+    <link href="http://nomnel.github.io/blog/install-wordpress/"/>
+    <updated>2012-09-26T00:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/install-wordpress</id>
+    <content type="html"><![CDATA[<p>さくらのVPSにWordPressをインストールした手順の覚え書き.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>前提</li>
+<li>ダウンロードと解凍</li>
+<li>データベースとユーザの作成</li>
+<li>配置とインストール</li>
+</ol>
+
+
+<hr />
+
+<h3>前提</h3>
+
+<p>先に最低限の設定とApache, MySQL, PHPのインストールと設定を済ませておく.</p>
+
+<ul>
+<li><a href="http://nomnel.net/blog/sakura-vps-first-steps">さくらのVPSで最初にやっておくこと</a></li>
+<li><a href="http://nomnel.net/blog/install-apache">Apacheのインストールと設定(CentOS 6)</a></li>
+<li><a href="http://nomnel.net/blog/install-mysql">MySQLのインストールと設定(CentOS 6)</a></li>
+<li><a href="http://nomnel.net/blog/install-php">PHPのインストールと設定(CentOS 6)</a></li>
+</ul>
+
+
+<p>また必要に応じて, ドメインの取得と設定をしておく(設定済みとして進めていく).</p>
+
+<hr />
+
+<h3>ダウンロードと解凍</h3>
+
+<p>WordPressの最新版をダウンロード, 解凍する.</p>
+
+<pre><code># 最新版をダウンロード
+$ wget http://ja.wordpress.org/latest-ja.tar.gz
+
+# 解凍
+$ tar -xzvf latest-ja.tar.gz
+
+# 不要なファイルの削除
+$ rm latest-ja.tar.gz
+</code></pre>
+
+<hr />
+
+<h3>データベースとユーザの作成</h3>
+
+<p>MySQLにWordPress用のデータベースとユーザ(今回は両方共wordpress)を作成する.</p>
+
+<pre><code># mysqlにrootでログイン
+$ mysql -u root -p
+
+# データベースの作成
+mysql&gt; CREATE DATABASE wordpress;
+
+# ユーザを作成してデータベースへの権限を与える(password部分にユーザのパスワードを入力)
+mysql&gt; GRANT ALL PRIVILEGES ON wordpress.* TO wordpress@localhost IDENTIFIED BY "password";
+mysql&gt; FLUSH PRIVILEGES;
+mysql&gt; exit
+</code></pre>
+
+<hr />
+
+<h3>配置とインストール</h3>
+
+<p>wordpressディレクトリをApacheのDocumentRoot(/var/www/html)下に置いてapacheユーザに権限を与える. 今回はブラウザから <code>http://ドメイン名/blog/</code> のようにアクセスしたいので下のようにする. もし <code>http://ドメイン名/</code> のようにアクセスしたい場合はwordpressディレクトリの<strong>中身だけ</strong>をDocumentRoot直下に置く.</p>
+
+<pre><code># wordpressをDocumentRoot下に移動
+$ sudo mv wordpress/ /var/www/html/blog/
+
+# 所有者の変更
+$ sudo chown -R apache:apache /var/www/html/blog/
+</code></pre>
+
+<p>この状態で <code>http://ドメイン名/blog/</code> にアクセスすると, 下のようにWordPressのセットアップ画面が表示される.</p>
+
+<p>「設定ファイルを作成する」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-01.jpeg" alt="設定ファイルを作成する" /></p>
+
+<p>「さあ, 始めましょう！」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-02.jpeg" alt="必要な情報の一覧" /></p>
+
+<p>先ほどMySQLに作成したデータベース名, ユーザ名, パスワードを入力し, 「送信」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-03.jpeg" alt="データベース接続情報の入力" /></p>
+
+<p>「インストール実行」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-04.jpeg" alt="インストール実行" /></p>
+
+<p>サイトのタイトル, (ブログにログインする用の)ユーザ名とパスワード, 管理者のメールアドレスを入力したら「WordPress をインストール」をクリック. これでWordPressがインストールされた.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-05.jpeg" alt="必要情報の入力" /></p>
+
+<p>ここに表示されるユーザ名でブログにログインする. 「ログイン」をクリックしてログイン画面を表示.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-06.jpeg" alt="インストール成功" /></p>
+
+<p>試しにログインしてみる.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-07.jpeg" alt="ログイン画面" /></p>
+]]></content>
+  </entry>
+  
+</feed>

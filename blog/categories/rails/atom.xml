@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: rails | 飲んだり寝たり]]></title>
+  <link href="http://nomnel.github.io/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://nomnel.github.io/"/>
+  <updated>2013-05-04T17:08:32+09:00</updated>
+  <id>http://nomnel.github.io/</id>
+  <author>
+    <name><![CDATA[nomnel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[RailsアプリにPaperclipを使って画像アップロード機能をつける]]></title>
+    <link href="http://nomnel.github.io/blog/rails-upload-image-using-paperclip/"/>
+    <updated>2013-04-19T18:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/rails-upload-image-using-paperclip</id>
+    <content type="html"><![CDATA[<h3>目次</h3>
+
+<ol>
+<li><a href="#a1">環境</a></li>
+<li><a href="#a2">インストール</a></li>
+<li><a href="#a3">実装</a></li>
+<li><a href="#a4">テスト</a></li>
+<li><a href="#a5">参考</a></li>
+</ol>
+
+
+<!-- more -->
+
+
+<h3><a id="a1">環境</a></h3>
+
+<ul>
+<li>Ruby: 2.0.0-p0</li>
+<li>Rails: 3.2.13</li>
+<li>paperclip: 3.4.1</li>
+</ul>
+
+
+<h3><a id="a2">インストール</a></h3>
+
+<p>ImageMagickが必要なので, 確認して無かったらインストールしておく.</p>
+
+<p><code>sh
+which convert  # 無かったら次でインストール
+brew install imagemagick
+</code></p>
+
+<p>後はいつも通り, Gemfileに<code>gem 'paperclip'</code>を追加して<code>bundle install</code>すればよい.</p>
+
+<h3><a id="a3">実装</a></h3>
+
+<p>既存のUserモデルにアイコンとしてavatarを追加し, 登録, 編集, 表示が出来るようにする.</p>
+
+<p>まずは, <code>rails g paperclip user avatar</code>して<code>rake db:migrate</code>しておく.</p>
+
+<p>生成されたマイグレーションファイルの中身はこんな感じ.</p>
+
+<p>```ruby
+class AddAttachmentAvatarToUsers &lt; ActiveRecord::Migration
+  def self.up</p>
+
+<pre><code>change_table :users do |t|
+  t.attachment :avatar
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>  def self.down</p>
+
+<pre><code>drop_attached_file :users, :avatar
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>後は実装していく. <code>app/models/user.rb</code>に以下を追加.</p>
+
+<p>```ruby
+class User &lt; ActiveRecord::Base
+  attr_accessible :avatar
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/system/missing/:style/missing.jpg"</p>
+
+<p>  validates_attachment :avatar, presence: true,</p>
+
+<pre><code>content_type: { content_type: ["image/jpg", "image/png"] },
+size: { less_than: 2.megabytes }
+</code></pre>
+
+<p>end
+```</p>
+
+<p><code>app/views/users/_form.html.erb</code>では, <code>&lt;%= form_for(@user) do |f| %&gt;</code>の中に</p>
+
+<p>```erb
+  <div class="field"></p>
+
+<pre><code>&lt;%= f.label :avatar %&gt;&lt;br /&gt;
+&lt;%= f.file_field :avatar %&gt;
+</code></pre>
+
+<p>  </div>
+```</p>
+
+<p>を追加. <code>app/views/users/show.html.erb</code>では, 画像を表示させたい箇所に</p>
+
+<p>```erb</p>
+
+<p>
+  <%= image_tag @user.avatar.url(:thumb) %>
+</p>
+```
+
+を追加. これだけで登録, 編集, 表示が出来るようになった.
+
+### [テスト](id:a4)
+まず, `spec/spec_helper.rb`に以下を追加しておく.
+
+```ruby
+require "paperclip/matchers"
+
+RSpec.configure do |config|
+  config.include Paperclip::Shoulda::Matchers
+end
+```
+
+`spec/models/user_spec.rb`はこんな感じ.
+
+```ruby
+describe User do
+  it { should have_attached_file(:avatar) }
+  it { should validate_attachment_presence(:avatar) }
+  it { should validate_attachment_content_type(:avatar).
+                allowing('image/jpg', 'image/png') }
+  it { should validate_attachment_size(:avatar).
+                less_than(2.megabytes) }
+end
+```
+
+`spec/controllers/users_controller_spec.rb`はこんな感じになる.
+
+```ruby
+describe UsersController do
+  def valid_attributes
+    { username: "MyString",
+      email: "MyString",
+      avatar_file_name: '私のテキスト_n',
+      avatar_content_type: 'image/png',
+      avatar_file_size: 1,
+      avatar_updated_at: '2011-07-13 14:53:38'
+    }
+  end
+
+  def valid_session
+    {}
+  end
+
+  describe "GET show" do
+    it "assigns the requested user as @user" do
+      user = User.create! valid_attributes
+      get :show, {:id => user.to_param}, valid_session
+      assigns(:user).should eq(user)
+    end
+  end
+end
+```
+
+### [参考](id:a5)
+* [thoughtbot/paperclip · GitHub](https://github.com/thoughtbot/paperclip)
+* [Paperclipで画像を保存 - komagata](http://docs.komagata.org/3880)
+
+]]></content>
+  </entry>
+  
+</feed>

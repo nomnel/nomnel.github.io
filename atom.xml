@@ -1,0 +1,1375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[飲んだり寝たり]]></title>
+  <link href="http://nomnel.github.io/atom.xml" rel="self"/>
+  <link href="http://nomnel.github.io/"/>
+  <updated>2013-05-04T17:08:32+09:00</updated>
+  <id>http://nomnel.github.io/</id>
+  <author>
+    <name><![CDATA[nomnel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CentOSでsystem wideなrbenv+ruby-build環境を構築する]]></title>
+    <link href="http://nomnel.github.io/blog/centos-system-wide-rbenv-and-ruby-build/"/>
+    <updated>2013-05-04T12:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/centos-system-wide-rbenv-and-ruby-build</id>
+    <content type="html"><![CDATA[<h3>目次</h3>
+
+<ol>
+<li>環境</li>
+<li>rbenv, ruby-buildのインストール</li>
+<li>rubyのインストール</li>
+<li>参考</li>
+</ol>
+
+
+<h3>環境</h3>
+
+<ul>
+<li>CentOS release 6.4 (Final)</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>rbenv, ruby-buildのインストール</h3>
+
+<p>sudo地獄なのでrootで作業を行う.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>su
+</span><span class='line'>
+</span><span class='line'><span class="c"># 以下root</span>
+</span><span class='line'><span class="nb">cd</span> /usr/local
+</span><span class='line'>git clone git://github.com/sstephenson/rbenv.git rbenv
+</span><span class='line'>mkdir rbenv/shims rbenv/versions
+</span><span class='line'>groupadd rbenv
+</span><span class='line'>chgrp -R rbenv rbenv
+</span><span class='line'>chmod -R g+rwxXs rbenv
+</span><span class='line'>git clone git://github.com/sstephenson/ruby-build.git ruby-build
+</span><span class='line'><span class="nb">cd </span>ruby-build
+</span><span class='line'>./install.sh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>として, <code>/etc/profile.d/rbenv.sh</code>に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export </span><span class="nv">RBENV_ROOT</span><span class="o">=</span><span class="s2">&quot;/usr/local/rbenv&quot;</span>
+</span><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/rbenv/bin:$PATH&quot;</span>
+</span><span class='line'><span class="nb">eval</span> <span class="s2">&quot;$(rbenv init -)&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>と記述.</p>
+
+<h3>rubyのインストール</h3>
+
+<p>先に依存パッケージをyumでインストールしておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>yum install --enablerepo<span class="o">=</span>epel make gcc zlib-devel openssl-devel readline-devel ncurses-devel gdbm-devel db4-devel libffi-devel tk-devel libyaml-devel
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後は</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rbenv install --list <span class="c"># インストールできるRubyの一覧を表示</span>
+</span><span class='line'>rbenv install 2.0.0-p0
+</span><span class='line'>rbenv global 2.0.0-p0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>などとすればよい. このときrootであることに注意(一般ユーザで<code>sudo rbenv install 2.0.0-p0</code>とすると<code>/root/.rbenv/</code>下にインストールされ共有できない).</p>
+
+<h3>参考</h3>
+
+<ul>
+<li><a href="http://blog.kyanny.me/entry/2012/02/03/155652">rbenv + ruby-build を system-wide にインストールする - @kyanny&#8217;s blog</a></li>
+<li><a href="http://qiita.com/items/c2377c45d6c4fbfd775f">CentOS 6.3にシステムワイドなrbenv+ruby-buildの環境を構築する手順 #Ruby - Qiita</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[sudo時にPATHを引き継ぐ]]></title>
+    <link href="http://nomnel.github.io/blog/centos-take-over-path-from-user-on-sudo/"/>
+    <updated>2013-05-04T11:50:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/centos-take-over-path-from-user-on-sudo</id>
+    <content type="html"><![CDATA[<h3>環境</h3>
+
+<ul>
+<li>CentOS release 6.4 (Final)</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>方法</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo visudo
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>として以下の行を探し,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>Defaults    env_reset
+</span><span class='line'>Defaults    <span class="nv">env_keep</span> <span class="o">=</span>  <span class="s2">&quot;COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS&quot;</span>
+</span><span class='line'>Defaults    env_keep +<span class="o">=</span> <span class="s2">&quot;MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE&quot;</span>
+</span><span class='line'>Defaults    env_keep +<span class="o">=</span> <span class="s2">&quot;LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES&quot;</span>
+</span><span class='line'>Defaults    env_keep +<span class="o">=</span> <span class="s2">&quot;LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE&quot;</span>
+</span><span class='line'>Defaults    env_keep +<span class="o">=</span> <span class="s2">&quot;LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>次の行を追加.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>Defaults    env_keep +<span class="o">=</span> <span class="s2">&quot;PATH&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>また, <code>secure_path</code>の行を次のようにコメントアウトする.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン42日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day42/"/>
+    <updated>2013-05-02T17:20:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day42</id>
+    <content type="html"><![CDATA[<p>さて今日は,</p>
+
+<ol>
+<li><a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a></li>
+<li><a href="http://nomnel.net/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a></li>
+</ol>
+
+
+<p>をした. Jenkinsを入れたのは, せっかくwebサービスを作るなら継続的インテグレーションも経験したいと思ったからだ.</p>
+
+<!-- more -->
+
+
+<p>http://domain.com/jenkins としてアクセスするためには, Jenkins側でもprefixを指定しなければいけないことに気づかず手間取ったが, nginxでリバースプロキシを使う方法も分かったし良い勉強になった.</p>
+
+<p>とりあえずJenkins氏には, このブログのデプロイを任せてみようと思う.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Jenkins氏をさくらVPSに招聘する]]></title>
+    <link href="http://nomnel.github.io/blog/install-jenkins/"/>
+    <updated>2013-05-02T17:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/install-jenkins</id>
+    <content type="html"><![CDATA[<h3>目次</h3>
+
+<ol>
+<li>環境</li>
+<li>Javaのインストール</li>
+<li>Jenkinsのインストール</li>
+<li>nginx経由でJenkinsにアクセスする</li>
+<li>Jenkinsへのアクセス制限</li>
+</ol>
+
+
+<!-- more -->
+
+
+<h3>環境</h3>
+
+<p>CentOS 6.4 64bit</p>
+
+<h3>Javaのインストール</h3>
+
+<p>(参照: 公式サイトの<a href="https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins">Installing Jenkins</a>)</p>
+
+<p>Jenkins氏は職場環境としてJavaを要求している. しかも <strong>Sun-compatible</strong> なJavaを.</p>
+
+<p>なので, まずはJavaがインストールされているかチェック.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>java -version
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>僕の場合はインストールされていなかったが, もし</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>java version <span class="s2">&quot;1.5.0&quot;</span>
+</span><span class='line'>gij <span class="o">(</span>GNU libgcj<span class="o">)</span> version 4.4.6 20110731 <span class="o">(</span>Red Hat 4.4.6-3<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>のように表示された場合は, Jenkins氏好みのJavaではないので</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo yum remove java
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>してからインストールし直す. インストールされていなかった場合はここから.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo yum search openjdk <span class="c">#バージョンチェック</span>
+</span><span class='line'>
+</span><span class='line'>sudo yum install java-1.7.0-openjdk <span class="c"># インストール</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>確認</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>java -version
+</span><span class='line'>
+</span><span class='line'><span class="c"># 出力結果</span>
+</span><span class='line'>java version <span class="s2">&quot;1.7.0_19&quot;</span>
+</span><span class='line'>OpenJDK Runtime Environment <span class="o">(</span>rhel-2.3.9.1.el6_4-x86_64<span class="o">)</span>
+</span><span class='line'>OpenJDK 64-Bit Server VM <span class="o">(</span>build 23.7-b01, mixed mode<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Jenkinsのインストール</h3>
+
+<p>(参照: 公式サイトの<a href="https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins">Installing Jenkins</a>)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># リポジトリを登録</span>
+</span><span class='line'>sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+</span><span class='line'>
+</span><span class='line'><span class="c"># 鍵を登録</span>
+</span><span class='line'>sudo rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
+</span><span class='line'>
+</span><span class='line'><span class="c"># インストール</span>
+</span><span class='line'>sudo yum install jenkins
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で, 出勤してもらう. 以後は住み込みで.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo service jenkins start <span class="c"># 起動</span>
+</span><span class='line'>sudo chkconfig jenkins on  <span class="c"># 自動起動の設定</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Jenkins氏はデフォルトで8080番ポートで待機しているので, 素直に8080番を開ける(参考: <a href="http://nomnel.net/blog/iptables-filter/">iptablesでパケットフィルタリングするための設定</a>)か, nginx経由でアクセス出来るように設定する.</p>
+
+<h3>nginx経由でJenkinsにアクセスする</h3>
+
+<p>nginxのインストールは<a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">こちら</a>を参照.</p>
+
+<h4>http://jenkins.yourdomain.comでアクセスしたい場合</h4>
+
+<p><code>/etc/nginx/conf.d/jenkins.conf</code>に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>server <span class="o">{</span>
+</span><span class='line'>    listen 80;
+</span><span class='line'>    server_name jenkins.yourdomain.com;
+</span><span class='line'>    location / <span class="o">{</span>
+</span><span class='line'>        proxy_pass http://localhost:8080;
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>と記述し,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo service nginx restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>でnginxを再起動して反映.</p>
+
+<h4>http://yourdomain.com/jenkinsでアクセスしたい場合</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>server <span class="o">{</span>
+</span><span class='line'>    listen 80;
+</span><span class='line'>    server_name yourdomain.com;
+</span><span class='line'>    location /jenkins <span class="o">{</span>
+</span><span class='line'>        proxy_pass http://localhost:8080;
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とし, <code>/etc/sysconfig/jenkins</code>を以下のように修正する(prefixを認識させておく)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#修正前</span>
+</span><span class='line'><span class="nv">JENKINS_ARGS</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="c">#修正後</span>
+</span><span class='line'><span class="nv">JENKINS_ARGS</span><span class="o">=</span><span class="s2">&quot;--prefix=/jenkins --httpPort=${JENKINS_PORT} --ajp13Port=${JENKINS_AJP_PORT}&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>終わったら</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo service nginx restart
+</span><span class='line'>sudo service jenkins restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>でnginxとJenkinsを再起動して反映.</p>
+
+<h3>Jenkinsへのアクセス制限</h3>
+
+<p>このままだと誰でも何でも出来てしまうので, <a href="https://wiki.jenkins-ci.org/display/JA/Standard+Security+Setup">Standard Security Setup - 日本語 - Jenkins Wiki</a>を参照してアクセス制限をかけておく.</p>
+
+<ol>
+<li>トップからManage Jenkins > Configure Global Securityと進んで,</li>
+<li>Enable securityにチェック</li>
+<li>Security Realm > Jenkins&#8217;s own user database > Allow users to sign upにチェック</li>
+<li>Authorization > Matrix-based securityにチェックを入れて</li>
+<li>User/group to add: に管理者ユーザ名を入力してAddをクリック</li>
+<li>追加した管理者ユーザは全てチェックを入れて, Anonymousのチェックを全て外す</li>
+<li>Saveをクリック</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CentOS6で最新版のnginxをyumでインストールする]]></title>
+    <link href="http://nomnel.github.io/blog/install-nginx-in-centos6-using-yum/"/>
+    <updated>2013-05-02T12:20:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/install-nginx-in-centos6-using-yum</id>
+    <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/">Debianのとき</a>と同様, 標準のままではパッケージシステムで最新版をインストールすることが出来ないのでその対策.</p>
+
+<!-- more -->
+
+
+<p>リポジトリを登録する. (URLは<a href="http://nginx.org/en/linux_packages.html#stable">公式のページ</a>を参照)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると<code>/etc/yum.repos.d/nginx.repo</code>が以下のようになる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># nginx.repo</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>nginx<span class="o">]</span>
+</span><span class='line'><span class="nv">name</span><span class="o">=</span>nginx repo
+</span><span class='line'><span class="nv">baseurl</span><span class="o">=</span>http://nginx.org/packages/centos/6/<span class="nv">$basearch</span>/
+</span><span class='line'><span class="nv">gpgcheck</span><span class="o">=</span>0
+</span><span class='line'><span class="nv">enabled</span><span class="o">=</span>1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後は普通にyumでインストールすると最新版が入る.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo yum install -y nginx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>起動する(Apache等が動いていたら先に止めておく)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo service nginx start
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ブラウザでアクセスして<code>Welcome to nginx!</code>と表示されたら成功.</p>
+
+<p>ちなみにドキュメントルートは<code>/usr/share/nginx/html/</code>.</p>
+
+<h3>参考</h3>
+
+<p><a href="http://heartbeats.jp/hbblog/2012/02/nginx02.html">nginx連載2回目: nginxのインストール</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[WordPressのアンインストール]]></title>
+    <link href="http://nomnel.github.io/blog/uninstall-wordpress/"/>
+    <updated>2013-05-02T11:45:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/uninstall-wordpress</id>
+    <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/install-wordpress/">blogとしてインストールしていた場合</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo rm -rf /var/www/html/blog
+</span><span class='line'>
+</span><span class='line'><span class="c"># mysqlにログイン</span>
+</span><span class='line'>mysql -u root -p
+</span><span class='line'>
+</span><span class='line'><span class="c"># データベースを削除</span>
+</span><span class='line'>mysql&gt; drop databases wordpress;
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CentOSのバージョンとアーキテクチャの確認]]></title>
+    <link href="http://nomnel.github.io/blog/confirm-centos-version/"/>
+    <updated>2013-05-02T11:40:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/confirm-centos-version</id>
+    <content type="html"><![CDATA[<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># バージョン確認</span>
+</span><span class='line'>cat /etc/redhat-release
+</span><span class='line'><span class="c"># =&gt; CentOS release 6.4 (Final)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># OSが64bitか32bitか</span>
+</span><span class='line'>arch
+</span><span class='line'><span class="c"># =&gt; x86_64</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン41日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day41/"/>
+    <updated>2013-05-01T23:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day41</id>
+    <content type="html"><![CDATA[<p>(40日目は省略されました)</p>
+
+<p>さて, 大方のプラクティスを終えたこともあり, 今日から</p>
+
+<ol>
+<li><a href="http://256interns.com/practices/75">webアプリ, サービスを作る</a></li>
+</ol>
+
+
+<p>というプラクティスを始めることになった. これがFjordでのインターン総まとめになると思う.</p>
+
+<!-- more -->
+
+
+<p>そもそもインターンを始めたのはプログラマとして就職するための準備だった(あわよくば紹介してもらうことも含めて). で, 準備というのは</p>
+
+<ul>
+<li>プログラマとして必要な知識を得る</li>
+<li>いまどきなプルリクベースの開発を経験する</li>
+<li>稼働中なサービスの改良を経験する</li>
+</ul>
+
+
+<p>の上で</p>
+
+<ul>
+<li>小規模サービスなら1人で構築, 運営できるようになる</li>
+</ul>
+
+
+<p>ことだと考えた. なのでこのプラクティスを完了したときには最初の目標を達成したことになる(サービスの運営は除く).</p>
+
+<p>本音を言うと就活するのは怖いのだが, いつまでもインターンを続けるわけにもいかないし, いい頃合いだとして納得できるものを作って終えたい.</p>
+
+<p>※ 作ったものが残念だったらまた別のを作るので延びるかもしれん</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Debianで最新版のnginxをapt-getでインストールする]]></title>
+    <link href="http://nomnel.github.io/blog/install-nginx-in-debian-using-apt-get/"/>
+    <updated>2013-04-30T15:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/install-nginx-in-debian-using-apt-get</id>
+    <content type="html"><![CDATA[<p>(CentOSの場合は<a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">こちら</a>)</p>
+
+<p>普通に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install nginx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とすると, 0.7.xぐらいの古いバージョン(最新は1.4.0 @ 2013/4/24)がインストールされる. nginxのサイトをリポジトリに登録し, stableの最新版をapt-getでインストール出来るようにする.</p>
+
+<!-- more -->
+
+
+<p>まず, パッケージの公開鍵をダウンロードして<code>apt-key</code>で追加する. (sudoをインストールしていない場合は<a href="http://nomnel.net/blog/debian-enable-sudo/">ここ</a>を参照)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>wget <span class="s2">&quot;http://nginx.org/keys/nginx_signing.key&quot;</span>
+</span><span class='line'>sudo apt-key add nginx_signing.key
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>次に, nginxのサイトをリポジトリに追加する.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo vi /etc/apt/sources.list
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で開いたファイルに以下を追加.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>deb http://nginx.org/packages/debian/ squeeze nginx
+</span><span class='line'>deb-src http://nginx.org/packages/debian/ squeeze nginx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後は登録を反映して,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get update
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最新版をインストールすればよい.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install nginx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ブラウザでアクセスしてみて, <code>Welcome to nginx!</code>と表示されたら成功.</p>
+
+<p>ちなみにアンインストールは</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get remove nginx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参照</h3>
+
+<ul>
+<li><a href="http://www.arunchinnachamy.com/how-to-updateinstall-nginx-in-ubuntudebian/">HOW TO: Install NGINX in Ubuntu or Debian</a></li>
+<li><a href="http://server-setting.info/ubuntu/ubuntu-nginx-install.html">Ubuntu (Debian) で nginx に リバースプロキシのキャッシュ削除モジュール nginx cache purge を組み込んで使ってみる</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン39日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day39/"/>
+    <updated>2013-04-26T19:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day39</id>
+    <content type="html"><![CDATA[<p>さて今日は,</p>
+
+<ol>
+<li>怖い話を執筆中にページを離脱した場合, 警告を出す</li>
+</ol>
+
+
+<p>をした.</p>
+
+<!-- more -->
+
+
+<p>実装は<a href="http://nomnel.net/blog/rails-confirm-on-leaving-the-page/">こんな感じ</a>ですぐ出来たんだけど, テストを回すと</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>3) なんかテストの説明
+</span><span class='line'>     Failure/Error: fill_in 'hoge', with: 'foo'
+</span><span class='line'>     Capybara::Webkit::InvalidResponseError:
+</span><span class='line'>       Unable to load URL: http://127.0.0.1:58549/ because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=*********&origin=http://127.0.0.1:58549&channel_path=/users/sign_in?fb_xd_fragment#xd_sig=***********: Connection closed</span></code></pre></td></tr></table></div></figure>
+
+
+<p>というエラーが全く関係無いところにも出る. さらに全くエラーが出ないときもあったりする. なので追加したテストが正しいのかも確認できない状況だった.</p>
+
+<p>対策を探そうと, ずっと</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Capybara::Webkit::InvalidResponseError:
+</span><span class='line'>       Unable to load URL:</span></code></pre></td></tr></table></div></figure>
+
+
+<p>の部分でググっていたが解決法は見つからなかった. が, 問題は</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=*********&origin=http://127.0.0.1:58549&channel_path=/users/sign_in?fb_xd_fragment#xd_sig=***********: Connection closed</span></code></pre></td></tr></table></div></figure>
+
+
+<p>の方で, どうやらFacebookとの接続がうまくいっていなかったのではと思われる. 先に述べた「全くエラーが出ないときもあったりする」という現象から考えて, テスト回し過ぎ -> Facebookにアクセスしすぎ -> 拒否られる, という図式なんじゃないかと.</p>
+
+<p>実際, 15分ほど間隔を開けてからテストを回すと上のエラーは出なかった. (多分, 昨日手こずっていたエラーも同じ現象だったのだろう. )</p>
+
+<p>ただ, 実際にテストを何度も回したいときに15分待つのは辛いので, Facebookからなんか引っ張ってきている部分をコメントアウトすればよい.</p>
+
+<p>あー, 時間無駄にした.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Railsでページ遷移前に確認ダイアログを表示する]]></title>
+    <link href="http://nomnel.github.io/blog/rails-confirm-on-leaving-the-page/"/>
+    <updated>2013-04-26T18:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/rails-confirm-on-leaving-the-page</id>
+    <content type="html"><![CDATA[<p>実装のみ簡単に.</p>
+
+<!-- more -->
+
+
+<p>coffeeはこんな感じ.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">isChanged = </span><span class="kc">false</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#hoge&#39;</span><span class="p">).</span><span class="nx">change</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nv">isChanged = </span><span class="kc">true</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">orgSubmit = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;input[type=submit]&#39;</span><span class="p">).</span><span class="nx">onClick</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s">&#39;input[type=submit]&#39;</span><span class="p">).</span><span class="nx">click</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nv">isChanged = </span><span class="kc">false</span>
+</span><span class='line'>  <span class="nx">orgSubmit</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">bind</span> <span class="s">&#39;beforeunload&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="k">unless</span> <span class="nx">isChanged</span>
+</span><span class='line'>  <span class="s">&#39;表示したいメッセージ&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>specは</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">scenario</span> <span class="s1">&#39;hogeを変更後にsubmit以外のページ遷移しようとしたときに確認ダイアログを表示&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">find</span><span class="p">(</span><span class="s1">&#39;#hoge&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="s1">&#39;My String&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">visit</span> <span class="n">root_path</span>
+</span><span class='line'>  <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">confirm_messages</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">eq</span> <span class="s1">&#39;表示したいメッセージ&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>な感じ.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン38日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day38/"/>
+    <updated>2013-04-25T19:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day38</id>
+    <content type="html"><![CDATA[<p>さて今日は</p>
+
+<ol>
+<li>怖いボタンを押したらflashで通知が出る</li>
+</ol>
+
+
+<p>をした.</p>
+
+<!-- more -->
+
+
+<p>しかしテストをすると関係ないところで(<code>git pull origin master</code>した後でも出る)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Capybara::Webkit::InvalidResponseError:
+</span><span class='line'>  Unable to load URL: http://127.0.0.1:56601/users/sign_in because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=f103bd7ee8&origin=http://127.0.0.1:56601&channel_path=/users/sign_in?fb_xd_fragment#xd_sig=f1c8a548f&: Connection closed</span></code></pre></td></tr></table></div></figure>
+
+
+<p>みたいなエラーが出るのでまだプルリクはしていない. むーん.</p>
+
+<p>【追記】
+<a href="https://github.com/thoughtbot/capybara-webkit/issues/499">capybaraとcapybara-webkitとのバージョンの問題</a>だったのかも？元々がcapybara2.1.0だったかは確認していないのだけど, 2.0.3であることを確認してからは通った.
+【追記終】</p>
+
+<p>後, 今日は来客だのなんだので割り込みが非常に多かった. 一日の半分以上取られた. 拒否しようにもお金を稼いでないやつに拒否権は無いらしい, つらい.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン37日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day37/"/>
+    <updated>2013-04-24T18:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day37</id>
+    <content type="html"><![CDATA[<p>さて今日は</p>
+
+<ol>
+<li>ユーザー個別ページの投稿した話の合計に下書きが含まれるので含まなくする</li>
+<li>怖いボタンの挙動が不自然(Ajax通信が終わる前に表示を変更していた)だったのを修正</li>
+<li>怖いボタンを押したらflashで通知が出る</li>
+</ol>
+
+
+<p>をしていた.</p>
+
+<!-- more -->
+
+
+<p>1.は条件を加えるだけなのですぐに終了.</p>
+
+<p>2.は, 3.に取り組もうとしたときに発見したので先にやっておいた.</p>
+
+<p>3.を実現するにはいくつか方法があるっぽいのだけれど, それを調べてる間に体調が酷くなって休んでしまった. ので, 続きはまた明日.</p>
+
+<p>それとは別に, 今日は駒形さんが休みなので, タスクが無くて困っている人がいたら割り振るように頼まれていた. 朝は「この人が来たらこのタスクお願いしよう…！」とか色々考えてたけど, 作業週の人はKuritaさんしか来ていなかったのでそれほど問題はなかった.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン36日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day36/"/>
+    <updated>2013-04-23T19:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day36</id>
+    <content type="html"><![CDATA[<p>さて今日は,</p>
+
+<ol>
+<li>メールアドレスでメンバ登録したときに, welcomeメールが欲しい</li>
+</ol>
+
+
+<p>をした. <!-- more --></p>
+
+<p>昨日Kutitaさんに文面を考えてもらっいたけど, 機能の追加よりメールをHTMLで記述する方に時間がかかって残念な感じ. 他にも少しやってたことはあるけど些細な事なので省略.</p>
+
+<p>明日は…何しよう. 今割り当てられているタスクはないけど,</p>
+
+<ol>
+<li>SNSとの連携でメンバ登録しても, メールアドレスの入力を必須にする</li>
+<li>ランキングなどをユーザに定期的にメール送信する</li>
+<li>メールアドレス登録時に到達確認をする</li>
+</ol>
+
+
+<p>とかきっと必要になると思うし, 提案してみようかな.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン35日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day35/"/>
+    <updated>2013-04-22T20:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day35</id>
+    <content type="html"><![CDATA[<p>さて今日は,</p>
+
+<ol>
+<li>投稿画像を自動で640px x 640pxにリサイズして背景を黒にする</li>
+</ol>
+
+
+<p>をした. <!-- more --></p>
+
+<p>画像アップロード時に処理したい内容は<code>has_attached_file</code>に定義すればいいのだけど, ちょっと込み入ったことをしたい場合は<code>Paperclip::Processer</code>を継承したクラスを作る必要がある. こんな感じ → <a href="https://gist.github.com/laurynas/708077">Paperclip Watermark processor</a>.</p>
+
+<p>ただ今回はそこまで複雑なことするわけでもないし, クラス作るのは嫌だなー, と思っていたら<a href="https://twitter.com/komagata">@komagata</a>さんの<a href="http://docs.komagata.org/3979">RailsからImageMagick(convert)に自由にオプションを渡せると聞いて飛んできました</a>を発見. 無事,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">convert_options</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>  <span class="ss">normal</span><span class="p">:</span> <span class="p">{</span> <span class="ss">normal</span><span class="p">:</span> <span class="s1">&#39;-resize 640x640 -background black -gravity center -extent 640x640&#39;</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とやって達成. 複数サイズあるとイマイチな感じではあるが…</p>
+
+<p>後, 今日は初めて人にタスクを割り振った. Welcomeメールの文面を考えてもらうという内容だったけど, 要求が曖昧なところ(「どこを見れば怖話を楽しめるか, とそこへのリンク」で特選の怖い話やランキングへのリンクを期待していた)もあったし, 自分が仕様を勘違いしている(「メール配信の解除方法」を入れてほしいとしたが, 現状では全ての配信を解除する方法が無かった)のもあって非常にやりにくかったと思う. 次に活かしたい.</p>
+
+<p>明日は, 今日作ってもらったメール文面を使って</p>
+
+<ol>
+<li>メールアドレスでメンバ登録したときに, welcomeメールが欲しい</li>
+</ol>
+
+
+<p>をしようと思う.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[rbenvを使っていてSublimeREPLでRubyのREPLが使えないとき]]></title>
+    <link href="http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl/"/>
+    <updated>2013-04-20T18:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/sublimerepl-cant-open-ruby-repl</id>
+    <content type="html"><![CDATA[<h3>現象</h3>
+
+<p>SublimeREPLでRubyのREPLを開くと,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sr">/System/</span><span class="no">Library</span><span class="o">/</span><span class="no">Frameworks</span><span class="o">/</span><span class="no">Ruby</span><span class="o">.</span><span class="n">framework</span><span class="o">/</span><span class="no">Versions</span><span class="o">/</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">/</span><span class="n">rubygems</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">777</span><span class="ss">:in</span> <span class="sb">`report_activate_error&#39;: Could not find RubyGem pry (&gt;= 0) (Gem::LoadError)</span>
+</span><span class='line'><span class="sb">  from /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:211:in `</span><span class="n">activate</span><span class="s1">&#39;</span>
+</span><span class='line'><span class="s1">  from /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:1056:in `gem&#39;</span>
+</span><span class='line'>  <span class="n">from</span> <span class="sr">/Users/nomne</span><span class="n">l</span><span class="o">/</span><span class="no">Library</span><span class="o">/</span><span class="no">Application</span> <span class="no">Support</span><span class="o">/</span><span class="no">Sublime</span> <span class="no">Text</span> <span class="mi">2</span><span class="o">/</span><span class="no">Packages</span><span class="o">/</span><span class="no">SublimeREPL</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="no">Ruby</span><span class="o">/</span><span class="n">pry_repl</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">2</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">***</span><span class="no">Repl</span> <span class="no">Closed</span><span class="o">***</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>というエラーが表示されるのみでREPLは使えない. <!-- more --></p>
+
+<h3>対策</h3>
+
+<p>まず, pryが入っていなかったら入れておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rbenv <span class="nb">exec </span>gem install pry
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>pryがインストール出来たら<code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/SublimeREPL/config/Ruby/Main.sublime-menu</code>を開き</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="s2">&quot;osx&quot;</span><span class="err">:</span><span class="p">[</span>
+</span><span class='line'>  <span class="s2">&quot;ruby&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;${packages}/SublimeREPL/config/Ruby/pry_repl.rb&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;$editor&quot;</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>となっている箇所を探す. この2行目の<code>ruby</code>を<code>/Users/username/.rbenv/shims/ruby</code>に変えればおーけー. <code>~/.rbenv/shims/ruby</code>でないことに注意.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン34日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day34/"/>
+    <updated>2013-04-19T19:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day34</id>
+    <content type="html"><![CDATA[<h3>今日</h3>
+
+<p>今日は午前中用事があって, 昼過ぎから</p>
+
+<ol>
+<li><a href="http://256interns.com/practices/43">paperclipを使って画像アップロード機能を作る</a></li>
+</ol>
+
+
+<p>をした. <!-- more -->相変わらずSpec書くのに手間取ったけど他は特に問題なし. 内容は<a href="http://nomnel.net/blog/rails-upload-image-using-paperclip/">RailsアプリにPaperclipを使って画像アップロード機能をつける</a>にまとめておいた.</p>
+
+<p>Paperclip, 中でImagemagickを使っているので大概の画像処理出来て便利. 怖話のタスクに画像処理系のがあったので来週この勢いでやってしまいたい.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RailsアプリにPaperclipを使って画像アップロード機能をつける]]></title>
+    <link href="http://nomnel.github.io/blog/rails-upload-image-using-paperclip/"/>
+    <updated>2013-04-19T18:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/rails-upload-image-using-paperclip</id>
+    <content type="html"><![CDATA[<h3>目次</h3>
+
+<ol>
+<li><a href="#a1">環境</a></li>
+<li><a href="#a2">インストール</a></li>
+<li><a href="#a3">実装</a></li>
+<li><a href="#a4">テスト</a></li>
+<li><a href="#a5">参考</a></li>
+</ol>
+
+
+<!-- more -->
+
+
+<h3><a id="a1">環境</a></h3>
+
+<ul>
+<li>Ruby: 2.0.0-p0</li>
+<li>Rails: 3.2.13</li>
+<li>paperclip: 3.4.1</li>
+</ul>
+
+
+<h3><a id="a2">インストール</a></h3>
+
+<p>ImageMagickが必要なので, 確認して無かったらインストールしておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>which convert  <span class="c"># 無かったら次でインストール</span>
+</span><span class='line'>brew install imagemagick
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後はいつも通り, Gemfileに<code>gem 'paperclip'</code>を追加して<code>bundle install</code>すればよい.</p>
+
+<h3><a id="a3">実装</a></h3>
+
+<p>既存のUserモデルにアイコンとしてavatarを追加し, 登録, 編集, 表示が出来るようにする.</p>
+
+<p>まずは, <code>rails g paperclip user avatar</code>して<code>rake db:migrate</code>しておく.</p>
+
+<p>生成されたマイグレーションファイルの中身はこんな感じ.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddAttachmentAvatarToUsers</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">change_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">attachment</span> <span class="ss">:avatar</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">drop_attached_file</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:avatar</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後は実装していく. <code>app/models/user.rb</code>に以下を追加.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">attr_accessible</span> <span class="ss">:avatar</span>
+</span><span class='line'>  <span class="n">has_attached_file</span> <span class="ss">:avatar</span><span class="p">,</span> <span class="ss">styles</span><span class="p">:</span> <span class="p">{</span> <span class="ss">medium</span><span class="p">:</span> <span class="s2">&quot;300x300&gt;&quot;</span><span class="p">,</span> <span class="ss">thumb</span><span class="p">:</span> <span class="s2">&quot;100x100&gt;&quot;</span> <span class="p">},</span> <span class="n">default_url</span><span class="p">:</span> <span class="s2">&quot;/system/missing/:style/missing.jpg&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">validates_attachment</span> <span class="ss">:avatar</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">content_type</span><span class="p">:</span> <span class="p">{</span> <span class="n">content_type</span><span class="p">:</span> <span class="o">[</span><span class="s2">&quot;image/jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;image/png&quot;</span><span class="o">]</span> <span class="p">},</span>
+</span><span class='line'>    <span class="ss">size</span><span class="p">:</span> <span class="p">{</span> <span class="n">less_than</span><span class="p">:</span> <span class="mi">2</span><span class="o">.</span><span class="n">megabytes</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>app/views/users/_form.html.erb</code>では, <code>&lt;%= form_for(@user) do |f| %&gt;</code>の中に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">  &lt;div class=&quot;field&quot;&gt;</span>
+</span><span class='line'><span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:avatar</span> <span class="cp">%&gt;</span><span class="x">&lt;br /&gt;</span>
+</span><span class='line'><span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">file_field</span> <span class="ss">:avatar</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>を追加. <code>app/views/users/show.html.erb</code>では, 画像を表示させたい箇所に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;p&gt;</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">image_tag</span> <span class="vi">@user</span><span class="o">.</span><span class="n">avatar</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="ss">:thumb</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>を追加. これだけで登録, 編集, 表示が出来るようになった.</p>
+
+<h3><a id="a4">テスト</a></h3>
+
+<p>まず, <code>spec/spec_helper.rb</code>に以下を追加しておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s2">&quot;paperclip/matchers&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">include</span> <span class="ss">Paperclip</span><span class="p">:</span><span class="ss">:Shoulda</span><span class="o">::</span><span class="no">Matchers</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>spec/models/user_spec.rb</code>はこんな感じ.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">User</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_attached_file</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">validate_attachment_presence</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">validate_attachment_content_type</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>                <span class="n">allowing</span><span class="p">(</span><span class="s1">&#39;image/jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;image/png&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">validate_attachment_size</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>                <span class="n">less_than</span><span class="p">(</span><span class="mi">2</span><span class="o">.</span><span class="n">megabytes</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>spec/controllers/users_controller_spec.rb</code>はこんな感じになる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">UsersController</span> <span class="k">do</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">valid_attributes</span>
+</span><span class='line'>    <span class="p">{</span> <span class="ss">username</span><span class="p">:</span> <span class="s2">&quot;MyString&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">email</span><span class="p">:</span> <span class="s2">&quot;MyString&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">avatar_file_name</span><span class="p">:</span> <span class="s1">&#39;私のテキスト_n&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">avatar_content_type</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">avatar_file_size</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">avatar_updated_at</span><span class="p">:</span> <span class="s1">&#39;2011-07-13 14:53:38&#39;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">valid_session</span>
+</span><span class='line'>    <span class="p">{}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">describe</span> <span class="s2">&quot;GET show&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;assigns the requested user as @user&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">create!</span> <span class="n">valid_attributes</span>
+</span><span class='line'>      <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="p">{</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">to_param</span><span class="p">},</span> <span class="n">valid_session</span>
+</span><span class='line'>      <span class="n">assigns</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span><span class="o">.</span><span class="n">should</span> <span class="n">eq</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><a id="a5">参考</a></h3>
+
+<ul>
+<li><a href="https://github.com/thoughtbot/paperclip">thoughtbot/paperclip · GitHub</a></li>
+<li><a href="http://docs.komagata.org/3880">Paperclipで画像を保存 - komagata</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[WordpressからOctopressに移行する]]></title>
+    <link href="http://nomnel.github.io/blog/wordpress-to-octopress/"/>
+    <updated>2013-04-19T01:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/wordpress-to-octopress</id>
+    <content type="html"><![CDATA[<p><a href="http://wired.jp/2013/04/15/huge-attack-on-wordpress-sites-could-spawn-never-before-seen-super-botnet/">この前のWordpressサイトへの大規模攻撃</a>で, 僕のところにもアラートメールがいっぱい飛んできて嫌になってしまったので, Github Pages + Octopress(画像はDropboxのpublicフォルダ)に移行することにした.</p>
+
+<h3>目次</h3>
+
+<ol>
+<li>Octopressのセットアップ</li>
+<li>記事の移行</li>
+<li>カスタムドメインの設定</li>
+</ol>
+
+
+<!-- more -->
+
+
+<hr />
+
+<h3>Octopressのセットアップ</h3>
+
+<p>基本的に<a href="http://octopress.org/">Octopress公式サイト</a>の以下のページを見て, その通りにやればよい.</p>
+
+<ul>
+<li><a href="http://octopress.org/docs/setup/">Octopress Setup</a></li>
+<li><a href="http://octopress.org/docs/deploying/github/">Deploying to Github Pages</a></li>
+<li><a href="http://octopress.org/docs/configuring/">Configuring Octopress</a></li>
+</ul>
+
+
+<p>コマンドのみ簡単にまとめておく. なお, gitとRuby 1.9.3が必要. また, 前もってgithubに<code>USERNAME.github.io</code>というリポジトリを作っておくこと.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>octopress
+</span><span class='line'><span class="nv">$ </span>bundle install
+</span><span class='line'><span class="nv">$ </span>rake install
+</span><span class='line'><span class="nv">$ </span>rake setup_github_pages <span class="c"># Github PagesのリポジトリURLを聞かれるので入力</span>
+</span><span class='line'><span class="nv">$ </span>rake generate
+</span><span class='line'><span class="nv">$ </span>rake deploy <span class="c"># ページが見れるようになるまで10分程かかる</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git add .
+</span><span class='line'><span class="nv">$ </span>git commit -m <span class="s1">&#39;your message&#39;</span>
+</span><span class='line'><span class="nv">$ </span>git push origin <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ブログの設定は<code>_config.yml</code>に記入する. 内容は<a href="http://octopress.org/docs/configuring/">Configuring Octopress</a>を見るとよい. 終わったら<code>rake gen_deploy</code>(generate + deploy)して設定を反映しておくのを忘れずに. なお, 新規に記事を投稿する方法は<a href="http://nomnel.net/blog/how-to-post-on-octopress/">こちら</a>.</p>
+
+<hr />
+
+<h3>記事の移行</h3>
+
+<p><a href="https://github.com/benbalter/wordpress-to-jekyll-exporter">WordPress to Jekyll Exporter</a>を使う.</p>
+
+<ol>
+<li><code>wp-content/plugins/</code>の下に<code>git clone</code></li>
+<li>WordPressの管理画面からプラグインを有効化</li>
+<li>ツールからExport to Jekyllを選択</li>
+<li>zipファイルがダウンロードされるので解凍</li>
+<li>_postsフォルダを<code>source/_posts</code>と入れ替え</li>
+<li><code>rake generate</code>してみる -> もしエラーが出たら<a href="http://nomnel.net/blog/octopress-cant-generate-including-multibyte-url/">ここ</a>を見る</li>
+<li>各記事のpermalink行を削除</li>
+<li>画像へのリンクが壊れているので修正</li>
+<li>画像をDropboxのpublicフォルダへ</li>
+<li>画像のURLをDropboxを指すように変更</li>
+</ol>
+
+
+<p>7.は各記事(<code>YYYY-MM-DD-article-title.md</code>)の冒頭に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>---
+</span><span class='line'>title: 記事タイトル
+</span><span class='line'>author: 筆者
+</span><span class='line'>layout: post
+</span><span class='line'>permalink: /article-title/
+</span><span class='line'>categories:
+</span><span class='line'>  - foo
+</span><span class='line'>tags:
+</span><span class='line'>  - bar
+</span><span class='line'>---
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>と書かれているうちの, permalinkの行を削除するという意味. これがあると<code>_config.yml</code>で<code>permalink: /blog/:title/</code>のように設定してあっても上書きしてしまうので.</p>
+
+<p>8.は, なぜか</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="o">[</span>!<span class="o">[</span>foo<span class="o">][</span>11<span class="o">]][</span>11<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'> <span class="o">[]</span>: http://nomnel.net/blog/wp-content/uploads/2012/09/bar.jpeg
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>のようになっているので,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>!<span class="o">[</span>foo<span class="o">](</span>http://nomnel.net/blog/wp-content/uploads/2012/09/bar.jpeg<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>等の形式に変える必要があるということ.</p>
+
+<hr />
+
+<h3>カスタムドメインの設定</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;your-domain.com&#39;</span> &gt;&gt; <span class="nb">source</span>/CNAME
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>として, 次にDNSの設定を変更する. <code>example.com</code>のようなトップレベルドメインの場合, Aレコードで<code>204.232.175.78</code>を指す. <code>www.example.com</code>のようなサブドメインの場合, CNAMEレコードで<code>USERNAME.github.io</code>を指すようにする. (参考: <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">Setting up a custom domain with Pages</a>)</p>
+
+<p>しばらく待てば反映されて, 指定のドメインで開けるようになる.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[インターン33日目]]></title>
+    <link href="http://nomnel.github.io/blog/fjord-day33/"/>
+    <updated>2013-04-18T20:30:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/fjord-day33</id>
+    <content type="html"><![CDATA[<h3>今日やったこと</h3>
+
+<ol>
+<li><a href="http://256interns.com/practices/40">sorceryを使ってユーザー認証を実装する</a></li>
+<li><a href="http://256interns.com/practices/47">capybaraを使ってrequest specを書く</a></li>
+<li><a href="http://256interns.com/practices/41">sorceryを使ってTwitter認証を作る</a></li>
+</ol>
+
+
+<!-- more -->
+
+
+<p>1.は昨夜だけれども. <a href="http://nomnel.net/blog/fjord-day32/">昨日の日記</a>で書いたように変なつまずきはあったけど, それ以外は順調.</p>
+
+<p>2.は特に問題なし.</p>
+
+<p>3.はTwitterで認証終わった後のコールバックURLが, 変更しても変更しても全然反映されてなくてアイエエエエ! ローカルホスト!? ローカルホストナンデ!? ってなってた. Powを使ってたのでアプリが再起動せず, <code>config/initializers/sorcery.rb</code>の変更が読み込まれてなかったのが原因. つらい.</p>
+
+<p>悔しいので<code>~/.zshrc</code>に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">alias </span><span class="nv">repow</span><span class="o">=</span><span class="s1">&#39;touch ~/.pow/restart.txt&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>を追加しといた.</p>
+
+<p>もう, 何も怖くない.</p>
+
+<h3>明日</h3>
+
+<ol>
+<li><a href="http://256interns.com/practices/43">paperclipを使って画像アップロード機能を作る</a></li>
+<li><a href="http://256interns.com/practices/49">unicornを使ってrailsアプリを動かす</a></li>
+</ol>
+
+
+<p>をやる.</p>
+
+<p>後, <a href="https://github.com/fjordllc/interns/issues/32">課題にブログ記事を投稿出来る機能 · Issue #32 · fjordllc/interns</a>を見て思ったんだけど, この日記, 他のインターンにとって全く役に立たない. ただ, この日記にやったことの詳細(ユーザ認証機能の実装手順とか)を混ぜると非常に読みにくくなることは間違いないので, 各プラクティス毎にノート的な記事(作業記録？)書くのが良さそう.</p>
+
+<p>【追記】<a href="http://256interns.com/practices/52">256インターンの進め方</a>にも</p>
+
+<blockquote><p>ブログはただの日記ではなく, 今後このチュートリアルを進めていく人にとっての教科書になるような内容を目指す</p></blockquote>
+
+<p>って書いてあった. つらい.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHPのインストールと設定(CentOS 6) - 飲んだり寝たり</title>
+  <meta name="author" content="nomnel">
+
+  
+  <meta name="description" content="さくらのVPSでMySQLをインストール, 設定した手順の覚え書き. 目次 インストール
+設定ファイルの編集 インストール yumでPHP関連のものをまるっと入れておく. $ sudo yum -y install php php-devel php-mbstring php-mysql php- &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nomnel.github.io/blog/install-php">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35053482-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">飲んだり寝たり</a></h1>
+  
+    <h2>だいたいメモ</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nomnel.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHPのインストールと設定(CentOS 6)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>さくらのVPSでMySQLをインストール, 設定した手順の覚え書き.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>インストール</li>
+<li>設定ファイルの編集</li>
+</ol>
+
+
+<hr />
+
+<h3>インストール</h3>
+
+<p>yumでPHP関連のものをまるっと入れておく.</p>
+
+<pre><code>$ sudo yum -y install php php-devel php-mbstring php-mysql php-mcrypt php-gd php-pear php-pecl-apc
+
+# バージョン確認
+$ php -v    # -&gt; 5.3.3
+</code></pre>
+
+<hr />
+
+<h3>設定ファイルの編集</h3>
+
+<p>設定ファイルのバックアップをとってから編集する.</p>
+
+<pre><code>$ sudo cp /etc/php.ini /etc/php.ini.org
+$ sudo vi /etc/php.ini
+</code></pre>
+
+<p>変更内容は以下. (<a href="http://dotinstall.com/lessons/basic_sakura_vps/8015">参照:ドットインストール</a>)</p>
+
+<pre><code>エラーログの保存場所を変更
+;error_log = php_errors.log
+-&gt;
+error_log = /var/log/php_errors.log
+
+日本語の設定を有効に
+;mbstring.language = Japanese
+-&gt;
+mbstring.language = Japanese
+
+内部エンコーディングをUTF-8に変更
+;mbstring.internal_encoding = EUC-JP
+-&gt;
+mbstring.internal_encoding = UTF-8
+
+HTTPでの入力のエンコーディング
+;mbstring.http_input = auto
+-&gt;
+mbstring.http_input = auto
+
+エンコーディングの自動判別
+;mbstring.detect_order = auto
+-&gt;
+mbstring.detect_order = auto
+
+PHP情報をメッセージヘッダに記述しない
+expose_php = On
+-&gt;
+expose_php = Off
+
+タイムゾーンの設定
+;date.timezone =
+-&gt;
+date.timezone = Asia/Tokyo
+</code></pre>
+
+<p>終わったら設定を有効にするためにhttpdを再起動する.</p>
+
+<pre><code>$ sudo service httpd restart
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">nomnel</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/howto/'>howto</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.github.io/blog/install-php/" data-via="nomnel" data-counturl="http://nomnel.github.io/blog/install-php/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/install-mysql/" title="Previous Post: MySQLのインストールと設定(CentOS 6)">&laquo; MySQLのインストールと設定(CentOS 6)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/install-wordpress/" title="Next Post: さくらのVPSにWordPressをインストール">さくらのVPSにWordPressをインストール &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/centos-take-over-path-from-user-on-sudo/">sudo時にPATHを引き継ぐ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day42/">インターン42日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/confirm-centos-version/">CentOSのバージョンとアーキテクチャの確認</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day41/">インターン41日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day39/">インターン39日目</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - nomnel -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'nomnel';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

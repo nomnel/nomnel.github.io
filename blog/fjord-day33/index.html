@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>インターン33日目 - 飲んだり寝たり</title>
+  <meta name="author" content="nomnel">
+
+  
+  <meta name="description" content="今日やったこと sorceryを使ってユーザー認証を実装する
+capybaraを使ってrequest specを書く
+sorceryを使ってTwitter認証を作る 1.は昨夜だけれども. 昨日の日記で書いたように変なつまずきはあったけど, それ以外は順調. 2.は特に問題なし. 3. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nomnel.github.io/blog/fjord-day33">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35053482-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">飲んだり寝たり</a></h1>
+  
+    <h2>だいたいメモ</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nomnel.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">インターン33日目</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-18T20:30:00+09:00" pubdate data-updated="true">Apr 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>今日やったこと</h3>
+
+<ol>
+<li><a href="http://256interns.com/practices/40">sorceryを使ってユーザー認証を実装する</a></li>
+<li><a href="http://256interns.com/practices/47">capybaraを使ってrequest specを書く</a></li>
+<li><a href="http://256interns.com/practices/41">sorceryを使ってTwitter認証を作る</a></li>
+</ol>
+
+
+<!-- more -->
+
+
+<p>1.は昨夜だけれども. <a href="http://nomnel.net/blog/fjord-day32/">昨日の日記</a>で書いたように変なつまずきはあったけど, それ以外は順調.</p>
+
+<p>2.は特に問題なし.</p>
+
+<p>3.はTwitterで認証終わった後のコールバックURLが, 変更しても変更しても全然反映されてなくてアイエエエエ! ローカルホスト!? ローカルホストナンデ!? ってなってた. Powを使ってたのでアプリが再起動せず, <code>config/initializers/sorcery.rb</code>の変更が読み込まれてなかったのが原因. つらい.</p>
+
+<p>悔しいので<code>~/.zshrc</code>に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">alias </span><span class="nv">repow</span><span class="o">=</span><span class="s1">&#39;touch ~/.pow/restart.txt&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>を追加しといた.</p>
+
+<p>もう, 何も怖くない.</p>
+
+<h3>明日</h3>
+
+<ol>
+<li><a href="http://256interns.com/practices/43">paperclipを使って画像アップロード機能を作る</a></li>
+<li><a href="http://256interns.com/practices/49">unicornを使ってrailsアプリを動かす</a></li>
+</ol>
+
+
+<p>をやる.</p>
+
+<p>後, <a href="https://github.com/fjordllc/interns/issues/32">課題にブログ記事を投稿出来る機能 · Issue #32 · fjordllc/interns</a>を見て思ったんだけど, この日記, 他のインターンにとって全く役に立たない. ただ, この日記にやったことの詳細(ユーザ認証機能の実装手順とか)を混ぜると非常に読みにくくなることは間違いないので, 各プラクティス毎にノート的な記事(作業記録？)書くのが良さそう.</p>
+
+<p>【追記】<a href="http://256interns.com/practices/52">256インターンの進め方</a>にも</p>
+
+<blockquote><p>ブログはただの日記ではなく, 今後このチュートリアルを進めていく人にとっての教科書になるような内容を目指す</p></blockquote>
+
+<p>って書いてあった. つらい.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">nomnel</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-18T20:30:00+09:00" pubdate data-updated="true">Apr 18<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/diary/'>diary</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.github.io/blog/fjord-day33/" data-via="nomnel" data-counturl="http://nomnel.github.io/blog/fjord-day33/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/octopress-cant-generate-including-multibyte-url/" title="Previous Post: Octopressでrake generateに失敗する">&laquo; Octopressでrake generateに失敗する</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/wordpress-to-octopress/" title="Next Post: WordpressからOctopressに移行する">WordpressからOctopressに移行する &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/centos-take-over-path-from-user-on-sudo/">sudo時にPATHを引き継ぐ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day42/">インターン42日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/confirm-centos-version/">CentOSのバージョンとアーキテクチャの確認</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day41/">インターン41日目</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-day39/">インターン39日目</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - nomnel -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'nomnel';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nomnel.github.io/blog/fjord-day33/';
+        var disqus_url = 'http://nomnel.github.io/blog/fjord-day33/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
