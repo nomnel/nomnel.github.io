@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.github.io/atom.xml" rel="self"/>
   <link href="http://nomnel.github.io/"/>
-  <updated>2013-05-04T17:34:47+09:00</updated>
+  <updated>2013-05-04T20:01:11+09:00</updated>
   <id>http://nomnel.github.io/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,118 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JenkinsにOctopressのデプロイを任せる]]></title>
+    <link href="http://nomnel.github.io/blog/jenkins-deploys-octopress/"/>
+    <updated>2013-05-04T20:00:00+09:00</updated>
+    <id>http://nomnel.github.io/blog/jenkins-deploys-octopress</id>
+    <content type="html"><![CDATA[<p>BitbucketにOctopressのsourceブランチを置き, pushしたらJenkinsがGithub pageにデプロイするようにする.</p>
+
+<h3>目次</h3>
+
+<ol>
+<li>環境</li>
+<li>公開鍵認証用の鍵の生成と登録</li>
+<li>プラグインのインストール</li>
+<li>ジョブを作成</li>
+<li><p>確認</p></li>
+<li><p>Jenkinsのインストールは<a href="http://nomnel.net/blog/install-jenkins/">こちら</a></p></li>
+<li>Octopressインストールは<a href="http://nomnel.net/blog/wordpress-to-octopress/">こちら</a></li>
+</ol>
+
+
+<h3>環境</h3>
+
+<ul>
+<li>CentOS release 6.4 (Final)</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>公開鍵認証用の鍵の生成と登録</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">cd</span> /var/lib/jenkins
+</span><span class='line'>sudo -u jenkins -H ssh-keygen -t rsa
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>パスフレーズは設定しない. 出来た公開鍵(<code>/var/lib/jenkins/.ssh/id_rsa.pub</code>)の中身をBitbucketとGithubに登録しておく.</p>
+
+<p>また, BitbucketとGithubに接続してknown hostsに加えておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo -u jenkins git ls-remote -h git@github.com:user/repo.git HEAD
+</span><span class='line'>sudo -u jenkins git ls-remote -h git@bitbucket.org:user/repo.git HEAD
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>プラグインのインストール</h3>
+
+<p>Manage Jenkins > Manage Plugins > Availableと進み, Git pluginとrbenv pluginにチェックを入れてInstall without restartをクリック.</p>
+
+<h3>ジョブを作成</h3>
+
+<ol>
+<li>トップページでNew Jobをクリック</li>
+<li>Job nameを記入し, Build a free-style software projectを選択してOKをクリック</li>
+</ol>
+
+
+<p>これで新しいジョブが作成される. 詳細設定は以下のようにする.</p>
+
+<ol>
+<li>Source Code Management: Git</li>
+<li>Repository URL: <code>git@bitbucket.org:user/repo.git</code></li>
+<li>Branches to build: <code>source</code></li>
+<li>Build Triggers: Poll SCM (Scheduleは空白)</li>
+<li>Build Environment: Rbenv build wrapperにチェック
+
+<ul>
+<li>Version: 1.9.3-p194</li>
+<li>Preinstall gem list: bundler,rake</li>
+</ul>
+</li>
+<li>Build > Add build step > Execute shell
+
+<ul>
+<li>Command: 下に記載</li>
+</ul>
+</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/var/lib/jenkins/.rbenv/bin:$PATH&quot;</span>
+</span><span class='line'><span class="nb">eval</span> <span class="s2">&quot;$(rbenv init -)&quot;</span>
+</span><span class='line'>rbenv <span class="nb">exec </span>bundle install --path vendor/bundle
+</span><span class='line'>rbenv <span class="nb">exec </span>bundle <span class="nb">exec </span>rake setup_github_pages<span class="se">\[</span>git@github.com:nomnel/nomnel.github.io.git<span class="se">\]</span>
+</span><span class='line'>rbenv <span class="nb">exec </span>bundle <span class="nb">exec </span>rake gen_deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2回目以降は<code>setup_github_pages</code>の行は必要ないので消してもよい.</p>
+
+<h3>トリガの登録</h3>
+
+<p>参考: <a href="http://kohsuke.org/2011/12/01/polling-must-die-triggering-jenkins-builds-from-a-git-hook/">Kohsuke Kawaguchi » Polling must die: triggering Jenkins builds from a git hook</a></p>
+
+<p>BitbucketのリポジトリのServicesでPOSTを追加. URLは<code>http://your.domain/jenkins/git/notifyCommit?url=git@bitbucket.org:user/repo.git</code>のようにする.</p>
+
+<p>ブラウザ等で実際にURLにアクセスしてみてJobが実行されればOK.</p>
+
+<p>これでBitbucketにpushするとJenkinsに通知が行って, Github pageにデプロイしてくれるようになった.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CentOSでsystem wideなrbenv+ruby-build環境を構築する]]></title>
@@ -1315,60 +1427,6 @@
 <p>として, 次にDNSの設定を変更する. <code>example.com</code>のようなトップレベルドメインの場合, Aレコードで<code>204.232.175.78</code>を指す. <code>www.example.com</code>のようなサブドメインの場合, CNAMEレコードで<code>USERNAME.github.io</code>を指すようにする. (参考: <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">Setting up a custom domain with Pages</a>)</p>
 
 <p>しばらく待てば反映されて, 指定のドメインで開けるようになる.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン33日目]]></title>
-    <link href="http://nomnel.github.io/blog/fjord-day33/"/>
-    <updated>2013-04-18T20:30:00+09:00</updated>
-    <id>http://nomnel.github.io/blog/fjord-day33</id>
-    <content type="html"><![CDATA[<h3>今日やったこと</h3>
-
-<ol>
-<li><a href="http://256interns.com/practices/40">sorceryを使ってユーザー認証を実装する</a></li>
-<li><a href="http://256interns.com/practices/47">capybaraを使ってrequest specを書く</a></li>
-<li><a href="http://256interns.com/practices/41">sorceryを使ってTwitter認証を作る</a></li>
-</ol>
-
-
-<!-- more -->
-
-
-<p>1.は昨夜だけれども. <a href="http://nomnel.net/blog/fjord-day32/">昨日の日記</a>で書いたように変なつまずきはあったけど, それ以外は順調.</p>
-
-<p>2.は特に問題なし.</p>
-
-<p>3.はTwitterで認証終わった後のコールバックURLが, 変更しても変更しても全然反映されてなくてアイエエエエ! ローカルホスト!? ローカルホストナンデ!? ってなってた. Powを使ってたのでアプリが再起動せず, <code>config/initializers/sorcery.rb</code>の変更が読み込まれてなかったのが原因. つらい.</p>
-
-<p>悔しいので<code>~/.zshrc</code>に</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">alias </span><span class="nv">repow</span><span class="o">=</span><span class="s1">&#39;touch ~/.pow/restart.txt&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>を追加しといた.</p>
-
-<p>もう, 何も怖くない.</p>
-
-<h3>明日</h3>
-
-<ol>
-<li><a href="http://256interns.com/practices/43">paperclipを使って画像アップロード機能を作る</a></li>
-<li><a href="http://256interns.com/practices/49">unicornを使ってrailsアプリを動かす</a></li>
-</ol>
-
-
-<p>をやる.</p>
-
-<p>後, <a href="https://github.com/fjordllc/interns/issues/32">課題にブログ記事を投稿出来る機能 · Issue #32 · fjordllc/interns</a>を見て思ったんだけど, この日記, 他のインターンにとって全く役に立たない. ただ, この日記にやったことの詳細(ユーザ認証機能の実装手順とか)を混ぜると非常に読みにくくなることは間違いないので, 各プラクティス毎にノート的な記事(作業記録？)書くのが良さそう.</p>
-
-<p>【追記】<a href="http://256interns.com/practices/52">256インターンの進め方</a>にも</p>
-
-<blockquote><p>ブログはただの日記ではなく, 今後このチュートリアルを進めていく人にとっての教科書になるような内容を目指す</p></blockquote>
-
-<p>って書いてあった. つらい.</p>
 ]]></content>
   </entry>
   

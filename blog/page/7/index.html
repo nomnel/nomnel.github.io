@@ -9,8 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Debian (squeeze) 64bit をVirtualBoxにインストールの続き. とりあえず, 作業用ユーザがsudo出来るようにする. rootでログインし, 以下のコマンドを実行する. ここでnomnelは作業用ユーザの名前. # apt-get update
-# apt-get &hellip;">
+  <meta name="description" content="Debianでsudoを使えるように,Debianのコンソールで日本語を表示の続き. インストール自体は1行目のみ. 2行目で設定ファイルのバックアップをとって, 3行目で編集する. $ sudo apt-get install ssh $ sudo cp /etc/ssh/sshd_config &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debian-install-ssh/">Debianにsshのインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://nomnel.net/blog/debian-enable-sudo/">Debianでsudoを使えるように</a>,<a href="http://nomnel.net/blog/debian-enable-japanese/">Debianのコンソールで日本語を表示</a>の続き.</p>
+
+<p>インストール自体は1行目のみ. 2行目で設定ファイルのバックアップをとって, 3行目で編集する.</p>
+
+<pre><code>$ sudo apt-get install ssh
+
+$ sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.org
+$ sudo vi /etc/ssh/sshd_config
+</code></pre>
+
+<p>ここではとりあえずrootでのログインを禁止しておくだけ. その他の設定は<a href="http://nomnel.net/blog/sakura-vps-first-steps/">さくらのVPSで最初にやっておくこと</a>を見てほしい.</p>
+
+<pre><code>PermitRootLogin yes
+-&gt;
+PermitRootLogin no
+</code></pre>
+
+<p>VMだしPort変更とかはする必要無いと思う. 終わったら</p>
+
+<pre><code>$ sudo /etc/init.d/ssh restart
+</code></pre>
+
+<p>して設定を有効化しておく.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -683,106 +740,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/st2-scheme-syntax/">Sublime Text 2でScheme(Gauche)のシンタックスハイライトができるようにした
-</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-13T00:00:00+09:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(追記)まとめ -> <a href="http://nomnel.net/blog/st2-gauche/">Sublime Text 2でGaucheコードを書くために</a>(追記終)</p>
-
-<p>Emacs(or vim)以外のエディタも使ってみようと, <a href="http://www.sublimetext.com/">Sublime Text 2</a>(以下, ST2)を選んでみた.</p>
-
-<ul>
-<li><a href="http://blog.agektmr.com/2012/05/sublime-text-2.html">Sublime Text 2 のススメ</a></li>
-<li><a href="http://d.hatena.ne.jp/mizchi/20111021/1319167480">プログラミングエディタ Sublime Text2 を使ってみよう！</a></li>
-<li>Emacs, Vim, Sublime Text 2 徹底比較(リンク切れ)</li>
-</ul>
-
-
-<p>個人的には, あまりカスタマイズしなくてもそこそこ使える 曖昧検索できるコマンドパレットが気に入った. 見た目も綺麗.</p>
-
-<p>ただ, Schemeのシンタックスハイライトが無い.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/st2-scheme-syntax.jpeg" alt="シンタックスハイライトされた.scmファイル" /></p>
-
-<hr />
-
-<h3>目次</h3>
-
-<ol>
-<li>準備</li>
-<li>インストール</li>
-<li>次の予定</li>
-<li>キーワード選定の方針</li>
-</ol>
-
-
-<hr />
-
-<h3>準備</h3>
-
-<p>まだST2をインストールしていなければインストールする. <a href="http://www.sublimetext.com/">公式サイト</a>の下のダウンロードボタンから.</p>
-
-<p>次にST2にパッケージマネージャの<a href="http://wbond.net/sublime_packages/package_control">Package Control</a>をインストールする. <code>control   &amp;#096;</code>でコンソールを開き, 下のワンライナーをコピペしてEnter. インストールが終わったらST2を再起動する.</p>
-
-<pre><code>import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/' pf.replace(' ',' ')).read()); print 'Please restart Sublime Text to finish installation'
-</code></pre>
-
-<hr />
-
-<h3>インストール</h3>
-
-<p>無理して英語で書いた<a href="https://github.com/nomnel/Sublime-Gauche-Syntax#readme">README</a>を見てもらうのはアレなので日本語でも書いておく.</p>
-
-<p>以下は, コマンドパレット(<code>Command Shift P</code>)で行う.</p>
-
-<ol>
-<li>Package Control: Add Repository を選択し, https://github.com/nomnel/Sublime-Gauche-Syntaxを追加</li>
-<li>Package Control: Install Package を選択し, Sublime-Gauche-Syntax をインストール</li>
-<li>ST2を再起動</li>
-</ol>
-
-
-<p>この状態で.scmファイルを開くと, Lispがシンタックスとして選択されている(画面右下). ので, シンタックス欄をクリック -> open all with current extension as… -> Sublime-Gauche-Syntax -> Gauche を選択して拡張子と関連付ける.</p>
-
-<p>これで.scmファイルがシンタックスハイライトされるようになった.</p>
-
-<hr />
-
-<h3>次の予定</h3>
-
-<p>REPLが無いなんてありえない. 次はREPLを呼び出せるようにする.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -798,6 +755,10 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a>
+      </li>
     
       <li class="post">
         <a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a>
@@ -833,10 +794,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     
       <li class="post">
         <a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day39/">インターン39日目</a>
       </li>
     
   </ul>

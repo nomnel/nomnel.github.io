@@ -9,20 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="こんな感じに失敗するとき, 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-$ rake generate
-## Generating Site with Jekyll
-identical source/stylesheets/screen.css
-Configuration from /Users/ &hellip;">
+  <meta name="description" content="今日やったこと sorceryを使ってユーザー認証を実装する
+capybaraを使ってrequest specを書く
+sorceryを使ってTwitter認証を作る ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,6 +79,54 @@ Configuration from /Users/ &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day33/">インターン33日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-18T20:30:00+09:00" pubdate data-updated="true">Apr 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>今日やったこと</h3>
+
+<ol>
+<li><a href="http://256interns.com/practices/40">sorceryを使ってユーザー認証を実装する</a></li>
+<li><a href="http://256interns.com/practices/47">capybaraを使ってrequest specを書く</a></li>
+<li><a href="http://256interns.com/practices/41">sorceryを使ってTwitter認証を作る</a></li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/fjord-day33/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -574,53 +611,6 @@ Configuration from /Users/ &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day27/">インターン27日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-09T00:00:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今日は町田さんに”怖い話に表紙を付けれるようにする”のデザイン入れをお願いして, ”怖話のメンバ登録時にエラー”が出ていたものの原因究明とその対策をした. エラーはこんな感じ</p>
-
-<pre><code>registrations#create (ActiveRecord::RecordNotUnique) "Mysql2::Error: Duplicate entry 'hoge@fuga.com...
-
-An ActiveRecord::RecordNotUnique occurred in registrations#create:
-</code></pre>
-
-<p>原因と対策は<a href="http://nomnel.net/blog/rails-record-not-unique-and-disable-with-option/">ActiveRecord::RecordNotUnique例外の発生をdisable_withで防ぐ</a>に書いた通り.</p>
-
-<p>全てのsubmitで<code>disabel_with</code>オプションを使用するように修正してプルリクした.</p>
-
-<p>明日は今やっている作業を終わらして, SNSとの連携解除機能に取り組むつもり.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -636,6 +626,10 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a>
+      </li>
     
       <li class="post">
         <a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a>
@@ -671,10 +665,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     
       <li class="post">
         <a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day39/">インターン39日目</a>
       </li>
     
   </ul>
