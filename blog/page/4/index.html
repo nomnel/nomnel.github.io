@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日は町田さんに”怖い話に表紙を付けれるようにする”のデザイン入れをお願いして, ”怖話のメンバ登録時にエラー”が出ていたものの原因究明とその対策をした. エラーはこんな感じ registrations#create (ActiveRecord::RecordNotUnique) "Mysql2 &hellip;">
+  <meta name="description" content="OSX で rbenv を使って ruby 1.9.3-p392 インストール – Under Construction Always! ↑によるとp385以降, オプション指定無しだとエラーが出てインストール失敗するようになったらしいので $ CFLAGS=-Wno-error=shorten- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-ruby-1-9-3-p392/">Ruby1.9.3-p392をインストールする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-09T00:00:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://blog.d6rkaiz.com/archives/2013/02/23/install-ruby-1-dot-9-3-p392-with-rbenv-on-osx/">OSX で rbenv を使って ruby 1.9.3-p392 インストール – Under Construction Always!</a></p>
+
+<p>↑によるとp385以降, オプション指定無しだとエラーが出てインストール失敗するようになったらしいので</p>
+
+<pre><code>$ CFLAGS=-Wno-error=shorten-64-to-32 rbenv install 1.9.3-p392
+</code></pre>
+
+<p>としてやればよい(らしい).</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -584,103 +627,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/clean-rails-env/">クリーンなRails開発環境の構築</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-28T00:00:00+09:00" pubdate data-updated="true">Mar 28<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://qiita.com/items/a60886152a4c99ce1017">Rails開発環境の構築（rbenvでRuby導入からBundler, Rails導入まで）- Qiita</a>が長かったので自分用に再編集 追加してメモ.</p>
-
-<h3>Bundler(のみ)のインストール</h3>
-
-<p>rbenv環境にインストールされた全てのgemをアンインストール(Bundler以外はrbenv環境に入れないという原理主義に馴染めなければ飛ばしてよい)</p>
-
-<pre><code>$ rbenv exec gem list | awk '{print "rbenv exec gem uninstall " $1}' | sh -xv
-</code></pre>
-
-<p>して, Bundlerのみ入れなおす.</p>
-
-<pre><code>$ rbenv exec gem install bundler
-$ rbenv rehash
-</code></pre>
-
-<h3>本番</h3>
-
-<p>Railsのインストール</p>
-
-<pre><code>$ cd /PATH/TO/Railsプロジェクトを作成したいディレクトリ
-
-$ cat  Gemfile
-source "http://rubygems.org"
-gem "rails", "3.2.13"
-EOS
-
-$ bundle install --path vendor/bundle
-</code></pre>
-
-<p>プロジェクトの作成</p>
-
-<pre><code>$ bundle exec rails new APPNAME --skip-bundle
-</code></pre>
-
-<p>不要となったファイルを削除してAPPNAMEディレクトリに移動</p>
-
-<pre><code>$ rm -f Gemfile
-$ rm -f Gemfile.lock
-$ rm -rf .bundle
-$ rm -rf vendor/bundle
-
-$ cd APPNAME
-</code></pre>
-
-<p>Gemfile に以下を追加</p>
-
-<pre><code>gem 'rspec-rails'
-</code></pre>
-
-<p>GemのインストールとRSpecの有効化</p>
-
-<pre><code>$ bundle install --path vendor/bundle
-$ rails g rspec:install
-</code></pre>
-
-<p>Git関係</p>
-
-<pre><code>$ git init
-$ echo '/vendor/bundle' &gt;&gt; .gitignore
-$ git add .
-$ git commit -m "initial commit"
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -696,6 +642,10 @@ $ git commit -m "initial commit"
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/fjord-day43/">インターン43日目</a>
+      </li>
     
       <li class="post">
         <a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a>
@@ -731,10 +681,6 @@ $ git commit -m "initial commit"
     
       <li class="post">
         <a href="/blog/fjord-day41/">インターン41日目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a>
       </li>
     
   </ul>

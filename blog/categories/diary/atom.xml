@@ -4,7 +4,7 @@
   <title><![CDATA[Category: diary | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/diary/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-04T20:20:34+09:00</updated>
+  <updated>2013-05-07T17:27:28+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[インターン43日目]]></title>
+    <link href="http://nomnel.net/blog/fjord-day43/"/>
+    <updated>2013-05-07T17:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/fjord-day43</id>
+    <content type="html"><![CDATA[<p>さて今日は、</p>
+
+<ol>
+<li>怖話投稿時のタグをフォーム10個に分ける</li>
+<li>Googleアナリティクスの結果をLingrで知りたい (途中)</li>
+</ol>
+
+
+<p>をしていた.</p>
+
+<!-- more -->
+
+
+<p>1は実装(と言っても3行だが)のみでデザインは町田さんにお願いした.</p>
+
+<p>2はrunnerのタスクとしてcronで定時に実行する方針. 明日には終わらせたい.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[インターン42日目]]></title>
@@ -168,35 +192,6 @@ Capybara::Webkit::InvalidResponseError:
 【追記終】</p>
 
 <p>後, 今日は来客だのなんだので割り込みが非常に多かった. 一日の半分以上取られた. 拒否しようにもお金を稼いでないやつに拒否権は無いらしい, つらい.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン37日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day37/"/>
-    <updated>2013-04-24T18:30:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day37</id>
-    <content type="html"><![CDATA[<p>さて今日は</p>
-
-<ol>
-<li>ユーザー個別ページの投稿した話の合計に下書きが含まれるので含まなくする</li>
-<li>怖いボタンの挙動が不自然(Ajax通信が終わる前に表示を変更していた)だったのを修正</li>
-<li>怖いボタンを押したらflashで通知が出る</li>
-</ol>
-
-
-<p>をしていた.</p>
-
-<!-- more -->
-
-
-<p>1.は条件を加えるだけなのですぐに終了.</p>
-
-<p>2.は, 3.に取り組もうとしたときに発見したので先にやっておいた.</p>
-
-<p>3.を実現するにはいくつか方法があるっぽいのだけれど, それを調べてる間に体調が酷くなって休んでしまった. ので, 続きはまた明日.</p>
-
-<p>それとは別に, 今日は駒形さんが休みなので, タスクが無くて困っている人がいたら割り振るように頼まれていた. 朝は「この人が来たらこのタスクお願いしよう…！」とか色々考えてたけど, 作業週の人はKuritaさんしか来ていなかったのでそれほど問題はなかった.</p>
 ]]></content>
   </entry>
   

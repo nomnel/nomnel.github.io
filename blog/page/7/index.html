@@ -9,7 +9,10 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Debianでsudoを使えるように,Debianのコンソールで日本語を表示の続き. インストール自体は1行目のみ. 2行目で設定ファイルのバックアップをとって, 3行目で編集する. $ sudo apt-get install ssh $ sudo cp /etc/ssh/sshd_config &hellip;">
+  <meta name="description" content="チュートリアルのインフラ編を進めていた. つもりだった. 5日目(一昨日)やったこと. Debian (squeeze) 64bitをVirtualBoxにインストール
+Debianでsudoを使えるように
+Debianのコンソールで日本語を表示
+Debianにsshのインストール 6日目(昨日 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +80,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day5-day7/">インターン5日目〜7日目 Debianさん</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>チュートリアルのインフラ編を進めていた. つもりだった.</p>
+
+<p>5日目(一昨日)やったこと.</p>
+
+<ul>
+<li><a href="http://nomnel.net/blog/install-debian-to-virtualbox/">Debian (squeeze) 64bitをVirtualBoxにインストール</a></li>
+<li><a href="http://nomnel.net/blog/debian-enable-sudo/">Debianでsudoを使えるように</a></li>
+<li><a href="http://nomnel.net/blog/debian-enable-japanese/">Debianのコンソールで日本語を表示</a></li>
+<li><a href="http://nomnel.net/blog/debian-install-ss/">Debianにsshのインストール</a></li>
+</ul>
+
+
+<p>6日目(昨日), 7日目(今日)はずっと寝てる. つれー, まじ体調不良つれーわー. 体調管理すらできなくてつれーわー.</p>
+
+<p>さて…</p>
+
+<p><img src="http://jigokuno.img.jugem.jp/20090603_1242958.gif" alt="みさわ" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -645,101 +700,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gauche-lazy-sequence/">Gaucheの遅延シーケンス</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-20T00:00:00+09:00" pubdate data-updated="true">Feb 20<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>環境: Gauche 0.9.3</p>
-
-<p>Gaucheで無限に続く列を表現するには<a href="http://practical-scheme.net/gauche/man/gauche-refj_57.html#g_t_00e9_0081_0085_00e5_00bb_00b6_00e3_0082_00b7_00e3_0083_00bc_00e3_0082_00b1_00e3_0083_00b3_00e3_0082_00b9">遅延シーケンス</a>を使う. 遅延シーケンスはgenerator->lseqにジェネレータ手続きを与えることで作成できる. ジェネレータ手続きとは引数を取らない手続きで, 呼ばれる度に次の値を返すようなもの. EOFが返されるとシーケンスの終了とみなされる. また, <a href="http://practical-scheme.net/gauche/man/gauche-refj_82.html#g_t_00e3_0082_00b8_00e3_0082_00a7_00e3_0083_008d_00e3_0083_00ac_00e3_0083_00bc_00e3_0082_00bf">gauche.generatorのgenerate</a>で作成できる.</p>
-
-<p>よって, 例えばフィボナッチ数列を表現するコードは以下のようになる.</p>
-
-<pre><code>(use gauche.generator) ; for generate
-
-(define fibs
-  (generator-&gt;lseq
-    (generate (^(yield) (let loop ((a 0) (b 1))
-                          (yield a) (loop b (  a b)))))))
-
-(take fibs 10) ;=&gt; (0 1 1 2 3 5 8 13 21 34)
-</code></pre>
-
-<p>これを使うと, 例えば<a href="http://projecteuler.net/problem=2">Project EulerのProblem 2</a> (400万以下のフィボナッチ数列について, 偶数項の合計を求めよ) は,</p>
-
-<pre><code>(use srfi-1) ; for take-while
-
-(define (e002)
-  ($ apply
-   $ filter (cut even? )
-   $ take-while (cut &lt;  4000000) fibs))
-</code></pre>
-
-<p>と書くことができる.</p>
-
-<h3>注意</h3>
-
-<p>※ 以下の引用部分とコードは, <a href="http://practical-scheme.net/gauche/man/gauche-refj_57.html#g_t_00e9_0081_0085_00e5_00bb_00b6_00e3_0082_00b7_00e3_0083_00bc_00e3_0082_00b1_00e3_0083_00b3_00e3_0082_00b9">Gauche ユーザリファレンス</a>から抜粋したもの.</p>
-
-<blockquote><ol>
-<li><p>遅延シーケンスを, 繰り返しによる怠惰なアルゴリズムから構築する際に, 遅延ペアのcdr側のみが遅延評価の対象となります. ペアのcar側は直ちに評価されます.</p></li>
-<li><p>Gaucheの遅延シーケンスは, 常にひとつ余分に評価します.  遅延ペアを手にした段階で, その中身にアクセスするかしないかにかかわらず,  既にそのcarは評価済みであるということです. {中略} 自分自身を参照する遅延データ構造, つまり, 遅延シーケンスの次の要素を計算するために そのシーケンスの前の方の要素を参照する必要がある場合は注意が必要です.</p></li>
-</ol>
-</blockquote>
-
-<p>上記の2.が問題となる具体的な例は以下のようなもの.</p>
-
-<pre><code>(use gauche.lazy)  ;; for lmap
-(define *fibs* (lcons* 0 1 (lmap   *fibs* (cdr *fibs*)))) ;; BUGGY
-
-(car *fibs*)
- ⇒ 0
-(cadr *fibs*)
- ⇒ *** ERROR: Attempt to recursively force a lazy pair.
-</code></pre>
-
-<blockquote><p><em>fibs</em>の二番目の要素(cadr)にアクセスするということは, <em>fibs</em>の二番目のペアのcarを取るということです. <em>fibs</em>の 二番目のペアは1と(lmap …)の遅延ペアになっています. carを取ろうとした時点でこの遅延ペアはforceされ, そのcdrが計算されます. lmapが最初に返さなければならないのは, <em>fibs</em>の一番目と二番目の 要素の和です. しかし<em>fibs</em>の二番目の要素は, 今まさにアクセスしようと している値です!</p>
-
-<p>この問題は, ある要素を計算するために直前の要素を参照しなければ回避できます.  フィボナッチ数はF(n) = F(n-1) F(n-2) = 2*F(n-2) F(n-3)と変形できるので,  遅延フィボナッチシーケンスはこう定義できます.</p></blockquote>
-
-<pre><code>(define *fibs*
-  (lcons* 0 1 1 (lmap (^[a b] (  a (* b 2))) *fibs* (cdr *fibs*))))
-
-(take *fibs* 20)
-  ⇒ (0 1 1 2 3 5 8 13 21 34 55 89 144 233
-     377 610 987 1597 2584 4181)
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -755,6 +715,10 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/fjord-day43/">インターン43日目</a>
+      </li>
     
       <li class="post">
         <a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a>
@@ -790,10 +754,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     
       <li class="post">
         <a href="/blog/fjord-day41/">インターン41日目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a>
       </li>
     
   </ul>

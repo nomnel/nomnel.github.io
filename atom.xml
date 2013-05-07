@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-04T20:20:34+09:00</updated>
+  <updated>2013-05-07T17:27:28+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[インターン43日目]]></title>
+    <link href="http://nomnel.net/blog/fjord-day43/"/>
+    <updated>2013-05-07T17:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/fjord-day43</id>
+    <content type="html"><![CDATA[<p>さて今日は、</p>
+
+<ol>
+<li>怖話投稿時のタグをフォーム10個に分ける</li>
+<li>Googleアナリティクスの結果をLingrで知りたい (途中)</li>
+</ol>
+
+
+<p>をしていた.</p>
+
+<!-- more -->
+
+
+<p>1は実装(と言っても3行だが)のみでデザインは町田さんにお願いした.</p>
+
+<p>2はrunnerのタスクとしてcronで定時に実行する方針. 明日には終わらせたい.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JenkinsにOctopressのデプロイを任せる]]></title>
@@ -1292,149 +1316,6 @@
 <li><a href="http://docs.komagata.org/3880">Paperclipで画像を保存 - komagata</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[WordpressからOctopressに移行する]]></title>
-    <link href="http://nomnel.net/blog/wordpress-to-octopress/"/>
-    <updated>2013-04-19T01:30:00+09:00</updated>
-    <id>http://nomnel.net/blog/wordpress-to-octopress</id>
-    <content type="html"><![CDATA[<p><a href="http://wired.jp/2013/04/15/huge-attack-on-wordpress-sites-could-spawn-never-before-seen-super-botnet/">この前のWordpressサイトへの大規模攻撃</a>で, 僕のところにもアラートメールがいっぱい飛んできて嫌になってしまったので, Github Pages + Octopress(画像はDropboxのpublicフォルダ)に移行することにした.</p>
-
-<h3>目次</h3>
-
-<ol>
-<li>Octopressのセットアップ</li>
-<li>記事の移行</li>
-<li>カスタムドメインの設定</li>
-</ol>
-
-
-<!-- more -->
-
-
-<hr />
-
-<h3>Octopressのセットアップ</h3>
-
-<p>基本的に<a href="http://octopress.org/">Octopress公式サイト</a>の以下のページを見て, その通りにやればよい.</p>
-
-<ul>
-<li><a href="http://octopress.org/docs/setup/">Octopress Setup</a></li>
-<li><a href="http://octopress.org/docs/deploying/github/">Deploying to Github Pages</a></li>
-<li><a href="http://octopress.org/docs/configuring/">Configuring Octopress</a></li>
-</ul>
-
-
-<p>コマンドのみ簡単にまとめておく. なお, gitとRuby 1.9.3が必要. また, 前もってgithubに<code>USERNAME.github.io</code>というリポジトリを作っておくこと.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>octopress
-</span><span class='line'><span class="nv">$ </span>bundle install
-</span><span class='line'><span class="nv">$ </span>rake install
-</span><span class='line'><span class="nv">$ </span>rake setup_github_pages <span class="c"># Github PagesのリポジトリURLを聞かれるので入力</span>
-</span><span class='line'><span class="nv">$ </span>rake generate
-</span><span class='line'><span class="nv">$ </span>rake deploy <span class="c"># ページが見れるようになるまで10分程かかる</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>git add .
-</span><span class='line'><span class="nv">$ </span>git commit -m <span class="s1">&#39;your message&#39;</span>
-</span><span class='line'><span class="nv">$ </span>git push origin <span class="nb">source</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ブログの設定は<code>_config.yml</code>に記入する. 内容は<a href="http://octopress.org/docs/configuring/">Configuring Octopress</a>を見るとよい. 終わったら<code>rake gen_deploy</code>(generate + deploy)して設定を反映しておくのを忘れずに. なお, 新規に記事を投稿する方法は<a href="http://nomnel.net/blog/how-to-post-on-octopress/">こちら</a>.</p>
-
-<hr />
-
-<h3>記事の移行</h3>
-
-<p><a href="https://github.com/benbalter/wordpress-to-jekyll-exporter">WordPress to Jekyll Exporter</a>を使う.</p>
-
-<ol>
-<li><code>wp-content/plugins/</code>の下に<code>git clone</code></li>
-<li>WordPressの管理画面からプラグインを有効化</li>
-<li>ツールからExport to Jekyllを選択</li>
-<li>zipファイルがダウンロードされるので解凍</li>
-<li>_postsフォルダを<code>source/_posts</code>と入れ替え</li>
-<li><code>rake generate</code>してみる -> もしエラーが出たら<a href="http://nomnel.net/blog/octopress-cant-generate-including-multibyte-url/">ここ</a>を見る</li>
-<li>各記事のpermalink行を削除</li>
-<li>画像へのリンクが壊れているので修正</li>
-<li>画像をDropboxのpublicフォルダへ</li>
-<li>画像のURLをDropboxを指すように変更</li>
-</ol>
-
-
-<p>7.は各記事(<code>YYYY-MM-DD-article-title.md</code>)の冒頭に</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>---
-</span><span class='line'>title: 記事タイトル
-</span><span class='line'>author: 筆者
-</span><span class='line'>layout: post
-</span><span class='line'>permalink: /article-title/
-</span><span class='line'>categories:
-</span><span class='line'>  - foo
-</span><span class='line'>tags:
-</span><span class='line'>  - bar
-</span><span class='line'>---
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>と書かれているうちの, permalinkの行を削除するという意味. これがあると<code>_config.yml</code>で<code>permalink: /blog/:title/</code>のように設定してあっても上書きしてしまうので.</p>
-
-<p>8.は, なぜか</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="o">[</span>!<span class="o">[</span>foo<span class="o">][</span>11<span class="o">]][</span>11<span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'> <span class="o">[]</span>: http://nomnel.net/blog/wp-content/uploads/2012/09/bar.jpeg
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のようになっているので,</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>!<span class="o">[</span>foo<span class="o">](</span>http://nomnel.net/blog/wp-content/uploads/2012/09/bar.jpeg<span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>等の形式に変える必要があるということ.</p>
-
-<hr />
-
-<h3>カスタムドメインの設定</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;your-domain.com&#39;</span> &gt;&gt; <span class="nb">source</span>/CNAME
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>として, 次にDNSの設定を変更する. <code>example.com</code>のようなトップレベルドメインの場合, Aレコードで<code>204.232.175.78</code>を指す. <code>www.example.com</code>のようなサブドメインの場合, CNAMEレコードで<code>USERNAME.github.io</code>を指すようにする. (参考: <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">Setting up a custom domain with Pages</a>)</p>
-
-<p>しばらく待てば反映されて, 指定のドメインで開けるようになる.</p>
 ]]></content>
   </entry>
   
