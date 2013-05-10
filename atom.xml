@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-07T17:27:28+09:00</updated>
+  <updated>2013-05-10T17:21:27+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,51 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[インターン46日目]]></title>
+    <link href="http://nomnel.net/blog/fjord-day46/"/>
+    <updated>2013-05-10T17:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/fjord-day46</id>
+    <content type="html"><![CDATA[<p>さて今日は,</p>
+
+<ol>
+<li>作業途中に気になった細かいもの3つ</li>
+<li>特選の怖い話を管理画面から編集できるようにする (途中)</li>
+</ol>
+
+
+<p>をしていた.</p>
+
+<!-- more -->
+
+
+<p>細かいものというのは以下.</p>
+
+<ol>
+<li><code>rake db:migrate</code>すると<code>db/schema.rb</code>が変更される(not nullの追加)
+ -> 変更漏れっぽいので適用</li>
+<li>先日&#8221;Google Analyticsの結果をLingrに通知&#8221;に取り組んだ際, client_idなどをベタ書きしていた
+ -> <code>config/settings/production.yml</code>などに移動</li>
+<li>管理者用の怖い話一覧画面で(多分)投稿者名を表示するところが<code>#&lt;User:0000000000&gt;</code>みたいになっていた
+ -> 投稿者名を表示するように修正</li>
+</ol>
+
+
+<p>特選の怖い話を管理画面から編集できるようにするタスクの方針は</p>
+
+<ol>
+<li>特選の怖い話を上述の<code>config/settings/*.yml</code>で管理していたのを怖い話テーブルに移動</li>
+<li>既存のcontrollerを修正</li>
+<li>管理者用の特選編集画面を追加</li>
+<li>特選から除外できるように</li>
+<li>特選に追加できるように</li>
+</ol>
+
+
+<p>といったところで今は4に取り組んでいるところ. 除外と追加は一画面で遷移無しに出来るようにしたいなー.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[インターン43日目]]></title>
@@ -1096,226 +1141,6 @@
 <p>をした. <!-- more -->相変わらずSpec書くのに手間取ったけど他は特に問題なし. 内容は<a href="http://nomnel.net/blog/rails-upload-image-using-paperclip/">RailsアプリにPaperclipを使って画像アップロード機能をつける</a>にまとめておいた.</p>
 
 <p>Paperclip, 中でImagemagickを使っているので大概の画像処理出来て便利. 怖話のタスクに画像処理系のがあったので来週この勢いでやってしまいたい.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RailsアプリにPaperclipを使って画像アップロード機能をつける]]></title>
-    <link href="http://nomnel.net/blog/rails-upload-image-using-paperclip/"/>
-    <updated>2013-04-19T18:30:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails-upload-image-using-paperclip</id>
-    <content type="html"><![CDATA[<h3>目次</h3>
-
-<ol>
-<li><a href="#a1">環境</a></li>
-<li><a href="#a2">インストール</a></li>
-<li><a href="#a3">実装</a></li>
-<li><a href="#a4">テスト</a></li>
-<li><a href="#a5">参考</a></li>
-</ol>
-
-
-<!-- more -->
-
-
-<h3><a id="a1">環境</a></h3>
-
-<ul>
-<li>Ruby: 2.0.0-p0</li>
-<li>Rails: 3.2.13</li>
-<li>paperclip: 3.4.1</li>
-</ul>
-
-
-<h3><a id="a2">インストール</a></h3>
-
-<p>ImageMagickが必要なので, 確認して無かったらインストールしておく.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>which convert  <span class="c"># 無かったら次でインストール</span>
-</span><span class='line'>brew install imagemagick
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>後はいつも通り, Gemfileに<code>gem 'paperclip'</code>を追加して<code>bundle install</code>すればよい.</p>
-
-<h3><a id="a3">実装</a></h3>
-
-<p>既存のUserモデルにアイコンとしてavatarを追加し, 登録, 編集, 表示が出来るようにする.</p>
-
-<p>まずは, <code>rails g paperclip user avatar</code>して<code>rake db:migrate</code>しておく.</p>
-
-<p>生成されたマイグレーションファイルの中身はこんな感じ.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddAttachmentAvatarToUsers</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
-</span><span class='line'>    <span class="n">change_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">attachment</span> <span class="ss">:avatar</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
-</span><span class='line'>    <span class="n">drop_attached_file</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:avatar</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>後は実装していく. <code>app/models/user.rb</code>に以下を追加.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">attr_accessible</span> <span class="ss">:avatar</span>
-</span><span class='line'>  <span class="n">has_attached_file</span> <span class="ss">:avatar</span><span class="p">,</span> <span class="ss">styles</span><span class="p">:</span> <span class="p">{</span> <span class="ss">medium</span><span class="p">:</span> <span class="s2">&quot;300x300&gt;&quot;</span><span class="p">,</span> <span class="ss">thumb</span><span class="p">:</span> <span class="s2">&quot;100x100&gt;&quot;</span> <span class="p">},</span> <span class="n">default_url</span><span class="p">:</span> <span class="s2">&quot;/system/missing/:style/missing.jpg&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">validates_attachment</span> <span class="ss">:avatar</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">content_type</span><span class="p">:</span> <span class="p">{</span> <span class="n">content_type</span><span class="p">:</span> <span class="o">[</span><span class="s2">&quot;image/jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;image/png&quot;</span><span class="o">]</span> <span class="p">},</span>
-</span><span class='line'>    <span class="ss">size</span><span class="p">:</span> <span class="p">{</span> <span class="n">less_than</span><span class="p">:</span> <span class="mi">2</span><span class="o">.</span><span class="n">megabytes</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>app/views/users/_form.html.erb</code>では, <code>&lt;%= form_for(@user) do |f| %&gt;</code>の中に</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">  &lt;div class=&quot;field&quot;&gt;</span>
-</span><span class='line'><span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:avatar</span> <span class="cp">%&gt;</span><span class="x">&lt;br /&gt;</span>
-</span><span class='line'><span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">file_field</span> <span class="ss">:avatar</span> <span class="cp">%&gt;</span><span class="x"></span>
-</span><span class='line'><span class="x">  &lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>を追加. <code>app/views/users/show.html.erb</code>では, 画像を表示させたい箇所に</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;p&gt;</span>
-</span><span class='line'><span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">image_tag</span> <span class="vi">@user</span><span class="o">.</span><span class="n">avatar</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="ss">:thumb</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
-</span><span class='line'><span class="x">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>を追加. これだけで登録, 編集, 表示が出来るようになった.</p>
-
-<h3><a id="a4">テスト</a></h3>
-
-<p>まず, <code>spec/spec_helper.rb</code>に以下を追加しておく.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s2">&quot;paperclip/matchers&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">include</span> <span class="ss">Paperclip</span><span class="p">:</span><span class="ss">:Shoulda</span><span class="o">::</span><span class="no">Matchers</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>spec/models/user_spec.rb</code>はこんな感じ.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">User</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_attached_file</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span> <span class="p">}</span>
-</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">validate_attachment_presence</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span> <span class="p">}</span>
-</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">validate_attachment_content_type</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span><span class="o">.</span>
-</span><span class='line'>                <span class="n">allowing</span><span class="p">(</span><span class="s1">&#39;image/jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;image/png&#39;</span><span class="p">)</span> <span class="p">}</span>
-</span><span class='line'>  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">validate_attachment_size</span><span class="p">(</span><span class="ss">:avatar</span><span class="p">)</span><span class="o">.</span>
-</span><span class='line'>                <span class="n">less_than</span><span class="p">(</span><span class="mi">2</span><span class="o">.</span><span class="n">megabytes</span><span class="p">)</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>spec/controllers/users_controller_spec.rb</code>はこんな感じになる.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">UsersController</span> <span class="k">do</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">valid_attributes</span>
-</span><span class='line'>    <span class="p">{</span> <span class="ss">username</span><span class="p">:</span> <span class="s2">&quot;MyString&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="ss">email</span><span class="p">:</span> <span class="s2">&quot;MyString&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="n">avatar_file_name</span><span class="p">:</span> <span class="s1">&#39;私のテキスト_n&#39;</span><span class="p">,</span>
-</span><span class='line'>      <span class="n">avatar_content_type</span><span class="p">:</span> <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-</span><span class='line'>      <span class="n">avatar_file_size</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span class='line'>      <span class="n">avatar_updated_at</span><span class="p">:</span> <span class="s1">&#39;2011-07-13 14:53:38&#39;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">valid_session</span>
-</span><span class='line'>    <span class="p">{}</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">describe</span> <span class="s2">&quot;GET show&quot;</span> <span class="k">do</span>
-</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;assigns the requested user as @user&quot;</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">create!</span> <span class="n">valid_attributes</span>
-</span><span class='line'>      <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="p">{</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">user</span><span class="o">.</span><span class="n">to_param</span><span class="p">},</span> <span class="n">valid_session</span>
-</span><span class='line'>      <span class="n">assigns</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span><span class="o">.</span><span class="n">should</span> <span class="n">eq</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3><a id="a5">参考</a></h3>
-
-<ul>
-<li><a href="https://github.com/thoughtbot/paperclip">thoughtbot/paperclip · GitHub</a></li>
-<li><a href="http://docs.komagata.org/3880">Paperclipで画像を保存 - komagata</a></li>
-</ul>
-
 ]]></content>
   </entry>
   
