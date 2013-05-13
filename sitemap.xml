@@ -345,15 +345,19 @@
         <lastmod>2013-05-10T17:21:17+09:00</lastmod>
     </url>
     <url>
+        <loc>http://nomnel.net/blog/rspec-haml-sass-on-rails/</loc>
+        <lastmod>2013-05-14T00:34:55+09:00</lastmod>
+    </url>
+    <url>
         <loc>http://nomnel.net/robots.txt</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
         <loc>http://nomnel.net/</loc>
-        <lastmod>2013-05-13T22:01:23+09:00</lastmod>
+        <lastmod>2013-05-14T00:34:55+09:00</lastmod>
     </url>
     <url>
         <loc>http://nomnel.net/blog/archives/</loc>
-        <lastmod>2013-05-13T22:01:23+09:00</lastmod>
+        <lastmod>2013-05-14T00:34:55+09:00</lastmod>
     </url>
 </urlset>

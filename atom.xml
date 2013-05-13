@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-13T22:01:32+09:00</updated>
+  <updated>2013-05-14T00:35:05+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RailsでRspecとHamlとSass使いたいとき]]></title>
+    <link href="http://nomnel.net/blog/rspec-haml-sass-on-rails/"/>
+    <updated>2013-05-14T00:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/rspec-haml-sass-on-rails</id>
+    <content type="html"><![CDATA[<p>よく忘れるのでメモしておく.</p>
+
+<!-- more -->
+
+
+<p><code>Gemfile</code>に以下を追加(sass-railsは標準で入ってるはず).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="n">gem</span> <span class="s1">&#39;rspec-rails&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;haml-rails&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>括弧とかセミコロン書きたくないので.scssではなく.sassが生成されるようにする. <code>config/application.rb</code>で次のように指定.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">module</span> <span class="nn">APPNAME</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="ss">Rails</span><span class="p">:</span><span class="ss">:Application</span>
+</span><span class='line'>    <span class="p">{</span> <span class="err">なんか色々</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">sass</span><span class="o">.</span><span class="n">preferred_syntax</span> <span class="o">=</span> <span class="ss">:sass</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これで<code>bundle install</code>すればよい.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>bundle install --path vendor/bundle
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>終わったらspecフォルダなどを生成しておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rails g rspec:install
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[インターン46日目]]></title>
@@ -1121,26 +1173,6 @@
 
 
 <p>となっている箇所を探す. この2行目の<code>ruby</code>を<code>/Users/username/.rbenv/shims/ruby</code>に変えればおーけー. <code>~/.rbenv/shims/ruby</code>でないことに注意.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン34日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day34/"/>
-    <updated>2013-04-19T19:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day34</id>
-    <content type="html"><![CDATA[<h3>今日</h3>
-
-<p>今日は午前中用事があって, 昼過ぎから</p>
-
-<ol>
-<li><a href="http://256interns.com/practices/43">paperclipを使って画像アップロード機能を作る</a></li>
-</ol>
-
-
-<p>をした. <!-- more -->相変わらずSpec書くのに手間取ったけど他は特に問題なし. 内容は<a href="http://nomnel.net/blog/rails-upload-image-using-paperclip/">RailsアプリにPaperclipを使って画像アップロード機能をつける</a>にまとめておいた.</p>
-
-<p>Paperclip, 中でImagemagickを使っているので大概の画像処理出来て便利. 怖話のタスクに画像処理系のがあったので来週この勢いでやってしまいたい.</p>
 ]]></content>
   </entry>
   

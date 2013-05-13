@@ -4,7 +4,7 @@
   <title><![CDATA[Category: howto | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/howto/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-13T22:01:32+09:00</updated>
+  <updated>2013-05-14T00:35:05+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,51 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RailsでRspecとHamlとSass使いたいとき]]></title>
+    <link href="http://nomnel.net/blog/rspec-haml-sass-on-rails/"/>
+    <updated>2013-05-14T00:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/rspec-haml-sass-on-rails</id>
+    <content type="html"><![CDATA[<p>よく忘れるのでメモしておく.</p>
+
+<!-- more -->
+
+
+<p><code>Gemfile</code>に以下を追加(sass-railsは標準で入ってるはず).</p>
+
+<p><code>rb
+gem 'rspec-rails'
+gem 'haml-rails'
+</code></p>
+
+<p>括弧とかセミコロン書きたくないので.scssではなく.sassが生成されるようにする. <code>config/application.rb</code>で次のように指定.</p>
+
+<p>```rb
+module APPNAME
+  class Application &lt; Rails::Application</p>
+
+<pre><code>{ なんか色々 }
+config.sass.preferred_syntax = :sass
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>これで<code>bundle install</code>すればよい.</p>
+
+<p><code>sh
+bundle install --path vendor/bundle
+</code></p>
+
+<p>終わったらspecフォルダなどを生成しておく.</p>
+
+<p><code>sh
+rails g rspec:install
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JenkinsにOctopressのデプロイを任せる]]></title>
@@ -431,57 +476,6 @@ sudo service jenkins restart
 <li>Saveをクリック</li>
 </ol>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CentOS6で最新版のnginxをyumでインストールする]]></title>
-    <link href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/"/>
-    <updated>2013-05-02T12:20:00+09:00</updated>
-    <id>http://nomnel.net/blog/install-nginx-in-centos6-using-yum</id>
-    <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/">Debianのとき</a>と同様, 標準のままではパッケージシステムで最新版をインストールすることが出来ないのでその対策.</p>
-
-<!-- more -->
-
-
-<p>リポジトリを登録する. (URLは<a href="http://nginx.org/en/linux_packages.html#stable">公式のページ</a>を参照)</p>
-
-<p><code>sh
-sudo rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
-</code></p>
-
-<p>すると<code>/etc/yum.repos.d/nginx.repo</code>が以下のようになる.</p>
-
-<p>```sh</p>
-
-<h1>nginx.repo</h1>
-
-<p>[nginx]
-name=nginx repo
-baseurl=http://nginx.org/packages/centos/6/$basearch/
-gpgcheck=0
-enabled=1
-```</p>
-
-<p>後は普通にyumでインストールすると最新版が入る.</p>
-
-<p><code>sh
-sudo yum install -y nginx
-</code></p>
-
-<p>起動する(Apache等が動いていたら先に止めておく)</p>
-
-<p><code>sh
-sudo service nginx start
-</code></p>
-
-<p>ブラウザでアクセスして<code>Welcome to nginx!</code>と表示されたら成功.</p>
-
-<p>ちなみにドキュメントルートは<code>/usr/share/nginx/html/</code>.</p>
-
-<h3>参考</h3>
-
-<p><a href="http://heartbeats.jp/hbblog/2012/02/nginx02.html">nginx連載2回目: nginxのインストール</a></p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日は, ”怖い話に表紙を設定できるようにする”作業を. 表紙は怖い話の中でしか使わないと思っていたけど, 他の場所でサムネイル表示させたいとのこと. 危ない危ない…最初にちゃんと確認するようにしよう. ユーザさんで壁紙をタイトルのように使っている人がいることもあり, &hellip;">
+  <meta name="description" content="Stack Overflowに全く同じ状態の投稿があったのでその通りにして解決. 一応こちらにも書いておく. 現象 次のようにreferencesを指定してmigrationファイルを生成したとき, $ rails g migration AddUserCategoryToUsers &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,99 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-column-with-references-confusion/">Railsでカラムを追加する際にreferencesを指定するとdb:migrateが通らない
+</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-29T00:00:00+09:00" pubdate data-updated="true">Mar 29<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Stack Overflowに<a href="http://stackoverflow.com/questions/13381896/rails-column-with-references-confusion">全く同じ状態の投稿</a>があったのでその通りにして解決. 一応こちらにも書いておく.</p>
+
+<h3>現象</h3>
+
+<p>次のようにreferencesを指定してmigrationファイルを生成したとき,</p>
+
+<pre><code>$ rails g migration AddUserCategoryToUsers user_category:references
+
+
+class AddUserCategoryToUsers &lt; ActiveRecord::Migration
+  def change
+    add_column :users, :user_category, :references, :default =&gt; 1
+  end
+end
+</code></pre>
+
+<p>db:migrateに失敗する.</p>
+
+<pre><code>$ rake db:migrate
+
+
+==  AddUserCategoryToUsers: migrating ==============================================
+-- add_column(:users, :user_category, :references, {:default=&gt;1})
+rake aborted!
+An error has occurred, all later migrations canceled:
+
+Mysql2::Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references DEFAULT 1' at line 1: ALTER TABLE `users` ADD `user_category` references DEFAULT 1
+
+.
+.
+.
+</code></pre>
+
+<h3>解決</h3>
+
+<p>.referencesメソッドは下のようなテーブル定義のときにしか使えないらしい.</p>
+
+<pre><code>class AddUserCategoryToUsers &lt; ActiveRecord::Migration
+  def change
+    change_table :users do |t|
+      t.references :user_category, :default =&gt; 1
+    end
+  end
+end
+</code></pre>
+
+<p>なので, こんな風にカラムを直接指定してやる必要がある.</p>
+
+<pre><code>class AddUserCategoryToUsers &lt; ActiveRecord::Migration
+  def change
+    add_column :users, :user_category_id, :integer, :default =&gt; 1
+    add_index :users, :user_category_id # インデックスを貼る場合
+  end
+end
+</code></pre>
+
+<p>後, モデルの関連付けは自分でやる必要がある.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -686,69 +779,6 @@ LoadError: no such file to load -- bundler/setup
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day13/">インターン13日目 RubyとRSpecの学習</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-18T00:00:00+09:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>先週の作業中にRails力の低さを痛感したので, インフラ編を途中で置いといて, Rubyプログラミング編をすることにした. といっても基本部分はある程度分かるつもりで飛ばし気味ではある.</p>
-
-<h3>Ruby</h3>
-
-<p><a href="http://dotinstall.com/lessons/basic_ruby">ドットインストール(Ruby入門)</a>は目次を眺めただけ. すでに他の言語をやったことがあるのなら「〜基礎文法最速マスター」みたいなページ見るだけで十分だろう. <a href="http://www.ie.u-ryukyu.ac.jp/~kono/software/s04/tutorial/">プログラミング入門　- Rubyを使って -</a>はざっと眺めて練習問題を解いた. 解答は<a href="https://gist.github.com/nomnel/5184600">こんな感じ</a>.</p>
-
-<h3>RSpec</h3>
-
-<p><a href="http://jp.rubyist.net/magazine/?0021-Rspec">Rubyist Magazine – スはスペックのス 【第 1 回】 RSpec の概要と, RSpec on Rails (モデル編)</a>と<a href="http://jp.rubyist.net/magazine/?0023-Rspec">Rubyist Magazine – スはスペックのス 【第 2 回】 RSpec on Rails (コントローラとビュー編)</a>を読んだ. 続きないのかな. 先日怖話にコミットしたコードは全くテストが付いてないので, Rails編が終わるまでの宿題としてテスト書いてプルリクすることにしよう.</p>
-
-<h3>Rake</h3>
-
-<p><a href="http://www2s.biglobe.ne.jp/~idesaku/sss/tech/rake/">ここ</a>を読めば良さ気. これは明日までの宿題にしよう.</p>
-
-<h3>明日</h3>
-
-<p>Rails編に入る. 今週中には一周して作業週に備えたい.</p>
-
-<h3>その他</h3>
-
-<p><a href="http://www.amazon.co.jp/gp/product/4048687158/ref=as_li_ss_tl?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=4048687158&amp;linkCode=as2&amp;tag=nomnel11-22">メタプログラミングRuby</a>を買って読み始めた. Lispのマクロといいメタプログラミングという響きはなぜこんなに厨二心をくすぐるのか<a href="#fn:1">1</a>. これも今週で一度通読しておきたい. そういえば<a href="http://www.amazon.co.jp/gp/product/4873115876/ref=as_li_ss_tl?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=4873115876&amp;linkCode=as2&amp;tag=nomnel11-22">Land of Lisp</a>を読めるのはいつになることか…</p>
-
-<hr />
-
-<ol>
-<li>第一部の最後で”メタプログラミングというものなど存在しない. すべてはただのプログラミングじゃ”という真理が語られている<a href="#fnref:1">↩</a></li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -764,6 +794,10 @@ LoadError: no such file to load -- bundler/setup
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rspec-haml-sass-on-rails/">RailsでRspecとHamlとSass使いたいとき</a>
+      </li>
     
       <li class="post">
         <a href="/blog/fjord-day46/">インターン46日目</a>
@@ -799,10 +833,6 @@ LoadError: no such file to load -- bundler/setup
     
       <li class="post">
         <a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/confirm-centos-version/">CentOSのバージョンとアーキテクチャの確認</a>
       </li>
     
   </ul>
