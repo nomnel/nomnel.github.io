@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-14T00:35:05+09:00</updated>
+  <updated>2013-05-15T01:20:54+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Railsで初期化後に何か処理をしたいとき]]></title>
+    <link href="http://nomnel.net/blog/rails-after-initialize/"/>
+    <updated>2013-05-15T01:15:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails-after-initialize</id>
+    <content type="html"><![CDATA[<p><code>config/application.rb</code>などで</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">after_initialize</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># ここに処理を記述</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とすればよい.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RailsでRspecとHamlとSass使いたいとき]]></title>
@@ -1119,60 +1139,6 @@
 
 
 <p>をしようと思う.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[rbenvを使っていてSublimeREPLでRubyのREPLが使えないとき]]></title>
-    <link href="http://nomnel.net/blog/sublimerepl-cant-open-ruby-repl/"/>
-    <updated>2013-04-20T18:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/sublimerepl-cant-open-ruby-repl</id>
-    <content type="html"><![CDATA[<h3>現象</h3>
-
-<p>SublimeREPLでRubyのREPLを開くと,</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sr">/System/</span><span class="no">Library</span><span class="o">/</span><span class="no">Frameworks</span><span class="o">/</span><span class="no">Ruby</span><span class="o">.</span><span class="n">framework</span><span class="o">/</span><span class="no">Versions</span><span class="o">/</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="mi">1</span><span class="o">.</span><span class="mi">8</span><span class="o">/</span><span class="n">rubygems</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">777</span><span class="ss">:in</span> <span class="sb">`report_activate_error&#39;: Could not find RubyGem pry (&gt;= 0) (Gem::LoadError)</span>
-</span><span class='line'><span class="sb">  from /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:211:in `</span><span class="n">activate</span><span class="s1">&#39;</span>
-</span><span class='line'><span class="s1">  from /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems.rb:1056:in `gem&#39;</span>
-</span><span class='line'>  <span class="n">from</span> <span class="sr">/Users/nomne</span><span class="n">l</span><span class="o">/</span><span class="no">Library</span><span class="o">/</span><span class="no">Application</span> <span class="no">Support</span><span class="o">/</span><span class="no">Sublime</span> <span class="no">Text</span> <span class="mi">2</span><span class="o">/</span><span class="no">Packages</span><span class="o">/</span><span class="no">SublimeREPL</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="no">Ruby</span><span class="o">/</span><span class="n">pry_repl</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">2</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">***</span><span class="no">Repl</span> <span class="no">Closed</span><span class="o">***</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>というエラーが表示されるのみでREPLは使えない. <!-- more --></p>
-
-<h3>対策</h3>
-
-<p>まず, pryが入っていなかったら入れておく.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>rbenv <span class="nb">exec </span>gem install pry
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>pryがインストール出来たら<code>~/Library/Application\ Support/Sublime\ Text\ 2/Packages/SublimeREPL/config/Ruby/Main.sublime-menu</code>を開き</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="s2">&quot;osx&quot;</span><span class="err">:</span><span class="p">[</span>
-</span><span class='line'>  <span class="s2">&quot;ruby&quot;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s2">&quot;${packages}/SublimeREPL/config/Ruby/pry_repl.rb&quot;</span><span class="p">,</span>
-</span><span class='line'>  <span class="s2">&quot;$editor&quot;</span>
-</span><span class='line'><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>となっている箇所を探す. この2行目の<code>ruby</code>を<code>/Users/username/.rbenv/shims/ruby</code>に変えればおーけー. <code>~/.rbenv/shims/ruby</code>でないことに注意.</p>
 ]]></content>
   </entry>
   

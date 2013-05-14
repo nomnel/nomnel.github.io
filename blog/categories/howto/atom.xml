@@ -4,7 +4,7 @@
   <title><![CDATA[Category: howto | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/howto/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-14T00:35:05+09:00</updated>
+  <updated>2013-05-15T01:20:54+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,23 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Railsで初期化後に何か処理をしたいとき]]></title>
+    <link href="http://nomnel.net/blog/rails-after-initialize/"/>
+    <updated>2013-05-15T01:15:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails-after-initialize</id>
+    <content type="html"><![CDATA[<p><code>config/application.rb</code>などで</p>
+
+<p><code>rb
+config.after_initialize do
+  # ここに処理を記述
+end
+</code></p>
+
+<p>とすればよい.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RailsでRspecとHamlとSass使いたいとき]]></title>
@@ -297,185 +314,6 @@ Defaults    env_keep += "PATH"
 <h1>Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin</h1>
 
 <p>```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Jenkins氏をさくらVPSに招聘する]]></title>
-    <link href="http://nomnel.net/blog/install-jenkins/"/>
-    <updated>2013-05-02T17:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/install-jenkins</id>
-    <content type="html"><![CDATA[<h3>目次</h3>
-
-<ol>
-<li>環境</li>
-<li>Javaのインストール</li>
-<li>Jenkinsのインストール</li>
-<li>nginx経由でJenkinsにアクセスする</li>
-<li>Jenkinsへのアクセス制限</li>
-</ol>
-
-
-<!-- more -->
-
-
-<h3>環境</h3>
-
-<p>CentOS 6.4 64bit</p>
-
-<h3>Javaのインストール</h3>
-
-<p>(参照: 公式サイトの<a href="https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins">Installing Jenkins</a>)</p>
-
-<p>Jenkins氏は職場環境としてJavaを要求している. しかも <strong>Sun-compatible</strong> なJavaを.</p>
-
-<p>なので, まずはJavaがインストールされているかチェック.</p>
-
-<p><code>sh
-java -version
-</code></p>
-
-<p>僕の場合はインストールされていなかったが, もし</p>
-
-<p><code>sh
-java version "1.5.0"
-gij (GNU libgcj) version 4.4.6 20110731 (Red Hat 4.4.6-3)
-</code></p>
-
-<p>のように表示された場合は, Jenkins氏好みのJavaではないので</p>
-
-<p><code>sh
-sudo yum remove java
-</code></p>
-
-<p>してからインストールし直す. インストールされていなかった場合はここから.</p>
-
-<p>```sh
-sudo yum search openjdk #バージョンチェック</p>
-
-<p>sudo yum install java-1.7.0-openjdk # インストール
-```</p>
-
-<p>確認</p>
-
-<p>```sh
-java -version</p>
-
-<h1>出力結果</h1>
-
-<p>java version "1.7.0_19"
-OpenJDK Runtime Environment (rhel-2.3.9.1.el6_4-x86_64)
-OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)
-```</p>
-
-<h3>Jenkinsのインストール</h3>
-
-<p>(参照: 公式サイトの<a href="https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins">Installing Jenkins</a>)</p>
-
-<p>```sh</p>
-
-<h1>リポジトリを登録</h1>
-
-<p>sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo</p>
-
-<h1>鍵を登録</h1>
-
-<p>sudo rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key</p>
-
-<h1>インストール</h1>
-
-<p>sudo yum install jenkins
-```</p>
-
-<p>で, 出勤してもらう. 以後は住み込みで.</p>
-
-<p><code>
-sudo service jenkins start # 起動
-sudo chkconfig jenkins on  # 自動起動の設定
-</code></p>
-
-<p>Jenkins氏はデフォルトで8080番ポートで待機しているので, 素直に8080番を開ける(参考: <a href="http://nomnel.net/blog/iptables-filter/">iptablesでパケットフィルタリングするための設定</a>)か, nginx経由でアクセス出来るように設定する.</p>
-
-<h3>nginx経由でJenkinsにアクセスする</h3>
-
-<p>nginxのインストールは<a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">こちら</a>を参照.</p>
-
-<h4>http://jenkins.yourdomain.comでアクセスしたい場合</h4>
-
-<p><code>/etc/nginx/conf.d/jenkins.conf</code>に</p>
-
-<p>```
-server {</p>
-
-<pre><code>listen 80;
-server_name jenkins.yourdomain.com;
-location / {
-    proxy_pass http://localhost:8080;
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<p>と記述し,</p>
-
-<p><code>sh
-sudo service nginx restart
-</code></p>
-
-<p>でnginxを再起動して反映.</p>
-
-<h4>http://yourdomain.com/jenkinsでアクセスしたい場合</h4>
-
-<p>```
-server {</p>
-
-<pre><code>listen 80;
-server_name yourdomain.com;
-location /jenkins {
-    proxy_pass http://localhost:8080;
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<p>とし, <code>/etc/sysconfig/jenkins</code>を以下のように修正する(prefixを認識させておく)</p>
-
-<p>```</p>
-
-<h1>修正前</h1>
-
-<p>JENKINS_ARGS=""</p>
-
-<h1>修正後</h1>
-
-<p>JENKINS_ARGS="--prefix=/jenkins --httpPort=${JENKINS_PORT} --ajp13Port=${JENKINS_AJP_PORT}"
-```</p>
-
-<p>終わったら</p>
-
-<p><code>sh
-sudo service nginx restart
-sudo service jenkins restart
-</code></p>
-
-<p>でnginxとJenkinsを再起動して反映.</p>
-
-<h3>Jenkinsへのアクセス制限</h3>
-
-<p>このままだと誰でも何でも出来てしまうので, <a href="https://wiki.jenkins-ci.org/display/JA/Standard+Security+Setup">Standard Security Setup - 日本語 - Jenkins Wiki</a>を参照してアクセス制限をかけておく.</p>
-
-<ol>
-<li>トップからManage Jenkins > Configure Global Securityと進んで,</li>
-<li>Enable securityにチェック</li>
-<li>Security Realm > Jenkins's own user database > Allow users to sign upにチェック</li>
-<li>Authorization > Matrix-based securityにチェックを入れて</li>
-<li>User/group to add: に管理者ユーザ名を入力してAddをクリック</li>
-<li>追加した管理者ユーザは全てチェックを入れて, Anonymousのチェックを全て外す</li>
-<li>Saveをクリック</li>
-</ol>
-
 ]]></content>
   </entry>
   

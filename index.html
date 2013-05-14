@@ -9,7 +9,12 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="よく忘れるのでメモしておく. ">
+  <meta name="description" content="config/application.rbなどで 1
+2
+3
+config.after_initialize do # ここに処理を記述
+end とすればよい.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +82,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-after-initialize/">Railsで初期化後に何か処理をしたいとき</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-15T01:15:00+09:00" pubdate data-updated="true">May 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>config/application.rb</code>などで</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">after_initialize</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># ここに処理を記述</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とすればよい.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -528,59 +580,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-02T11:45:00+09:00" pubdate data-updated="true">May 2<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://nomnel.net/blog/install-wordpress/">blogとしてインストールしていた場合</a></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo rm -rf /var/www/html/blog
-</span><span class='line'>
-</span><span class='line'><span class="c"># mysqlにログイン</span>
-</span><span class='line'>mysql -u root -p
-</span><span class='line'>
-</span><span class='line'><span class="c"># データベースを削除</span>
-</span><span class='line'>mysql&gt; drop databases wordpress;
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -594,6 +593,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-after-initialize/">Railsで初期化後に何か処理をしたいとき</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rspec-haml-sass-on-rails/">RailsでRspecとHamlとSass使いたいとき</a>
@@ -629,10 +632,6 @@
     
       <li class="post">
         <a href="/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a>
       </li>
     
   </ul>

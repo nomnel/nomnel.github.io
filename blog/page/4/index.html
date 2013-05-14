@@ -9,8 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="正確にはシンタックス定義別に, だけれども. 設定したい言語のファイルを開く(シンタックスを対象の言語に設定する)
-Preferences > Settings – More > Syntax Specific – User として言語別の設定ファイル(.sublime-settings)を開く &hellip;">
+  <meta name="description" content="今日は”怖い・コメント時のメールで画像エラー”となる原因を調べていた. まず, 現状確認. 4/8に怖話から来た通知メールを見ると, 確かにアイコン画像が表示されていなくて, そのパスは http://kowabana.jp/system/users/icons/:id/normal な形式. で &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,60 @@ Preferences > Settings – More > Syntax Specific – User として言語別の
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day29/">インターン29日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-11T19:00:00+09:00" pubdate data-updated="true">Apr 11<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日は”怖い・コメント時のメールで画像エラー”となる原因を調べていた.</p>
+
+<p>まず, 現状確認.</p>
+
+<p>4/8に怖話から来た通知メールを見ると, 確かにアイコン画像が表示されていなくて, そのパスは <code>http://kowabana.jp/system/users/icons/:id/normal</code> な形式. で, 直接アクセスしてみると404.</p>
+
+<p>次にローカルで動かして, 書き出されたメールをターミナルで確認すると, 該当部分のパスは <code>http://localhost:3000/system/users/:id/icons/normal</code> な形式.</p>
+
+<p>微妙に違う.</p>
+
+<p>で, 理由を聞いてみると, これだけが他のフォーマットと違ったので修正したから.</p>
+
+<p>なるほどー, と思って <code>http://kowabana.jp/system/users/:id/icons/normal</code> にアクセスすると404.</p>
+
+<p>これは 画像等のファイルはS3に移行したから. ちなみにS3に移行したのはappサーバーが複数台になったので, appサーバのローカルに置けなくなったから. なので <code>http://kowabana-jp.s3-ap-northeast-1.amazonaws.com/users/:id/icons/original</code> だと, ちゃんと画像が取得できる.</p>
+
+<p>で今日, AmazonのCloudFrontというCDNに使うようになったので,  <code>http://cdn.kowabana.jp/users/:id/icons/original</code> で取得できるようになった.</p>
+
+<p>ん…この設定になっているということは, メールの画像エラーの件, もしかして何もしなくてもいいんじゃね…？と思ったんだけど, まだちょっと確認出来てない.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -559,55 +612,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day21/">インターン21日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-02T00:00:00+09:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>遅くなったが4日前(3/29 金曜)の日記.</p>
-
-<p>前回の日記で考えた手順</p>
-
-<ol>
-<li>怖い話モデルに表紙カラム(壁紙への参照)を追加</li>
-<li>表紙が怖い話で表示されるように</li>
-<li>表紙を壁紙から選択できるように</li>
-<li>表紙を投稿できるように</li>
-<li>怖い話の一覧に表紙サムネイルを表示</li>
-</ol>
-
-
-<p>のうち, 3までは出来た(見た目の修正とかリファクタリングとかコミット履歴の整理とかは必要だけど). 4は画像投稿ページヘのリンクを貼ればいいかな, と思っているのですぐ出来るはず. 学習週なので定時後に進めるとして早めにプルリクまで持って行きたい.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -623,6 +627,10 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-after-initialize/">Railsで初期化後に何か処理をしたいとき</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rspec-haml-sass-on-rails/">RailsでRspecとHamlとSass使いたいとき</a>
@@ -658,10 +666,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     
       <li class="post">
         <a href="/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a>
       </li>
     
   </ul>

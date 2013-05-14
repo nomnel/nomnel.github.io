@@ -5,11 +5,16 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Debian (squeeze) 64bit をVirtualBoxにインストール - 飲んだり寝たり</title>
+  <title>Railsで初期化後に何か処理をしたいとき - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Debianを最小構成(CUIのみ)でインストールする. 準備 Debianインストーラのisoファイルをダウンロード. 今回はSmaller CDsのamd64版を選択(50MB). VirtualBoxをダウンロードしてインストール. VMの作成 &hellip;">
+  <meta name="description" content="config/application.rbなどで 1
+2
+3
+config.after_initialize do # ここに処理を記述
+end とすればよい.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nomnel.net/blog/install-debian-to-virtualbox">
+  <link rel="canonical" href="http://nomnel.net/blog/rails-after-initialize">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
@@ -80,7 +85,7 @@
   
   <header>
     
-      <h1 class="entry-title">Debian (squeeze) 64bit をVirtualBoxにインストール</h1>
+      <h1 class="entry-title">Railsで初期化後に何か処理をしたいとき</h1>
     
     
       <p class="meta">
@@ -96,70 +101,25 @@
   
 
 
-<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+<time datetime="2013-05-15T01:15:00+09:00" pubdate data-updated="true">May 15<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Debianを最小構成(CUIのみ)でインストールする.</p>
+<div class="entry-content"><p><code>config/application.rb</code>などで</p>
 
-<h3>準備</h3>
-
-<p><a href="http://www.debian.org/distrib/netinst">Debianインストーラのisoファイル</a>をダウンロード. 今回はSmaller CDsのamd64版を選択(50MB).</p>
-
-<p><a href="https://www.virtualbox.org/">VirtualBox</a>をダウンロードしてインストール.</p>
-
-<h3>VMの作成</h3>
-
-<p>VirtualBoxを起動して新規にVMを作成する. 設定内容は下記. VM名,
-OSのType, Version以外はデフォルトのまま.</p>
-
-<ul>
-<li>VM名: Debian64</li>
-<li>OS type: Linux</li>
-<li>OS version: Debian (64 bit)</li>
-<li>メモリ: 384MB</li>
-<li>virtual hard driveを作るか: create a virtual hard drive now</li>
-<li>hard driveのfile type: VDI (VirtualBox Disk Image)</li>
-<li>Storageの容量確保方法: Dynamically allocated</li>
-<li>ファイル名と最大サイズ: Debian64(VM名と同じ), 8GB</li>
-</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">after_initialize</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># ここに処理を記述</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>Debianのインストール</h3>
-
-<p>作成したVMのCD/DVDドライブにダウンロードしたisoファイルをセットしてVMを起動. 作業用ユーザはnomnelとしているが適当に読み替えてほしい.</p>
-
-<ul>
-<li>Install</li>
-<li>言語選択: Japanese – 日本語</li>
-<li>場所: 日本</li>
-<li>キーボード配置: 米国(英語キーボードの場合)</li>
-<li>ホスト名: debian (デフォルト)</li>
-<li>ドメイン名: 空白</li>
-<li>ミラーの国選択: 日本</li>
-<li>ミラーの選択: ftp.jp.debian.org</li>
-<li>プロキシ: 空白(無い場合)</li>
-<li>rootパスワード:</li>
-<li>rootパスワードの確認入力:</li>
-<li>ユーザの本名: nomnel</li>
-<li>ユーザ名: nomnel</li>
-<li>ユーザのパスワード:</li>
-<li>ユーザのパスワードの確認入力:</li>
-<li>パーティショニングの方法: ガイド – ディスク全体を使う</li>
-<li>パーティショニングするディスクの選択:</li>
-<li>パーティショニング機構: すべてのファイルを1つのパーティションに(初心者ユーザには推奨)</li>
-<li>パッケージ利用調査に参加: いいえ</li>
-<li>インストールするソフトウェアの選択: 標準システムユーティリティのみ</li>
-<li>マスターブートレコードにGRUBブートローダをインストール: はい</li>
-</ul>
-
-
-<p>インストールが終わったら一度シャットダウンしてスナップショットをとっておくとよいかも.</p>
-
-<p>次-> <a href="http://nomnel.net/blog/debian-enable-sudo/">Debianでsudoを使えるように</a></p>
+<p>とすればよい.</p>
 </div>
 
 
@@ -182,7 +142,7 @@ OSのType, Version以外はデフォルトのまま.</p>
   
 
 
-<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+<time datetime="2013-05-15T01:15:00+09:00" pubdate data-updated="true">May 15<span>th</span>, 2013</time>
       
 
 <span class="categories">
@@ -196,7 +156,7 @@ OSのType, Version以外はデフォルトのまま.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/install-debian-to-virtualbox/" data-via="nomnel" data-counturl="http://nomnel.net/blog/install-debian-to-virtualbox/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/rails-after-initialize/" data-via="nomnel" data-counturl="http://nomnel.net/blog/rails-after-initialize/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -209,14 +169,18 @@ OSのType, Version以外はデフォルトのまま.</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/fjord-day5-day7/" title="Previous Post: インターン5日目〜7日目 Debianさん">&laquo; インターン5日目〜7日目 Debianさん</a>
+        <a class="basic-alignment left" href="/blog/rspec-haml-sass-on-rails/" title="Previous Post: RailsでRspecとHamlとSass使いたいとき">&laquo; RailsでRspecとHamlとSass使いたいとき</a>
       
-      
-        <a class="basic-alignment right" href="/blog/fjord-day8/" title="Next Post: インターン8日目">インターン8日目 &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -291,7 +255,10 @@ OSのType, Version以外はデフォルトのまま.</p>
       var disqus_shortname = 'nomnel';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nomnel.net/blog/rails-after-initialize/';
+        var disqus_url = 'http://nomnel.net/blog/rails-after-initialize/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

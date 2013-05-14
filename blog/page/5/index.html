@@ -9,7 +9,11 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Stack Overflowに全く同じ状態の投稿があったのでその通りにして解決. 一応こちらにも書いておく. 現象 次のようにreferencesを指定してmigrationファイルを生成したとき, $ rails g migration AddUserCategoryToUsers &hellip;">
+  <meta name="description" content="遅くなったが4日前(3/29 金曜)の日記. 前回の日記で考えた手順 怖い話モデルに表紙カラム(壁紙への参照)を追加
+表紙が怖い話で表示されるように
+表紙を壁紙から選択できるように
+表紙を投稿できるように
+怖い話の一覧に表紙サムネイルを表示 のうち, 3までは出来た( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +81,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day21/">インターン21日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-02T00:00:00+09:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>遅くなったが4日前(3/29 金曜)の日記.</p>
+
+<p>前回の日記で考えた手順</p>
+
+<ol>
+<li>怖い話モデルに表紙カラム(壁紙への参照)を追加</li>
+<li>表紙が怖い話で表示されるように</li>
+<li>表紙を壁紙から選択できるように</li>
+<li>表紙を投稿できるように</li>
+<li>怖い話の一覧に表紙サムネイルを表示</li>
+</ol>
+
+
+<p>のうち, 3までは出来た(見た目の修正とかリファクタリングとかコミット履歴の整理とかは必要だけど). 4は画像投稿ページヘのリンクを貼ればいいかな, と思っているのですぐ出来るはず. 学習週なので定時後に進めるとして早めにプルリクまで持って行きたい.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -735,50 +788,6 @@ LoadError: no such file to load -- bundler/setup
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day14/">インターン14日目 Rails編に入った</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-19T00:00:00+09:00" pubdate data-updated="true">Mar 19<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><pre><code>　　　　　　　　 ,. -‐'''''""¨¨¨ヽ
-　　　　 　 　 (.＿＿_,,,... -ｧァﾌ|　　　　　　　　　　あ…ありのまま 今　起こった事を話すぜ！
-　 　 　 　 　 |i i|　 　 }!　}} /／|
-　　　　 　 　 |l､{　 　j}　/,,ｨ//｜　　　　　　　『昼ご飯を食べたと思ったら
-　　　　　　　 i|:!ヾ､_ﾉ／ u {:}//ﾍ　　　　　　　　　　いつのまにか夕方だった』
-　　　　　　　 |ﾘ u' }　 ,ﾉ　_,!V,ﾊ |
-　　 　 　 ／´fト､_{ﾙ{,ィ'ｅﾗ　, ﾀ人　　　　　　　　な…　何を言ってるのか　わからねーと思うが
-　　　　 /' 　 ヾ|宀| {´,)⌒`/ |
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -794,6 +803,10 @@ LoadError: no such file to load -- bundler/setup
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-after-initialize/">Railsで初期化後に何か処理をしたいとき</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rspec-haml-sass-on-rails/">RailsでRspecとHamlとSass使いたいとき</a>
@@ -829,10 +842,6 @@ LoadError: no such file to load -- bundler/setup
     
       <li class="post">
         <a href="/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/uninstall-wordpress/">WordPressのアンインストール</a>
       </li>
     
   </ul>
