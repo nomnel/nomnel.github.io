@@ -4,7 +4,7 @@
   <title><![CDATA[Category: diary | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/diary/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-15T01:20:54+09:00</updated>
+  <updated>2013-05-20T16:59:35+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,93 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[インターン51日目(多分)]]></title>
+    <link href="http://nomnel.net/blog/fjord-day51/"/>
+    <updated>2013-05-20T17:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/fjord-day51</id>
+    <content type="html"><![CDATA[<p>さて今日は</p>
+
+<ol>
+<li>怖話中で指定の画像が無い場合に背景がなくなる</li>
+</ol>
+
+
+<p>をやっていた. <!-- more --></p>
+
+<p>2つ詰まったところがあって,</p>
+
+<p>1つは配列の要素それぞれを使ってajax通信した後に通信結果を使って元の配列を変更したい場合, 例えば次のように書くと</p>
+
+<p>```coffeescript
+foos = ['a', 'b', 'c']
+for foo, idx in foos
+  $.ajax</p>
+
+<pre><code>type: 'get'
+url: '/bar'
+success: -&gt;
+  foos[idx] = foo + 'baz'
+</code></pre>
+
+<p>```</p>
+
+<p>全てのsuccess呼び出し内で<code>idx = 2</code>, <code>foo = 'c'</code>となってしまうやつ. これは</p>
+
+<p>```coffeescript
+foos = ['a', 'b', 'c']
+for foo, idx in foos
+  ((foo, idx) -></p>
+
+<pre><code>$.ajax
+  type: 'get'
+  url: '/bar'
+  success: -&gt;
+    foos[idx] = foo + 'baz'
+</code></pre>
+
+<p>  ) foo, idx
+```</p>
+
+<p>みたいに予め適用しといてやるとよさげ.</p>
+
+<p>もう1つは,</p>
+
+<p>```coffeescript
+class Klass
+  prop: 'foo'</p>
+
+<p>  proc1: -></p>
+
+<pre><code>pr2 = @proc2
+$.ajax
+  type: 'get'
+  url: '/bar'
+  success: -&gt;
+    pr2()
+</code></pre>
+
+<p>  proc2: -></p>
+
+<pre><code>console.log @prop
+</code></pre>
+
+<p>```</p>
+
+<p>ってやるとsuccessの中のpr2の中で@propがundefinedになるやつ. これは単純に</p>
+
+<p>```coffeescript
+  proc2: =></p>
+
+<pre><code>console.log @prop
+</code></pre>
+
+<p>```</p>
+
+<p>と, fat arrow使えばおーけー, 多分.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[インターン46日目]]></title>
@@ -146,63 +233,6 @@
 <p>本音を言うと就活するのは怖いのだが, いつまでもインターンを続けるわけにもいかないし, いい頃合いだとして納得できるものを作って終えたい.</p>
 
 <p>※ 作ったものが残念だったらまた別のを作るので延びるかもしれん</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン39日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day39/"/>
-    <updated>2013-04-26T19:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day39</id>
-    <content type="html"><![CDATA[<p>さて今日は,</p>
-
-<ol>
-<li>怖い話を執筆中にページを離脱した場合, 警告を出す</li>
-</ol>
-
-
-<p>をした.</p>
-
-<!-- more -->
-
-
-<p>実装は<a href="http://nomnel.net/blog/rails-confirm-on-leaving-the-page/">こんな感じ</a>ですぐ出来たんだけど, テストを回すと</p>
-
-<p>```
-3) なんかテストの説明</p>
-
-<pre><code> Failure/Error: fill_in 'hoge', with: 'foo'
- Capybara::Webkit::InvalidResponseError:
-   Unable to load URL: http://127.0.0.1:58549/ because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=*********&amp;origin=http://127.0.0.1:58549&amp;channel_path=/users/sign_in?fb_xd_fragment#xd_sig=***********: Connection closed
-</code></pre>
-
-<p>```</p>
-
-<p>というエラーが全く関係無いところにも出る. さらに全くエラーが出ないときもあったりする. なので追加したテストが正しいのかも確認できない状況だった.</p>
-
-<p>対策を探そうと, ずっと</p>
-
-<p>```
-Capybara::Webkit::InvalidResponseError:</p>
-
-<pre><code>   Unable to load URL:
-</code></pre>
-
-<p>```</p>
-
-<p>の部分でググっていたが解決法は見つからなかった. が, 問題は</p>
-
-<p><code>
-because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=*********&amp;origin=http://127.0.0.1:58549&amp;channel_path=/users/sign_in?fb_xd_fragment#xd_sig=***********: Connection closed
-</code></p>
-
-<p>の方で, どうやらFacebookとの接続がうまくいっていなかったのではと思われる. 先に述べた「全くエラーが出ないときもあったりする」という現象から考えて, テスト回し過ぎ -> Facebookにアクセスしすぎ -> 拒否られる, という図式なんじゃないかと.</p>
-
-<p>実際, 15分ほど間隔を開けてからテストを回すと上のエラーは出なかった. (多分, 昨日手こずっていたエラーも同じ現象だったのだろう. )</p>
-
-<p>ただ, 実際にテストを何度も回したいときに15分待つのは辛いので, Facebookからなんか引っ張ってきている部分をコメントアウトすればよい.</p>
-
-<p>あー, 時間無駄にした.</p>
 ]]></content>
   </entry>
   

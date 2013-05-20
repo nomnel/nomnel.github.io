@@ -9,7 +9,12 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="iptablesとはパケットフィルタリング, IPアドレスの変換, IPヘッダの書き換えの機能をもつソフトウェア. 設定ファイルでは機能(テーブル)毎に, 対象(チェイン)のパケットに対する処理(ルール)を定義していく. このページは, 以下のページを大いに参考にして書かれている. &hellip;">
+  <meta name="description" content="独自ドメインを取得してさくらのVPSに設定した手順の覚え書き. 目次 ドメイン事業者の選択
+ドメインの取得
+ドメインのDNS設定
+DNS逆引きの設定 ドメイン事業者の選択 代表的な事業者はこれらだろうか. お名前.com
+ムームードメイン
+さくらのドメイン取得 今回はお名前.comで取得したので &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +82,128 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/set-domain-name/">独自ドメインを取得してさくらのVPSに設定する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-28T00:00:00+09:00" pubdate data-updated="true">Sep 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>独自ドメインを取得してさくらのVPSに設定した手順の覚え書き.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ul>
+<li>ドメイン事業者の選択</li>
+<li>ドメインの取得</li>
+<li>ドメインのDNS設定</li>
+<li>DNS逆引きの設定</li>
+</ul>
+
+
+<hr />
+
+<h3>ドメイン事業者の選択</h3>
+
+<p>代表的な事業者はこれらだろうか.</p>
+
+<ul>
+<li><a href="http://www.onamae.com/">お名前.com</a></li>
+<li><a href="http://muumuu-domain.com/">ムームードメイン</a></li>
+<li><a href="http://www.sakura.ne.jp/domain/">さくらのドメイン取得</a></li>
+</ul>
+
+
+<p>今回はお名前.comで取得したので, 以下, お名前.comでの手順になる.</p>
+
+<hr />
+
+<h3>ドメインの取得</h3>
+
+<p>まず, <a href="http://xn--t8jx73hngb.com/">トップページ</a>で使用したいドメインを検索する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-01.jpeg" alt="空きドメインの検索" /></p>
+
+<p>.com, .netなど, 使用したいドメインが登録可能ならチェックを入れて登録画面へ進む.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-02.jpeg" alt="ドメインの選択" /></p>
+
+<p>後は画面の指示に従えばよい. ただし, 更新忘れのドメイン失効を防ぐため, 契約更新は自動にしておくこと. また, 登録中にwhois情報公開公開代行も申し込めるなら, この時点で申し込んでおくこと. ドメインと一緒に申しこめば無料, などのキャンペーンをしていることがある.</p>
+
+<p>whois情報とはドメインの登録情報のことで, 公開が義務付けられている. つまり自分の本名や住所等を, <a href="http://www.networksolutions.com/whois/index.jsp">検索</a>すれば誰でも調べることができるようになるということ. 個人の場合このような状況は嬉しくないので, お名前.comなどに情報公開を代行してもらう.</p>
+
+<p>代行してもらうと, whoisの検索結果は次のようになる.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-03.jpeg" alt="whois情報公開代行の結果" /></p>
+
+<p>無事に登録が終わると完了通知メールが届く. もしドメインの登録中にwhois情報公開代行を申し込んでいなければ, 早めに申し込んでおく. (お名前.comでログイン -> ドメインNavi -> ドメイン設定 -> Whois情報公開代行)</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-04.jpeg" alt="whois情報公開代行の申し込み" /></p>
+
+<hr />
+
+<h3>ドメインのDNS設定</h3>
+
+<p>対応させるIPアドレスが必要なので前もって確認しておく.</p>
+
+<p>ログインしたら, ドメインNavi -> レンタルDNSレコード設定 と進む.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-05.jpeg" alt="レンタルDNSレコードの設定" /></p>
+
+<p>ドメインを選択してIPアドレスを入力し, 追加をクリックする. サブドメインは必要に応じて入力する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-06.jpeg" alt="IPアドレスの入力" /></p>
+
+<p>レコードを追加したら, [レンタルDNSレコード設定用のネームサーバー(01.dnsv.jp / 02.dnsv.jp)に変更する]にチェックを入れて[確認画面へ進む]をクリックする. (ここでチェックを入れなかった場合は, 後でネームサーバの変更をしておく)</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/set-domain-07.jpeg" alt="ネームサーバの変更にチェック" /></p>
+
+<p>後は画面の指示に従えばよい. 完了後, メールが届く. 自分でもターミナルで以下のコマンドで確認しておく.</p>
+
+<pre><code>$ nslookup nomnet.net
+# -&gt; ドメインとIPアドレスが表示されればOK
+# -&gt; 表示されなければ時間を置いて再試行
+</code></pre>
+
+<hr />
+
+<h3>DNS逆引きの設定</h3>
+
+<p>さくらのVPSでもDNS逆引きの設定をしておく. <a href="http://support.sakura.ad.jp/manual/vps/domain/rdns_record.html">公式の解説ページ</a>を見ればよい.</p>
+
+<p>簡単には, VPSのコントロールパネルにログイン -> ホスト名欄の[変更] -> ホスト名を入力して[確認].</p>
+
+<p>もし失敗したら, 時間を置いて再試行する.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1576,6 +1703,10 @@ $ chkconfig --list iptables
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/fjord-day51/">インターン51日目(多分)</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/rails-after-initialize/">Railsで初期化後に何か処理をしたいとき</a>
       </li>
     
@@ -1609,10 +1740,6 @@ $ chkconfig --list iptables
     
       <li class="post">
         <a href="/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a>
       </li>
     
   </ul>

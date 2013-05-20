@@ -5,12 +5,18 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>WordpressからOctopressに移行する - 飲んだり寝たり</title>
+  <title>インターン51日目(多分) - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="この前のWordpressサイトへの大規模攻撃で, 僕のところにもアラートメールがいっぱい飛んできて嫌になってしまったので, Github Pages + Octopress(画像はDropboxのpublicフォルダ)に移行することにした. 目次 Octopressのセットアップ
-記事の移行 &hellip;">
+  <meta name="description" content="さて今日は 怖話中で指定の画像が無い場合に背景がなくなる をやっていた. 2つ詰まったところがあって, 1つは配列の要素それぞれを使ってajax通信した後に通信結果を使って元の配列を変更したい場合, 例えば次のように書くと 1
+2
+3
+4
+5
+6
+7
+foos = [&#39;a&#39;, &# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +25,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nomnel.net/blog/wordpress-to-octopress">
+  <link rel="canonical" href="http://nomnel.net/blog/fjord-day51">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
@@ -81,7 +87,7 @@
   
   <header>
     
-      <h1 class="entry-title">WordpressからOctopressに移行する</h1>
+      <h1 class="entry-title">インターン51日目(多分)</h1>
     
     
       <p class="meta">
@@ -97,41 +103,69 @@
   
 
 
-<time datetime="2013-04-19T01:30:00+09:00" pubdate data-updated="true">Apr 19<span>th</span>, 2013</time>
+<time datetime="2013-05-20T17:00:00+09:00" pubdate data-updated="true">May 20<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><a href="http://wired.jp/2013/04/15/huge-attack-on-wordpress-sites-could-spawn-never-before-seen-super-botnet/">この前のWordpressサイトへの大規模攻撃</a>で, 僕のところにもアラートメールがいっぱい飛んできて嫌になってしまったので, Github Pages + Octopress(画像はDropboxのpublicフォルダ)に移行することにした.</p>
-
-<h3>目次</h3>
+<div class="entry-content"><p>さて今日は</p>
 
 <ol>
-<li>Octopressのセットアップ</li>
-<li>記事の移行</li>
-<li>カスタムドメインの設定</li>
+<li>怖話中で指定の画像が無い場合に背景がなくなる</li>
 </ol>
 
 
-<!-- more -->
+<p>をやっていた. <!-- more --></p>
+
+<p>2つ詰まったところがあって,</p>
+
+<p>1つは配列の要素それぞれを使ってajax通信した後に通信結果を使って元の配列を変更したい場合, 例えば次のように書くと</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">foos = </span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="k">for</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">idx</span> <span class="k">in</span> <span class="nx">foos</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
+</span><span class='line'>    <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
+</span><span class='line'>    <span class="nv">url: </span><span class="s">&#39;/bar&#39;</span>
+</span><span class='line'>    <span class="nv">success: </span><span class="nf">-&gt;</span>
+</span><span class='line'>      <span class="nx">foos</span><span class="p">[</span><span class="nx">idx</span><span class="p">]</span> <span class="o">=</span> <span class="nx">foo</span> <span class="o">+</span> <span class="s">&#39;baz&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<hr />
+<p>全てのsuccess呼び出し内で<code>idx = 2</code>, <code>foo = 'c'</code>となってしまうやつ. これは</p>
 
-<h3>Octopressのセットアップ</h3>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">foos = </span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="k">for</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">idx</span> <span class="k">in</span> <span class="nx">foos</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">(foo, idx) -&gt;</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
+</span><span class='line'>      <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
+</span><span class='line'>      <span class="nv">url: </span><span class="s">&#39;/bar&#39;</span>
+</span><span class='line'>      <span class="nv">success: </span><span class="nf">-&gt;</span>
+</span><span class='line'>        <span class="nx">foos</span><span class="p">[</span><span class="nx">idx</span><span class="p">]</span> <span class="o">=</span> <span class="nx">foo</span> <span class="o">+</span> <span class="s">&#39;baz&#39;</span>
+</span><span class='line'>  <span class="p">)</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">idx</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>基本的に<a href="http://octopress.org/">Octopress公式サイト</a>の以下のページを見て, その通りにやればよい.</p>
 
-<ul>
-<li><a href="http://octopress.org/docs/setup/">Octopress Setup</a></li>
-<li><a href="http://octopress.org/docs/deploying/github/">Deploying to Github Pages</a></li>
-<li><a href="http://octopress.org/docs/configuring/">Configuring Octopress</a></li>
-</ul>
+<p>みたいに予め適用しといてやるとよさげ.</p>
 
-
-<p>コマンドのみ簡単にまとめておく. なお, gitとRuby 1.9.3が必要. また, 前もってgithubに<code>USERNAME.github.io</code>というリポジトリを作っておくこと.</p>
+<p>もう1つは,</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -144,101 +178,34 @@
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>octopress
-</span><span class='line'><span class="nv">$ </span>bundle install
-</span><span class='line'><span class="nv">$ </span>rake install
-</span><span class='line'><span class="nv">$ </span>rake setup_github_pages <span class="c"># Github PagesのリポジトリURLを聞かれるので入力</span>
-</span><span class='line'><span class="nv">$ </span>rake generate
-</span><span class='line'><span class="nv">$ </span>rake deploy <span class="c"># ページが見れるようになるまで10分程かかる</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">class</span> <span class="nx">Klass</span>
+</span><span class='line'>  <span class="nv">prop: </span><span class="s">&#39;foo&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>git add .
-</span><span class='line'><span class="nv">$ </span>git commit -m <span class="s1">&#39;your message&#39;</span>
-</span><span class='line'><span class="nv">$ </span>git push origin <span class="nb">source</span>
+</span><span class='line'>  <span class="nv">proc1: </span><span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nv">pr2 = </span><span class="nx">@proc2</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
+</span><span class='line'>      <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
+</span><span class='line'>      <span class="nv">url: </span><span class="s">&#39;/bar&#39;</span>
+</span><span class='line'>      <span class="nv">success: </span><span class="nf">-&gt;</span>
+</span><span class='line'>        <span class="nx">pr2</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">proc2: </span><span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">@prop</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>ブログの設定は<code>_config.yml</code>に記入する. 内容は<a href="http://octopress.org/docs/configuring/">Configuring Octopress</a>を見るとよい. 終わったら<code>rake gen_deploy</code>(generate + deploy)して設定を反映しておくのを忘れずに. なお, 新規に記事を投稿する方法は<a href="http://nomnel.net/blog/how-to-post-on-octopress/">こちら</a>.</p>
-
-<hr />
-
-<h3>記事の移行</h3>
-
-<p><a href="https://github.com/benbalter/wordpress-to-jekyll-exporter">WordPress to Jekyll Exporter</a>を使う.</p>
-
-<ol>
-<li><code>wp-content/plugins/</code>の下に<code>git clone</code></li>
-<li>WordPressの管理画面からプラグインを有効化</li>
-<li>ツールからExport to Jekyllを選択</li>
-<li>zipファイルがダウンロードされるので解凍</li>
-<li>_postsフォルダを<code>source/_posts</code>と入れ替え</li>
-<li><code>rake generate</code>してみる -> もしエラーが出たら<a href="http://nomnel.net/blog/octopress-cant-generate-including-multibyte-url/">ここ</a>を見る</li>
-<li>各記事のpermalink行を削除</li>
-<li>画像へのリンクが壊れているので修正</li>
-<li>画像をDropboxのpublicフォルダへ</li>
-<li>画像のURLをDropboxを指すように変更</li>
-</ol>
-
-
-<p>7.は各記事(<code>YYYY-MM-DD-article-title.md</code>)の冒頭に</p>
+<p>ってやるとsuccessの中のpr2の中で@propがundefinedになるやつ. これは単純に</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>---
-</span><span class='line'>title: 記事タイトル
-</span><span class='line'>author: 筆者
-</span><span class='line'>layout: post
-</span><span class='line'>permalink: /article-title/
-</span><span class='line'>categories:
-</span><span class='line'>  - foo
-</span><span class='line'>tags:
-</span><span class='line'>  - bar
-</span><span class='line'>---
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'>  <span class="nv">proc2: </span><span class="o">=&gt;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">@prop</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>と書かれているうちの, permalinkの行を削除するという意味. これがあると<code>_config.yml</code>で<code>permalink: /blog/:title/</code>のように設定してあっても上書きしてしまうので.</p>
-
-<p>8.は, なぜか</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="o">[</span>!<span class="o">[</span>foo<span class="o">][</span>11<span class="o">]][</span>11<span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'> <span class="o">[]</span>: http://nomnel.net/blog/wp-content/uploads/2012/09/bar.jpeg
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のようになっているので,</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>!<span class="o">[</span>foo<span class="o">](</span>http://nomnel.net/blog/wp-content/uploads/2012/09/bar.jpeg<span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>等の形式に変える必要があるということ.</p>
-
-<hr />
-
-<h3>カスタムドメインの設定</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;your-domain.com&#39;</span> &gt;&gt; <span class="nb">source</span>/CNAME
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>として, 次にDNSの設定を変更する. <code>example.com</code>のようなトップレベルドメインの場合, Aレコードで<code>204.232.175.78</code>を指す. <code>www.example.com</code>のようなサブドメインの場合, CNAMEレコードで<code>USERNAME.github.io</code>を指すようにする. (参考: <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">Setting up a custom domain with Pages</a>)</p>
-
-<p>しばらく待てば反映されて, 指定のドメインで開けるようになる.</p>
+<p>と, fat arrow使えばおーけー, 多分.</p>
 </div>
 
 
@@ -261,12 +228,12 @@
   
 
 
-<time datetime="2013-04-19T01:30:00+09:00" pubdate data-updated="true">Apr 19<span>th</span>, 2013</time>
+<time datetime="2013-05-20T17:00:00+09:00" pubdate data-updated="true">May 20<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/howto/'>howto</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>
+    <a class='category' href='/blog/categories/diary/'>diary</a>
   
 </span>
 
@@ -275,7 +242,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/wordpress-to-octopress/" data-via="nomnel" data-counturl="http://nomnel.net/blog/wordpress-to-octopress/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/fjord-day51/" data-via="nomnel" data-counturl="http://nomnel.net/blog/fjord-day51/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -288,10 +255,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/fjord-day33/" title="Previous Post: インターン33日目">&laquo; インターン33日目</a>
+        <a class="basic-alignment left" href="/blog/rails-after-initialize/" title="Previous Post: Railsで初期化後に何か処理をしたいとき">&laquo; Railsで初期化後に何か処理をしたいとき</a>
       
-      
-        <a class="basic-alignment right" href="/blog/rails-upload-image-using-paperclip/" title="Next Post: RailsアプリにPaperclipを使って画像アップロード機能をつける">RailsアプリにPaperclipを使って画像アップロード機能をつける &raquo;</a>
       
     </p>
   </footer>
@@ -377,8 +342,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://nomnel.net/blog/wordpress-to-octopress/';
-        var disqus_url = 'http://nomnel.net/blog/wordpress-to-octopress/';
+        var disqus_identifier = 'http://nomnel.net/blog/fjord-day51/';
+        var disqus_url = 'http://nomnel.net/blog/fjord-day51/';
         var disqus_script = 'embed.js';
       
     (function () {

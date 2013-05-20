@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-15T01:20:54+09:00</updated>
+  <updated>2013-05-20T16:59:35+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,110 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[インターン51日目(多分)]]></title>
+    <link href="http://nomnel.net/blog/fjord-day51/"/>
+    <updated>2013-05-20T17:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/fjord-day51</id>
+    <content type="html"><![CDATA[<p>さて今日は</p>
+
+<ol>
+<li>怖話中で指定の画像が無い場合に背景がなくなる</li>
+</ol>
+
+
+<p>をやっていた. <!-- more --></p>
+
+<p>2つ詰まったところがあって,</p>
+
+<p>1つは配列の要素それぞれを使ってajax通信した後に通信結果を使って元の配列を変更したい場合, 例えば次のように書くと</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">foos = </span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="k">for</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">idx</span> <span class="k">in</span> <span class="nx">foos</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
+</span><span class='line'>    <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
+</span><span class='line'>    <span class="nv">url: </span><span class="s">&#39;/bar&#39;</span>
+</span><span class='line'>    <span class="nv">success: </span><span class="nf">-&gt;</span>
+</span><span class='line'>      <span class="nx">foos</span><span class="p">[</span><span class="nx">idx</span><span class="p">]</span> <span class="o">=</span> <span class="nx">foo</span> <span class="o">+</span> <span class="s">&#39;baz&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>全てのsuccess呼び出し内で<code>idx = 2</code>, <code>foo = 'c'</code>となってしまうやつ. これは</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">foos = </span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="k">for</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">idx</span> <span class="k">in</span> <span class="nx">foos</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">(foo, idx) -&gt;</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
+</span><span class='line'>      <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
+</span><span class='line'>      <span class="nv">url: </span><span class="s">&#39;/bar&#39;</span>
+</span><span class='line'>      <span class="nv">success: </span><span class="nf">-&gt;</span>
+</span><span class='line'>        <span class="nx">foos</span><span class="p">[</span><span class="nx">idx</span><span class="p">]</span> <span class="o">=</span> <span class="nx">foo</span> <span class="o">+</span> <span class="s">&#39;baz&#39;</span>
+</span><span class='line'>  <span class="p">)</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">idx</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>みたいに予め適用しといてやるとよさげ.</p>
+
+<p>もう1つは,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">class</span> <span class="nx">Klass</span>
+</span><span class='line'>  <span class="nv">prop: </span><span class="s">&#39;foo&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">proc1: </span><span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nv">pr2 = </span><span class="nx">@proc2</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
+</span><span class='line'>      <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
+</span><span class='line'>      <span class="nv">url: </span><span class="s">&#39;/bar&#39;</span>
+</span><span class='line'>      <span class="nv">success: </span><span class="nf">-&gt;</span>
+</span><span class='line'>        <span class="nx">pr2</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">proc2: </span><span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">@prop</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ってやるとsuccessの中のpr2の中で@propがundefinedになるやつ. これは単純に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'>  <span class="nv">proc2: </span><span class="o">=&gt;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">@prop</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>と, fat arrow使えばおーけー, 多分.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Railsで初期化後に何か処理をしたいとき]]></title>
@@ -1097,48 +1201,6 @@
 
 
 <p>とかきっと必要になると思うし, 提案してみようかな.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン35日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day35/"/>
-    <updated>2013-04-22T20:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day35</id>
-    <content type="html"><![CDATA[<p>さて今日は,</p>
-
-<ol>
-<li>投稿画像を自動で640px x 640pxにリサイズして背景を黒にする</li>
-</ol>
-
-
-<p>をした. <!-- more --></p>
-
-<p>画像アップロード時に処理したい内容は<code>has_attached_file</code>に定義すればいいのだけど, ちょっと込み入ったことをしたい場合は<code>Paperclip::Processer</code>を継承したクラスを作る必要がある. こんな感じ → <a href="https://gist.github.com/laurynas/708077">Paperclip Watermark processor</a>.</p>
-
-<p>ただ今回はそこまで複雑なことするわけでもないし, クラス作るのは嫌だなー, と思っていたら<a href="https://twitter.com/komagata">@komagata</a>さんの<a href="http://docs.komagata.org/3979">RailsからImageMagick(convert)に自由にオプションを渡せると聞いて飛んできました</a>を発見. 無事,</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">convert_options</span><span class="p">:</span> <span class="p">{</span>
-</span><span class='line'>  <span class="ss">normal</span><span class="p">:</span> <span class="p">{</span> <span class="ss">normal</span><span class="p">:</span> <span class="s1">&#39;-resize 640x640 -background black -gravity center -extent 640x640&#39;</span> <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とやって達成. 複数サイズあるとイマイチな感じではあるが…</p>
-
-<p>後, 今日は初めて人にタスクを割り振った. Welcomeメールの文面を考えてもらうという内容だったけど, 要求が曖昧なところ(「どこを見れば怖話を楽しめるか, とそこへのリンク」で特選の怖い話やランキングへのリンクを期待していた)もあったし, 自分が仕様を勘違いしている(「メール配信の解除方法」を入れてほしいとしたが, 現状では全ての配信を解除する方法が無かった)のもあって非常にやりにくかったと思う. 次に活かしたい.</p>
-
-<p>明日は, 今日作ってもらったメール文面を使って</p>
-
-<ol>
-<li>メールアドレスでメンバ登録したときに, welcomeメールが欲しい</li>
-</ol>
-
-
-<p>をしようと思う.</p>
 ]]></content>
   </entry>
   
