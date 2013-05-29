@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-23T17:19:05+09:00</updated>
+  <updated>2013-05-29T15:13:07+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rails4でturbolinksを使わない]]></title>
+    <link href="http://nomnel.net/blog/rails4-no-turbolinks/"/>
+    <updated>2013-05-29T15:04:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails4-no-turbolinks</id>
+    <content type="html"><![CDATA[<p><code>rails new</code>するときにturbolinksがbundlerでインストールされるので, 嫌なら<code>--skip-bundle</code>オプションを付けて作成する.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>bundle <span class="nb">exec </span>rails new APPNAME --skip-bundle
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>でまず, <code>Gemfile</code>から</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;turbolinks&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>の行をコメントアウト.</p>
+
+<p>次に<code>app/assets/javascripts/application.js</code>で</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//= require turbolinks</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>の行を削除.</p>
+
+<p>最後に<code>app/views/layouts/application.html.erb</code>で</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s2">&quot;application&quot;</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;data-turbolinks-track&quot;</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s2">&quot;application&quot;</span><span class="p">,</span> <span class="s2">&quot;data-turbolinks-track&quot;</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>となっている箇所を</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s2">&quot;application&quot;</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s2">&quot;all&quot;</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s2">&quot;application&quot;</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>に変更.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[インターン52日目]]></title>
@@ -1231,35 +1283,6 @@
 【追記終】</p>
 
 <p>後, 今日は来客だのなんだので割り込みが非常に多かった. 一日の半分以上取られた. 拒否しようにもお金を稼いでないやつに拒否権は無いらしい, つらい.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン37日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day37/"/>
-    <updated>2013-04-24T18:30:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day37</id>
-    <content type="html"><![CDATA[<p>さて今日は</p>
-
-<ol>
-<li>ユーザー個別ページの投稿した話の合計に下書きが含まれるので含まなくする</li>
-<li>怖いボタンの挙動が不自然(Ajax通信が終わる前に表示を変更していた)だったのを修正</li>
-<li>怖いボタンを押したらflashで通知が出る</li>
-</ol>
-
-
-<p>をしていた.</p>
-
-<!-- more -->
-
-
-<p>1.は条件を加えるだけなのですぐに終了.</p>
-
-<p>2.は, 3.に取り組もうとしたときに発見したので先にやっておいた.</p>
-
-<p>3.を実現するにはいくつか方法があるっぽいのだけれど, それを調べてる間に体調が酷くなって休んでしまった. ので, 続きはまた明日.</p>
-
-<p>それとは別に, 今日は駒形さんが休みなので, タスクが無くて困っている人がいたら割り振るように頼まれていた. 朝は「この人が来たらこのタスクお願いしよう…！」とか色々考えてたけど, 作業週の人はKuritaさんしか来ていなかったのでそれほど問題はなかった.</p>
 ]]></content>
   </entry>
   

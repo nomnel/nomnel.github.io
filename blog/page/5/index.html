@@ -9,11 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="さて, 今日は ActiveRecordを理解する
-ActionControllerを理解する
-ActionViewを理解する
-ActiveSupportを理解する
-Railsのroutesを理解する をやるつもり…だったんだが… やっぱり256 INTERNSの方をいじってしまっていた. &hellip;">
+  <meta name="description" content="Railsでページごとにtitleタグを書き換えるにはcontent_forを使う. まず, app/views/layouts/application.html.hamlにyieldを使って値を埋め込めるようにする. これで, 各viewファイルからcontent_for(:title) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +77,52 @@ Railsのroutesを理解する をやるつもり…だったんだが… やっ�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-change-each-page-title/">Railsでページごとにtitleタグを書き換える</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-03T00:00:00+09:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Railsでページごとにtitleタグを書き換えるには<code>content_for</code>を使う.</p>
+
+<p>まず, app/views/layouts/application.html.hamlに<code>yield</code>を使って値を埋め込めるようにする.</p>
+
+<p>これで, 各viewファイルから<code>content_for(:title)</code>を使って値を渡すことができるようになった.</p>
+
+<p>実際に使うときは, app/helpers/application_helper.rbにヘルパーメソッド(title)を加えておくと</p>
+
+<p>app/views/post/show.html.haml等で</p>
+
+<p>とするだけなので便利.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -716,78 +758,6 @@ LoadError: no such file to load -- bundler/setup
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day17/">インターン17日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-25T00:00:00+09:00" pubdate data-updated="true">Mar 25<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今日やっていたのは下の3つ.</p>
-
-<ol>
-<li>以前の作業(ランキングの集計数変更)のとき, メソッド名の変更忘れしてたところを修正(プルリク済)</li>
-<li>iPhoneアプリのナビゲーションアイコンの位置調整(完了, 未プルリク)</li>
-<li>iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする(作業中)</li>
-</ol>
-
-
-<p>1はソースを眺めてるときに気づいて修正. 普段使われないメソッドの中だったので影響無くてよかった….</p>
-
-<p>2はCSSで微調整して完了.</p>
-
-<p>3はタップされたらdisableな見た目になってloading…的なgifがどこかに表示されてたら十分かな, と思って進めている. まずは”タップされたらdisableな見た目”な方から.</p>
-
-<p>擬似クラスにはタップされた”後”というのは無いみたい(:activeはタップされたとき)なので擬似クラスは諦める</p>
-
-<p>-> じゃあ直接属性付けようか</p>
-
-<p>-> aタグにはdisabled付けれない</p>
-
-<p>-> buttonに変えてみる</p>
-
-<p>-> 出来た!!</p>
-
-<p>問題は,</p>
-
-<ol>
-<li>キャッシュ効いた場合(?)にボタンがdisabledのままだった(@MacのSafari)</li>
-<li>というかaからbuttonに変えていいのか？</li>
-<li>変えて良いとしてデザイン調整がまた必要になる</li>
-</ol>
-
-
-<p>ということ. 特に2は確認しておかないと.</p>
-
-<p>後これは元々の問題だけど, 戻れない(進めない)ときにタップ出来ないようにしておく, というタスクも追加しておかないと.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -803,6 +773,10 @@ LoadError: no such file to load -- bundler/setup
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails4-no-turbolinks/">Rails4でturbolinksを使わない</a>
+      </li>
     
       <li class="post">
         <a href="/blog/fjord-day52/">インターン52日目</a>
@@ -838,10 +812,6 @@ LoadError: no such file to load -- bundler/setup
     
       <li class="post">
         <a href="/blog/centos-take-over-path-from-user-on-sudo/">sudo時にPATHを引き継ぐ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day42/">インターン42日目</a>
       </li>
     
   </ul>

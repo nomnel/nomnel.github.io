@@ -9,9 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="WordPressに初めてログインしたときにとりあえず行ったことをまとめた. プラグインのインストールと有効化でも述べるように, 最低でもWP Multibyte PatchとAkismetの有効化はしておく. 目次 パーマリンクの変更
-テーマのインストールと変更
-プラグインのインストールと有効化 &hellip;">
+  <meta name="description" content="Akismetはコメントスパム対策に役立つプラグイン. WordPressにデフォルトでインストールされているが, 使用するにはAPIキーが必要になる. また, このAPIキーを複数サイトで使い回すことは出来ない. 目次 有効化
+APIキーの取得と設定
+使い方 有効化 サイドバーの プラグイン &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,115 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/wp-akismet/">AkismetのAPIキーを取得して設定する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-29T00:00:00+09:00" pubdate data-updated="true">Sep 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Akismetはコメントスパム対策に役立つプラグイン. WordPressにデフォルトでインストールされているが, 使用するにはAPIキーが必要になる. また, このAPIキーを複数サイトで使い回すことは出来ない.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>有効化</li>
+<li>APIキーの取得と設定</li>
+<li>使い方</li>
+</ol>
+
+
+<hr />
+
+<h3>有効化</h3>
+
+<p>サイドバーの プラグイン -> インストール済みプラグイン を開き, Akismetを有効化する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-01.jpeg" alt="Akismetの有効化" /></p>
+
+<hr />
+
+<h3>APIキーの取得と設定</h3>
+
+<p>有効化すると下のように表示されるので, [Akismet API キーを入力]部分をクリックするか, サイドバーの プラグイン -> Akismet設定 からAkismet設定ページを表示する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-02.jpeg" alt="Akismet有効化時のメッセージ" /></p>
+
+<p>APIキーを取得するため, <a href="http://akismet.com/wordpress/">Akismet.com</a>を開く.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-03.jpeg" alt="Akismet設定画面からAkismet.comを開く" /></p>
+
+<p>クリックしてAPIキーのサインアップ画面へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-04.jpeg" alt="APIキーのサインアップ画面へ" /></p>
+
+<p>個人ブログ用のプラン(Personal)を選択.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-05.jpeg" alt="プランの選択" /></p>
+
+<p>右側に表示されるバーを左端までスライドさせて無料にする.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-06.jpeg" alt="料金を無料に変更" /></p>
+
+<p>氏名とメールアドレスを入力してCONTINUE. チェックボックス(メルマガを受け取るか)は外しておいて良い.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-07.jpeg" alt="コンタクト情報の入力" /></p>
+
+<p>CONTINUEと書いてあったがこれで終了. 下のような画面が表示されるのでメールを確認する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-08.jpeg" alt="サインアップの完了" /></p>
+
+<p>Your Akismet API key is: に続く文字列がAPIキー. コピーしておく.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-09.jpeg" alt="メール中のAPIキーを確認" /></p>
+
+<p>Akismet設定ページに戻り, APIキーを入力して設定を更新.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-10.jpeg" alt="APIキーの入力" /></p>
+
+<p>次のように表示されたら成功.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-11.jpeg" alt="APIキーの認証完了" /></p>
+
+<hr />
+
+<h3>使い方</h3>
+
+<p>スパム判定されたコメントはコメント画面から確認できる.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-12.jpeg" alt="コメント画面からスパムを確認" /></p>
+
+<p>他に, サイドバーの ダッシュボード -> Akismet統計 ではスパムの統計情報が確認できる.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1407,392 +1516,9 @@ mod_disk_cache
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sakura-vps-first-steps/">さくらのVPSで最初にやっておくこと</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-25T00:00:00+09:00" pubdate data-updated="true">Sep 25<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>※ 基本的にMac(|Linux)のターミナルから作業する場合の手順を書いています. Windowsの場合はsshとscpをどうにかするか, Linuxに乗り換えてください.</p>
-
-<p>契約から起動するまではこちら -> <a href="http://nomnel.net/blog/sign-up-sakura-vps">さくらのVPSを契約して起動するまで</a></p>
-
-<p>設定ファイルの編集に使うviの使い方はこちら -> <a href="http://nomnel.net/blog/vi-minimum-knowledge">vi(vim)の最低限の使い方</a></p>
-
-<h3>目次</h3>
-
-<ul>
-<li>最初の接続
-
-<ul>
-<li>MacからVPSにssh接続</li>
-<li>rootのパスワード変更</li>
-</ul>
-</li>
-<li>とりあえずのセキュリティ対策
-
-<ul>
-<li>sshのポート変更</li>
-<li>アプリケーションのアップデート</li>
-</ul>
-</li>
-<li>作業用ユーザの作成
-
-<ul>
-<li>ユーザの作成とパスワードの設定</li>
-<li>sudoできるように</li>
-</ul>
-</li>
-<li>鍵認証でのssh接続
-
-<ul>
-<li>Macでrsa認証鍵を生成</li>
-<li>公開鍵をVPSに転送</li>
-<li>鍵を登録</li>
-<li>sshdの設定変更</li>
-<li>鍵認証でのssh接続の確認</li>
-</ul>
-</li>
-<li>iptablesの設定
-
-<ul>
-<li>設定ファイル編集</li>
-<li>自動起動を有効化</li>
-</ul>
-</li>
-</ul>
-
-
-<h5>MacからVPSにssh接続</h5>
-
-<p>まずはMacからsshでVPSに接続する(rootのパスワードが必要. 契約時のメールに記載されている).</p>
-
-<pre><code># Macから
-$ ssh root@IP.ADD.RE.SS  #  インターネットでは, 全世界の22番ポートをくまなく調べ, セキュリティホールのあるサーバが無いかチェックしているロボットがいます. もちろん, どうしてもあなたのサーバを落としたい！というロボットがいたら別ですが, 普通のロボットは無差別なIPアドレスへポート22固定で攻撃をしてきますから, 22番ポート以外に変更することは非常に効果があります.
-</code></pre>
-
-<blockquote></blockquote>
-
-<p>変更前に設定ファイルのバックアップをとってから(.orgは”オリジナルの”程度の意味)</p>
-
-<pre><code># cp /etc/ssh/sshd_config /etc/ssh/sshd_config.org
-</code></pre>
-
-<p>ファイルを開いてポート番号を変更し,</p>
-
-<pre><code># vi /etc/ssh/sshd_config
-
-#Port 22
--&gt;
-Port 10022  # 適当な数字に(1024~65535の範囲で)
-</code></pre>
-
-<p>sshdを再起動して変更を有効化する.</p>
-
-<pre><code># service sshd restart  # エラーが無ければOKと表示される
-</code></pre>
-
-<h5>アプリケーションのアップデート</h5>
-
-<p>古いバージョンの脆弱性を突かれることを防ぐ.</p>
-
-<pre><code># yum -y update
-</code></pre>
-
-<hr />
-
-<h3>作業用ユーザの作成と設定</h3>
-
-<h5>ユーザーの作成とパスワードの設定</h5>
-
-<p>常にrootで作業を行うのは何かと危険なので作業用のユーザを作成する.</p>
-
-<pre><code># useradd nomnel  # ユーザ名は適当に
-</code></pre>
-
-<p>で作業用ユーザを作成し, (以下, nomnelはここで作成した作業用ユーザ)</p>
-
-<pre><code># passwd nomnel
-</code></pre>
-
-<p>で作成したユーザのパスワードを設定する.</p>
-
-<h5>sudoできるように</h5>
-
-<p>sudoを使うことで必要なときのみroot権限で作業できる. まず, 作成したユーザをwheelグループに追加する.</p>
-
-<pre><code># usermod -G wheel nomnel
-</code></pre>
-
-<p>次に, wheelグループがsudoを使えるようにするため</p>
-
-<pre><code># visudo
-</code></pre>
-
-<p>で設定ファイルを開き, 下の行を探してコメントを外す. (操作方法はviと同じ)</p>
-
-<pre><code>## Allows people in group wheel to run all commands
-# %wheel        ALL=(ALL)       ALL
--&gt;
-## Allows people in group wheel to run all commands
-%wheel        ALL=(ALL)       ALL
-</code></pre>
-
-<h5>日本語化</h5>
-
-<pre><code># vi /etc/sysconfig/i18n
-</code></pre>
-
-<p>で設定ファイルを開き,</p>
-
-<pre><code>LANG="C"
--&gt;
-LANG="ja_JP.UTF-8"
-</code></pre>
-
-<p>と変更する.</p>
-
-<pre><code># exit
-</code></pre>
-
-<p>で一度ログアウトした後に再ログインすると設定が有効になる. sshのポート番号を変更しているので,</p>
-
-<pre><code>$ ssh -p 10022 root@IP.ADD.RE.SS  # 10022は変更したポート番号
-</code></pre>
-
-<p>のようにポート番号を指定しなければいけないことに注意.</p>
-
-<hr />
-
-<h3>鍵認証でログイン</h3>
-
-<p>パスワード認証だとセキュリティ強度が低いので, 鍵認証でsshログインできるようにする.</p>
-
-<h5>Macで鍵のペア(秘密鍵, 公開鍵)を生成</h5>
-
-<p>鍵を生成する(ファイル名, パスフレーズはデフォルトでよい).</p>
-
-<pre><code>$ ssh-keygen -t rsa -v
-</code></pre>
-
-<p>確認すると, id_rsaとid_rsa.pubの2つのファイルが作成されている.</p>
-
-<h5>公開鍵をサーバーに転送</h5>
-
-<p>作成した公開鍵をscpでVPSに転送する.</p>
-
-<pre><code>$ scp -P 10022 ~/.ssh/id_rsa.pub nomnel@IP.ADD.RE.SS:~/
-# パスワードを聞かれるので作業用ユーザのパスワードを入力
-</code></pre>
-
-<p>できたらVPSに作業用ユーザでログインする.</p>
-
-<pre><code>$ ssh -p 10022 nomnel@IP.ADD.RE.SS
-</code></pre>
-
-<h5>鍵を登録する</h5>
-
-<p>転送しておいた鍵をauthorized_keysという名前にしてパーミッションを変更する.</p>
-
-<pre><code># フォルダを作成
-$ mkdir .ssh
-
-# 鍵をauthorized_keysに
-$ mv id_rsa.pub .ssh/authorized_keys
-
-# パーミッションの変更
-$ chmod 700 .ssh
-$ chmod 600 .ssh/authorized_keys
-</code></pre>
-
-<p>※ 2個目以降の鍵は下のようにしてauthorized_keysに追記する.</p>
-
-<pre><code>$ cat id_rsa.pub &gt;&gt; .ssh/authorized_keys
-</code></pre>
-
-<h5>鍵認証でログイン</h5>
-
-<p>一度<code>exit</code>でログアウトした後, 再度</p>
-
-<pre><code>$ ssh -p 10022 nomnel@IP.ADD.RE.SS
-</code></pre>
-
-<p>でログインするとパスワードを聞かれなくなっているはず.</p>
-
-<hr />
-
-<h3>SSHの設定</h3>
-
-<p>この状態ではまだ, パスワード認証でのログインやrootでのログインも出来てしまう. sshの設定を変更してそれらを禁止する.</p>
-
-<h5>sshdの設定</h5>
-
-<pre><code>$ sudo vi /etc/ssh/sshd_config
-</code></pre>
-
-<p>で設定ファイルを開いて下のように変更する.</p>
-
-<pre><code># パスワード認証でログインできないように
-PasswordAuthentication yes
--&gt;
-PasswordAuthentication no
-
-# rootでログインできないように
-#PermitRootLogin yes
--&gt;
-PermitRootLogin no
-</code></pre>
-
-<p>sshdを再起動して変更を反映する.</p>
-
-<pre><code>$ sudo service sshd restart  # エラーが無ければOKと表示される
-</code></pre>
-
-<h5>接続の確認</h5>
-
-<p>ここまで出来たらMacで新しくターミナルを起ち上げ(万一のためにすでにssh接続しているターミナルは残したまま), ちゃんとログイン出来る/出来ないことを確かめておくとよい.</p>
-
-<pre><code>$ ssh -p 10022 nomnel@IP.ADD.RE.SS  # ログイン出来る(パスワード聞かれない)
-$ ssh -p 10022 root@IP.ADD.RE.SS    # ログイン出来ない
-</code></pre>
-
-<p>また, 毎回ポート番号やIPアドレスを入力するのは面倒なので, Macの.bash_profileに</p>
-
-<pre><code>alias sakura='ssh -p 10022 nomnel@IP.ADD.RE.SS'
-</code></pre>
-
-<p>を追加して,</p>
-
-<pre><code>$ source .bash_profile
-</code></pre>
-
-<p>で設定を反映しておくと, 次回からは</p>
-
-<pre><code>sakura
-</code></pre>
-
-<p>とするだけで, サーバーにssh接続できて便利.</p>
-
-<hr />
-
-<h3>Firewall(iptables)の設定</h3>
-
-<p>Firewall(iptables)は, 他のコンピュータネットワークとの通信を制御するもの. 必要な通信のみを許可することでセキュリティを高めることができる.</p>
-
-<h5>設定ファイルの編集と適用</h5>
-
-<p>初期状態では設定ファイルが存在しないので</p>
-
-<pre><code>$ sudo vi /etc/sysconfig/iptables
-</code></pre>
-
-<p>で新規にファイルを作成して編集する. 内容は以下. (設定の意味 -> <a href="http://nomnel.net/blog/iptables-filter">iptablesでパケットフィルタリングするための設定</a>)</p>
-
-<p>参考:<a href="http://tanaka.sakura.ad.jp/archives/001065.html">CentOSをサーバーとして活用するための基本的な設定 | さくらインターネット創業日記</a></p>
-
-<pre><code>*filter
-:INPUT   ACCEPT [0:0]
-:FORWARD ACCEPT [0:0]
-:OUTPUT  ACCEPT [0:0]
-:RH-Firewall-1-INPUT - [0:0]
-
--A INPUT -j RH-Firewall-1-INPUT
--A FORWARD -j RH-Firewall-1-INPUT
--A RH-Firewall-1-INPUT -i lo -j ACCEPT
--A RH-Firewall-1-INPUT -p icmp --icmp-type any -j ACCEPT
--A RH-Firewall-1-INPUT -p 50 -j ACCEPT
--A RH-Firewall-1-INPUT -p 51 -j ACCEPT
--A RH-Firewall-1-INPUT -p udp --dport 5353 -d 224.0.0.251 -j ACCEPT
--A RH-Firewall-1-INPUT -p udp -m udp --dport 631 -j ACCEPT
--A RH-Firewall-1-INPUT -p tcp -m tcp --dport 631 -j ACCEPT
--A RH-Firewall-1-INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-
-# SSH, HTTP
--A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 10022  -j ACCEPT
--A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 80        -j ACCEPT
-
--A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited
-
-COMMIT
-</code></pre>
-
-<p>他に, <a href="http://dotinstall.com/lessons/basic_sakura_vps/8010">ドットインストール</a>ではこのように記述されていた.</p>
-
-<pre><code>*filter
-:INPUT  DROP   [0:0]
-:FORWARD  DROP   [0:0]
-:OUTPUT   ACCEPT [0:0]
-:SERVICES -   [0:0]
--A INPUT -i lo -j ACCEPT
--A INPUT -p icmp --icmp-type echo-request -m limit --limit 1/s --limit-burst 4 -j ACCEPT
--A INPUT -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
--A INPUT -p tcp -m state --state NEW -j SERVICES
--A INPUT -p udp --sport 53 -j ACCEPT
--A INPUT -p udp --sport 123 --dport 123 -j ACCEPT
--A SERVICES -p tcp --dport 10022 -j ACCEPT
--A SERVICES -p tcp --dport 80 -j ACCEPT
--A SERVICES -p tcp --dport 443 -j ACCEPT
-COMMIT
-</code></pre>
-
-<p>終わったらiptablesを起動して設定を適用する.</p>
-
-<pre><code>$ sudo service iptables start
-
-# すでにiptablesが起動している場合は
-$ sudo service iptables restart
-
-# 現在の設定を確認
-$ sudo iptables -L
-</code></pre>
-
-<h5>自動起動の設定</h5>
-
-<p>また, OSの再起動時にiptablesが自動的に起動するようにしておく.</p>
-
-<pre><code># 自動起動が有効かチェック
-$ chkconfig --list iptables
-
-# 上の結果で 3:on となっていなければ
-$ sudo chkconfig iptables on
-
-# もう一度チェック
-$ chkconfig --list iptables
-</code></pre>
-
-<hr />
-
-<p>さくらのVPSにインストールされているCentOSでは, 不必要なサービスはほとんど起動されていないらしい(要出典). というわけで最初にしておくこととしてはここまでかな.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/10/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -1805,6 +1531,10 @@ $ chkconfig --list iptables
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails4-no-turbolinks/">Rails4でturbolinksを使わない</a>
+      </li>
     
       <li class="post">
         <a href="/blog/fjord-day52/">インターン52日目</a>
@@ -1840,10 +1570,6 @@ $ chkconfig --list iptables
     
       <li class="post">
         <a href="/blog/centos-take-over-path-from-user-on-sudo/">sudo時にPATHを引き継ぐ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day42/">インターン42日目</a>
       </li>
     
   </ul>

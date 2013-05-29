@@ -9,8 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日は週間ランキング等の個別のランキングページで11位以下の怖い話を表示する作業をしていた. 現在の進捗は ランキングの集計順位を増やす(11位以下も集計する)方法
-結果表示の件数を増やす方法 は分かったのでざっくりとコードを追加して目視で動作確認したところ. 残っている課題は テストの追加 &hellip;">
+  <meta name="description" content="こうする. (Ruby: 2.0.0-p0, Rails: 3.2.12) $ rails runner "Foo::Bar.buz(fuga: 3)" ちなみに $ rails runner Foo::Bar.buz(fuga: 3) みたいにダブルクォート付けないと zsh: unknown &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-runner-keyword-arg/">Railsのrunnerにキーワード引数を渡す</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-13T00:00:00+09:00" pubdate data-updated="true">Mar 13<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>こうする. (Ruby: 2.0.0-p0, Rails: 3.2.12)</p>
+
+<pre><code>$ rails runner "Foo::Bar.buz(fuga: 3)"
+</code></pre>
+
+<p>ちなみに</p>
+
+<pre><code>$ rails runner Foo::Bar.buz(fuga: 3)
+</code></pre>
+
+<p>みたいにダブルクォート付けないと <code>zsh: unknown sort specifier</code> みたいに怒られる.</p>
+
+<pre><code>$ rails runner Foo::Bar.buz
+</code></pre>
+
+<p>だと問題ないけど.</p>
+
+<p>コードはこんな感じを想定.</p>
+
+<pre><code>module Foo
+  class Bar
+    class
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -713,102 +770,6 @@ $ jfbterm
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day4/">インターン4日目 あとnodebrewとかzsh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-05T00:00:00+09:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>今日やったこと</h3>
-
-<ol>
-<li><a href="http://dotinstall.com/lessons/basic_coffeescript">ドットインストール CoffeeScript入門</a>を見た</li>
-<li>nodebrewでnode.js入れた</li>
-<li>シェルをzshに変えた</li>
-<li><a href="http://minghai.github.com/library/coffeescript/index.html">The Little Book on CoffeeScript（日本語版）</a>を読んだ</li>
-</ol>
-
-
-<h3>明日やること</h3>
-
-<p>明日はチュートリアルのインフラ編をやる. DebianはVirtualBoxを使って仮想で入れるつもり. 仮想OSはネットワーク設定のとこで躓いたトラウマがあるので不安.</p>
-
-<h3>nodebrewとnode.jsのインストール</h3>
-
-<p>CoffeeScriptを試そうと思ったらnode.jsが必要とのことだったので, 弟におすすめされた<a href="https://github.com/hokaccha/nodebrew">nodebrew</a>を入れることに. インストールは<a href="https://github.com/hokaccha/nodebrew">github</a>のREADMEを参考に. 一応こちらにも書いておく.</p>
-
-<p>インストールはこのワンライナー.</p>
-
-<pre><code>$ curl https://raw.github.com/hokaccha/nodebrew/master/nodebrew | perl - setup
-</code></pre>
-
-<p>インストールが終わったら, .bashrc, .zshrcなどに</p>
-
-<pre><code>export PATH=$HOME/.nodebrew/current/bin:$PATH
-</code></pre>
-
-<p>を追加して</p>
-
-<pre><code>source ~/.bashrc
-</code></pre>
-
-<p>で再読み込みしておく. 次にnodebrewでnode.jsをインストールする.</p>
-
-<pre><code>$ nodebrew install stable # 安定版をインストール
-</code></pre>
-
-<p>使用するバージョンを指定.</p>
-
-<pre><code>$ nodebrew use stable
-$ node -v # 確認
-</code></pre>
-
-<p>npmでCoffee Scriptをインストール.</p>
-
-<pre><code>$ npm install -g coffee-script # グローバルにインストール
-</code></pre>
-
-<p>これで<code>cofffee</code>コマンドが使える.</p>
-
-<h3>zshのインストール</h3>
-
-<p>ついでだからとzshも入れさせられた. brewだと下記のように.</p>
-
-<pre><code>$ brew install zsh
-$ sudo sh -c "echo '/usr/local/bin/zsh' &gt;&gt; /etc/shells"
-$ chsh -s /usr/local/bin/zsh
-$ touch ~/.zshrc
-$ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -824,6 +785,10 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails4-no-turbolinks/">Rails4でturbolinksを使わない</a>
+      </li>
     
       <li class="post">
         <a href="/blog/fjord-day52/">インターン52日目</a>
@@ -859,10 +824,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     
       <li class="post">
         <a href="/blog/centos-take-over-path-from-user-on-sudo/">sudo時にPATHを引き継ぐ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day42/">インターン42日目</a>
       </li>
     
   </ul>
