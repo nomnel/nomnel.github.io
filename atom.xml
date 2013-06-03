@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-29T15:13:07+09:00</updated>
+  <updated>2013-06-03T14:57:35+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -122,9 +122,9 @@
 </span><span class='line'><span class="k">left</span> <span class="k">join</span> <span class="n">wallpapers</span> <span class="k">on</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Wallpaper&#39;</span> <span class="k">and</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_id</span> <span class="o">=</span> <span class="n">wallpapers</span><span class="p">.</span><span class="n">id</span>
 </span><span class='line'><span class="k">left</span> <span class="k">join</span> <span class="n">comics</span>     <span class="k">on</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Comic&#39;</span>     <span class="k">and</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_id</span> <span class="o">=</span> <span class="n">comics</span><span class="p">.</span><span class="n">id</span>
 </span><span class='line'><span class="k">where</span> <span class="n">comments</span><span class="p">.</span><span class="n">user_id</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">blocks</span><span class="p">.</span><span class="n">destination_id</span> <span class="k">from</span> <span class="n">blocks</span> <span class="k">where</span> <span class="n">blocks</span><span class="p">.</span><span class="n">source_id</span> <span class="o">=</span>
-</span><span class='line'><span class="p">(</span><span class="k">case</span> <span class="k">when</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Story&#39;</span>     <span class="k">then</span> <span class="n">stories</span><span class="p">.</span><span class="n">id</span>
-</span><span class='line'>      <span class="k">when</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Wallpaper&#39;</span> <span class="k">then</span> <span class="n">wallpapers</span><span class="p">.</span><span class="n">id</span>
-</span><span class='line'>      <span class="k">else</span>                                              <span class="n">comics</span><span class="p">.</span><span class="n">id</span> <span class="k">end</span><span class="p">))</span>
+</span><span class='line'><span class="p">(</span><span class="k">case</span> <span class="k">when</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Story&#39;</span>     <span class="k">then</span> <span class="n">stories</span><span class="p">.</span><span class="n">user_id</span>
+</span><span class='line'>      <span class="k">when</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Wallpaper&#39;</span> <span class="k">then</span> <span class="n">wallpapers</span><span class="p">.</span><span class="n">user_id</span>
+</span><span class='line'>      <span class="k">else</span>                                              <span class="n">comics</span><span class="p">.</span><span class="n">user_id</span> <span class="k">end</span><span class="p">))</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -144,7 +144,7 @@
 </span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join wallpapers on comments.commentable_type = &quot;Wallpaper&quot; and comments.commentable_id = wallpapers.id &#39;</span><span class="p">)</span><span class="o">.</span>
 </span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join comics     on comments.commentable_type = &quot;Comic&quot;     and comments.commentable_id = comics.id &#39;</span><span class="p">)</span><span class="o">.</span>
 </span><span class='line'>  <span class="n">where</span><span class="p">(</span><span class="s1">&#39;comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =</span>
-</span><span class='line'><span class="s1">    (case when comments.commentable_type = &quot;Story&quot; then stories.id when comments.commentable_type = &quot;Wallpaper&quot; then wallpapers.id else comics.id end))&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="s1">    (case when comments.commentable_type = &quot;Story&quot; then stories.user_id when comments.commentable_type = &quot;Wallpaper&quot; then wallpapers.user_id else comics.user_id end))&#39;</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 

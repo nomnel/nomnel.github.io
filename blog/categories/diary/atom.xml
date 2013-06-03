@@ -4,7 +4,7 @@
   <title><![CDATA[Category: diary | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/diary/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-05-29T15:13:07+09:00</updated>
+  <updated>2013-06-03T14:57:35+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -62,10 +62,10 @@ left join stories    on comments.commentable_type = 'Story'     and comments.com
 left join wallpapers on comments.commentable_type = 'Wallpaper' and comments.commentable_id = wallpapers.id
 left join comics     on comments.commentable_type = 'Comic'     and comments.commentable_id = comics.id
 where comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =
-(case when comments.commentable_type = 'Story'     then stories.id</p>
+(case when comments.commentable_type = 'Story'     then stories.user_id</p>
 
-<pre><code>  when comments.commentable_type = 'Wallpaper' then wallpapers.id
-  else                                              comics.id end))
+<pre><code>  when comments.commentable_type = 'Wallpaper' then wallpapers.user_id
+  else                                              comics.user_id end))
 </code></pre>
 
 <p>```</p>
@@ -81,7 +81,7 @@ default_scope -> {
   joins('left join comics     on comments.commentable_type = "Comic"     and comments.commentable_id = comics.id ').
   where('comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =</p>
 
-<pre><code>(case when comments.commentable_type = "Story" then stories.id when comments.commentable_type = "Wallpaper" then wallpapers.id else comics.id end))')
+<pre><code>(case when comments.commentable_type = "Story" then stories.user_id when comments.commentable_type = "Wallpaper" then wallpapers.user_id else comics.user_id end))')
 </code></pre>
 
 <p>}
