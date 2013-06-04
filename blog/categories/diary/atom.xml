@@ -4,7 +4,7 @@
   <title><![CDATA[Category: diary | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/diary/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-03T14:57:35+09:00</updated>
+  <updated>2013-06-04T17:42:27+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[インターンその53]]></title>
+    <link href="http://nomnel.net/blog/fjord-days-53/"/>
+    <updated>2013-06-04T17:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/fjord-days-53</id>
+    <content type="html"><![CDATA[<p>何日目か考えるのが面倒なので単なる連番にする.</p>
+
+<p>前回の作業週から取り組んでいた<a href="http://nomnel.net/blog/fjord-day52/">ブロック機能のバグ修正</a>の話. ブロックしたユーザが非表示にならず, 再度ブロックするとDBのユニーク制約に違反してエラーになるのが原因だった.</p>
+
+<p>なのでブロック済みユーザのコメントは取得しないようにしようと試みる. 怖話では, 怖い話(Story), 怖い画像(Wallpaper), 怖い漫画(Comic)のそれぞれにコメントを付けることが出来(acts_as_commentable), ブロックは投稿したユーザからコメントしたユーザへの一方向になっている. また, 管理者以外のユーザがブロック済みユーザのコメントを見ることは無いはずなのでCommentクラスのdefault_scopeに</p>
+
+<p>```ruby
+default_scope -> {
+  joins('left join stories    on comments.commentable_type = "Story"     and comments.commentable_id = stories.id ').
+  joins('left join wallpapers on comments.commentable_type = "Wallpaper" and comments.commentable_id = wallpapers.id ').
+  joins('left join comics     on comments.commentable_type = "Comic"     and comments.commentable_id = comics.id ').
+  where('comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =</p>
+
+<pre><code>(case when comments.commentable_type = "Story"     then stories.user_id
+      when comments.commentable_type = "Wallpaper" then wallpapers.user_id
+      else                                              comics.user_id end))')
+</code></pre>
+
+<p>}
+```</p>
+
+<p>と書いた.</p>
+
+<p>これで"ブロック済みユーザのコメントは取得しない"という目的は達成されるのだが, 今度は<code>includes(:commentable)</code>とすると<code>ActiveRecord::EagerLoadPolymorphicError - Can not eagerly load the polymorphic association :commentable</code>となってしまう.</p>
+
+<p>回避する方法は分からなかったのだが, 現状<code>includes(:commentable)</code>が必要になる箇所はトップページ(/), コメント一覧ページ(/comments), 怖い漫画のトップページ(/comics)であり, 特にトップページは表示回数が多いはずなのでRailsやその他のキャッシュで対処出来ないかな…という淡い期待でそのままにした.</p>
+
+<p>何か他にいい方法無いかな…</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[インターン52日目]]></title>
@@ -244,30 +280,6 @@ $.ajax
 <p>1は実装(と言っても3行だが)のみでデザインは町田さんにお願いした.</p>
 
 <p>2はrunnerのタスクとしてcronで定時に実行する方針. 明日には終わらせたい.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン42日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day42/"/>
-    <updated>2013-05-02T17:20:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day42</id>
-    <content type="html"><![CDATA[<p>さて今日は,</p>
-
-<ol>
-<li><a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a></li>
-<li><a href="http://nomnel.net/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a></li>
-</ol>
-
-
-<p>をした. Jenkinsを入れたのは, せっかくwebサービスを作るなら継続的インテグレーションも経験したいと思ったからだ.</p>
-
-<!-- more -->
-
-
-<p>http://domain.com/jenkins としてアクセスするためには, Jenkins側でもprefixを指定しなければいけないことに気づかず手間取ったが, nginxでリバースプロキシを使う方法も分かったし良い勉強になった.</p>
-
-<p>とりあえずJenkins氏には, このブログのデプロイを任せてみようと思う.</p>
 ]]></content>
   </entry>
   

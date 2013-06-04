@@ -5,15 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>インターン21日目 - 飲んだり寝たり</title>
+  <title>インターンその53 - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="遅くなったが4日前(3/29 金曜)の日記. 前回の日記で考えた手順 怖い話モデルに表紙カラム(壁紙への参照)を追加
-表紙が怖い話で表示されるように
-表紙を壁紙から選択できるように
-表紙を投稿できるように
-怖い話の一覧に表紙サムネイルを表示 のうち, 3までは出来た( &hellip;">
+  <meta name="description" content="何日目か考えるのが面倒なので単なる連番にする. 前回の作業週から取り組んでいたブロック機能のバグ修正の話. ブロックしたユーザが非表示にならず, 再度ブロックするとDBのユニーク制約に違反してエラーになるのが原因だった. なのでブロック済みユーザのコメントは取得しないようにしようと試みる. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nomnel.net/blog/fjord-day21">
+  <link rel="canonical" href="http://nomnel.net/blog/fjord-days-53">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
@@ -84,7 +80,7 @@
   
   <header>
     
-      <h1 class="entry-title">インターン21日目</h1>
+      <h1 class="entry-title">インターンその53</h1>
     
     
       <p class="meta">
@@ -100,27 +96,47 @@
   
 
 
-<time datetime="2013-04-02T00:00:00+09:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
+<time datetime="2013-06-04T17:00:00+09:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>遅くなったが4日前(3/29 金曜)の日記.</p>
+<div class="entry-content"><p>何日目か考えるのが面倒なので単なる連番にする.</p>
 
-<p>前回の日記で考えた手順</p>
+<p>前回の作業週から取り組んでいた<a href="http://nomnel.net/blog/fjord-day52/">ブロック機能のバグ修正</a>の話. ブロックしたユーザが非表示にならず, 再度ブロックするとDBのユニーク制約に違反してエラーになるのが原因だった.</p>
 
-<ol>
-<li>怖い話モデルに表紙カラム(壁紙への参照)を追加</li>
-<li>表紙が怖い話で表示されるように</li>
-<li>表紙を壁紙から選択できるように</li>
-<li>表紙を投稿できるように</li>
-<li>怖い話の一覧に表紙サムネイルを表示</li>
-</ol>
+<p>なのでブロック済みユーザのコメントは取得しないようにしようと試みる. 怖話では, 怖い話(Story), 怖い画像(Wallpaper), 怖い漫画(Comic)のそれぞれにコメントを付けることが出来(acts_as_commentable), ブロックは投稿したユーザからコメントしたユーザへの一方向になっている. また, 管理者以外のユーザがブロック済みユーザのコメントを見ることは無いはずなのでCommentクラスのdefault_scopeに</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">default_scope</span> <span class="o">-&gt;</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join stories    on comments.commentable_type = &quot;Story&quot;     and comments.commentable_id = stories.id &#39;</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join wallpapers on comments.commentable_type = &quot;Wallpaper&quot; and comments.commentable_id = wallpapers.id &#39;</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join comics     on comments.commentable_type = &quot;Comic&quot;     and comments.commentable_id = comics.id &#39;</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>  <span class="n">where</span><span class="p">(</span><span class="s1">&#39;comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =</span>
+</span><span class='line'><span class="s1">    (case when comments.commentable_type = &quot;Story&quot;     then stories.user_id</span>
+</span><span class='line'><span class="s1">          when comments.commentable_type = &quot;Wallpaper&quot; then wallpapers.user_id</span>
+</span><span class='line'><span class="s1">          else                                              comics.user_id end))&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>のうち, 3までは出来た(見た目の修正とかリファクタリングとかコミット履歴の整理とかは必要だけど). 4は画像投稿ページヘのリンクを貼ればいいかな, と思っているのですぐ出来るはず. 学習週なので定時後に進めるとして早めにプルリクまで持って行きたい.</p>
+<p>と書いた.</p>
+
+<p>これで&#8221;ブロック済みユーザのコメントは取得しない&#8221;という目的は達成されるのだが, 今度は<code>includes(:commentable)</code>とすると<code>ActiveRecord::EagerLoadPolymorphicError - Can not eagerly load the polymorphic association :commentable</code>となってしまう.</p>
+
+<p>回避する方法は分からなかったのだが, 現状<code>includes(:commentable)</code>が必要になる箇所はトップページ(/), コメント一覧ページ(/comments), 怖い漫画のトップページ(/comics)であり, 特にトップページは表示回数が多いはずなのでRailsやその他のキャッシュで対処出来ないかな…という淡い期待でそのままにした.</p>
+
+<p>何か他にいい方法無いかな…</p>
 </div>
 
 
@@ -143,7 +159,7 @@
   
 
 
-<time datetime="2013-04-02T00:00:00+09:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
+<time datetime="2013-06-04T17:00:00+09:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time>
       
 
 <span class="categories">
@@ -157,7 +173,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/fjord-day21/" data-via="nomnel" data-counturl="http://nomnel.net/blog/fjord-day21/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/fjord-days-53/" data-via="nomnel" data-counturl="http://nomnel.net/blog/fjord-days-53/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -170,16 +186,18 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/rails-column-with-references-confusion/" title="Previous Post: Railsでカラムを追加する際にreferencesを指定するとdb:migrateが通らない
-">&laquo; Railsでカラムを追加する際にreferencesを指定するとdb:migrateが通らない
-</a>
+        <a class="basic-alignment left" href="/blog/rails4-no-turbolinks/" title="Previous Post: Rails4でturbolinksを使わない">&laquo; Rails4でturbolinksを使わない</a>
       
-      
-        <a class="basic-alignment right" href="/blog/fjord-day22/" title="Next Post: インターン22日目">インターン22日目 &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -254,7 +272,10 @@
       var disqus_shortname = 'nomnel';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nomnel.net/blog/fjord-days-53/';
+        var disqus_url = 'http://nomnel.net/blog/fjord-days-53/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

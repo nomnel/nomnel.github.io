@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-03T14:57:35+09:00</updated>
+  <updated>2013-06-04T17:42:27+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[インターンその53]]></title>
+    <link href="http://nomnel.net/blog/fjord-days-53/"/>
+    <updated>2013-06-04T17:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/fjord-days-53</id>
+    <content type="html"><![CDATA[<p>何日目か考えるのが面倒なので単なる連番にする.</p>
+
+<p>前回の作業週から取り組んでいた<a href="http://nomnel.net/blog/fjord-day52/">ブロック機能のバグ修正</a>の話. ブロックしたユーザが非表示にならず, 再度ブロックするとDBのユニーク制約に違反してエラーになるのが原因だった.</p>
+
+<p>なのでブロック済みユーザのコメントは取得しないようにしようと試みる. 怖話では, 怖い話(Story), 怖い画像(Wallpaper), 怖い漫画(Comic)のそれぞれにコメントを付けることが出来(acts_as_commentable), ブロックは投稿したユーザからコメントしたユーザへの一方向になっている. また, 管理者以外のユーザがブロック済みユーザのコメントを見ることは無いはずなのでCommentクラスのdefault_scopeに</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">default_scope</span> <span class="o">-&gt;</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join stories    on comments.commentable_type = &quot;Story&quot;     and comments.commentable_id = stories.id &#39;</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join wallpapers on comments.commentable_type = &quot;Wallpaper&quot; and comments.commentable_id = wallpapers.id &#39;</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join comics     on comments.commentable_type = &quot;Comic&quot;     and comments.commentable_id = comics.id &#39;</span><span class="p">)</span><span class="o">.</span>
+</span><span class='line'>  <span class="n">where</span><span class="p">(</span><span class="s1">&#39;comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =</span>
+</span><span class='line'><span class="s1">    (case when comments.commentable_type = &quot;Story&quot;     then stories.user_id</span>
+</span><span class='line'><span class="s1">          when comments.commentable_type = &quot;Wallpaper&quot; then wallpapers.user_id</span>
+</span><span class='line'><span class="s1">          else                                              comics.user_id end))&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>と書いた.</p>
+
+<p>これで&#8221;ブロック済みユーザのコメントは取得しない&#8221;という目的は達成されるのだが, 今度は<code>includes(:commentable)</code>とすると<code>ActiveRecord::EagerLoadPolymorphicError - Can not eagerly load the polymorphic association :commentable</code>となってしまう.</p>
+
+<p>回避する方法は分からなかったのだが, 現状<code>includes(:commentable)</code>が必要になる箇所はトップページ(/), コメント一覧ページ(/comments), 怖い漫画のトップページ(/comics)であり, 特にトップページは表示回数が多いはずなのでRailsやその他のキャッシュで対処出来ないかな…という淡い期待でそのままにした.</p>
+
+<p>何か他にいい方法無いかな…</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rails4でturbolinksを使わない]]></title>
@@ -1248,41 +1290,6 @@
 
 
 <p>な感じ.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン38日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day38/"/>
-    <updated>2013-04-25T19:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day38</id>
-    <content type="html"><![CDATA[<p>さて今日は</p>
-
-<ol>
-<li>怖いボタンを押したらflashで通知が出る</li>
-</ol>
-
-
-<p>をした.</p>
-
-<!-- more -->
-
-
-<p>しかしテストをすると関係ないところで(<code>git pull origin master</code>した後でも出る)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Capybara::Webkit::InvalidResponseError:
-</span><span class='line'>  Unable to load URL: http://127.0.0.1:56601/users/sign_in because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=f103bd7ee8&origin=http://127.0.0.1:56601&channel_path=/users/sign_in?fb_xd_fragment#xd_sig=f1c8a548f&: Connection closed</span></code></pre></td></tr></table></div></figure>
-
-
-<p>みたいなエラーが出るのでまだプルリクはしていない. むーん.</p>
-
-<p>【追記】
-<a href="https://github.com/thoughtbot/capybara-webkit/issues/499">capybaraとcapybara-webkitとのバージョンの問題</a>だったのかも？元々がcapybara2.1.0だったかは確認していないのだけど, 2.0.3であることを確認してからは通った.
-【追記終】</p>
-
-<p>後, 今日は来客だのなんだので割り込みが非常に多かった. 一日の半分以上取られた. 拒否しようにもお金を稼いでないやつに拒否権は無いらしい, つらい.</p>
 ]]></content>
   </entry>
   
