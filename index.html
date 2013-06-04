@@ -9,7 +9,16 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="何日目か考えるのが面倒なので単なる連番にする. 前回の作業週から取り組んでいたブロック機能のバグ修正の話. ブロックしたユーザが非表示にならず, 再度ブロックするとDBのユニーク制約に違反してエラーになるのが原因だった.">
+  <meta name="description" content="Rubyで引数に与える配列に*をつけると, 配列を展開することができる. 1
+2
+3
+4
+5
+6
+def hoge args args = [*args]
+end hoge 1 # =&gt; [1]
+hoge [1, 2] # =&gt; [1, 2] 便利.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +86,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-05T01:00:00+09:00" pubdate data-updated="true">Jun 5<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Rubyで引数に与える配列に*をつけると, 配列を展開することができる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">hoge</span> <span class="n">args</span>
+</span><span class='line'>  <span class="n">args</span> <span class="o">=</span> <span class="o">[*</span><span class="n">args</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">hoge</span> <span class="mi">1</span>      <span class="c1"># =&gt; [1]</span>
+</span><span class='line'><span class="n">hoge</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span> <span class="c1"># =&gt; [1, 2]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>便利.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -548,62 +610,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-04T12:00:00+09:00" pubdate data-updated="true">May 4<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>目次</h3>
-
-<ol>
-<li>環境</li>
-<li>rbenv, ruby-buildのインストール</li>
-<li>rubyのインストール</li>
-<li>参考</li>
-</ol>
-
-
-<h3>環境</h3>
-
-<ul>
-<li>CentOS release 6.4 (Final)</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/centos-system-wide-rbenv-and-ruby-build/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -617,6 +623,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a>
+      </li>
     
       <li class="post">
         <a href="/blog/fjord-days-53/">インターンその53 ブロック機能のバグ修正</a>
@@ -652,10 +662,6 @@
     
       <li class="post">
         <a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a>
       </li>
     
   </ul>

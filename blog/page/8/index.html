@@ -9,7 +9,8 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Debianでsudoを使えるようにの続き. 例えば man ls とするとlsコマンドのマニュアルが表示されるが, 説明が文字化けしている(多分, インストール時に日本語を選択したので). jfbtermを使えば文字化けしないとのことなのでjfbtermをインストールする(参考). $ sudo &hellip;">
+  <meta name="description" content="Debian (squeeze) 64bit をVirtualBoxにインストールの続き. とりあえず, 作業用ユーザがsudo出来るようにする. rootでログインし, 以下のコマンドを実行する. ここでnomnelは作業用ユーザの名前. # apt-get update
+# apt-get &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debian-enable-sudo/">Debianでsudoを使えるように</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://nomnel.net/blog/install-debian-to-virtualbox/">Debian (squeeze) 64bit をVirtualBoxにインストール</a>の続き.</p>
+
+<p>とりあえず, 作業用ユーザがsudo出来るようにする. rootでログインし, 以下のコマンドを実行する. ここでnomnelは作業用ユーザの名前.</p>
+
+<pre><code># apt-get update
+# apt-get install sudo
+# adduser nomnel sudo  # nomnelをsudoグループに追加
+# reboot
+</code></pre>
+
+<p>再起動は設定を反映させるため(他のやり方が分からなかった). 再起動が終わったらnomnelでログインし,</p>
+
+<pre><code>$ sudo ls -a
+</code></pre>
+
+<p>が無事に実行できたらおっけー.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -731,87 +783,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/st2-scheme-repl/">Sublime Text 2からScheme(Gauche)のREPLをよぶ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-13T00:00:00+09:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>(追記)まとめ -> <a href="http://nomnel.net/blog/st2-gauche/">Sublime Text 2でGaucheコードを書くために</a>(追記終)</p>
-
-<p>Sublime Text 2に乗り換えようにも, REPLが無いエディタじゃLisp書けないよ！というわけでGaucheのREPLをよべるようにした. 他に(デフォルトで)Ruby,Python,Clojure,Haskellもいけるらしいよ！</p>
-
-<h3>目次</h3>
-
-<ol>
-<li>SublimeREPLのインストール</li>
-<li>SublimeREPLにScheme用の設定ファイルを追加</li>
-<li>使ってみる</li>
-</ol>
-
-
-<hr />
-
-<h3>SublimeREPLのインストール</h3>
-
-<p>Package Controlでインストールする. コマンドパレットで</p>
-
-<pre><code>Package Control: Install Package SublimeREPL
-</code></pre>
-
-<p>すればよい.</p>
-
-<hr />
-
-<h3>SublimeREPLにScheme用の設定ファイルを追加</h3>
-
-<p><strong>SublimeREPLにGaucheが追加されたため必要なくなった. </strong></p>
-
-<p>する. 下の/PATH/TO/Packagesはパッケージフォルダの場所(メニューのSublime Text 2 -> Preferences -> Browse Packages…で開いたところ).</p>
-
-<pre><code># Macなら ~/Library/Application Support/Sublime Text 2/の下にある
-$ cd /PATH/TO/Packages/SublimeREPL/config/
-
-$ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
-</code></pre>
-
-<hr />
-
-<h3>使ってみる</h3>
-
-<p>メニューのTools -> SublimeREPL から, もしくはコマンドパレットでREPLをよびだせる. REPLは複数種類呼び出すことができる(goshとirbとか). 対応はシンタックスで行なっているので, goshを使う場合はファイルのシンタックスをGaucheにしておく.</p>
-
-<p>下はファイル全体を<code>Control ,, f</code>でREPLに読み込ませた後, 試しに実行してみた図.
-<img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/st2-scheme-repl.jpeg" alt="goshを呼び出して使ってみた図" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -827,6 +798,10 @@ $ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a>
+      </li>
     
       <li class="post">
         <a href="/blog/fjord-days-53/">インターンその53 ブロック機能のバグ修正</a>
@@ -862,10 +837,6 @@ $ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
     
       <li class="post">
         <a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/centos-system-wide-rbenv-and-ruby-build/">CentOSでsystem wideなrbenv+ruby-build環境を構築する</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tips | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/tips/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-04T17:48:44+09:00</updated>
+  <updated>2013-06-05T01:14:55+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rubyで配列展開]]></title>
+    <link href="http://nomnel.net/blog/ruby-expand-array-as-function-arguments/"/>
+    <updated>2013-06-05T01:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/ruby-expand-array-as-function-arguments</id>
+    <content type="html"><![CDATA[<p>Rubyで引数に与える配列に*をつけると, 配列を展開することができる.</p>
+
+<p>```ruby
+def hoge args
+  args = [*args]
+end</p>
+
+<p>hoge 1      # => [1]
+hoge [1, 2] # => [1, 2]
+```</p>
+
+<p>便利.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CentOSのバージョンとアーキテクチャの確認]]></title>
@@ -158,33 +178,6 @@ Liquid Exception: invalid byte sequence in UTF-8 in atom.xml</p>
 <p><code>
 [このURLは大丈夫](http://byte.ly/hoge)
 </code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Sublime Text2で言語別にインデント幅を設定する]]></title>
-    <link href="http://nomnel.net/blog/st2-indentation-settings-per-syntax/"/>
-    <updated>2013-04-09T00:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/st2-indentation-settings-per-syntax</id>
-    <content type="html"><![CDATA[<p>正確にはシンタックス定義別に, だけれども.</p>
-
-<ol>
-<li>設定したい言語のファイルを開く(シンタックスを対象の言語に設定する)</li>
-<li>Preferences > Settings – More > Syntax Specific – User として言語別の設定ファイル(.sublime-settings)を開く</li>
-<li>インデントの設定を記述して保存</li>
-</ol>
-
-
-<p>インデントの設定は</p>
-
-<pre><code>{
-    "tab_size": 4,
-    "translate_tabs_to_spaces": true,
-    "trim_trailing_white_space_on_save": true
-}
-</code></pre>
-
-<p>みたいな感じになる. (参考: <a href="http://www.sublimetext.com/docs/2/indentation.html">Indentation Settings – Sublime Text 2 Documentation</a>)</p>
 ]]></content>
   </entry>
   

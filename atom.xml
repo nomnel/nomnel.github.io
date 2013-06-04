@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-04T17:48:44+09:00</updated>
+  <updated>2013-06-05T01:14:55+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rubyで配列展開]]></title>
+    <link href="http://nomnel.net/blog/ruby-expand-array-as-function-arguments/"/>
+    <updated>2013-06-05T01:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/ruby-expand-array-as-function-arguments</id>
+    <content type="html"><![CDATA[<p>Rubyで引数に与える配列に*をつけると, 配列を展開することができる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">hoge</span> <span class="n">args</span>
+</span><span class='line'>  <span class="n">args</span> <span class="o">=</span> <span class="o">[*</span><span class="n">args</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">hoge</span> <span class="mi">1</span>      <span class="c1"># =&gt; [1]</span>
+</span><span class='line'><span class="n">hoge</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span> <span class="c1"># =&gt; [1, 2]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>便利.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[インターンその53 ブロック機能のバグ修正]]></title>
@@ -1230,66 +1256,6 @@
 <p>ただ, 実際にテストを何度も回したいときに15分待つのは辛いので, Facebookからなんか引っ張ってきている部分をコメントアウトすればよい.</p>
 
 <p>あー, 時間無駄にした.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Railsでページ遷移前に確認ダイアログを表示する]]></title>
-    <link href="http://nomnel.net/blog/rails-confirm-on-leaving-the-page/"/>
-    <updated>2013-04-26T18:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails-confirm-on-leaving-the-page</id>
-    <content type="html"><![CDATA[<p>実装のみ簡単に.</p>
-
-<!-- more -->
-
-
-<p>coffeeはこんな感じ.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">isChanged = </span><span class="kc">false</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#hoge&#39;</span><span class="p">).</span><span class="nx">change</span> <span class="nf">-&gt;</span>
-</span><span class='line'>  <span class="nv">isChanged = </span><span class="kc">true</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">orgSubmit = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;input[type=submit]&#39;</span><span class="p">).</span><span class="nx">onClick</span>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s">&#39;input[type=submit]&#39;</span><span class="p">).</span><span class="nx">click</span> <span class="nf">-&gt;</span>
-</span><span class='line'>  <span class="nv">isChanged = </span><span class="kc">false</span>
-</span><span class='line'>  <span class="nx">orgSubmit</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">bind</span> <span class="s">&#39;beforeunload&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-</span><span class='line'>  <span class="k">return</span> <span class="k">unless</span> <span class="nx">isChanged</span>
-</span><span class='line'>  <span class="s">&#39;表示したいメッセージ&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>specは</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">scenario</span> <span class="s1">&#39;hogeを変更後にsubmit以外のページ遷移しようとしたときに確認ダイアログを表示&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">find</span><span class="p">(</span><span class="s1">&#39;#hoge&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="s1">&#39;My String&#39;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">visit</span> <span class="n">root_path</span>
-</span><span class='line'>  <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">confirm_messages</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">eq</span> <span class="s1">&#39;表示したいメッセージ&#39;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>な感じ.</p>
 ]]></content>
   </entry>
   
