@@ -9,16 +9,16 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Rubyで引数に与える配列に*をつけると, 配列を展開することができる. 1
+  <meta name="description" content="直接の子クラスのみなら 1
 2
 3
 4
 5
-6
-def hoge args args = [*args]
-end hoge 1 # =&gt; [1]
-hoge [1, 2] # =&gt; [1, 2] 便利.
-">
+class Class def subclasses ObjectSpace.each_object(Class).select{|klass| klass.superclass == self} end
+end 子孫クラス(?)全てなら 1
+2
+3
+4 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +86,70 @@ hoge [1, 2] # =&gt; [1, 2] 便利.
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ruby-get-subclasses/">Rubyでサブクラスの取得</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-05T16:00:00+09:00" pubdate data-updated="true">Jun 5<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>直接の子クラスのみなら</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Class</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">subclasses</span>
+</span><span class='line'>    <span class="no">ObjectSpace</span><span class="o">.</span><span class="n">each_object</span><span class="p">(</span><span class="no">Class</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">klass</span><span class="o">|</span> <span class="n">klass</span><span class="o">.</span><span class="n">superclass</span> <span class="o">==</span> <span class="nb">self</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>子孫クラス(?)全てなら</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Class</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">subclasses</span>
+</span><span class='line'>    <span class="no">ObjectSpace</span><span class="o">.</span><span class="n">each_object</span><span class="p">(</span><span class="no">Class</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">klass</span><span class="o">|</span> <span class="n">klass</span> <span class="o">&lt;</span> <span class="nb">self</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -541,75 +605,6 @@ hoge [1, 2] # =&gt; [1, 2] 便利.
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-04T20:00:00+09:00" pubdate data-updated="true">May 4<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>BitbucketにOctopressのsourceブランチを置き, pushしたらJenkinsがGithub pageにデプロイするようにする.</p>
-
-<h3>目次</h3>
-
-<ol>
-<li>環境</li>
-<li>公開鍵認証用の鍵の生成と登録</li>
-<li>プラグインのインストール</li>
-<li>ジョブを作成</li>
-<li>確認</li>
-</ol>
-
-
-<p>なお,</p>
-
-<ul>
-<li>Jenkinsのインストールは<a href="http://nomnel.net/blog/install-jenkins/">こちら</a></li>
-<li>Octopressインストールは<a href="http://nomnel.net/blog/wordpress-to-octopress/">こちら</a></li>
-</ul>
-
-
-<p>を参照.</p>
-
-<h3>環境</h3>
-
-<ul>
-<li>CentOS release 6.4 (Final)</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/jenkins-deploys-octopress/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -623,6 +618,10 @@ hoge [1, 2] # =&gt; [1, 2] 便利.
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ruby-get-subclasses/">Rubyでサブクラスの取得</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a>
@@ -658,10 +657,6 @@ hoge [1, 2] # =&gt; [1, 2] 便利.
     
       <li class="post">
         <a href="/blog/fjord-day43/">インターン43日目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a>
       </li>
     
   </ul>

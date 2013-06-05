@@ -9,8 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="初めてしたことで忘れそうなので. $ git clone git@github.com:user/repo.git $ git checkout -b feature ## なんやかんや作業 $ git push origin feature の後, ブラウザでプルリクすればよい.
-">
+  <meta name="description" content="今日は午前中に怖話にSmart App Bannerを追加して, 午後過ぎからメールアドレス登録していないユーザにマイページで登録を促す文言を表示する作業をしていた. 表示の切替自体はすぐ出来たのに, なぜか一瞬表示された後に消えてしまう状態に. 「え, CSSでゴニョゴニョしなきゃいけないの &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day12/">インターン12日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-15T00:00:00+09:00" pubdate data-updated="true">Mar 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日は午前中に怖話にSmart App Bannerを追加して, 午後過ぎからメールアドレス登録していないユーザにマイページで登録を促す文言を表示する作業をしていた.</p>
+
+<p>表示の切替自体はすぐ出来たのに, なぜか一瞬表示された後に消えてしまう状態に. 「え, CSSでゴニョゴニョしなきゃいけないの…？」って萎えつつ(CSS苦手)ゴニョゴニョ. 結局, classをnoticeにしていたから消えるのだと気付いたときには1時間以上経っていた. 馬鹿だ.</p>
+
+<p>というわけでとりあえず出来たんだけど, なぜかiPhoneから開発環境にアクセス出来なくなって確認出来ないので明日調べる. とりあえずこのタスクまでは終わらしてしまいたい.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -686,64 +725,6 @@ OSのType, Version以外はデフォルトのまま.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/debian-install-ssh/">Debianにsshのインストール</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://nomnel.net/blog/debian-enable-sudo/">Debianでsudoを使えるように</a>,<a href="http://nomnel.net/blog/debian-enable-japanese/">Debianのコンソールで日本語を表示</a>の続き.</p>
-
-<p>インストール自体は1行目のみ. 2行目で設定ファイルのバックアップをとって, 3行目で編集する.</p>
-
-<pre><code>$ sudo apt-get install ssh
-
-$ sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.org
-$ sudo vi /etc/ssh/sshd_config
-</code></pre>
-
-<p>ここではとりあえずrootでのログインを禁止しておくだけ. その他の設定は<a href="http://nomnel.net/blog/sakura-vps-first-steps/">さくらのVPSで最初にやっておくこと</a>を見てほしい.</p>
-
-<pre><code>PermitRootLogin yes
--&gt;
-PermitRootLogin no
-</code></pre>
-
-<p>VMだしPort変更とかはする必要無いと思う. 終わったら</p>
-
-<pre><code>$ sudo /etc/init.d/ssh restart
-</code></pre>
-
-<p>して設定を有効化しておく.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -759,6 +740,10 @@ PermitRootLogin no
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ruby-get-subclasses/">Rubyでサブクラスの取得</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a>
@@ -794,10 +779,6 @@ PermitRootLogin no
     
       <li class="post">
         <a href="/blog/fjord-day43/">インターン43日目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a>
       </li>
     
   </ul>

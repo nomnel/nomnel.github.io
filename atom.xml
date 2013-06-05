@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-05T01:14:55+09:00</updated>
+  <updated>2013-06-05T16:06:19+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rubyでサブクラスの取得]]></title>
+    <link href="http://nomnel.net/blog/ruby-get-subclasses/"/>
+    <updated>2013-06-05T16:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/ruby-get-subclasses</id>
+    <content type="html"><![CDATA[<p>直接の子クラスのみなら</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Class</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">subclasses</span>
+</span><span class='line'>    <span class="no">ObjectSpace</span><span class="o">.</span><span class="n">each_object</span><span class="p">(</span><span class="no">Class</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">klass</span><span class="o">|</span> <span class="n">klass</span><span class="o">.</span><span class="n">superclass</span> <span class="o">==</span> <span class="nb">self</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>子孫クラス(?)全てなら</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Class</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">subclasses</span>
+</span><span class='line'>    <span class="no">ObjectSpace</span><span class="o">.</span><span class="n">each_object</span><span class="p">(</span><span class="no">Class</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">klass</span><span class="o">|</span> <span class="n">klass</span> <span class="o">&lt;</span> <span class="nb">self</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rubyで配列展開]]></title>
@@ -1201,61 +1238,6 @@
 <li><a href="http://server-setting.info/ubuntu/ubuntu-nginx-install.html">Ubuntu (Debian) で nginx に リバースプロキシのキャッシュ削除モジュール nginx cache purge を組み込んで使ってみる</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン39日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day39/"/>
-    <updated>2013-04-26T19:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day39</id>
-    <content type="html"><![CDATA[<p>さて今日は,</p>
-
-<ol>
-<li>怖い話を執筆中にページを離脱した場合, 警告を出す</li>
-</ol>
-
-
-<p>をした.</p>
-
-<!-- more -->
-
-
-<p>実装は<a href="http://nomnel.net/blog/rails-confirm-on-leaving-the-page/">こんな感じ</a>ですぐ出来たんだけど, テストを回すと</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>3) なんかテストの説明
-</span><span class='line'>     Failure/Error: fill_in 'hoge', with: 'foo'
-</span><span class='line'>     Capybara::Webkit::InvalidResponseError:
-</span><span class='line'>       Unable to load URL: http://127.0.0.1:58549/ because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=*********&origin=http://127.0.0.1:58549&channel_path=/users/sign_in?fb_xd_fragment#xd_sig=***********: Connection closed</span></code></pre></td></tr></table></div></figure>
-
-
-<p>というエラーが全く関係無いところにも出る. さらに全くエラーが出ないときもあったりする. なので追加したテストが正しいのかも確認できない状況だった.</p>
-
-<p>対策を探そうと, ずっと</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Capybara::Webkit::InvalidResponseError:
-</span><span class='line'>       Unable to load URL:</span></code></pre></td></tr></table></div></figure>
-
-
-<p>の部分でググっていたが解決法は見つからなかった. が, 問題は</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>because of error loading https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=23#channel=*********&origin=http://127.0.0.1:58549&channel_path=/users/sign_in?fb_xd_fragment#xd_sig=***********: Connection closed</span></code></pre></td></tr></table></div></figure>
-
-
-<p>の方で, どうやらFacebookとの接続がうまくいっていなかったのではと思われる. 先に述べた「全くエラーが出ないときもあったりする」という現象から考えて, テスト回し過ぎ -> Facebookにアクセスしすぎ -> 拒否られる, という図式なんじゃないかと.</p>
-
-<p>実際, 15分ほど間隔を開けてからテストを回すと上のエラーは出なかった. (多分, 昨日手こずっていたエラーも同じ現象だったのだろう. )</p>
-
-<p>ただ, 実際にテストを何度も回したいときに15分待つのは辛いので, Facebookからなんか引っ張ってきている部分をコメントアウトすればよい.</p>
-
-<p>あー, 時間無駄にした.</p>
 ]]></content>
   </entry>
   

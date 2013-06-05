@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tips | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/tips/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-05T01:14:55+09:00</updated>
+  <updated>2013-06-05T16:06:19+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rubyでサブクラスの取得]]></title>
+    <link href="http://nomnel.net/blog/ruby-get-subclasses/"/>
+    <updated>2013-06-05T16:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/ruby-get-subclasses</id>
+    <content type="html"><![CDATA[<p>直接の子クラスのみなら</p>
+
+<p>```ruby
+class Class
+  def subclasses</p>
+
+<pre><code>ObjectSpace.each_object(Class).select{|klass| klass.superclass == self}
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>子孫クラス(?)全てなら</p>
+
+<p>```ruby
+class Class
+  def subclasses</p>
+
+<pre><code>ObjectSpace.each_object(Class).select{|klass| klass &lt; self}
+</code></pre>
+
+<p>  end
+end
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rubyで配列展開]]></title>
@@ -137,47 +170,6 @@ rbenv exec gem install pry
 </code></p>
 
 <p>となっている箇所を探す. この2行目の<code>ruby</code>を<code>/Users/username/.rbenv/shims/ruby</code>に変えればおーけー. <code>~/.rbenv/shims/ruby</code>でないことに注意.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressでrake generateに失敗する]]></title>
-    <link href="http://nomnel.net/blog/octopress-cant-generate-including-multibyte-url/"/>
-    <updated>2013-04-18T02:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/octopress-cant-generate-including-multibyte-url</id>
-    <content type="html"><![CDATA[<p>こんな感じに失敗するとき,</p>
-
-<p>```sh
-$ rake generate</p>
-
-<h2>Generating Site with Jekyll</h2>
-
-<p>identical source/stylesheets/screen.css
-Configuration from /Users/nomnel/nomnel.github.io/_config.yml
-Building site: source -> public
-Liquid Exception: invalid byte sequence in UTF-8 in atom.xml</p>
-
-<p>{スタックトレースがずらずら}</p>
-
-<p>Build Failed
-```</p>
-
-<!-- more -->
-
-
-<p>URLに日本語(マルチバイト？)を含むハイパーリンクを記述しているのが原因っぽい.</p>
-
-<p>こんなの↓</p>
-
-<p><code>
-[このURLが原因で失敗する](http://example.com/テスト)
-</code></p>
-
-<p>とりあえずは短縮リンクに書き換えるなどして, 日本語を含まないようにしておけば大丈夫.</p>
-
-<p><code>
-[このURLは大丈夫](http://byte.ly/hoge)
-</code></p>
 ]]></content>
   </entry>
   

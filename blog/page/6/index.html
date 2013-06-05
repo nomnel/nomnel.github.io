@@ -9,9 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="37signals謹製のPowというRackサーバを使うと, シンボリックリンクを貼るだけでバーチャルホストで切って開発できる. 環境 pow: 0.4.0
-Rails: 3.2.12
-rbenv: 0.4.0 インストール ターミナルで以下を実行するだけ. $ curl get.pow.cx &hellip;">
+  <meta name="description" content="さて, ”iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする”タスクは, タップしたらアイコンを赤くするだけで良い, ということになった. 助かった…. history APIはまだ対応していないとのこと. ふむふむ 昼からは”話に表紙画像を設定できるようにする” &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +77,60 @@ rbenv: 0.4.0 インストール ターミナルで以下を実行するだけ. $
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day19/">インターン19日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-27T00:00:00+09:00" pubdate data-updated="true">Mar 27<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>さて, ”iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする”タスクは, タップしたらアイコンを赤くするだけで良い, ということになった. 助かった…. history APIはまだ対応していないとのこと. ふむふむ</p>
+
+<p>昼からは”話に表紙画像を設定できるようにする”タスクをやろうと思って, 該当部分のコードを眺めて弄っていた. 今度は表紙画像が背景より前面に来ないところで困っている. いつになったら僕のHTML&amp;CSS力は上がるのか.</p>
+
+<p>作業の計画は, まだ何も相談していないのでアレだけど</p>
+
+<ol>
+<li>全ての話にデフォルトの表紙が付くようにする(デフォルトで無しもありえる)</li>
+<li>怖い話を投稿する際に表紙画像を選択できるようにする</li>
+</ol>
+
+
+<p>という感じだと思っている. 上の手順でいいとすると, さらに相談する必要があるのは</p>
+
+<ol>
+<li>どの画像をデフォルトにするか, もしくはデフォルトでは無しにするか</li>
+<li>表紙はどうやって指定するか</li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -608,46 +660,6 @@ LoadError: no such file to load -- bundler/setup
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day12/">インターン12日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-15T00:00:00+09:00" pubdate data-updated="true">Mar 15<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今日は午前中に怖話にSmart App Bannerを追加して, 午後過ぎからメールアドレス登録していないユーザにマイページで登録を促す文言を表示する作業をしていた.</p>
-
-<p>表示の切替自体はすぐ出来たのに, なぜか一瞬表示された後に消えてしまう状態に. 「え, CSSでゴニョゴニョしなきゃいけないの…？」って萎えつつ(CSS苦手)ゴニョゴニョ. 結局, classをnoticeにしていたから消えるのだと気付いたときには1時間以上経っていた. 馬鹿だ.</p>
-
-<p>というわけでとりあえず出来たんだけど, なぜかiPhoneから開発環境にアクセス出来なくなって確認出来ないので明日調べる. とりあえずこのタスクまでは終わらしてしまいたい.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -663,6 +675,10 @@ LoadError: no such file to load -- bundler/setup
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ruby-get-subclasses/">Rubyでサブクラスの取得</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a>
@@ -698,10 +714,6 @@ LoadError: no such file to load -- bundler/setup
     
       <li class="post">
         <a href="/blog/fjord-day43/">インターン43日目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/jenkins-deploys-octopress/">JenkinsにOctopressのデプロイを任せる</a>
       </li>
     
   </ul>
