@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="さて, ”iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする”タスクは, タップしたらアイコンを赤くするだけで良い, ということになった. 助かった…. history APIはまだ対応していないとのこと. ふむふむ 昼からは”話に表紙画像を設定できるようにする” &hellip;">
+  <meta name="description" content="Rails開発環境の構築（rbenvでRuby導入からBundler, Rails導入まで）- Qiitaが長かったので自分用に再編集 追加してメモ. Bundler(のみ)のインストール rbenv環境にインストールされた全てのgemをアンインストール( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,127 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/clean-rails-env/">クリーンなRails開発環境の構築</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-28T00:00:00+09:00" pubdate data-updated="true">Mar 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://qiita.com/items/a60886152a4c99ce1017">Rails開発環境の構築（rbenvでRuby導入からBundler, Rails導入まで）- Qiita</a>が長かったので自分用に再編集 追加してメモ.</p>
+
+<h3>Bundler(のみ)のインストール</h3>
+
+<p>rbenv環境にインストールされた全てのgemをアンインストール(Bundler以外はrbenv環境に入れないという原理主義に馴染めなければ飛ばしてよい)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rbenv <span class="nb">exec </span>gem list | awk <span class="s1">&#39;{print &quot;rbenv exec gem uninstall &quot; $1}&#39;</span> | sh -xv
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>して, Bundlerのみ入れなおす.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rbenv <span class="nb">exec </span>gem install bundler
+</span><span class='line'>rbenv rehash
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>本番</h3>
+
+<p>Railsのインストール</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">cd</span> /PATH/TO/Railsプロジェクトを作成したいディレクトリ
+</span><span class='line'>
+</span><span class='line'>cat  Gemfile
+</span><span class='line'><span class="nb">source</span> <span class="s2">&quot;http://rubygems.org&quot;</span>
+</span><span class='line'>gem <span class="s2">&quot;rails&quot;</span>, <span class="s2">&quot;3.2.13&quot;</span>
+</span><span class='line'>EOS
+</span><span class='line'>
+</span><span class='line'>bundle install --path vendor/bundle
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>プロジェクトの作成</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>bundle <span class="nb">exec </span>rails new APPNAME --skip-bundle
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不要となったファイルを削除してAPPNAMEディレクトリに移動</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rm -f Gemfile
+</span><span class='line'>rm -f Gemfile.lock
+</span><span class='line'>rm -rf .bundle
+</span><span class='line'>rm -rf vendor/bundle
+</span><span class='line'>
+</span><span class='line'><span class="nb">cd </span>APPNAME
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Gemのインストール</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>bundle install --path vendor/bundle
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Git関係</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git init
+</span><span class='line'><span class="nb">echo</span> <span class="s1">&#39;/vendor/bundle&#39;</span> &gt;&gt; .gitignore
+</span><span class='line'>git add .
+</span><span class='line'>git commit -m <span class="s2">&quot;initial commit&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -622,44 +743,6 @@ LoadError: no such file to load -- bundler/setup
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/mac-move-focus-to-next-window/">Macでアプリ内の複数ウィンドウ切り替え</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-15T00:00:00+09:00" pubdate data-updated="true">Mar 15<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>System Preferences開く -> Keyboard開く -> Keyboard Shortcutsタブ -> Keyboard &amp; Text Input選択 -> Move focus to next windowでダブルクリックで編集状態にしてoption tab押す</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/Screenshot_2013_03_15_13_20.jpeg" alt="編集箇所" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -675,6 +758,10 @@ LoadError: no such file to load -- bundler/setup
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-before-destroy-with-relation-model/">Railsでbefore_destroyを使うときの注意点</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-get-subclasses/">Rubyでサブクラスの取得</a>
@@ -710,10 +797,6 @@ LoadError: no such file to load -- bundler/setup
     
       <li class="post">
         <a href="/blog/fjord-day46/">インターン46日目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day43/">インターン43日目</a>
       </li>
     
   </ul>

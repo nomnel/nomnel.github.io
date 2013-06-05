@@ -9,16 +9,16 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="直接の子クラスのみなら 1
+  <meta name="description" content="1
 2
 3
 4
 5
-class Class def subclasses ObjectSpace.each_object(Class).select{|klass| klass.superclass == self} end
-end 子孫クラス(?)全てなら 1
-2
-3
-4 &hellip;">
+6
+7
+8
+9
+class Foo &lt; ActiveRecord::Base has_many :bars, dependent: :destroy before_destroy :do_something def do_something return if bars. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +86,99 @@ end 子孫クラス(?)全てなら 1
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-before-destroy-with-relation-model/">Railsでbefore_destroyを使うときの注意点</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-06T00:30:00+09:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:bars</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:do_something</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">do_something</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">if</span> <span class="n">bars</span><span class="o">.</span><span class="n">blank?</span>
+</span><span class='line'>    <span class="n">bars</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:somethig_cool</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このように, <code>has_many</code>(<code>has_one</code>)な関係をものを<code>before_destroy</code>で使うには注意が必要. 上の例だと<code>before_destroy</code>の前にbarsは削除されてしまうので, <code>bars.blank?</code>は必ず真になり<code>bars.map &amp;:somethig_cool</code>は永久に実行されない.</p>
+
+<p>これを避けるには以下のようにする.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:do_something</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:bars</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 以下略</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>before_destroy</code>と<code>has_many</code>の順番を逆にしただけだが, これで期待通りの挙動(<code>before_destroy</code>の後にbarsを削除)になる.</p>
+
+<p>なのでこのようなときはObserverは使えない.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">FooObserver</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Observer</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">before_destroy</span> <span class="n">foo</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">if</span> <span class="n">foo</span><span class="o">.</span><span class="n">bars</span><span class="o">.</span><span class="n">blank?</span>
+</span><span class='line'>    <span class="n">foo</span><span class="o">.</span><span class="n">bars</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:somethig_cool</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>の<code>before_destroy</code>はbarsが削除されてから実行される.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -556,55 +649,6 @@ end 子孫クラス(?)全てなら 1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day43/">インターン43日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-07T17:30:00+09:00" pubdate data-updated="true">May 7<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>さて今日は、</p>
-
-<ol>
-<li>怖話投稿時のタグをフォーム10個に分ける</li>
-<li>Googleアナリティクスの結果をLingrで知りたい (途中)</li>
-</ol>
-
-
-<p>をしていた.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/fjord-day43/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -618,6 +662,10 @@ end 子孫クラス(?)全てなら 1
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-before-destroy-with-relation-model/">Railsでbefore_destroyを使うときの注意点</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-get-subclasses/">Rubyでサブクラスの取得</a>
@@ -653,10 +701,6 @@ end 子孫クラス(?)全てなら 1
     
       <li class="post">
         <a href="/blog/fjord-day46/">インターン46日目</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day43/">インターン43日目</a>
       </li>
     
   </ul>

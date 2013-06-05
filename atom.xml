@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-05T16:06:19+09:00</updated>
+  <updated>2013-06-06T00:44:30+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,72 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Railsでbefore_destroyを使うときの注意点]]></title>
+    <link href="http://nomnel.net/blog/rails-before-destroy-with-relation-model/"/>
+    <updated>2013-06-06T00:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails-before-destroy-with-relation-model</id>
+    <content type="html"><![CDATA[<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:bars</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:do_something</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">do_something</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">if</span> <span class="n">bars</span><span class="o">.</span><span class="n">blank?</span>
+</span><span class='line'>    <span class="n">bars</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:somethig_cool</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このように, <code>has_many</code>(<code>has_one</code>)な関係をものを<code>before_destroy</code>で使うには注意が必要. 上の例だと<code>before_destroy</code>の前にbarsは削除されてしまうので, <code>bars.blank?</code>は必ず真になり<code>bars.map &amp;:somethig_cool</code>は永久に実行されない.</p>
+
+<p>これを避けるには以下のようにする.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:do_something</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:bars</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 以下略</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>before_destroy</code>と<code>has_many</code>の順番を逆にしただけだが, これで期待通りの挙動(<code>before_destroy</code>の後にbarsを削除)になる.</p>
+
+<p>なのでこのようなときはObserverは使えない.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">FooObserver</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Observer</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">before_destroy</span> <span class="n">foo</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">if</span> <span class="n">foo</span><span class="o">.</span><span class="n">bars</span><span class="o">.</span><span class="n">blank?</span>
+</span><span class='line'>    <span class="n">foo</span><span class="o">.</span><span class="n">bars</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:somethig_cool</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>の<code>before_destroy</code>はbarsが削除されてから実行される.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rubyでサブクラスの取得]]></title>
@@ -1161,83 +1227,6 @@
 <p>本音を言うと就活するのは怖いのだが, いつまでもインターンを続けるわけにもいかないし, いい頃合いだとして納得できるものを作って終えたい.</p>
 
 <p>※ 作ったものが残念だったらまた別のを作るので延びるかもしれん</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Debianで最新版のnginxをapt-getでインストールする]]></title>
-    <link href="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/"/>
-    <updated>2013-04-30T15:30:00+09:00</updated>
-    <id>http://nomnel.net/blog/install-nginx-in-debian-using-apt-get</id>
-    <content type="html"><![CDATA[<p>(CentOSの場合は<a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">こちら</a>)</p>
-
-<p>普通に</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install nginx
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とすると, 0.7.xぐらいの古いバージョン(最新は1.4.0 @ 2013/4/24)がインストールされる. nginxのサイトをリポジトリに登録し, stableの最新版をapt-getでインストール出来るようにする.</p>
-
-<!-- more -->
-
-
-<p>まず, パッケージの公開鍵をダウンロードして<code>apt-key</code>で追加する. (sudoをインストールしていない場合は<a href="http://nomnel.net/blog/debian-enable-sudo/">ここ</a>を参照)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>wget <span class="s2">&quot;http://nginx.org/keys/nginx_signing.key&quot;</span>
-</span><span class='line'>sudo apt-key add nginx_signing.key
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>次に, nginxのサイトをリポジトリに追加する.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo vi /etc/apt/sources.list
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>で開いたファイルに以下を追加.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>deb http://nginx.org/packages/debian/ squeeze nginx
-</span><span class='line'>deb-src http://nginx.org/packages/debian/ squeeze nginx
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>後は登録を反映して,</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get update
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>最新版をインストールすればよい.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install nginx
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ブラウザでアクセスしてみて, <code>Welcome to nginx!</code>と表示されたら成功.</p>
-
-<p>ちなみにアンインストールは</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get remove nginx
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>参照</h3>
-
-<ul>
-<li><a href="http://www.arunchinnachamy.com/how-to-updateinstall-nginx-in-ubuntudebian/">HOW TO: Install NGINX in Ubuntu or Debian</a></li>
-<li><a href="http://server-setting.info/ubuntu/ubuntu-nginx-install.html">Ubuntu (Debian) で nginx に リバースプロキシのキャッシュ削除モジュール nginx cache purge を組み込んで使ってみる</a></li>
-</ul>
-
 ]]></content>
   </entry>
   

@@ -5,11 +5,20 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>インターン8日目 - 飲んだり寝たり</title>
+  <title>Railsでbefore_destroyを使うときの注意点 - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日は怖話の改善案考えるために怖話を触っていた. 昼過ぎには終えれるかと思っていたが, 家の用事が入ってきたこともあり, 書き終わったのは18:00頃. 悔しい. 実際に怖話の作業にコミット出来るのは, やはりチュートリアルを終えてかららしい. インターンの時間(10:00~19:00) &hellip;">
+  <meta name="description" content="1
+2
+3
+4
+5
+6
+7
+8
+9
+class Foo &lt; ActiveRecord::Base has_many :bars, dependent: :destroy before_destroy :do_something def do_something return if bars. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +27,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nomnel.net/blog/fjord-day8">
+  <link rel="canonical" href="http://nomnel.net/blog/rails-before-destroy-with-relation-model">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
@@ -80,7 +89,7 @@
   
   <header>
     
-      <h1 class="entry-title">インターン8日目</h1>
+      <h1 class="entry-title">Railsでbefore_destroyを使うときの注意点</h1>
     
     
       <p class="meta">
@@ -96,16 +105,71 @@
   
 
 
-<time datetime="2013-03-11T00:00:00+09:00" pubdate data-updated="true">Mar 11<span>th</span>, 2013</time>
+<time datetime="2013-06-06T00:30:00+09:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>今日は<a href="http://nomnel.net/blog/kowabana-idea/">怖話の改善案考える</a>ために<a href="http://kowabana.jp/">怖話</a>を触っていた. 昼過ぎには終えれるかと思っていたが, 家の用事が入ってきたこともあり, 書き終わったのは18:00頃. 悔しい.</p>
+<div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:bars</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:do_something</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">do_something</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">if</span> <span class="n">bars</span><span class="o">.</span><span class="n">blank?</span>
+</span><span class='line'>    <span class="n">bars</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:somethig_cool</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>実際に怖話の作業にコミット出来るのは, やはりチュートリアルを終えてかららしい. インターンの時間(10:00~19:00)以外でチュートリアルをもっと進めていこうと思う.</p>
+
+<p>このように, <code>has_many</code>(<code>has_one</code>)な関係をものを<code>before_destroy</code>で使うには注意が必要. 上の例だと<code>before_destroy</code>の前にbarsは削除されてしまうので, <code>bars.blank?</code>は必ず真になり<code>bars.map &amp;:somethig_cool</code>は永久に実行されない.</p>
+
+<p>これを避けるには以下のようにする.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:do_something</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:bars</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 以下略</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>before_destroy</code>と<code>has_many</code>の順番を逆にしただけだが, これで期待通りの挙動(<code>before_destroy</code>の後にbarsを削除)になる.</p>
+
+<p>なのでこのようなときはObserverは使えない.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">FooObserver</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Observer</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">before_destroy</span> <span class="n">foo</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">if</span> <span class="n">foo</span><span class="o">.</span><span class="n">bars</span><span class="o">.</span><span class="n">blank?</span>
+</span><span class='line'>    <span class="n">foo</span><span class="o">.</span><span class="n">bars</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:somethig_cool</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>の<code>before_destroy</code>はbarsが削除されてから実行される.</p>
 </div>
 
 
@@ -128,12 +192,12 @@
   
 
 
-<time datetime="2013-03-11T00:00:00+09:00" pubdate data-updated="true">Mar 11<span>th</span>, 2013</time>
+<time datetime="2013-06-06T00:30:00+09:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/diary/'>diary</a>
+    <a class='category' href='/blog/categories/tips/'>tips</a>
   
 </span>
 
@@ -142,7 +206,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/fjord-day8/" data-via="nomnel" data-counturl="http://nomnel.net/blog/fjord-day8/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/rails-before-destroy-with-relation-model/" data-via="nomnel" data-counturl="http://nomnel.net/blog/rails-before-destroy-with-relation-model/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -155,14 +219,18 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/install-debian-to-virtualbox/" title="Previous Post: Debian (squeeze) 64bit をVirtualBoxにインストール">&laquo; Debian (squeeze) 64bit をVirtualBoxにインストール</a>
+        <a class="basic-alignment left" href="/blog/ruby-get-subclasses/" title="Previous Post: Rubyでサブクラスの取得">&laquo; Rubyでサブクラスの取得</a>
       
-      
-        <a class="basic-alignment right" href="/blog/kowabana-idea/" title="Next Post: 怖話の改善案考える">怖話の改善案考える &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -237,7 +305,10 @@
       var disqus_shortname = 'nomnel';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nomnel.net/blog/rails-before-destroy-with-relation-model/';
+        var disqus_url = 'http://nomnel.net/blog/rails-before-destroy-with-relation-model/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
