@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tips | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/tips/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-06T00:44:30+09:00</updated>
+  <updated>2013-06-06T00:46:28+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -32,6 +32,9 @@ bars.map &amp;:somethig_cool
 <p>  end
 end
 ```</p>
+
+<!-- more -->
+
 
 <p>このように, <code>has_many</code>(<code>has_one</code>)な関係をものを<code>before_destroy</code>で使うには注意が必要. 上の例だと<code>before_destroy</code>の前にbarsは削除されてしまうので, <code>bars.blank?</code>は必ず真になり<code>bars.map &amp;:somethig_cool</code>は永久に実行されない.</p>
 
@@ -71,7 +74,7 @@ end
     <link href="http://nomnel.net/blog/ruby-get-subclasses/"/>
     <updated>2013-06-05T16:00:00+09:00</updated>
     <id>http://nomnel.net/blog/ruby-get-subclasses</id>
-    <content type="html"><![CDATA[<p>直接の子クラスのみなら</p>
+    <content type="html"><![CDATA[<p>直接の子クラスのみなら<!-- more --></p>
 
 <p>```ruby
 class Class
@@ -104,7 +107,7 @@ end
     <link href="http://nomnel.net/blog/ruby-expand-array-as-function-arguments/"/>
     <updated>2013-06-05T01:00:00+09:00</updated>
     <id>http://nomnel.net/blog/ruby-expand-array-as-function-arguments</id>
-    <content type="html"><![CDATA[<p>Rubyで引数に与える配列に*をつけると, 配列を展開することができる.</p>
+    <content type="html"><![CDATA[<p>Rubyで引数に与える配列に*をつけると, 配列を展開することができる.<!-- more --></p>
 
 <p>```ruby
 def hoge args

@@ -136,45 +136,14 @@ class Foo &lt; ActiveRecord::Base has_many :bars, dependent: :destroy before_des
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>このように, <code>has_many</code>(<code>has_one</code>)な関係をものを<code>before_destroy</code>で使うには注意が必要. 上の例だと<code>before_destroy</code>の前にbarsは削除されてしまうので, <code>bars.blank?</code>は必ず真になり<code>bars.map &amp;:somethig_cool</code>は永久に実行されない.</p>
-
-<p>これを避けるには以下のようにする.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:do_something</span>
-</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:bars</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 以下略</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>before_destroy</code>と<code>has_many</code>の順番を逆にしただけだが, これで期待通りの挙動(<code>before_destroy</code>の後にbarsを削除)になる.</p>
-
-<p>なのでこのようなときはObserverは使えない.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">FooObserver</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Observer</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">before_destroy</span> <span class="n">foo</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">if</span> <span class="n">foo</span><span class="o">.</span><span class="n">bars</span><span class="o">.</span><span class="n">blank?</span>
-</span><span class='line'>    <span class="n">foo</span><span class="o">.</span><span class="n">bars</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:somethig_cool</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>の<code>before_destroy</code>はbarsが削除されてから実行される.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/rails-before-destroy-with-relation-model/">続きを読む</a>
+    </footer>
   
 
 
@@ -208,37 +177,12 @@ class Foo &lt; ActiveRecord::Base has_many :bars, dependent: :destroy before_des
   </header>
 
 
-  <div class="entry-content"><p>直接の子クラスのみなら</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Class</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">subclasses</span>
-</span><span class='line'>    <span class="no">ObjectSpace</span><span class="o">.</span><span class="n">each_object</span><span class="p">(</span><span class="no">Class</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">klass</span><span class="o">|</span> <span class="n">klass</span><span class="o">.</span><span class="n">superclass</span> <span class="o">==</span> <span class="nb">self</span><span class="p">}</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>子孫クラス(?)全てなら</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Class</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">subclasses</span>
-</span><span class='line'>    <span class="no">ObjectSpace</span><span class="o">.</span><span class="n">each_object</span><span class="p">(</span><span class="no">Class</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">klass</span><span class="o">|</span> <span class="n">klass</span> <span class="o">&lt;</span> <span class="nb">self</span><span class="p">}</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
+  <div class="entry-content"><p>直接の子クラスのみなら</div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/ruby-get-subclasses/">続きを読む</a>
+    </footer>
   
 
 
@@ -272,26 +216,12 @@ class Foo &lt; ActiveRecord::Base has_many :bars, dependent: :destroy before_des
   </header>
 
 
-  <div class="entry-content"><p>Rubyで引数に与える配列に*をつけると, 配列を展開することができる.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">hoge</span> <span class="n">args</span>
-</span><span class='line'>  <span class="n">args</span> <span class="o">=</span> <span class="o">[*</span><span class="n">args</span><span class="o">]</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">hoge</span> <span class="mi">1</span>      <span class="c1"># =&gt; [1]</span>
-</span><span class='line'><span class="n">hoge</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span> <span class="c1"># =&gt; [1, 2]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>便利.</p>
-</div>
+  <div class="entry-content"><p>Rubyで引数に与える配列に*をつけると, 配列を展開することができる.</div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/ruby-expand-array-as-function-arguments/">続きを読む</a>
+    </footer>
   
 
 
