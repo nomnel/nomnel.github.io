@@ -4,7 +4,7 @@
   <title><![CDATA[Category: howto | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/howto/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-13T23:51:43+09:00</updated>
+  <updated>2013-06-14T00:11:23+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Jenkinsでビルド失敗時にGmailで通知する]]></title>
+    <link href="http://nomnel.net/blog/jenkins-notification-using-gmail/"/>
+    <updated>2013-06-14T00:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/jenkins-notification-using-gmail</id>
+    <content type="html"><![CDATA[<p>Manage Jenkins -> Configure Systemを開き, E-mail Notification欄に以下のように記述する.</p>
+
+<p><code>
+SMTP server: smtp.gmail.com
+Default user e-mail suffix: 空白
+</code></p>
+
+<p><code>Advanced...</code>をクリックして, 詳細設定を表示し,<code>use SMTP Authentication</code>にチェックを入れて,</p>
+
+<p><code>
+User Name: [USERNAME]@gmail.com
+Password: 上のパスワード
+Use SSL: チェックを入れる
+SMTP Port: 465
+Reply-To Address: [USERNAME]@gmail.com
+Charset: UTF-8
+</code></p>
+
+<p>終わったら<code>Test configuration by sending test e-mail</code>にチェックを入れて, <code>Test e-mail recipient</code>に送信先アドレスを入力し, <code>Test configuration</code>をクリックしてテスト送信を行う. <code>Email was successfully sent</code>を表示されたら成功.</p>
+
+<p><code>Save</code>もしくは<code>Apply</code>をクリックして設定を保存しておくのを忘れずに.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rails4でturbolinksを使わない]]></title>
@@ -228,89 +257,6 @@ rbenv exec bundle exec rake gen_deploy
 <p>ブラウザ等で実際にURLにアクセスしてみてJobが実行されればOK.</p>
 
 <p>これでBitbucketにpushするとJenkinsに通知が行って, Github pageにデプロイしてくれるようになった.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CentOSでsystem wideなrbenv+ruby-build環境を構築する]]></title>
-    <link href="http://nomnel.net/blog/centos-system-wide-rbenv-and-ruby-build/"/>
-    <updated>2013-05-04T12:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/centos-system-wide-rbenv-and-ruby-build</id>
-    <content type="html"><![CDATA[<h3>目次</h3>
-
-<ol>
-<li>環境</li>
-<li>rbenv, ruby-buildのインストール</li>
-<li>rubyのインストール</li>
-<li>参考</li>
-</ol>
-
-
-<h3>環境</h3>
-
-<ul>
-<li>CentOS release 6.4 (Final)</li>
-</ul>
-
-
-<!-- more -->
-
-
-<h3>rbenv, ruby-buildのインストール</h3>
-
-<p>sudo地獄なのでrootで作業を行う.</p>
-
-<p>```sh
-su</p>
-
-<h1>以下root</h1>
-
-<p>cd /usr/local
-git clone git://github.com/sstephenson/rbenv.git rbenv
-mkdir rbenv/shims rbenv/versions
-groupadd rbenv
-chgrp -R rbenv rbenv
-chmod -R g+rwxXs rbenv
-git clone git://github.com/sstephenson/ruby-build.git ruby-build
-cd ruby-build
-./install.sh
-```</p>
-
-<p>として, <code>/etc/profile.d/rbenv.sh</code>に</p>
-
-<p><code>sh
-export RBENV_ROOT="/usr/local/rbenv"
-export PATH="/usr/local/rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-</code></p>
-
-<p>と記述.</p>
-
-<h3>rubyのインストール</h3>
-
-<p>先に依存パッケージをyumでインストールしておく.</p>
-
-<p><code>sh
-yum install --enablerepo=epel make gcc zlib-devel openssl-devel readline-devel ncurses-devel gdbm-devel db4-devel libffi-devel tk-devel libyaml-devel
-</code></p>
-
-<p>後は</p>
-
-<p><code>sh
-rbenv install --list # インストールできるRubyの一覧を表示
-rbenv install 2.0.0-p0
-rbenv global 2.0.0-p0
-</code></p>
-
-<p>などとすればよい. このときrootであることに注意(一般ユーザで<code>sudo rbenv install 2.0.0-p0</code>とすると<code>/root/.rbenv/</code>下にインストールされ共有できない).</p>
-
-<h3>参考</h3>
-
-<ul>
-<li><a href="http://blog.kyanny.me/entry/2012/02/03/155652">rbenv + ruby-build を system-wide にインストールする - @kyanny's blog</a></li>
-<li><a href="http://qiita.com/items/c2377c45d6c4fbfd775f">CentOS 6.3にシステムワイドなrbenv+ruby-buildの環境を構築する手順 #Ruby - Qiita</a></li>
-</ul>
-
 ]]></content>
   </entry>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="OSX で rbenv を使って ruby 1.9.3-p392 インストール – Under Construction Always! ↑によるとp385以降, オプション指定無しだとエラーが出てインストール失敗するようになったらしいので $ CFLAGS=-Wno-error=shorten- &hellip;">
+  <meta name="description" content="ActiveRecord::RecordNotUnique例外 (参考: Rails でDBの重複エラーが発生した場合の対処について – QA@IT) RailsでModelの属性にvalidates_uniqueness_ofを設定しても, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-record-not-unique-and-disable-with-option/">ActiveRecord::RecordNotUnique例外の発生をdisable_withで防ぐ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-09T00:00:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3><code>ActiveRecord::RecordNotUnique</code>例外</h3>
+
+<p>(参考: <a href="http://qa.atmarkit.co.jp/q/2085">Rails でDBの重複エラーが発生した場合の対処について – QA@IT</a>)</p>
+
+<p>RailsでModelの属性に<code>validates_uniqueness_of</code>を設定しても, 内部ではその値が既存かどうかを<code>select</code>でチェックしてから<code>insert/update</code>するだけなので, 同時に更新処理が行われた場合は重複してしまう可能性がある.</p>
+
+<p>よって確実に一意性を保証するならDB側でcolumnをuniqueと宣言しておく必要がある.</p>
+
+<p>このとき, DB側で重複エラーが発生した場合, <code>ActiveRecord::RecordNotUnique</code>例外が起こる.</p>
+
+<p>対策としては, submitボタンを<code>disable_with</code>して, ボタンの二度押しを防ぐ(JavaScriptで動く)こと. (わざわざ2画面から同時に登録しようとする人にはそのままエラーを返してもいいかもしれない)</p>
+
+<h3><code>disable_with</code>の使い方</h3>
+
+<p>さてその<code>disable_with</code>, (<code>form_for hoge do |f|</code>となっているとする)</p>
+
+<pre><code>= f.submit "Submit", {disable_with: "Sending..."}
+</code></pre>
+
+<p>のようにして使う. (<code>submit_tag</code>でも同様)</p>
+
+<h3>すべてのsubmitに<code>disable_with</code>を適用</h3>
+
+<p>(参考: <a href="http://blog.mkt-sys.jp/2011/06/submit-disablewith.html">tail -f pinzo.log: すべての submit に disable_with を</a>)</p>
+
+<p>個別の<code>f.submit</code>にいちいち<code>{disable_with: 'Sending…'}</code>とつけるのが面倒なら, <code>config/initializers</code>に</p>
+
+<p>と記述したファイルを足してやればよい.</p>
+
+<p>もし, いくつかのsubmitだけ<code>disable_with</code>したくない場合は,</p>
+
+<p>として</p>
+
+<pre><code>f.submit 'Submit', {disabl_with: ''}
+</code></pre>
+
+<p>などとすれば, そのsubmitだけ<code>disable_with</code>をキャンセルできる.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -574,59 +646,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day20/">インターン20日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-28T00:00:00+09:00" pubdate data-updated="true">Mar 28<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今日は, ”怖い話に表紙を設定できるようにする”作業を.</p>
-
-<p>表紙は怖い話の中でしか使わないと思っていたけど, 他の場所でサムネイル表示させたいとのこと. 危ない危ない…最初にちゃんと確認するようにしよう.</p>
-
-<p>ユーザさんで壁紙をタイトルのように使っている人がいることもあり, 表紙用に新しくテーブルを作るのではなく, 壁紙に表紙も含めてそこから選択するようになった.</p>
-
-<p>手順としてはこんな感じでいこうと思う.</p>
-
-<ol>
-<li>怖い話モデルに表紙カラム(壁紙への参照)を追加</li>
-<li>表紙が怖い話で表示されるように</li>
-<li>表紙を壁紙から選択できるように</li>
-<li>表紙を投稿できるように</li>
-<li>怖い話の一覧に表紙サムネイルを表示</li>
-</ol>
-
-
-<p>明日で出来るかな…</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -642,6 +661,10 @@ end
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/jenkins-notification-using-gmail/">Jenkinsでビルド失敗時にGmailで通知する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rails-before-destroy-with-relation-model/">Railsでbefore_destroyを使うときの注意点</a>
@@ -677,10 +700,6 @@ end
     
       <li class="post">
         <a href="/blog/rspec-haml-sass-on-rails/">RailsでRspecとHamlとSass使いたいとき</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day46/">インターン46日目</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-13T23:51:43+09:00</updated>
+  <updated>2013-06-14T00:11:23+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,41 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Jenkinsでビルド失敗時にGmailで通知する]]></title>
+    <link href="http://nomnel.net/blog/jenkins-notification-using-gmail/"/>
+    <updated>2013-06-14T00:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/jenkins-notification-using-gmail</id>
+    <content type="html"><![CDATA[<p>Manage Jenkins -> Configure Systemを開き, E-mail Notification欄に以下のように記述する.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SMTP server: smtp.gmail.com
+</span><span class='line'>Default user e-mail suffix: 空白</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Advanced...</code>をクリックして, 詳細設定を表示し,<code>use SMTP Authentication</code>にチェックを入れて,</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>User Name: [USERNAME]@gmail.com
+</span><span class='line'>Password: 上のパスワード
+</span><span class='line'>Use SSL: チェックを入れる
+</span><span class='line'>SMTP Port: 465
+</span><span class='line'>Reply-To Address: [USERNAME]@gmail.com
+</span><span class='line'>Charset: UTF-8</span></code></pre></td></tr></table></div></figure>
+
+
+<p>終わったら<code>Test configuration by sending test e-mail</code>にチェックを入れて, <code>Test e-mail recipient</code>に送信先アドレスを入力し, <code>Test configuration</code>をクリックしてテスト送信を行う. <code>Email was successfully sent</code>を表示されたら成功.</p>
+
+<p><code>Save</code>もしくは<code>Apply</code>をクリックして設定を保存しておくのを忘れずに.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Railsでbefore_destroyを使うときの注意点]]></title>
@@ -1189,49 +1224,6 @@
 </span><span class='line'><span class="c"># =&gt; x86_64</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン41日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day41/"/>
-    <updated>2013-05-01T23:30:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day41</id>
-    <content type="html"><![CDATA[<p>(40日目は省略されました)</p>
-
-<p>さて, 大方のプラクティスを終えたこともあり, 今日から</p>
-
-<ol>
-<li><a href="http://256interns.com/practices/75">webアプリ, サービスを作る</a></li>
-</ol>
-
-
-<p>というプラクティスを始めることになった. これがFjordでのインターン総まとめになると思う.</p>
-
-<!-- more -->
-
-
-<p>そもそもインターンを始めたのはプログラマとして就職するための準備だった(あわよくば紹介してもらうことも含めて). で, 準備というのは</p>
-
-<ul>
-<li>プログラマとして必要な知識を得る</li>
-<li>いまどきなプルリクベースの開発を経験する</li>
-<li>稼働中なサービスの改良を経験する</li>
-</ul>
-
-
-<p>の上で</p>
-
-<ul>
-<li>小規模サービスなら1人で構築, 運営できるようになる</li>
-</ul>
-
-
-<p>ことだと考えた. なのでこのプラクティスを完了したときには最初の目標を達成したことになる(サービスの運営は除く).</p>
-
-<p>本音を言うと就活するのは怖いのだが, いつまでもインターンを続けるわけにもいかないし, いい頃合いだとして納得できるものを作って終えたい.</p>
-
-<p>※ 作ったものが残念だったらまた別のを作るので延びるかもしれん</p>
 ]]></content>
   </entry>
   

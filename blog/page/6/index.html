@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Rails開発環境の構築（rbenvでRuby導入からBundler, Rails導入まで）- Qiitaが長かったので自分用に再編集 追加してメモ. Bundler(のみ)のインストール rbenv環境にインストールされた全てのgemをアンインストール( &hellip;">
+  <meta name="description" content="今日は, ”怖い話に表紙を設定できるようにする”作業を. 表紙は怖い話の中でしか使わないと思っていたけど, 他の場所でサムネイル表示させたいとのこと. 危ない危ない…最初にちゃんと確認するようにしよう. ユーザさんで壁紙をタイトルのように使っている人がいることもあり, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day20/">インターン20日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-28T00:00:00+09:00" pubdate data-updated="true">Mar 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日は, ”怖い話に表紙を設定できるようにする”作業を.</p>
+
+<p>表紙は怖い話の中でしか使わないと思っていたけど, 他の場所でサムネイル表示させたいとのこと. 危ない危ない…最初にちゃんと確認するようにしよう.</p>
+
+<p>ユーザさんで壁紙をタイトルのように使っている人がいることもあり, 表紙用に新しくテーブルを作るのではなく, 壁紙に表紙も含めてそこから選択するようになった.</p>
+
+<p>手順としてはこんな感じでいこうと思う.</p>
+
+<ol>
+<li>怖い話モデルに表紙カラム(壁紙への参照)を追加</li>
+<li>表紙が怖い話で表示されるように</li>
+<li>表紙を壁紙から選択できるように</li>
+<li>表紙を投稿できるように</li>
+<li>怖い話の一覧に表紙サムネイルを表示</li>
+</ol>
+
+
+<p>明日で出来るかな…</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -696,53 +749,6 @@ LoadError: no such file to load -- bundler/setup
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/smart-app-banner/">iPhone(Safari)でアクセスしたらページ上部にアプリのバナーが出るアレ
-</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-15T00:00:00+09:00" pubdate data-updated="true">Mar 15<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>こんな感じのやつね.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/Photo-2013-03-14-18-06-41.png" alt="Smart App Banner Example" /></p>
-
-<p>名前が分からなくて調べるのに手間取ったけど(Smart App Bannerでした), 追加するのはすごい簡単.</p>
-
-<p>htmlにこんな感じのmetaを追加するだけ.</p>
-
-<p>idはiTunesからリンクコピーしたら調べれる(9桁の数字).</p>
-
-<p>Railsだと app/views/layouts/application.html.erb とかに追加すればおっけー.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -758,6 +764,10 @@ LoadError: no such file to load -- bundler/setup
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/jenkins-notification-using-gmail/">Jenkinsでビルド失敗時にGmailで通知する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rails-before-destroy-with-relation-model/">Railsでbefore_destroyを使うときの注意点</a>
@@ -793,10 +803,6 @@ LoadError: no such file to load -- bundler/setup
     
       <li class="post">
         <a href="/blog/rspec-haml-sass-on-rails/">RailsでRspecとHamlとSass使いたいとき</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day46/">インターン46日目</a>
       </li>
     
   </ul>
