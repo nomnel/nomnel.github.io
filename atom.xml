@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-17T15:04:20+09:00</updated>
+  <updated>2013-06-17T15:12:09+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[インターン(54) 怖話ブログの日付フォーマットがおかしい]]></title>
+    <title type="html"><![CDATA[インターン(54) 怖話ブログの日付フォーマット修正]]></title>
     <link href="http://nomnel.net/blog/fjord-days-54/"/>
     <updated>2013-06-17T15:00:00+09:00</updated>
     <id>http://nomnel.net/blog/fjord-days-54</id>
@@ -60,6 +60,15 @@
 <p>最後にテスト通るか確認しておく(<a href="#fail2">迷走2へ</a>).</p>
 
 <p>無事全てのテストがパスしたのでpush.</p>
+
+<p>ちなみに変更は以下のように形式を指定してやっただけ.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">-        &lt;p class=&quot;date&quot;&gt;</span><span class="cp">&lt;%=</span> <span class="n">l</span> <span class="n">post</span><span class="o">.</span><span class="n">created_at</span><span class="o">.</span><span class="n">to_time</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="x">+        &lt;p class=&quot;date&quot;&gt;</span><span class="cp">&lt;%=</span> <span class="n">post</span><span class="o">.</span><span class="n">created_at</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y/%m/%d&quot;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h3><a name="fail1">迷走1</a></h3>
 

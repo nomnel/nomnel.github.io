@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>インターン(54) 怖話ブログの日付フォーマットがおかしい - 飲んだり寝たり</title>
+  <title>インターン(54) 怖話ブログの日付フォーマット修正 - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
@@ -82,7 +82,7 @@ git clone git@github.com:fjordllc/blog-kowabana-jp.git &hellip;">
   
   <header>
     
-      <h1 class="entry-title">インターン(54) 怖話ブログの日付フォーマットがおかしい</h1>
+      <h1 class="entry-title">インターン(54) 怖話ブログの日付フォーマット修正</h1>
     
     
       <p class="meta">
@@ -147,6 +147,15 @@ git clone git@github.com:fjordllc/blog-kowabana-jp.git &hellip;">
 <p>最後にテスト通るか確認しておく(<a href="#fail2">迷走2へ</a>).</p>
 
 <p>無事全てのテストがパスしたのでpush.</p>
+
+<p>ちなみに変更は以下のように形式を指定してやっただけ.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">-        &lt;p class=&quot;date&quot;&gt;</span><span class="cp">&lt;%=</span> <span class="n">l</span> <span class="n">post</span><span class="o">.</span><span class="n">created_at</span><span class="o">.</span><span class="n">to_time</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span><span class='line'><span class="x">+        &lt;p class=&quot;date&quot;&gt;</span><span class="cp">&lt;%=</span> <span class="n">post</span><span class="o">.</span><span class="n">created_at</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y/%m/%d&quot;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h3><a name="fail1">迷走1</a></h3>
 
@@ -300,7 +309,7 @@ git clone git@github.com:fjordllc/blog-kowabana-jp.git &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/fjord-days-54/">インターン(54) 怖話ブログの日付フォーマットがおかしい</a>
+        <a href="/blog/fjord-days-54/">インターン(54) 怖話ブログの日付フォーマット修正</a>
       </li>
     
       <li class="post">
