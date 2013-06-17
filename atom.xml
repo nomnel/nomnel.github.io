@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-17T13:39:33+09:00</updated>
+  <updated>2013-06-17T15:04:20+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,138 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[インターン(54) 怖話ブログの日付フォーマットがおかしい]]></title>
+    <link href="http://nomnel.net/blog/fjord-days-54/"/>
+    <updated>2013-06-17T15:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/fjord-days-54</id>
+    <content type="html"><![CDATA[<p>「怖話ブログの日付フォーマットがおかしい」に取り組んだ記録.<!-- more --></p>
+
+<p><a href="http://blog.kowabana.jp/">怖話ブログ</a>で日付フォーマットが<code>dd/mm/yyyy</code>になっているのを<code>yyyy/mm/dd</code>に修正する作業.</p>
+
+<h3>成功ルート</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git clone git@github.com:fjordllc/blog-kowabana-jp.git
+</span><span class='line'><span class="nb">cd </span>blog-kowabana-jp
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で<code>bundle install</code>すると</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>Fetching gem metadata from http://rubygems.org/.........
+</span><span class='line'><span class="c"># 中略</span>
+</span><span class='line'>Could not find sinatra-content-for-0.2 in any of the sources
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>となって失敗するので(<a href="#fail1">迷走1へ</a>), lokkaのmasterをmergeしてみる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git remote add lokka git@github.com:lokka/lokka.git
+</span><span class='line'>git fetch lokka
+</span><span class='line'>git merge lokka/master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると<code>bundle install</code>成功!</p>
+
+<p>次に<code>bundle exec rackup</code>して実画面でも確認してみる -> 問題なし</p>
+
+<p>最後にテスト通るか確認しておく(<a href="#fail2">迷走2へ</a>).</p>
+
+<p>無事全てのテストがパスしたのでpush.</p>
+
+<h3><a name="fail1">迷走1</a></h3>
+
+<ol>
+<li>Gemfileから<code>sinatra-content-for</code>を消してみよう</li>
+<li>-> なんやかんやダメ</li>
+<li>テンプレートの変更のみやし, 素のlokkaにテンプレートコピって確認すればええやろ</li>
+<li>-> <a href="https://twitter.com/komagata">@komagata</a>「( ◠‿◠ )☛ なわけねーだろ」僕「▂▅▇█▓▒░(&#8216;ω&#8217;)░▒▓█▇▅▂」</li>
+<li><a href="https://twitter.com/komagata">@komagata</a>「lokkaのmasterをmergeすればいんじゃね?」僕「( ﾟдﾟ)ﾊｯ!」</li>
+</ol>
+
+
+<h3><a name="fail2">迷走2</a></h3>
+
+<p><code>bundle exec rake</code>しても</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>syck has been removed
+</span><span class='line'>Delete Database...
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とのみ表示されてspecが実行されない(前回の作業週ではここで力尽きた). (今回の作業週でも<code>git merge lokka/master</code>して更新している)不思議に思って<code>-t</code>オプションを付けてみると</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>syck has been removed
+</span><span class='line'>** Invoke default <span class="o">(</span>first_time<span class="o">)</span>
+</span><span class='line'>** Invoke spec:setup <span class="o">(</span>first_time<span class="o">)</span>
+</span><span class='line'>** Execute spec:setup
+</span><span class='line'>** Invoke db:delete <span class="o">(</span>first_time<span class="o">)</span>
+</span><span class='line'>** Execute db:delete
+</span><span class='line'>Delete Database...
+</span><span class='line'>** Invoke spec <span class="o">(</span>first_time, not_needed<span class="o">)</span>
+</span><span class='line'>** Execute default
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>と表示される. 比較のためlokkaにも同様にしてみると</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>syck has been removed
+</span><span class='line'>** Invoke default <span class="o">(</span>first_time<span class="o">)</span>
+</span><span class='line'>** Invoke spec:setup <span class="o">(</span>first_time<span class="o">)</span>
+</span><span class='line'>** Execute spec:setup
+</span><span class='line'>** Invoke db:delete <span class="o">(</span>first_time<span class="o">)</span>
+</span><span class='line'>** Execute db:delete
+</span><span class='line'>Delete Database...
+</span><span class='line'>** Invoke spec <span class="o">(</span>first_time<span class="o">)</span>
+</span><span class='line'>** Invoke spec:setup
+</span><span class='line'>** Execute spec
+</span><span class='line'>** Execute default
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li><code>Invoke spec</code>の<code>not_needed</code>が怪しい!!</li>
+<li>-> rakeのソースコードへ</li>
+<li>-> 分からない</li>
+<li>-> 気分転換に新しい環境でやり直してみよう!!</li>
+<li>-> <code>bundle exec rake</code>でspecが実行される</li>
+<li>-> (ﾟДﾟ)ﾊｧ?</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gitでリモートのブランチをチェックアウトする]]></title>
@@ -1197,32 +1329,6 @@
 <h3>参考</h3>
 
 <p><a href="http://heartbeats.jp/hbblog/2012/02/nginx02.html">nginx連載2回目: nginxのインストール</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[WordPressのアンインストール]]></title>
-    <link href="http://nomnel.net/blog/uninstall-wordpress/"/>
-    <updated>2013-05-02T11:45:00+09:00</updated>
-    <id>http://nomnel.net/blog/uninstall-wordpress</id>
-    <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/install-wordpress/">blogとしてインストールしていた場合</a></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo rm -rf /var/www/html/blog
-</span><span class='line'>
-</span><span class='line'><span class="c"># mysqlにログイン</span>
-</span><span class='line'>mysql -u root -p
-</span><span class='line'>
-</span><span class='line'><span class="c"># データベースを削除</span>
-</span><span class='line'>mysql&gt; drop databases wordpress;
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

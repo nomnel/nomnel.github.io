@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Unix系のOS(Linux, FreeBSD, Mac OSなど)の設定はテキストファイルで記述されている. よって, 設定ファイルを編集するにはテキストファイルを扱えるエディタなら何を使ってもよい. が, viはUnixならどのシステムにもインストールされているので, 基本的にはviを使う. &hellip;">
+  <meta name="description" content="iptablesとはパケットフィルタリング, IPアドレスの変換, IPヘッダの書き換えの機能をもつソフトウェア. 設定ファイルでは機能(テーブル)毎に, 対象(チェイン)のパケットに対する処理(ルール)を定義していく. このページは, 以下のページを大いに参考にして書かれている. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,351 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/iptables-filter/">iptablesでパケットフィルタリングするための設定</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-27T00:00:00+09:00" pubdate data-updated="true">Sep 27<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>iptablesとはパケットフィルタリング, IPアドレスの変換, IPヘッダの書き換えの機能をもつソフトウェア. 設定ファイルでは機能(テーブル)毎に, 対象(チェイン)のパケットに対する処理(ルール)を定義していく.</p>
+
+<p>このページは, 以下のページを大いに参考にして書かれている.</p>
+
+<ul>
+<li><a href="http://www.nina.jp/server/redhat/iptables/iptables.html">iptablesの設定</a></li>
+<li><a href="http://d.hatena.ne.jp/yamasahi/20100206/1265444193">iptablesの設定 入門編</a></li>
+</ul>
+
+
+<hr />
+
+<h3>目次</h3>
+
+<p>用語の説明(テーブル, チェイン, ルール)はざっと眺め, 例の解説をメインに読むのが分かりやすいと思う.</p>
+
+<ol>
+<li>テーブル</li>
+<li>チェイン</li>
+<li>ルール</li>
+<li>例</li>
+<li>その他</li>
+</ol>
+
+
+<hr />
+
+<h3>テーブル</h3>
+
+<p>iptablesの機能毎にテーブル名が定義されている. 設定ファイルではそれぞれのテーブル名の下に設定を記述していく.</p>
+
+<table>
+<thead>
+<tr>
+<th>機能 </th>
+<th> テーブル名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>パケットフィルタリング </td>
+<td> *filter</td>
+</tr>
+<tr>
+<td>IPアドレスの変換      </td>
+<td> *nat</td>
+</tr>
+<tr>
+<td>IPヘッダの書き換え    </td>
+<td> *mangle</td>
+</tr>
+</tbody>
+</table>
+
+
+<hr />
+
+<h3>チェイン</h3>
+
+<p>対象のパケット毎にルールをまとめたもの. 該当するチェインのみ適用される. filterテーブルで使用するのは下の3つ.</p>
+
+<table>
+<thead>
+<tr>
+<th>チェイン </th>
+<th> 対象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INPUT   </td>
+<td> 送信先がローカルホストなパケット</td>
+</tr>
+<tr>
+<td>OUTPUT  </td>
+<td> 送信元がローカルホストなパケット</td>
+</tr>
+<tr>
+<td>FORWARD </td>
+<td> ローカルホストを経由するパケット</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>※ 他にもPREROUTING, POSTROUTINGがある.</p>
+
+<hr />
+
+<h3>ルール</h3>
+
+<p>特定のIPアドレスやプロトコルを条件に, パケットに対して適用する処理.</p>
+
+<h5>基本書式</h5>
+
+<pre><code>-A チェイン名 マッチング条件 -j ターゲット
+</code></pre>
+
+<p>ここでターゲットとはパケットをどう処理するかの指定で, ACCEPT(許可), DROP(破棄), REJECT(拒否), ユーザ定義チェーンなどが記述される.</p>
+
+<h5>マッチング条件の例</h5>
+
+<table>
+<thead>
+<tr>
+<th>指定子 </th>
+<th> 別名 </th>
+<th> 条件 </th>
+<th> 備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i </td>
+<td> –in-interface      </td>
+<td> 受信インターフェイス         </td>
+<td> INPUT/FORWARDチェインで使用</td>
+</tr>
+<tr>
+<td>-o </td>
+<td> –out-interface     </td>
+<td> 送信インターフェイス         </td>
+<td> OUTPUT/FORWARDチェインで使用</td>
+</tr>
+<tr>
+<td>-p </td>
+<td> –protocol          </td>
+<td> プロトコルまたはプロトコル番号 </td>
+<td> 指定できるプロトコルはtcp/udp/icmp/all</td>
+</tr>
+<tr>
+<td>-s </td>
+<td> –source, –src      </td>
+<td> 送信元アドレス               </td>
+<td> “192.168.0.1″,”192.168.0.0/24″,”192.168.0.0/255.255.255.0″のように指定</td>
+</tr>
+<tr>
+<td>-d </td>
+<td> –destination, –dst </td>
+<td> 送信先アドレス               </td>
+<td> “192.168.0.1″,”192.168.0.0/24″,”192.168.0.0/255.255.255.0″のように指定</td>
+</tr>
+</tbody>
+</table>
+
+
+<h5>拡張されたマッチングの例</h5>
+
+<table>
+<thead>
+<tr>
+<th>指定子 </th>
+<th> 条件 </th>
+<th> 備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-m tcp –sport   </td>
+<td> TCP送信元ポート </td>
+<td> “0:1023″のように指定</td>
+</tr>
+<tr>
+<td>-m tcp –dport   </td>
+<td> TCP送信先ポート </td>
+<td> “0:1023″のように指定</td>
+</tr>
+<tr>
+<td>-m udp –sport   </td>
+<td> UDP送信元ポート </td>
+<td> “0:1023″のように指定</td>
+</tr>
+<tr>
+<td>-m udp –dport   </td>
+<td> UDP送信先ポート </td>
+<td> “0:1023″のように指定</td>
+</tr>
+<tr>
+<td>-m state –state </td>
+<td> 接続状態       </td>
+<td> NEW/ESTABLISHED/RELATED/INVALID</td>
+</tr>
+<tr>
+<td>–icmp-type      </td>
+<td> ICMPタイプ     </td>
+<td> 指定できるICMPタイプは”iptables -p icmp -h”で確認</td>
+</tr>
+</tbody>
+</table>
+
+
+<hr />
+
+<h3>例</h3>
+
+<p><code>/etc/sysconfig/iptables</code>に記述する.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># テーブル名
+</span><span class='line'>*filter
+</span><span class='line'>
+</span><span class='line'># チェインの定義
+</span><span class='line'># :チェイン名 デフォルトポリシー [パケットカウント:バイトカウント]
+</span><span class='line'># デフォルトポリシーがACCEPTだと, ルールに明示されないパケットは許可. DROPだと破棄.
+</span><span class='line'>:INPUT   ACCEPT [0:0]
+</span><span class='line'>:FORWARD ACCEPT [0:0]
+</span><span class='line'>:OUTPUT  ACCEPT [0:0]
+</span><span class='line'># ユーザ定義チェイン
+</span><span class='line'>:RH-Firewall-1-INPUT - [0:0]
+</span><span class='line'>
+</span><span class='line'># ローカルホスト宛のパケットはRH-Firewall-1-INPUTで処理
+</span><span class='line'>-A INPUT -j RH-Firewall-1-INPUT
+</span><span class='line'># ローカルホスト経由のパケットはRH-Firewall-1-INPUTで処理
+</span><span class='line'>-A FORWARD -j RH-Firewall-1-INPUT
+</span><span class='line'># 受信インターフェイスがループバック(lo)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -i lo -j ACCEPT
+</span><span class='line'># プロトコルがicpmなら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p icmp --icmp-type any -j ACCEPT
+</span><span class='line'># プロトコル番号が50(ESP)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p 50 -j ACCEPT
+</span><span class='line'># プロトコル番号が51(AH)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p 51 -j ACCEPT
+</span><span class='line'># プロトコルがudpかつ, 送信先ポートが5353(Multicast DNS)かつ, 送信先IPアドレスが224.0.0.251なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p udp --dport 5353 -d 224.0.0.251 -j ACCEPT
+</span><span class='line'># プロトコルがudp/tcpかつ, 送信先ポートが631(Internet Printing Protocol)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -p udp -m udp --dport 631 -j ACCEPT
+</span><span class='line'>-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 631 -j ACCEPT
+</span><span class='line'># すでに接続されている通信なら許可(この行が無いと通信できない)
+</span><span class='line'>-A RH-Firewall-1-INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+</span><span class='line'>
+</span><span class='line'># 新規の接続かつ, プロトコルがtcpかつ, 送信先ポートが22(ssh)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+</span><span class='line'># 新規の接続かつ, プロトコルがtcpかつ, 送信先ポートが80(http)なら許可
+</span><span class='line'>-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+</span><span class='line'>
+</span><span class='line'>ここまでで許可されなかったパケットはicmp-host-prohibitedを返して拒否
+</span><span class='line'>-A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited
+</span><span class='line'>
+</span><span class='line'># 以上を登録
+</span><span class='line'>COMMIT</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h3>その他</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># 起動
+</span><span class='line'>$ sudo service iptables start
+</span><span class='line'>
+</span><span class='line'># 再起動
+</span><span class='line'>$ sudo service iptables restart
+</span><span class='line'>
+</span><span class='line'># 現在の設定を確認
+</span><span class='line'>$ sudo iptables -L
+</span><span class='line'>
+</span><span class='line'># OS起動時にiptablesを起動するように
+</span><span class='line'>$ sudo chkconfig iptables on</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1231,6 +1576,10 @@ $ chkconfig --list iptables
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/fjord-days-54/">インターン(54) 怖話ブログの日付フォーマットがおかしい</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/git-checkout-remote-branch/">Gitでリモートのブランチをチェックアウトする</a>
       </li>
     
@@ -1264,10 +1613,6 @@ $ chkconfig --list iptables
     
       <li class="post">
         <a href="/blog/fjord-day51/">インターン51日目(多分)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails-after-initialize/">Railsで初期化後に何か処理をしたいとき</a>
       </li>
     
   </ul>
