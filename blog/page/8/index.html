@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Debianを最小構成(CUIのみ)でインストールする. 準備 Debianインストーラのisoファイルをダウンロード. 今回はSmaller CDsのamd64版を選択(50MB). VirtualBoxをダウンロードしてインストール. VMの作成 &hellip;">
+  <meta name="description" content="今日は怖話の改善案考えるために怖話を触っていた. 昼過ぎには終えれるかと思っていたが, 家の用事が入ってきたこともあり, 書き終わったのは18:00頃. 悔しい. 実際に怖話の作業にコミット出来るのは, やはりチュートリアルを終えてかららしい. インターンの時間(10:00~19:00) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day8/">インターン8日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-11T00:00:00+09:00" pubdate data-updated="true">Mar 11<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日は<a href="http://nomnel.net/blog/kowabana-idea/">怖話の改善案考える</a>ために<a href="http://kowabana.jp/">怖話</a>を触っていた. 昼過ぎには終えれるかと思っていたが, 家の用事が入ってきたこともあり, 書き終わったのは18:00頃. 悔しい.</p>
+
+<p>実際に怖話の作業にコミット出来るのは, やはりチュートリアルを終えてかららしい. インターンの時間(10:00~19:00)以外でチュートリアルをもっと進めていこうと思う.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -658,88 +696,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day1/">インターン1日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-28T00:00:00+09:00" pubdate data-updated="true">Feb 28<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今日から<a href="http://fjord.jp/">FJORD, LLC</a>のリモートインターンシップに参加させていただくことになった. これは日報のようなもの.</p>
-
-<p>10:00頃, <a href="http://intern-fantasy.herokuapp.com/">インターン応募フォーム</a>から申込み, 13:00頃に「参加していいよー」的なメールをいただいて14:00頃から参加. 結果が早くて助かる…メールいただくまでめっちゃ緊張してたのは内緒の話.</p>
-
-<p>インターン中のカリキュラムは<a href="https://github.com/fjordllc/tutorial/wiki">こんな感じ</a>みたい. 今日はプログラマー・デザイナー共通チュートリアルの中の</p>
-
-<ol>
-<li>環境を整えること</li>
-<li>HTMLの基本の勉強</li>
-</ol>
-
-
-<p>をしていた. 環境はすでに大体揃っていたので, Lingrにアカウントを作って, Mac, iPhone用アプリをそれぞれインストールしたぐらい.</p>
-
-<p>HTMLの基本は, 参考サイト(<a href="http://www.kanzaki.com/docs/htminfo.html">ごく簡単なHTMLの説明</a>, <a href="http://www.html5.jp/tag/elements/">HTML要素のリファレンス</a>とか)を見た上で, 課題として素のテキストをHTMLで書き直すというもの.</p>
-
-<p>HTML自体は前職の研修でもやっていたがうろ覚えで不安があったので, 参考サイトをざっと読んだ. 眠い. <a href="http://dotinstall.com/lessons/basic_html">ドットインストール HTMLの基礎</a>も見た. 寝た.</p>
-
-<p>仕方ないので, 一度適当に書いた上で分からないところを調べるようにした. 特に分からなかったのはsectionとarticleの違い. <a href="http://webcre8.jp/think/html5-section-outline.html">このページ</a>によると, &#8220;ページ内の独立したコンテンツとしてみなせる部分にはarticleを使いましょう&#8221;とのこと. 後でもう一度読んで理解しておく.</p>
-
-<p>結果, 提出した課題は<a href="https://gist.github.com/nomnel/5054601">コチラ</a>で, レビューをいただいたのは<a href="https://gist.github.com/nomnel/5055277">コチラ</a>.</p>
-
-<p>レビューで直してもらったところは</p>
-
-<ol>
-<li><code>&lt;/li&gt;&lt;li&gt;</code>のようにしない</li>
-<li>テーブルでは行の要素ごとに改行する</li>
-<li><code>&lt;th&gt;</code>使え(これは忘れてた)</li>
-</ol>
-
-
-<p>説明が悪いので分かりにくいけど, 2.は</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;tr&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;th&gt;</span>豚肉(薄切り)<span class="nt">&lt;/th&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;td&gt;</span>300g<span class="nt">&lt;/td&gt;</span>
-</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>的な意味. 参考にさせていただきます.</p>
-
-<p>レビューもらった時点で18:00前位だったので, 次(CSS)に進むのは翌日ということにしてブログにまとめを書いている.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -755,6 +711,10 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/git-checkout-remote-branch/">Gitでリモートのブランチをチェックアウトする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/jenkins-notification-using-gmail/">Jenkinsでビルド失敗時にGmailで通知する</a>
@@ -790,10 +750,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     
       <li class="post">
         <a href="/blog/rails-after-initialize/">Railsで初期化後に何か処理をしたいとき</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rspec-haml-sass-on-rails/">RailsでRspecとHamlとSass使いたいとき</a>
       </li>
     
   </ul>
