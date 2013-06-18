@@ -241,6 +241,27 @@
 
 <p>個別の<code>f.submit</code>にいちいち<code>{disable_with: 'Sending…'}</code>とつけるのが面倒なら, <code>config/initializers</code>に</p>
 
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Helpers</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">FormTagHelper</span>
+</span><span class='line'>    <span class="n">alias_method</span> <span class="ss">:original_submit_tag</span><span class="p">,</span> <span class="ss">:submit_tag</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">submit_tag</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="kp">nil</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{})</span>
+</span><span class='line'>      <span class="n">options</span><span class="o">[</span><span class="ss">:disable_with</span><span class="o">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="s1">&#39;sending&#39;</span><span class="p">)</span> <span class="k">unless</span> <span class="n">options</span><span class="o">[</span><span class="ss">:disable_with</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">original_submit_tag</span> <span class="n">value</span><span class="p">,</span> <span class="n">options</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <p>と記述したファイルを足してやればよい.</p>
 
 <p>もし, いくつかのsubmitだけ<code>disable_with</code>したくない場合は,</p>
