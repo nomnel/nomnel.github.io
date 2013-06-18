@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-06-18T11:44:44+09:00</updated>
+  <updated>2013-06-18T22:01:10+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,51 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Active Recordで属性にアクセスするメソッドを上書きする]]></title>
+    <link href="http://nomnel.net/blog/acticerecord-redefine-attr-access-method/"/>
+    <updated>2013-06-18T22:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/acticerecord-redefine-attr-access-method</id>
+    <content type="html"><![CDATA[<p>RailsでUserモデルがあってそれがnameという属性を持っているとする. このとき例えば, User#nameの値を条件fooによって変えたいとき,<!-- more --></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">name</span>
+</span><span class='line'>    <span class="n">foo</span> <span class="p">?</span> <span class="nb">self</span><span class="o">[</span><span class="ss">:name</span><span class="o">]</span> <span class="p">:</span> <span class="s1">&#39;some special value&#39;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>のようにnameメソッドを<a href="#caution">上書き</a>してやればよい.</p>
+
+<p>ちなみに<code>self[:name]</code>の<code>[]</code>は<code>read_attribute</code>のaliasで, 別に<code>write_attribute</code>もあるらしい(<a href="http://blog.eiel.info/blog/2012/12/17/read-attribute-activerecord/">参考</a>).</p>
+
+<p><a name="caution">※</a> 上書きというよりは先に定義していると言った方が正確だと思う. というのもaround aliasを使って</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="k">alias</span> <span class="ss">:org_name</span> <span class="ss">:name</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">name</span>
+</span><span class='line'>    <span class="n">foo</span> <span class="p">?</span> <span class="n">org_name</span> <span class="p">:</span> <span class="s1">&#39;some special value&#39;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>のように定義しようとすると<code>ねーむってなぁに？</code>って怒られるからだ. 多分(確認すればいいのだけど), <code>method_missing</code>で処理してるんだと思う.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[インターン(54) 怖話ブログの日付フォーマット修正]]></title>
@@ -1278,66 +1323,6 @@
 <li>Saveをクリック</li>
 </ol>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CentOS6で最新版のnginxをyumでインストールする]]></title>
-    <link href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/"/>
-    <updated>2013-05-02T12:20:00+09:00</updated>
-    <id>http://nomnel.net/blog/install-nginx-in-centos6-using-yum</id>
-    <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/">Debianのとき</a>と同様, 標準のままではパッケージシステムで最新版をインストールすることが出来ないのでその対策.</p>
-
-<!-- more -->
-
-
-<p>リポジトリを登録する. (URLは<a href="http://nginx.org/en/linux_packages.html#stable">公式のページ</a>を参照)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>すると<code>/etc/yum.repos.d/nginx.repo</code>が以下のようになる.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># nginx.repo</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">[</span>nginx<span class="o">]</span>
-</span><span class='line'><span class="nv">name</span><span class="o">=</span>nginx repo
-</span><span class='line'><span class="nv">baseurl</span><span class="o">=</span>http://nginx.org/packages/centos/6/<span class="nv">$basearch</span>/
-</span><span class='line'><span class="nv">gpgcheck</span><span class="o">=</span>0
-</span><span class='line'><span class="nv">enabled</span><span class="o">=</span>1
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>後は普通にyumでインストールすると最新版が入る.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo yum install -y nginx
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>起動する(Apache等が動いていたら先に止めておく)</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo service nginx start
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ブラウザでアクセスして<code>Welcome to nginx!</code>と表示されたら成功.</p>
-
-<p>ちなみにドキュメントルートは<code>/usr/share/nginx/html/</code>.</p>
-
-<h3>参考</h3>
-
-<p><a href="http://heartbeats.jp/hbblog/2012/02/nginx02.html">nginx連載2回目: nginxのインストール</a></p>
 ]]></content>
   </entry>
   
