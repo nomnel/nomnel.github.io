@@ -9,7 +9,8 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="駒形さん(@komagata)からタスクをいただいたので, 今日は準備としてローカルに怖話の開発環境を構築していた. 途中, 詰まってしまって環境構築だけで一日が終わってしまって残念. ローカル開発環境を構築する READMEとコチラを参考に. $ rbenv install 2.0.0-p0 &hellip;">
+  <meta name="description" content="今日は週間ランキング等の個別のランキングページで11位以下の怖い話を表示する作業をしていた. 現在の進捗は ランキングの集計順位を増やす(11位以下も集計する)方法
+結果表示の件数を増やす方法 は分かったのでざっくりとコードを追加して目視で動作確認したところ. 残っている課題は テストの追加 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day10/">インターン10日目 ランキングの表示数増量</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-13T00:00:00+09:00" pubdate data-updated="true">Mar 13<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日は週間ランキング等の個別のランキングページで11位以下の怖い話を表示する作業をしていた.</p>
+
+<p>現在の進捗は</p>
+
+<ul>
+<li>ランキングの集計順位を増やす(11位以下も集計する)方法</li>
+<li>結果表示の件数を増やす方法</li>
+</ul>
+
+
+<p>は分かったのでざっくりとコードを追加して目視で動作確認したところ.</p>
+
+<p>残っている課題は</p>
+
+<ul>
+<li>テストの追加</li>
+<li>追加ソースを綺麗にすること</li>
+</ul>
+
+
+<p>で, 特にテストどう書いたものかなーで悩んでいる.</p>
+
+<p>後, 他に相談しなければいけないことは</p>
+
+<ul>
+<li>何位まで集計するか</li>
+<li>11位以下のランク表示(怖話では1位と表示せず, 壱と漢数字表記している)をどうするか</li>
+</ul>
+
+
+<p>何位まで集計するかによってサーバの負荷も変わるし, ローカルには実データが無いのでどれぐらいの負荷になるか検証する方法が無いので. ランク表示はデザインも関わってくるかもなので.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -742,55 +809,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day3/">インターン3日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-04T00:00:00+09:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ざっくり箇条書きで.</p>
-
-<ol>
-<li>CSS課題の提出(結局ほぼsampleのまま)</li>
-<li>Terminal操作の復習に<a href="http://fjord.jp/love/548.html">黒い画面入門</a>を読んだ</li>
-<li><a href="http://try.github.com/">Try Git</a>をやった</li>
-<li><a href="http://www.backlog.jp/git-guide/">サルでも分かるgit入門</a>を読んだ</li>
-<li><a href="http://dotinstall.com/lessons/basic_javascript">ドットインストール JavaScript入門</a>を見た</li>
-<li><a href="http://dotinstall.com/lessons/basic_jquery">ドットインストール jQuery入門</a>を見た</li>
-<li><a href="http://www.slideshare.net/hayatomizuno/jquery-7665168">ノンプログラマーのためのjQuery入門</a>を読んだ</li>
-</ol>
-
-
-<p>基本的に読んだり見たりして理解していることを確認しただけ. 特に詰まるところは(CSS以外)無かった. ただ, Gitは自分一人でしか使ったことないので, ちょっとした操作でもリファレンスが絶対に必要だろうなぁ.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -806,6 +824,10 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/diary-1/">日記 1</a>
+      </li>
     
       <li class="post">
         <a href="/blog/acticerecord-redefine-attr-access-method/">Active Recordで属性にアクセスするメソッドを上書きする</a>
@@ -841,10 +863,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     
       <li class="post">
         <a href="/blog/rails4-no-turbolinks/">Rails4でturbolinksを使わない</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-day52/">インターン52日目</a>
       </li>
     
   </ul>
