@@ -9,12 +9,10 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="ざっくり箇条書きで. CSS課題の提出(結局ほぼsampleのまま)
-Terminal操作の復習に黒い画面入門を読んだ
-Try Gitをやった
-サルでも分かるgit入門を読んだ
-ドットインストール JavaScript入門を見た
-ドットインストール jQuery入門を見た &hellip;">
+  <meta name="description" content="今日やったこと ドットインストール CoffeeScript入門を見た
+nodebrewでnode.js入れた
+シェルをzshに変えた
+The Little Book on CoffeeScript（日本語版）を読んだ 明日やること 明日はチュートリアルのインフラ編をやる. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +80,102 @@ Try Gitをやった
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day4/">インターン4日目 あとnodebrewとかzsh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-05T00:00:00+09:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>今日やったこと</h3>
+
+<ol>
+<li><a href="http://dotinstall.com/lessons/basic_coffeescript">ドットインストール CoffeeScript入門</a>を見た</li>
+<li>nodebrewでnode.js入れた</li>
+<li>シェルをzshに変えた</li>
+<li><a href="http://minghai.github.com/library/coffeescript/index.html">The Little Book on CoffeeScript（日本語版）</a>を読んだ</li>
+</ol>
+
+
+<h3>明日やること</h3>
+
+<p>明日はチュートリアルのインフラ編をやる. DebianはVirtualBoxを使って仮想で入れるつもり. 仮想OSはネットワーク設定のとこで躓いたトラウマがあるので不安.</p>
+
+<h3>nodebrewとnode.jsのインストール</h3>
+
+<p>CoffeeScriptを試そうと思ったらnode.jsが必要とのことだったので, 弟におすすめされた<a href="https://github.com/hokaccha/nodebrew">nodebrew</a>を入れることに. インストールは<a href="https://github.com/hokaccha/nodebrew">github</a>のREADMEを参考に. 一応こちらにも書いておく.</p>
+
+<p>インストールはこのワンライナー.</p>
+
+<pre><code>$ curl https://raw.github.com/hokaccha/nodebrew/master/nodebrew | perl - setup
+</code></pre>
+
+<p>インストールが終わったら, .bashrc, .zshrcなどに</p>
+
+<pre><code>export PATH=$HOME/.nodebrew/current/bin:$PATH
+</code></pre>
+
+<p>を追加して</p>
+
+<pre><code>source ~/.bashrc
+</code></pre>
+
+<p>で再読み込みしておく. 次にnodebrewでnode.jsをインストールする.</p>
+
+<pre><code>$ nodebrew install stable # 安定版をインストール
+</code></pre>
+
+<p>使用するバージョンを指定.</p>
+
+<pre><code>$ nodebrew use stable
+$ node -v # 確認
+</code></pre>
+
+<p>npmでCoffee Scriptをインストール.</p>
+
+<pre><code>$ npm install -g coffee-script # グローバルにインストール
+</code></pre>
+
+<p>これで<code>cofffee</code>コマンドが使える.</p>
+
+<h3>zshのインストール</h3>
+
+<p>ついでだからとzshも入れさせられた. brewだと下記のように.</p>
+
+<pre><code>$ brew install zsh
+$ sudo sh -c "echo '/usr/local/bin/zsh' &gt;&gt; /etc/shells"
+$ chsh -s /usr/local/bin/zsh
+$ touch ~/.zshrc
+$ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -701,115 +795,6 @@ $ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/wp-akismet/">AkismetのAPIキーを取得して設定する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-29T00:00:00+09:00" pubdate data-updated="true">Sep 29<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Akismetはコメントスパム対策に役立つプラグイン. WordPressにデフォルトでインストールされているが, 使用するにはAPIキーが必要になる. また, このAPIキーを複数サイトで使い回すことは出来ない.</p>
-
-<hr />
-
-<h3>目次</h3>
-
-<ol>
-<li>有効化</li>
-<li>APIキーの取得と設定</li>
-<li>使い方</li>
-</ol>
-
-
-<hr />
-
-<h3>有効化</h3>
-
-<p>サイドバーの プラグイン -> インストール済みプラグイン を開き, Akismetを有効化する.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-01.jpeg" alt="Akismetの有効化" /></p>
-
-<hr />
-
-<h3>APIキーの取得と設定</h3>
-
-<p>有効化すると下のように表示されるので, [Akismet API キーを入力]部分をクリックするか, サイドバーの プラグイン -> Akismet設定 からAkismet設定ページを表示する.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-02.jpeg" alt="Akismet有効化時のメッセージ" /></p>
-
-<p>APIキーを取得するため, <a href="http://akismet.com/wordpress/">Akismet.com</a>を開く.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-03.jpeg" alt="Akismet設定画面からAkismet.comを開く" /></p>
-
-<p>クリックしてAPIキーのサインアップ画面へ.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-04.jpeg" alt="APIキーのサインアップ画面へ" /></p>
-
-<p>個人ブログ用のプラン(Personal)を選択.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-05.jpeg" alt="プランの選択" /></p>
-
-<p>右側に表示されるバーを左端までスライドさせて無料にする.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-06.jpeg" alt="料金を無料に変更" /></p>
-
-<p>氏名とメールアドレスを入力してCONTINUE. チェックボックス(メルマガを受け取るか)は外しておいて良い.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-07.jpeg" alt="コンタクト情報の入力" /></p>
-
-<p>CONTINUEと書いてあったがこれで終了. 下のような画面が表示されるのでメールを確認する.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-08.jpeg" alt="サインアップの完了" /></p>
-
-<p>Your Akismet API key is: に続く文字列がAPIキー. コピーしておく.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-09.jpeg" alt="メール中のAPIキーを確認" /></p>
-
-<p>Akismet設定ページに戻り, APIキーを入力して設定を更新.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-10.jpeg" alt="APIキーの入力" /></p>
-
-<p>次のように表示されたら成功.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-11.jpeg" alt="APIキーの認証完了" /></p>
-
-<hr />
-
-<h3>使い方</h3>
-
-<p>スパム判定されたコメントはコメント画面から確認できる.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/akismet-12.jpeg" alt="コメント画面からスパムを確認" /></p>
-
-<p>他に, サイドバーの ダッシュボード -> Akismet統計 ではスパムの統計情報が確認できる.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -825,6 +810,10 @@ $ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-db-command/">RailsでSQLiteを操作する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/diary-1/">日記 1</a>
@@ -860,10 +849,6 @@ $ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
     
       <li class="post">
         <a href="/blog/fjord-days-53/">インターン(53) ブロック機能のバグ修正</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails4-no-turbolinks/">Rails4でturbolinksを使わない</a>
       </li>
     
   </ul>
