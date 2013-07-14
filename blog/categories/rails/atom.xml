@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-14T17:11:50+09:00</updated>
+  <updated>2013-07-14T20:21:43+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -65,9 +65,7 @@ end
 gem 'rails-observers'
 </code></p>
 
-<p>Model内に書けるならcallbackを使ってもよい.</p>
-
-<p>ちなみにcallbackは</p>
+<p>callbackで</p>
 
 <p>```ruby
 class Hoge &lt; ActiveRecord::Base
@@ -95,7 +93,7 @@ class Hoge &lt; ActiveRecord::Base
 end
 ```</p>
 
-<p>のようにして使う.</p>
+<p>のようにしてもよい.</p>
 ]]></content>
   </entry>
   

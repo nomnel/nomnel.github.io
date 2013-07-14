@@ -10,11 +10,12 @@
 
   
   <meta name="description" content="Rails4ではobserversが削除されているので, 使用したい場合はrails-observergemをインストールする. 1
-gem &#39;rails-observers&#39; Model内に書けるならcallbackを使ってもよい. ちなみにcallbackは 1
+gem &#39;rails-observers&#39; callbackで 1
 2
 3
 4
-5 &hellip;">
+5
+class Hoge &lt; ActiveRecord:: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -115,9 +116,7 @@ gem &#39;rails-observers&#39; Model内に書けるならcallbackを使っても�
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Model内に書けるならcallbackを使ってもよい.</p>
-
-<p>ちなみにcallbackは</p>
+<p>callbackで</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -151,7 +150,7 @@ gem &#39;rails-observers&#39; Model内に書けるならcallbackを使っても�
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>のようにして使う.</p>
+<p>のようにしてもよい.</p>
 </div>
 
 
