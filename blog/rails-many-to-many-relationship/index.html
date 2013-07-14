@@ -5,12 +5,17 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>インターン18日目 - 飲んだり寝たり</title>
+  <title>Railsで多対多の関係を表現する - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日も昨日からの続きで, ”iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする”作業. 一言で言うと, 詰まってる. やりたいこと タップした反応としてアイコンを赤くする
-これ以上戻れない(進めない)ときはアイコンをdisableな見た目にする. ので, &hellip;">
+  <meta name="description" content="例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompanyUser(アルファベット順にならべる)を使う. それぞれコードは以下のようになる. 1
+2
+3
+4
+5
+# app/models/user.rb
+class &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nomnel.net/blog/fjord-day18">
+  <link rel="canonical" href="http://nomnel.net/blog/rails-many-to-many-relationship">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
@@ -81,7 +86,7 @@
   
   <header>
     
-      <h1 class="entry-title">インターン18日目</h1>
+      <h1 class="entry-title">Railsで多対多の関係を表現する</h1>
     
     
       <p class="meta">
@@ -97,58 +102,57 @@
   
 
 
-<time datetime="2013-03-26T00:00:00+09:00" pubdate data-updated="true">Mar 26<span>th</span>, 2013</time>
+<time datetime="2013-07-14T17:00:00+09:00" pubdate data-updated="true">Jul 14<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>今日も昨日からの続きで, ”iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする”作業. 一言で言うと, 詰まってる.</p>
+<div class="entry-content"><p>例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompanyUser(アルファベット順にならべる)を使う.</p>
 
-<h4>やりたいこと</h4>
+<p>それぞれコードは以下のようになる.</p>
 
-<ul>
-<li>タップした反応としてアイコンを赤くする</li>
-<li>これ以上戻れない(進めない)ときはアイコンをdisableな見た目にする.</li>
-</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/user.rb</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:company_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:companies</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:company_users</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>ので, 前もってCSS(Sass)に以下の様に記述している(抜粋).</p>
 
-<p>でこれに対してCoffeeScriptで</p>
 
-<p>としている(参考: <a href="http://la.ma.la/blog/diary_200609011825.htm">history.backが成功したかどうかを判別する</a>). これでいいのでは…と思っているのだけど</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/company.rb</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Company</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:company_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:company_users</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h4>現状</h4>
 
-<p>こんな感じ.</p>
 
-<p>ブラウザ</p>
 
-<p>consoleの表示</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CompanyUser</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:company</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>アイコンの色</p>
-
-<p>Chrome(@Mac)</p>
-
-<p>start -> unload</p>
-
-<p>デフォルト -> 赤</p>
-
-<p>Safari(@iPhone Simulator)</p>
-
-<p>start -> not moved -> unload</p>
-
-<p>デフォルト -> 一瞬赤 -> disable</p>
-
-<p>Safari(@Mac)</p>
-
-<p>start -> not moved</p>
-
-<p>デフォルト</p>
-
-<p>最悪iPhoneが動けばいいのだけど, ちょっとどうしたものか.</p>
 </div>
 
 
@@ -171,12 +175,12 @@
   
 
 
-<time datetime="2013-03-26T00:00:00+09:00" pubdate data-updated="true">Mar 26<span>th</span>, 2013</time>
+<time datetime="2013-07-14T17:00:00+09:00" pubdate data-updated="true">Jul 14<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/diary/'>diary</a>
+    <a class='category' href='/blog/categories/howto/'>howto</a>, <a class='category' href='/blog/categories/rails/'>rails</a>
   
 </span>
 
@@ -185,7 +189,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/fjord-day18/" data-via="nomnel" data-counturl="http://nomnel.net/blog/fjord-day18/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/rails-many-to-many-relationship/" data-via="nomnel" data-counturl="http://nomnel.net/blog/rails-many-to-many-relationship/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -198,14 +202,18 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/fjord-day17/" title="Previous Post: インターン17日目">&laquo; インターン17日目</a>
+        <a class="basic-alignment left" href="/blog/rails4-observer/" title="Previous Post: Rails4でObserverを使う">&laquo; Rails4でObserverを使う</a>
       
-      
-        <a class="basic-alignment right" href="/blog/pow-install/" title="Next Post: PowでRailsアプリにバーチャルホストなアクセス">PowでRailsアプリにバーチャルホストなアクセス &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -280,7 +288,10 @@
       var disqus_shortname = 'nomnel';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nomnel.net/blog/rails-many-to-many-relationship/';
+        var disqus_url = 'http://nomnel.net/blog/rails-many-to-many-relationship/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

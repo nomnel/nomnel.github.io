@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-14T16:47:02+09:00</updated>
+  <updated>2013-07-14T17:09:24+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Railsで多対多の関係を表現する]]></title>
+    <link href="http://nomnel.net/blog/rails-many-to-many-relationship/"/>
+    <updated>2013-07-14T17:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails-many-to-many-relationship</id>
+    <content type="html"><![CDATA[<p>例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompanyUser(アルファベット順にならべる)を使う.</p>
+
+<p>それぞれコードは以下のようになる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/user.rb</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:company_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:companies</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:company_users</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/company.rb</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Company</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:company_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:company_users</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CompanyUser</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:company</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rails4でObserverを使う]]></title>
@@ -1035,107 +1087,6 @@
 <p>ブラウザ等で実際にURLにアクセスしてみてJobが実行されればOK.</p>
 
 <p>これでBitbucketにpushするとJenkinsに通知が行って, Github pageにデプロイしてくれるようになった.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CentOSでsystem wideなrbenv+ruby-build環境を構築する]]></title>
-    <link href="http://nomnel.net/blog/centos-system-wide-rbenv-and-ruby-build/"/>
-    <updated>2013-05-04T12:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/centos-system-wide-rbenv-and-ruby-build</id>
-    <content type="html"><![CDATA[<h3>目次</h3>
-
-<ol>
-<li>環境</li>
-<li>rbenv, ruby-buildのインストール</li>
-<li>rubyのインストール</li>
-<li>参考</li>
-</ol>
-
-
-<h3>環境</h3>
-
-<ul>
-<li>CentOS release 6.4 (Final)</li>
-</ul>
-
-
-<!-- more -->
-
-
-<h3>rbenv, ruby-buildのインストール</h3>
-
-<p>sudo地獄なのでrootで作業を行う.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>su
-</span><span class='line'>
-</span><span class='line'><span class="c"># 以下root</span>
-</span><span class='line'><span class="nb">cd</span> /usr/local
-</span><span class='line'>git clone git://github.com/sstephenson/rbenv.git rbenv
-</span><span class='line'>mkdir rbenv/shims rbenv/versions
-</span><span class='line'>groupadd rbenv
-</span><span class='line'>chgrp -R rbenv rbenv
-</span><span class='line'>chmod -R g+rwxXs rbenv
-</span><span class='line'>git clone git://github.com/sstephenson/ruby-build.git ruby-build
-</span><span class='line'><span class="nb">cd </span>ruby-build
-</span><span class='line'>./install.sh
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>として, <code>/etc/profile.d/rbenv.sh</code>に</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export </span><span class="nv">RBENV_ROOT</span><span class="o">=</span><span class="s2">&quot;/usr/local/rbenv&quot;</span>
-</span><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/rbenv/bin:$PATH&quot;</span>
-</span><span class='line'><span class="nb">eval</span> <span class="s2">&quot;$(rbenv init -)&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>と記述.</p>
-
-<h3>rubyのインストール</h3>
-
-<p>先に依存パッケージをyumでインストールしておく.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>yum install --enablerepo<span class="o">=</span>epel make gcc zlib-devel openssl-devel readline-devel ncurses-devel gdbm-devel db4-devel libffi-devel tk-devel libyaml-devel
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>後は</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>rbenv install --list <span class="c"># インストールできるRubyの一覧を表示</span>
-</span><span class='line'>rbenv install 2.0.0-p0
-</span><span class='line'>rbenv global 2.0.0-p0
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>などとすればよい. このときrootであることに注意(一般ユーザで<code>sudo rbenv install 2.0.0-p0</code>とすると<code>/root/.rbenv/</code>下にインストールされ共有できない).</p>
-
-<h3>参考</h3>
-
-<ul>
-<li><a href="http://blog.kyanny.me/entry/2012/02/03/155652">rbenv + ruby-build を system-wide にインストールする - @kyanny&#8217;s blog</a></li>
-<li><a href="http://qiita.com/items/c2377c45d6c4fbfd775f">CentOS 6.3にシステムワイドなrbenv+ruby-buildの環境を構築する手順 #Ruby - Qiita</a></li>
-</ul>
-
 ]]></content>
   </entry>
   

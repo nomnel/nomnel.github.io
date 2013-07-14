@@ -9,12 +9,13 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Rails4ではobserversが削除されているので, 使用したい場合はrails-observergemをインストールする. 1
-gem &#39;rails-observers&#39; Model内に書けるならcallbackを使ってもよい. ちなみにcallbackは 1
+  <meta name="description" content="例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompanyUser(アルファベット順にならべる)を使う. それぞれコードは以下のようになる. 1
 2
 3
 4
-5 &hellip;">
+5
+# app/models/user.rb
+class &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +83,85 @@ gem &#39;rails-observers&#39; Model内に書けるならcallbackを使っても�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-many-to-many-relationship/">Railsで多対多の関係を表現する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-14T17:00:00+09:00" pubdate data-updated="true">Jul 14<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompanyUser(アルファベット順にならべる)を使う.</p>
+
+<p>それぞれコードは以下のようになる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/user.rb</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:company_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:companies</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:company_users</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/company.rb</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Company</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:company_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:company_users</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CompanyUser</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:company</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -521,45 +601,6 @@ gem &#39;rails-observers&#39; Model内に書けるならcallbackを使っても�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-05T01:00:00+09:00" pubdate data-updated="true">Jun 5<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rubyで引数に与える配列に*をつけると, 配列を展開することができる.</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/ruby-expand-array-as-function-arguments/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -573,6 +614,10 @@ gem &#39;rails-observers&#39; Model内に書けるならcallbackを使っても�
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-many-to-many-relationship/">Railsで多対多の関係を表現する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
@@ -608,10 +653,6 @@ gem &#39;rails-observers&#39; Model内に書けるならcallbackを使っても�
     
       <li class="post">
         <a href="/blog/ruby-get-subclasses/">Rubyでサブクラスの取得</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a>
       </li>
     
   </ul>

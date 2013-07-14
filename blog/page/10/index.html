@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="さくらのVPSを契約するところから, 初期設定, 必要ソフトのインストール, WordPressのインストールと初期設定までを個別に書いた記事をまとめておきます. まず, さくらのVPSを契約します. 起動できたらセキュリティ対策など, 基本的な設定をしておきます. [ &hellip;">
+  <meta name="description" content="(追記)まとめ -> Sublime Text 2でGaucheコードを書くために(追記終) Sublime Text 2に乗り換えようにも, REPLが無いエディタじゃLisp書けないよ！というわけでGaucheのREPLをよべるようにした. 他に(デフォルトで)Ruby,Python, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,87 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/st2-scheme-repl/">Sublime Text 2からScheme(Gauche)のREPLをよぶ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-13T00:00:00+09:00" pubdate data-updated="true">Oct 13<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(追記)まとめ -> <a href="http://nomnel.net/blog/st2-gauche/">Sublime Text 2でGaucheコードを書くために</a>(追記終)</p>
+
+<p>Sublime Text 2に乗り換えようにも, REPLが無いエディタじゃLisp書けないよ！というわけでGaucheのREPLをよべるようにした. 他に(デフォルトで)Ruby,Python,Clojure,Haskellもいけるらしいよ！</p>
+
+<h3>目次</h3>
+
+<ol>
+<li>SublimeREPLのインストール</li>
+<li>SublimeREPLにScheme用の設定ファイルを追加</li>
+<li>使ってみる</li>
+</ol>
+
+
+<hr />
+
+<h3>SublimeREPLのインストール</h3>
+
+<p>Package Controlでインストールする. コマンドパレットで</p>
+
+<pre><code>Package Control: Install Package SublimeREPL
+</code></pre>
+
+<p>すればよい.</p>
+
+<hr />
+
+<h3>SublimeREPLにScheme用の設定ファイルを追加</h3>
+
+<p><strong>SublimeREPLにGaucheが追加されたため必要なくなった. </strong></p>
+
+<p>する. 下の/PATH/TO/Packagesはパッケージフォルダの場所(メニューのSublime Text 2 -> Preferences -> Browse Packages…で開いたところ).</p>
+
+<pre><code># Macなら ~/Library/Application Support/Sublime Text 2/の下にある
+$ cd /PATH/TO/Packages/SublimeREPL/config/
+
+$ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
+</code></pre>
+
+<hr />
+
+<h3>使ってみる</h3>
+
+<p>メニューのTools -> SublimeREPL から, もしくはコマンドパレットでREPLをよびだせる. REPLは複数種類呼び出すことができる(goshとirbとか). 対応はシンタックスで行なっているので, goshを使う場合はファイルのシンタックスをGaucheにしておく.</p>
+
+<p>下はファイル全体を<code>Control ,, f</code>でREPLに読み込ませた後, 試しに実行してみた図.
+<img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/st2-scheme-repl.jpeg" alt="goshを呼び出して使ってみた図" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1273,134 +1354,6 @@ date.timezone = Asia/Tokyo
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/install-mysql/">MySQLのインストールと設定(CentOS 6)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>さくらのVPSでMySQLをインストール, 設定した手順の覚え書き.</p>
-
-<hr />
-
-<h3>目次</h3>
-
-<ol>
-<li>インストールと自動起動の有効化</li>
-<li>設定ファイルの編集</li>
-<li>起動と初期設定</li>
-</ol>
-
-
-<hr />
-
-<h3>インストールと自動起動の有効化</h3>
-
-<p>yumでインストールする.</p>
-
-<pre><code>$ sudo yum -y install mysql-server
-
-# バージョン確認
-$ mysql --version  # -&gt; 5.1.61
-</code></pre>
-
-<p>自動起動を有効にする.</p>
-
-<pre><code>$ sudo chkconfig mysqld on
-
-# チェック
-$ chkconfig --list mysqld
-# -&gt; 3がonになっていればOK
-</code></pre>
-
-<hr />
-
-<h3>設定ファイルの編集</h3>
-
-<p>設定ファイルのバックアップをとってから編集する.</p>
-
-<pre><code>$ sudo cp /etc/my.cnf /etc/my.cnf.org
-$ sudo vi /etc/my.cnf
-</code></pre>
-
-<p>変更内容は以下.</p>
-
-<pre><code># symbolic-links=0 と [mysqld_safe] の間の行に以下を挿入
-
-character_set_server=utf8
-default-storage-engine=InnoDB
-innodb_file_per_table
-[mysql]
-default-character-set=utf8
-[mysqldump]
-default-character-set=utf8
-</code></pre>
-
-<hr />
-
-<h3>起動と初期設定</h3>
-
-<p>mysqldを起動し,</p>
-
-<pre><code>$ sudo service mysqld start
-</code></pre>
-
-<p>rootのパスワード設定とその他初期処理を行う.</p>
-
-<pre><code>$ mysql_secure_installation
-</code></pre>
-
-<p>内容と順番は以下.</p>
-
-<ol>
-<li>rootのパスワードを聞かれる -> 未設定なので空白のままEnter</li>
-<li>rootのパスワードを設定するか -> Y と入力してEnter</li>
-<li>rootのパスワード入力(2回)</li>
-<li>anonymousユーザを削除するか -> Y と入力してEnter</li>
-<li>リモートからのrootログインを禁止するか -> Y と入力してEnter</li>
-<li>テスト用の’test’データベースを削除するか -> Y と入力してEnter</li>
-<li>設定を反映するか -> Y と入力してEnter</li>
-</ol>
-
-
-<p>終わったら動作確認として一度ログインしてみる.</p>
-
-<pre><code>$ mysql -u root -p
-</code></pre>
-
-<p>パスワードを聞かれるので先ほど設定したパスワードを入力する. 終了するときは</p>
-
-<pre><code>mysql&gt; exit
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -1416,6 +1369,10 @@ default-character-set=utf8
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-many-to-many-relationship/">Railsで多対多の関係を表現する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
@@ -1451,10 +1408,6 @@ default-character-set=utf8
     
       <li class="post">
         <a href="/blog/ruby-get-subclasses/">Rubyでサブクラスの取得</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a>
       </li>
     
   </ul>
