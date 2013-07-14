@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-13T19:48:36+09:00</updated>
+  <updated>2013-07-14T16:47:02+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,51 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rails4でObserverを使う]]></title>
+    <link href="http://nomnel.net/blog/rails4-observer/"/>
+    <updated>2013-07-14T16:45:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails4-observer</id>
+    <content type="html"><![CDATA[<p>Rails4ではobserversが削除されているので, 使用したい場合は<code>rails-observer</code>gemをインストールする.</p>
+
+<p><code>ruby
+gem 'rails-observers'
+</code></p>
+
+<p>Model内に書けるならcallbackを使ってもよい.</p>
+
+<p>ちなみにcallbackは</p>
+
+<p>```ruby
+class Hoge &lt; ActiveRecord::Base
+  before_save do</p>
+
+<pre><code># 何か処理
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>や</p>
+
+<p>```ruby
+class Hoge &lt; ActiveRecord::Base
+  before_save :some_action</p>
+
+<p>  def some_action</p>
+
+<pre><code># 何か処理
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>のようにして使う.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RailsアプリにPaperclipを使って画像アップロード機能をつける]]></title>

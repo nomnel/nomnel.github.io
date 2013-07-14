@@ -9,10 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日やったこと ドットインストール CoffeeScript入門を見た
-nodebrewでnode.js入れた
-シェルをzshに変えた
-The Little Book on CoffeeScript（日本語版）を読んだ 明日やること 明日はチュートリアルのインフラ編をやる. &hellip;">
+  <meta name="description" content="Debianでsudoを使えるようにの続き. 例えば man ls とするとlsコマンドのマニュアルが表示されるが, 説明が文字化けしている(多分, インストール時に日本語を選択したので). jfbtermを使えば文字化けしないとのことなのでjfbtermをインストールする(参考). $ sudo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +77,71 @@ The Little Book on CoffeeScript（日本語版）を読んだ 明日やること
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/debian-enable-japanese/">Debianのコンソールで日本語を表示</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://nomnel.net/blog/debian-enable-sudo/">Debianでsudoを使えるように</a>の続き.</p>
+
+<p>例えば <code>man ls</code> とするとlsコマンドのマニュアルが表示されるが, 説明が文字化けしている(多分, インストール時に日本語を選択したので). jfbtermを使えば文字化けしないとのことなのでjfbtermをインストールする(<a href="https://github.com/fjordllc/tutorial/wiki/Jfbterm/73d3becd458ebe4ca79ab234cb187319d51132cf">参考</a>).</p>
+
+<pre><code>$ sudo apt-get install xfonts-base
+
+(この3行は $ sudo echo vga16fb &gt;&gt; /etc/modules がPermission diniedされたため )
+$ su
+# echo vga16fb &gt;&gt; /etc/modules  # 起動時にvga16fbを読み込むように
+# exit
+
+$ sudo reboot
+$ sudo apt-get install jfbterm
+$ jfbterm
+</code></pre>
+
+<p>これで日本語も文字化けせず表示できるようになる. しかし, ログインの度に<code>jfbterm</code>と入力し, 切り替わるのを待つのはちょっと面倒. 別に英語表記でもいいやと思ったので, <a href="http://www.fulldigit.net/content/view/23/20/">[Debianセットアップ]ロケールの設定変更</a>を参考にデフォルトロケールを未設定(英語)にして, コンソールで日本語を使わないようにしておく.</p>
+
+<pre><code>$ sudo dpkg-reconfigure locales
+</code></pre>
+
+<p>1ページ目は特に変更する必要は無いので, 左下のを選択する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/dpkg-reconfigure-locales1.jpeg" alt="dpkg-reconfigure-locales1" /></p>
+
+<p>2ページ目ではNone(中央一番上)を選択する.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/dpkg-reconfigure-locales2.jpeg" alt="dpkg-reconfigure-locales2" /></p>
+
+<p>これで再起動すると設定が適用されて, <code>man ls</code>もすべて英語で表示される.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -750,51 +812,6 @@ $ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/wordpress-with-sakura-vps/">さくらのVPSでWordPressブログを始めるまで</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-01T00:00:00+09:00" pubdate data-updated="true">Oct 1<span>st</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>さくらのVPSを契約するところから, 初期設定, 必要ソフトのインストール, WordPressのインストールと初期設定までを個別に書いた記事をまとめておきます.</p>
-
-<p>まず, さくらのVPSを契約します. 起動できたらセキュリティ対策など, 基本的な設定をしておきます.</p>
-
-<ul>
-<li>[さくらのVPSを契約して起動するまで][1]</li>
-<li>[さくらのVPSで最初にやっておくこと][2]</li>
-<li>[vi(vim)の最低限の使い方][3]</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -810,6 +827,10 @@ $ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rails-db-command/">RailsでSQLiteを操作する</a>
@@ -845,10 +866,6 @@ $ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
     
       <li class="post">
         <a href="/blog/ruby-expand-array-as-function-arguments/">Rubyで配列展開</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/fjord-days-53/">インターン(53) ブロック機能のバグ修正</a>
       </li>
     
   </ul>
