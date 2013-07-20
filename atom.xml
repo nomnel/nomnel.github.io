@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-20T13:27:41+09:00</updated>
+  <updated>2013-07-20T23:11:11+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Railsで複数テーブルに跨ってincludesする]]></title>
+    <link href="http://nomnel.net/blog/rails-multi-table-includes/"/>
+    <updated>2013-07-20T23:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails-multi-table-includes</id>
+    <content type="html"><![CDATA[<p>例えば<code>A has_many Bs</code>かつ<code>B has_one C</code>であるとき</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">A</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">bs</span><span class="p">:</span> <span class="ss">:c</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とすればよい. さらに<code>B has_many Ds</code>であれば</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">A</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">bs</span><span class="p">:</span> <span class="o">[</span><span class="ss">:c</span><span class="p">,</span> <span class="ss">:ds</span><span class="o">]</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>となる.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rubyでeachのブロックに複数の値を渡す]]></title>
@@ -957,51 +980,6 @@
 </pre></td><td class='code'><pre><code class='sh'><span class='line'>rails g rspec:install
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン46日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day46/"/>
-    <updated>2013-05-10T17:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day46</id>
-    <content type="html"><![CDATA[<p>さて今日は,</p>
-
-<ol>
-<li>作業途中に気になった細かいもの3つ</li>
-<li>特選の怖い話を管理画面から編集できるようにする (途中)</li>
-</ol>
-
-
-<p>をしていた.</p>
-
-<!-- more -->
-
-
-<p>細かいものというのは以下.</p>
-
-<ol>
-<li><code>rake db:migrate</code>すると<code>db/schema.rb</code>が変更される(not nullの追加)
- -> 変更漏れっぽいので適用</li>
-<li>先日&#8221;Google Analyticsの結果をLingrに通知&#8221;に取り組んだ際, client_idなどをベタ書きしていた
- -> <code>config/settings/production.yml</code>などに移動</li>
-<li>管理者用の怖い話一覧画面で(多分)投稿者名を表示するところが<code>#&lt;User:0000000000&gt;</code>みたいになっていた
- -> 投稿者名を表示するように修正</li>
-</ol>
-
-
-<p>特選の怖い話を管理画面から編集できるようにするタスクの方針は</p>
-
-<ol>
-<li>特選の怖い話を上述の<code>config/settings/*.yml</code>で管理していたのを怖い話テーブルに移動</li>
-<li>既存のcontrollerを修正</li>
-<li>管理者用の特選編集画面を追加</li>
-<li>特選から除外できるように</li>
-<li>特選に追加できるように</li>
-</ol>
-
-
-<p>といったところで今は4に取り組んでいるところ. 除外と追加は一画面で遷移無しに出来るようにしたいなー.</p>
 ]]></content>
   </entry>
   

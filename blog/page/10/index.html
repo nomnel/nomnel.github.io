@@ -9,7 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="環境: Gauche 0.9.3 Gaucheで無限に続く列を表現するには遅延シーケンスを使う. 遅延シーケンスはgenerator->lseqにジェネレータ手続きを与えることで作成できる. ジェネレータ手続きとは引数を取らない手続きで, 呼ばれる度に次の値を返すようなもの. &hellip;">
+  <meta name="description" content="まとめ的に. まず, Package ControlをSublime Text 2にインストールする. 次に以下の3つをPackage Controlを使ってインストールする. Gauche (シンタックスハイライト)
+SublimeREPL (REPL)
+lispindent (インデント) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +79,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/st2-gauche/">Sublime Text 2でGaucheコードを書くために</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-23T00:00:00+09:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>まとめ的に.</p>
+
+<p>まず, <a href="http://wbond.net/sublime_packages/package_control">Package Control</a>をSublime Text 2にインストールする.</p>
+
+<p>次に以下の3つをPackage Controlを使ってインストールする.</p>
+
+<ul>
+<li><a href="https://github.com/nomnel/Sublime-Gauche-Syntax">Gauche</a> (シンタックスハイライト)</li>
+<li><a href="https://github.com/wuub/SublimeREPL">SublimeREPL</a> (REPL)</li>
+<li><a href="https://github.com/odyssomay/sublime-lispindent">lispindent</a> (インデント)</li>
+</ul>
+
+
+<p>以上.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1207,96 +1258,6 @@ sudo service httpd restart
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/sign-up-sakura-vps/">さくらのVPSを契約して起動するまで</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>さくらのVPSを契約して起動するまでの手順の覚え書き.</p>
-
-<hr />
-
-<h3>目次</h3>
-
-<ol>
-<li>申し込み</li>
-<li>VPSの起動</li>
-<li>仮登録から本登録へ</li>
-<li>リモートコンソールについて</li>
-<li>OSの再インストール</li>
-<li>次にすること</li>
-</ol>
-
-
-<hr />
-
-<h3>申し込み</h3>
-
-<p><a href="http://vps.sakura.ad.jp/">公式サイト</a>から申し込む. 申し込み完了後にプランの変更はできない(一度解約して再契約になる)こと, お試し2週間無料はクレジットカードでの支払いじゃないと適用されないことに注意(以下, クレジットカードで申し込んだとする).</p>
-
-<p>申し込み完了後, まず「お申込み受付完了のお知らせ」メールが来て, しばらくして「仮登録完了のお知らせ」メールが来る.</p>
-
-<hr />
-
-<h3>VPSの起動</h3>
-
-<p>「仮登録完了のお知らせ」メールが来たら, <a href="https://secure.sakura.ad.jp/vpscontrol/">VPSのコントロールパネル</a>を開き, メールに記載されているIPアドレスとパスワードを入力してログインする. ログイン後, [仮想サーバ操作]から[起動]ボタンを押すとサーバが起動し, [ステータス]が[起動中]になる.</p>
-
-<p>これ以降は<a href="http://nomnel.net/blog/sakura-vps-first-steps">さくらのVPSで最初にやっておくこと</a>を参照して進める.</p>
-
-<hr />
-
-<h3>仮登録から本登録へ</h3>
-
-<p>コントロールパネル上部の[会員メニュー]からさくらにログインし, [契約情報]->[契約サービスの確認]と進む. 下部の契約中のサーバ一覧から該当サーバの手続きを選択する. (解約もここから)</p>
-
-<hr />
-
-<h3>リモートコンソールについて</h3>
-
-<p>コントロールパネル左の[リモートコンソール]を開くことができる. sshの設定を失敗してリモートからログインできなくなった時などに使う.</p>
-
-<hr />
-
-<h3>OSの再インストール</h3>
-
-<p>コントロールパネル左の[OS再インストール]から行う. rootのパスワードが必要. 再インストール完了後, そのままOSが起動するので注意.</p>
-
-<hr />
-
-<h3>次にすること</h3>
-
-<p>VPSをどう使うかによらず, 共通の設定(<a href="http://nomnel.net/blog/sakura-vps-first-steps">さくらのVPSで最初にやっておくこと</a>)を行なっておく.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -1312,6 +1273,10 @@ sudo service httpd restart
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-multi-table-includes/">Railsで複数テーブルに跨ってincludesする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-multi-values-to-each-block/">Rubyでeachのブロックに複数の値を渡す</a>
@@ -1347,10 +1312,6 @@ sudo service httpd restart
     
       <li class="post">
         <a href="/blog/git-checkout-remote-branch/">Gitでリモートのブランチをチェックアウトする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/jenkins-notification-using-gmail/">Jenkinsでビルド失敗時にGmailで通知する</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="System Preferences開く -> Keyboard開く -> Keyboard Shortcutsタブ -> Keyboard &amp; Text Input選択 -> Move focus to next windowでダブルクリックで編集状態にしてoption tab押す ">
+  <meta name="description" content="こんな感じのやつね. 名前が分からなくて調べるのに手間取ったけど(Smart App Bannerでした), 追加するのはすごい簡単. htmlにこんな感じのmetaを追加するだけ. idはiTunesからリンクコピーしたら調べれる(9桁の数字). Railsだと app/views/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/smart-app-banner/">iPhone(Safari)でアクセスしたらページ上部にアプリのバナーが出るアレ
+</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-15T00:00:00+09:00" pubdate data-updated="true">Mar 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>こんな感じのやつね.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/Photo-2013-03-14-18-06-41.png" alt="Smart App Banner Example" /></p>
+
+<p>名前が分からなくて調べるのに手間取ったけど(Smart App Bannerでした), 追加するのはすごい簡単.</p>
+
+<p>htmlにこんな感じのmetaを追加するだけ.</p>
+
+<p>idはiTunesからリンクコピーしたら調べれる(9桁の数字).</p>
+
+<p>Railsだと app/views/layouts/application.html.erb とかに追加すればおっけー.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -619,98 +666,6 @@ $ mysqladmin -u root password 'new-password'
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/install-debian-to-virtualbox/">Debian (squeeze) 64bit をVirtualBoxにインストール</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Debianを最小構成(CUIのみ)でインストールする.</p>
-
-<h3>準備</h3>
-
-<p><a href="http://www.debian.org/distrib/netinst">Debianインストーラのisoファイル</a>をダウンロード. 今回はSmaller CDsのamd64版を選択(50MB).</p>
-
-<p><a href="https://www.virtualbox.org/">VirtualBox</a>をダウンロードしてインストール.</p>
-
-<h3>VMの作成</h3>
-
-<p>VirtualBoxを起動して新規にVMを作成する. 設定内容は下記. VM名,
-OSのType, Version以外はデフォルトのまま.</p>
-
-<ul>
-<li>VM名: Debian64</li>
-<li>OS type: Linux</li>
-<li>OS version: Debian (64 bit)</li>
-<li>メモリ: 384MB</li>
-<li>virtual hard driveを作るか: create a virtual hard drive now</li>
-<li>hard driveのfile type: VDI (VirtualBox Disk Image)</li>
-<li>Storageの容量確保方法: Dynamically allocated</li>
-<li>ファイル名と最大サイズ: Debian64(VM名と同じ), 8GB</li>
-</ul>
-
-
-<h3>Debianのインストール</h3>
-
-<p>作成したVMのCD/DVDドライブにダウンロードしたisoファイルをセットしてVMを起動. 作業用ユーザはnomnelとしているが適当に読み替えてほしい.</p>
-
-<ul>
-<li>Install</li>
-<li>言語選択: Japanese – 日本語</li>
-<li>場所: 日本</li>
-<li>キーボード配置: 米国(英語キーボードの場合)</li>
-<li>ホスト名: debian (デフォルト)</li>
-<li>ドメイン名: 空白</li>
-<li>ミラーの国選択: 日本</li>
-<li>ミラーの選択: ftp.jp.debian.org</li>
-<li>プロキシ: 空白(無い場合)</li>
-<li>rootパスワード:</li>
-<li>rootパスワードの確認入力:</li>
-<li>ユーザの本名: nomnel</li>
-<li>ユーザ名: nomnel</li>
-<li>ユーザのパスワード:</li>
-<li>ユーザのパスワードの確認入力:</li>
-<li>パーティショニングの方法: ガイド – ディスク全体を使う</li>
-<li>パーティショニングするディスクの選択:</li>
-<li>パーティショニング機構: すべてのファイルを1つのパーティションに(初心者ユーザには推奨)</li>
-<li>パッケージ利用調査に参加: いいえ</li>
-<li>インストールするソフトウェアの選択: 標準システムユーティリティのみ</li>
-<li>マスターブートレコードにGRUBブートローダをインストール: はい</li>
-</ul>
-
-
-<p>インストールが終わったら一度シャットダウンしてスナップショットをとっておくとよいかも.</p>
-
-<p>次-> <a href="http://nomnel.net/blog/debian-enable-sudo/">Debianでsudoを使えるように</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -726,6 +681,10 @@ OSのType, Version以外はデフォルトのまま.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-multi-table-includes/">Railsで複数テーブルに跨ってincludesする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-multi-values-to-each-block/">Rubyでeachのブロックに複数の値を渡す</a>
@@ -761,10 +720,6 @@ OSのType, Version以外はデフォルトのまま.</p>
     
       <li class="post">
         <a href="/blog/git-checkout-remote-branch/">Gitでリモートのブランチをチェックアウトする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/jenkins-notification-using-gmail/">Jenkinsでビルド失敗時にGmailで通知する</a>
       </li>
     
   </ul>
