@@ -9,8 +9,10 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="さくらのVPSでMySQLをインストール, 設定した手順の覚え書き. 目次 インストール
-設定ファイルの編集 インストール yumでPHP関連のものをまるっと入れておく. $ sudo yum -y install php php-devel php-mbstring php-mysql php- &hellip;">
+  <meta name="description" content="さくらのVPSにWordPressをインストールした手順の覚え書き. 目次 前提
+ダウンロードと解凍
+データベースとユーザの作成
+配置とインストール 前提 先に最低限の設定とApache, MySQL, PHPのインストールと設定を済ませておく. さくらのVPSで最初にやっておくこと &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +80,147 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-wordpress/">さくらのVPSにWordPressをインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>さくらのVPSにWordPressをインストールした手順の覚え書き.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>前提</li>
+<li>ダウンロードと解凍</li>
+<li>データベースとユーザの作成</li>
+<li>配置とインストール</li>
+</ol>
+
+
+<hr />
+
+<h3>前提</h3>
+
+<p>先に最低限の設定とApache, MySQL, PHPのインストールと設定を済ませておく.</p>
+
+<ul>
+<li><a href="http://nomnel.net/blog/sakura-vps-first-steps">さくらのVPSで最初にやっておくこと</a></li>
+<li><a href="http://nomnel.net/blog/install-apache">Apacheのインストールと設定(CentOS 6)</a></li>
+<li><a href="http://nomnel.net/blog/install-mysql">MySQLのインストールと設定(CentOS 6)</a></li>
+<li><a href="http://nomnel.net/blog/install-php">PHPのインストールと設定(CentOS 6)</a></li>
+</ul>
+
+
+<p>また必要に応じて, ドメインの取得と設定をしておく(設定済みとして進めていく).</p>
+
+<hr />
+
+<h3>ダウンロードと解凍</h3>
+
+<p>WordPressの最新版をダウンロード, 解凍する.</p>
+
+<pre><code># 最新版をダウンロード
+$ wget http://ja.wordpress.org/latest-ja.tar.gz
+
+# 解凍
+$ tar -xzvf latest-ja.tar.gz
+
+# 不要なファイルの削除
+$ rm latest-ja.tar.gz
+</code></pre>
+
+<hr />
+
+<h3>データベースとユーザの作成</h3>
+
+<p>MySQLにWordPress用のデータベースとユーザ(今回は両方共wordpress)を作成する.</p>
+
+<pre><code># mysqlにrootでログイン
+$ mysql -u root -p
+
+# データベースの作成
+mysql&gt; CREATE DATABASE wordpress;
+
+# ユーザを作成してデータベースへの権限を与える(password部分にユーザのパスワードを入力)
+mysql&gt; GRANT ALL PRIVILEGES ON wordpress.* TO wordpress@localhost IDENTIFIED BY "password";
+mysql&gt; FLUSH PRIVILEGES;
+mysql&gt; exit
+</code></pre>
+
+<hr />
+
+<h3>配置とインストール</h3>
+
+<p>wordpressディレクトリをApacheのDocumentRoot(/var/www/html)下に置いてapacheユーザに権限を与える. 今回はブラウザから <code>http://ドメイン名/blog/</code> のようにアクセスしたいので下のようにする. もし <code>http://ドメイン名/</code> のようにアクセスしたい場合はwordpressディレクトリの<strong>中身だけ</strong>をDocumentRoot直下に置く.</p>
+
+<pre><code># wordpressをDocumentRoot下に移動
+$ sudo mv wordpress/ /var/www/html/blog/
+
+# 所有者の変更
+$ sudo chown -R apache:apache /var/www/html/blog/
+</code></pre>
+
+<p>この状態で <code>http://ドメイン名/blog/</code> にアクセスすると, 下のようにWordPressのセットアップ画面が表示される.</p>
+
+<p>「設定ファイルを作成する」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-01.jpeg" alt="設定ファイルを作成する" /></p>
+
+<p>「さあ, 始めましょう！」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-02.jpeg" alt="必要な情報の一覧" /></p>
+
+<p>先ほどMySQLに作成したデータベース名, ユーザ名, パスワードを入力し, 「送信」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-03.jpeg" alt="データベース接続情報の入力" /></p>
+
+<p>「インストール実行」をクリックして次へ.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-04.jpeg" alt="インストール実行" /></p>
+
+<p>サイトのタイトル, (ブログにログインする用の)ユーザ名とパスワード, 管理者のメールアドレスを入力したら「WordPress をインストール」をクリック. これでWordPressがインストールされた.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-05.jpeg" alt="必要情報の入力" /></p>
+
+<p>ここに表示されるユーザ名でブログにログインする. 「ログイン」をクリックしてログイン画面を表示.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-06.jpeg" alt="インストール成功" /></p>
+
+<p>試しにログインしてみる.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/install-WordPress-07.jpeg" alt="ログイン画面" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -876,6 +1019,10 @@ $ chkconfig --list iptables
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/ruby-multi-values-to-each-block/">Rubyでeachのブロックに複数の値を渡す</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/paperclip-refresh-missing-styles/">Paperclipのsytlesやconvert_optionsの変更を既存のデータにも適用する</a>
       </li>
     
@@ -909,10 +1056,6 @@ $ chkconfig --list iptables
     
       <li class="post">
         <a href="/blog/jenkins-notification-using-gmail/">Jenkinsでビルド失敗時にGmailで通知する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails-before-destroy-with-relation-model/">Railsでbefore_destroyを使うときの注意点</a>
       </li>
     
   </ul>

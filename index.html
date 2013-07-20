@@ -9,8 +9,20 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="例えば後付で投稿画像を640px x 640pxに統一するようにしたときなど. 既存のデータにもその変更を反映したいときは 1
-rake paperclip:refresh:missing_styles とすればPaperclipで管理している全てのデータ(original以外) &hellip;">
+  <meta name="description" content="配列で渡す. 1
+2
+3
+4
+5
+6
+7
+8
+[[1, 2], [3, 4]].each{|a, b| puts b}
+# 2
+# 4 # ちなみに
+[[1, 2], [3, 4]].each{|a| puts a[1]}
+# 2
+# 4 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +90,61 @@ rake paperclip:refresh:missing_styles とすればPaperclipで管理している
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/ruby-multi-values-to-each-block/">Rubyでeachのブロックに複数の値を渡す</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-20T13:30:00+09:00" pubdate data-updated="true">Jul 20<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>配列で渡す.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]].</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">b</span><span class="p">}</span>
+</span><span class='line'><span class="c1"># 2</span>
+</span><span class='line'><span class="c1"># 4</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># ちなみに</span>
+</span><span class='line'><span class="o">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]].</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">a</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">}</span>
+</span><span class='line'><span class="c1"># 2</span>
+</span><span class='line'><span class="c1"># 4</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -553,68 +620,6 @@ rake paperclip:refresh:missing_styles とすればPaperclipで管理している
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rails-before-destroy-with-relation-model/">Railsでbefore_destroyを使うときの注意点</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-06T00:30:00+09:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:bars</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
-</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:do_something</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">do_something</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">if</span> <span class="n">bars</span><span class="o">.</span><span class="n">blank?</span>
-</span><span class='line'>    <span class="n">bars</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="ss">:somethig_cool</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/rails-before-destroy-with-relation-model/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -628,6 +633,10 @@ rake paperclip:refresh:missing_styles とすればPaperclipで管理している
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ruby-multi-values-to-each-block/">Rubyでeachのブロックに複数の値を渡す</a>
+      </li>
     
       <li class="post">
         <a href="/blog/paperclip-refresh-missing-styles/">Paperclipのsytlesやconvert_optionsの変更を既存のデータにも適用する</a>
@@ -663,10 +672,6 @@ rake paperclip:refresh:missing_styles とすればPaperclipで管理している
     
       <li class="post">
         <a href="/blog/jenkins-notification-using-gmail/">Jenkinsでビルド失敗時にGmailで通知する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails-before-destroy-with-relation-model/">Railsでbefore_destroyを使うときの注意点</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tips | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/tips/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-18T11:50:30+09:00</updated>
+  <updated>2013-07-20T13:27:41+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rubyでeachのブロックに複数の値を渡す]]></title>
+    <link href="http://nomnel.net/blog/ruby-multi-values-to-each-block/"/>
+    <updated>2013-07-20T13:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/ruby-multi-values-to-each-block</id>
+    <content type="html"><![CDATA[<p>配列で渡す.</p>
+
+<p>```ruby
+[[1, 2], [3, 4]].each{|a, b| puts b}</p>
+
+<h1>2</h1>
+
+<h1>4</h1>
+
+<h1>ちなみに</h1>
+
+<p>[[1, 2], [3, 4]].each{|a| puts a[1]}</p>
+
+<h1>2</h1>
+
+<h1>4</h1>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Paperclipのsytlesやconvert_optionsの変更を既存のデータにも適用する]]></title>
@@ -142,62 +168,6 @@ git checkout -b new-branch origin/new-branch
 <p><code>sh
 git branch new-branch origin/new-branch
 </code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Railsでbefore_destroyを使うときの注意点]]></title>
-    <link href="http://nomnel.net/blog/rails-before-destroy-with-relation-model/"/>
-    <updated>2013-06-06T00:30:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails-before-destroy-with-relation-model</id>
-    <content type="html"><![CDATA[<p>```ruby
-class Foo &lt; ActiveRecord::Base
-  has_many :bars, dependent: :destroy
-  before_destroy :do_something</p>
-
-<p>  def do_something</p>
-
-<pre><code>return if bars.blank?
-bars.map &amp;:somethig_cool
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<!-- more -->
-
-
-<p>このように, <code>has_many</code>(<code>has_one</code>)な関係をものを<code>before_destroy</code>で使うには注意が必要. 上の例だと<code>before_destroy</code>の前にbarsは削除されてしまうので, <code>bars.blank?</code>は必ず真になり<code>bars.map &amp;:somethig_cool</code>は永久に実行されない.</p>
-
-<p>これを避けるには以下のようにする.</p>
-
-<p>```ruby
-class Foo &lt; ActiveRecord::Base
-  before_destroy :do_something
-  has_many :bars, dependent: :destroy</p>
-
-<h1>以下略</h1>
-
-<p>```</p>
-
-<p><code>before_destroy</code>と<code>has_many</code>の順番を逆にしただけだが, これで期待通りの挙動(<code>before_destroy</code>の後にbarsを削除)になる.</p>
-
-<p>なのでこのようなときはObserverは使えない.</p>
-
-<p>```ruby
-class FooObserver &lt; ActiveRecord::Observer
-  def before_destroy foo</p>
-
-<pre><code>return if foo.bars.blank?
-foo.bars.map &amp;:somethig_cool
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>上の<code>before_destroy</code>はbarsが削除されてから実行される.</p>
 ]]></content>
   </entry>
   
