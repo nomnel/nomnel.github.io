@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Webサービスを作ってみる - 飲んだり寝たり</title>
+  <meta name="author" content="nomnel">
+
+  
+  <meta name="description" content="先週からインターンはお休みをいただいてWebサービスを作っている. 今の見た目はこんな感じ(ま, まだ全然完成じゃないんだからねっ(言い訳1)) で, 要はiPhoneアプリのレビューまとめを作ろうとしている. 基準 最初に以下の項目について考えた. 実現性 - 最初は1~ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nomnel.net/blog/develop-web-service">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35053482-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">飲んだり寝たり</a></h1>
+  
+    <h2>だいたいメモ</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nomnel.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Webサービスを作ってみる</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-24T12:30:00+09:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>先週からインターンはお休みをいただいてWebサービスを作っている. 今の見た目はこんな感じ(ま, まだ全然完成じゃないんだからねっ(言い訳1))</p>
+
+<p><img src="http://gyazo.com/121d4b1284e97406b2df6c29b3af0250.png" alt="" /></p>
+
+<p>で, 要はiPhoneアプリのレビューまとめを作ろうとしている.</p>
+
+<h3>基準</h3>
+
+<p>最初に以下の項目について考えた.</p>
+
+<ol>
+<li>実現性 - 最初は1~2週間で十分出来るものを作りたい</li>
+<li>コンテンツの確保と更新 - 自分がコンテンツ作者になると続かない</li>
+<li>ある程度の商圏 - 需要全く無いもの作ってもつらい, データ見て開発方針決めたりやってみたい</li>
+<li>興味 - 最近新しいアプリに触れてないのでAppStoreのランキング以外の方法でアプリを知りたい</li>
+<li>売上 - 無いとデータとして使えないので欲しい. モチベーションのためなので少なくても問題ない</li>
+</ol>
+
+
+<p>といっても最初に作ろうとしていたものでは上を満たせず, これに決めるまでに3日かかっている(別のものを試作したりしていた).</p>
+
+<h3>開発方針</h3>
+
+<ol>
+<li>最初のリリースは最小の機能で出す</li>
+<li>必要な物から作る</li>
+<li>汚くてもいい</li>
+<li>手間をかけない</li>
+</ol>
+
+
+<p>というわけでとにかく早く作ることを目標にした.</p>
+
+<h3>必要な機能</h3>
+
+<ol>
+<li>レビューのスクレイピング</li>
+<li>レビューと紹介されているアプリの表示 (最初はiPhone向けの表示のみでよい)</li>
+</ol>
+
+
+<p>データの取得と更新はスクレイピングだけで良いのでタスクをcronで回すようにすれば管理画面も要らない, 素敵!</p>
+
+<h3>当初の予定</h3>
+
+<ol>
+<li>スクレイピング -> プロトタイプ2日 + 回しながらバグ修正とか追加とか2日</li>
+<li>表示 -> 3日(CSS苦手)</li>
+<li>本番環境の準備 -> 1.5日</li>
+</ol>
+
+
+<p>これとは別に何作るか考えるのには既に3日かかっている.</p>
+
+<h3>実際の進捗</h3>
+
+<ol>
+<li>スクレイピング -> プロトタイプ5日 + バグ修正1日弱(もうあまり増えない見込み)</li>
+<li>表示 -> 2日目(途中), 後2日見込み</li>
+</ol>
+
+
+<p>以下ハイパー言い訳タイム.</p>
+
+<h3>悩んだ(でいる) || 時間かかったところ</h3>
+
+<ol>
+<li>汚さをどこまで許容するか</li>
+<li>最小の機能とは</li>
+<li>画像を保存するか</li>
+<li>何をどのように表示するか</li>
+</ol>
+
+
+<p>「汚くてもいい」と上で書いけれど, これを決めたのは作り始めて2日目のことだった. 自分だけが読むもの(<a href="https://github.com/nomnel/ProjectEuler/blob/master/086.scm">これ</a>とか)は1文字変数だったり長い関数も気にしないのだけれど, 人が見るなら読みやすく書かなければという思いが強くて(結果は別), こだわりすぎて時間を浪費していると感じたからだ. 汚く書いていいのなら早くなるかと言うとそうでもなく, 既存のコードとの兼ね合いだの考えてまた時間を浪費してしまうことになるのだが.</p>
+
+<p>最小の機能というのも, 言葉だけではっきりと範囲を決めていなかったので, 今見ると不要なrouteやcontrollerがある. はっきりと範囲を決めたのは画面のデザインを考え始めてから. ただ, 必要な物から作ると決めていたので傷はそこまで深くなかったと思う.</p>
+
+<p>アプリのアイコン画像を自分で保存しておくか, Appleのリソースにリンク貼るだけにするかも少し悩んだ. 工数を増やしたくないのと, レビューサイト大手のAppBankがやってて怒られていないなら大丈夫かと思いリンクだけにした.</p>
+
+<p>何を表示するか, ユーザが必要な情報は何か, については現在も悩んでいる. あくまでレビューまとめサイトなのでレビューを目立たせたいが, レビュー本文を表示するとレビューサイトに不利益となるので(共栄を目指したい)出来ないし, アプリを表示しないと見た目的にただのリンク集になってしまう. でアプリを表示ことにしたが, 一つのレビューにつき何個まで表示するのか, アプリ情報もどこまで詳細に表示するのかについても悩んだ. これは</p>
+
+<ol>
+<li>これはレビューを目立たせたいのでアプリは一つまでにして「すべて表示」などて対応すること</li>
+<li>アプリ情報もiPhoneでAppStoreのランキングを見た時と同様の内容(名前, 価格, カテゴリ, 評価)のみにして「詳細を表示」で対応すること</li>
+</ol>
+
+
+<p>にした(両方未実装).</p>
+
+<p>全体的に手を動かさずに悩み, 動かし始めると簡単に解決することが多いので, とりあえずやってみるということがいかに大事かということを思い知らされた. &#8220;Shut the f**k up and write some code.&#8221;だっけ.</p>
+
+<h3>他に</h3>
+
+<p>私事だが一番大きかったのが, 人生に関わる提案をいただいたこと. 初期の頃からずっと開発どころではなくなっていて, やっと結論と気持ちの整理が出来たところ.</p>
+
+<h3>今後</h3>
+
+<p>現状だとただのリンク集なので, 公開後には</p>
+
+<ol>
+<li>レビューの人気ランキング</li>
+<li>ユーザ(もしくは開発者本人に限定して)レビューを投稿できるように</li>
+</ol>
+
+
+<p>などサイトの特徴を出す機能の開発を行なっていきたい. 合わせて</p>
+
+<ol>
+<li>アプリ別</li>
+<li>レビューサイト別</li>
+<li>開発者別</li>
+<li>カテゴリ別</li>
+</ol>
+
+
+<p>のレビュー一覧画面と, 並べ替え機能を追加していきたい.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">nomnel</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-24T12:30:00+09:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/diary/'>diary</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/develop-web-service/" data-via="nomnel" data-counturl="http://nomnel.net/blog/develop-web-service/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/rails-multi-table-includes/" title="Previous Post: Railsで複数テーブルに跨ってincludesする">&laquo; Railsで複数テーブルに跨ってincludesする</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/develop-web-service/">Webサービスを作ってみる</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rails-multi-table-includes/">Railsで複数テーブルに跨ってincludesする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/ruby-multi-values-to-each-block/">Rubyでeachのブロックに複数の値を渡す</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/paperclip-refresh-missing-styles/">Paperclipのsytlesやconvert_optionsの変更を既存のデータにも適用する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rails-many-to-many-relationship/">Railsで多対多の関係を表現する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/rails-db-command/">RailsでSQLiteを操作する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/diary-1/">日記 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/acticerecord-redefine-attr-access-method/">Active Recordで属性にアクセスするメソッドを上書きする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/fjord-days-54/">インターン(54) 怖話ブログの日付フォーマット修正</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - nomnel -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'nomnel';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nomnel.net/blog/develop-web-service/';
+        var disqus_url = 'http://nomnel.net/blog/develop-web-service/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
