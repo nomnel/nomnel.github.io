@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-24T23:35:25+09:00</updated>
+  <updated>2013-07-25T20:40:16+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery.each内でbreakやcontinueする]]></title>
+    <link href="http://nomnel.net/blog/break-or-continue-in-jquery-each/"/>
+    <updated>2013-07-25T20:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/break-or-continue-in-jquery-each</id>
+    <content type="html"><![CDATA[<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">each</span> <span class="nx">obj</span><span class="p">,</span> <span class="nf">(i, val) -&gt;</span>
+</span><span class='line'>  <span class="c1"># continueの代わり</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kc">true</span> <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">each</span> <span class="nx">obj</span><span class="p">,</span> <span class="nf">(i, val) -&gt;</span>
+</span><span class='line'>  <span class="c1"># breakの代わり</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Webサービスを作ってみる]]></title>
@@ -1034,26 +1058,6 @@
 
 
 <p>と, fat arrow使えばおーけー, 多分.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Railsで初期化後に何か処理をしたいとき]]></title>
-    <link href="http://nomnel.net/blog/rails-after-initialize/"/>
-    <updated>2013-05-15T01:15:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails-after-initialize</id>
-    <content type="html"><![CDATA[<p><code>config/application.rb</code>などで</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">after_initialize</span> <span class="k">do</span>
-</span><span class='line'>  <span class="c1"># ここに処理を記述</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とすればよい.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tips | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/tips/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-24T23:35:25+09:00</updated>
+  <updated>2013-07-25T20:40:16+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,23 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery.each内でbreakやcontinueする]]></title>
+    <link href="http://nomnel.net/blog/break-or-continue-in-jquery-each/"/>
+    <updated>2013-07-25T20:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/break-or-continue-in-jquery-each</id>
+    <content type="html"><![CDATA[<p>```coffeescript
+$.each obj, (i, val) ->
+  # continueの代わり
+  return true if i == 1</p>
+
+<p>$.each obj, (i, val) ->
+  # breakの代わり
+  return false if i == 1
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Railsで複数テーブルに跨ってincludesする]]></title>
@@ -128,46 +145,6 @@ end
 ```</p>
 
 <p>のようにしてもよい.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Active Recordで属性にアクセスするメソッドを上書きする]]></title>
-    <link href="http://nomnel.net/blog/acticerecord-redefine-attr-access-method/"/>
-    <updated>2013-06-18T22:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/acticerecord-redefine-attr-access-method</id>
-    <content type="html"><![CDATA[<p>RailsでUserモデルがあってそれがnameという属性を持っているとする. このとき例えば, User#nameの値を条件fooによって変えたいとき,<!-- more --></p>
-
-<p>```ruby
-class User &lt; ActiveRecord::Base
-  def name</p>
-
-<pre><code>foo ? self[:name] : 'some special value'
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>のようにnameメソッドを<a href="#caution">上書き</a>してやればよい.</p>
-
-<p>ちなみに<code>self[:name]</code>の<code>[]</code>は<code>read_attribute</code>のaliasで, 別に<code>write_attribute</code>もあるらしい(<a href="http://blog.eiel.info/blog/2012/12/17/read-attribute-activerecord/">参考</a>).</p>
-
-<p><a name="caution">※</a> 上書きというよりは先に定義していると言った方が正確だと思う. というのもaround aliasを使って</p>
-
-<p>```ruby
-class User &lt; ActiveRecord::Base
-  alias :org_name :name
-  def name</p>
-
-<pre><code>foo ? org_name : 'some special value'
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>のように定義しようとすると<code>ねーむってなぁに？</code>って怒られるからだ. 多分(確認すればいいのだけど), <code>method_missing</code>で処理してるんだと思う.</p>
 ]]></content>
   </entry>
   

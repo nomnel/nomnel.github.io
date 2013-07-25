@@ -5,11 +5,18 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>日記 1 - 飲んだり寝たり</title>
+  <title>jQuery.each内でbreakやcontinueする - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="ブログしばらく書いてないと思ったら一ヶ月ぐらい書いてなかった. しばらく書いてないと次書くときは高度なこと書かなきゃいけない気がして余計書きにくい. &hellip;">
+  <meta name="description" content="1
+2
+3
+4
+5
+6
+7
+$.each obj, (i, val) -&gt; # continueの代わり return true if i == 1 $.each obj, (i, val) -&gt; # breakの代わり return false if i == 1 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +25,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nomnel.net/blog/diary-1">
+  <link rel="canonical" href="http://nomnel.net/blog/break-or-continue-in-jquery-each">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
@@ -80,7 +87,7 @@
   
   <header>
     
-      <h1 class="entry-title">日記 1</h1>
+      <h1 class="entry-title">jQuery.each内でbreakやcontinueする</h1>
     
     
       <p class="meta">
@@ -96,16 +103,29 @@
   
 
 
-<time datetime="2013-07-13T00:00:00+09:00" pubdate data-updated="true">Jul 13<span>th</span>, 2013</time>
+<time datetime="2013-07-25T20:30:00+09:00" pubdate data-updated="true">Jul 25<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>ブログしばらく書いてないと思ったら一ヶ月ぐらい書いてなかった. しばらく書いてないと次書くときは高度なこと書かなきゃいけない気がして余計書きにくい. Railsで多対多の関係表現するのどうするんだっけとかいつも忘れるのでメモっておきたいんだけど書いてないとこれじゃショボすぎるからやめとこうと思って書かない. 結果またググることになる.</p>
+<div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">each</span> <span class="nx">obj</span><span class="p">,</span> <span class="nf">(i, val) -&gt;</span>
+</span><span class='line'>  <span class="c1"># continueの代わり</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kc">true</span> <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">each</span> <span class="nx">obj</span><span class="p">,</span> <span class="nf">(i, val) -&gt;</span>
+</span><span class='line'>  <span class="c1"># breakの代わり</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>といっても自分で制限かけてるだけだから普段からショボいこと書いてたら遠慮なくショボいこと書けるようになると思った. 日記だとどう頑張ってもショボいことしか書けないけど書くと一日の振り返り出来そうだし都合良い. あと毎日続けたいので出来るだけ考えなくても書けるようにしたい. <a href="https://twitter.com/hitode909">趣味はマリンスポーツです</a>さんの<a href="http://hitode909.hatenablog.com/">日記</a>ぽい文体だとダラダラ書ける感じがして良い. そのうちもっと楽なの思いつくかもしれないけどとりあえずこんな書き方でやろうと思う.</p>
 </div>
 
 
@@ -128,12 +148,12 @@
   
 
 
-<time datetime="2013-07-13T00:00:00+09:00" pubdate data-updated="true">Jul 13<span>th</span>, 2013</time>
+<time datetime="2013-07-25T20:30:00+09:00" pubdate data-updated="true">Jul 25<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/diary/'>diary</a>
+    <a class='category' href='/blog/categories/tips/'>tips</a>
   
 </span>
 
@@ -142,7 +162,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/diary-1/" data-via="nomnel" data-counturl="http://nomnel.net/blog/diary-1/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/break-or-continue-in-jquery-each/" data-via="nomnel" data-counturl="http://nomnel.net/blog/break-or-continue-in-jquery-each/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -155,10 +175,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/acticerecord-redefine-attr-access-method/" title="Previous Post: Active Recordで属性にアクセスするメソッドを上書きする">&laquo; Active Recordで属性にアクセスするメソッドを上書きする</a>
+        <a class="basic-alignment left" href="/blog/develop-web-service/" title="Previous Post: Webサービスを作ってみる">&laquo; Webサービスを作ってみる</a>
       
-      
-        <a class="basic-alignment right" href="/blog/rails-db-command/" title="Next Post: RailsでSQLiteを操作する">RailsでSQLiteを操作する &raquo;</a>
       
     </p>
   </footer>
@@ -244,8 +262,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://nomnel.net/blog/diary-1/';
-        var disqus_url = 'http://nomnel.net/blog/diary-1/';
+        var disqus_identifier = 'http://nomnel.net/blog/break-or-continue-in-jquery-each/';
+        var disqus_url = 'http://nomnel.net/blog/break-or-continue-in-jquery-each/';
         var disqus_script = 'embed.js';
       
     (function () {
