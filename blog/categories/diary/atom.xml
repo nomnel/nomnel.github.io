@@ -4,7 +4,7 @@
   <title><![CDATA[Category: diary | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/diary/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-25T20:40:16+09:00</updated>
+  <updated>2013-07-30T23:44:16+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[考えたくない]]></title>
+    <link href="http://nomnel.net/blog/diary-2/"/>
+    <updated>2013-07-30T23:45:00+09:00</updated>
+    <id>http://nomnel.net/blog/diary-2</id>
+    <content type="html"><![CDATA[<p>改蔵か絶望先生に「それを言うのはお前で一万人目だ」みたいなネタあったと思うんだけど、一日に考えたり決めたりできる回数って決まってると思う。</p>
+
+<p>正確にはMPみたいな感じで総量があって体調によって増減したりはするんだけど、一回考えるごとにいくらか使う。複雑なことだとより多く使う。</p>
+
+<p>KP(考えポイント)は日常生活用や仕事用という様には分けれない。どんな服を着ようかとかこの道を通って行こうとかでも使われる。人間関係で悩んだりすると仕事も進まなくなるのはこのせい。</p>
+
+<p>じゃあどうすればいいかって考えるとやっぱりKPは消費されるんだけど、考える対象を減らすことというのが自然で妥当で安直な解だと思う。服は着ないし家から出ない。人間関係はTwitterでふぁぼるだけ、ぐらいすると随分すっきりすると思う。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Webサービスを作ってみる]]></title>
@@ -294,84 +309,6 @@ default_scope -> {
 <p>回避する方法は分からなかったのだが, 現状<code>includes(:commentable)</code>が必要になる箇所はトップページ(/), コメント一覧ページ(/comments), 怖い漫画のトップページ(/comics)であり, 特にトップページは表示回数が多いはずなのでRailsやその他のキャッシュで対処出来ないかな…という淡い期待でそのままにした.</p>
 
 <p>何か他にいい方法無いかな…</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン52日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day52/"/>
-    <updated>2013-05-23T17:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day52</id>
-    <content type="html"><![CDATA[<p>さて今日は</p>
-
-<ol>
-<li>背景画像切り替えが出来なくなっている原因の調査</li>
-<li>ランキング入りの怖話が削除されるとトップページ、ランキングページが表示できなくなるバグ修正</li>
-<li>Twitter Cardsの申請のために各ページにog:titleを追加</li>
-<li>ブロック機能のバグ修正 (途中)</li>
-</ol>
-
-
-<p>をしていた. <!-- more --></p>
-
-<p>1は前回"怖話中で指定の画像が無い場合に背景がなくなる"の対策をした際に</p>
-
-<p>```coffeescript
-$.ajax
-  type: 'get'
-  url: '画像のURL'
-  success: -></p>
-
-<pre><code>そのまま表示
-</code></pre>
-
-<p>  error: -></p>
-
-<pre><code>デフォルト画像を表示
-</code></pre>
-
-<p>```</p>
-
-<p>のようにやっていたがために<code>Same Origin Policy</code>に違反するようになってしまったことが原因(本番環境では画像は<code>cdn.kowabana.jp</code>という別ドメインにある). Access-Control-Allow-Origin ヘッダーというのを<code>cdn.kowabana.jp</code>側に追加してやればいいらしいけどどうやるんだろ.</p>
-
-<p>2はそもそも怖話が削除されたときにランキングからも削除されなければいけない(はず)なので, StoryモデルからRankingモデルに<code>dependent: :destroy</code>を追加.</p>
-
-<p>3は<code>app/views/layouts/application.html.haml</code>にメタタグを追加するだけ(各ページのタイトルを生成する関数はすでにあったので).</p>
-
-<p>4はコメントしたユーザを指定してブロック出来る機能なのだけれど, ブロックしたはずのユーザのコメントも表示されているというもの(もう一度ブロックするとユニーク制約によりエラー). 怖い話, 画像, 漫画の全てにコメントをつけることが出来る仕様なので, それぞれで場合分けをしてブロックされたユーザのコメントは取得しないようにしたい. 具体的には</p>
-
-<p>```sql
-select comments.* from comments
-left join stories    on comments.commentable_type = 'Story'     and comments.commentable_id = stories.id
-left join wallpapers on comments.commentable_type = 'Wallpaper' and comments.commentable_id = wallpapers.id
-left join comics     on comments.commentable_type = 'Comic'     and comments.commentable_id = comics.id
-where comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =
-(case when comments.commentable_type = 'Story'     then stories.user_id</p>
-
-<pre><code>  when comments.commentable_type = 'Wallpaper' then wallpapers.user_id
-  else                                              comics.user_id end))
-</code></pre>
-
-<p>```</p>
-
-<p>のようなSQLを発行できるようにしたい.</p>
-
-<p>基本的にブロック済みのコメントは表示されないはずなので, とりあえずdefault_scopeに以下のように記述してみたのだが</p>
-
-<p>```ruby
-default_scope -> {
-  joins('left join stories    on comments.commentable_type = "Story"     and comments.commentable_id = stories.id ').
-  joins('left join wallpapers on comments.commentable_type = "Wallpaper" and comments.commentable_id = wallpapers.id ').
-  joins('left join comics     on comments.commentable_type = "Comic"     and comments.commentable_id = comics.id ').
-  where('comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =</p>
-
-<pre><code>(case when comments.commentable_type = "Story" then stories.user_id when comments.commentable_type = "Wallpaper" then wallpapers.user_id else comics.user_id end))')
-</code></pre>
-
-<p>}
-```</p>
-
-<p><code>Can not eagerly load the polymorphic association</code>と表示されて失敗. 一旦ここまで.</p>
 ]]></content>
   </entry>
   

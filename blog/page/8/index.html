@@ -9,10 +9,8 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="　　　　　　　　 ,. -‐'''''""¨¨¨ヽ
-　　　　 　 　 (.＿＿_,,,... -ｧァﾌ|　　　　　　　　　　あ…ありのまま 今　起こった事を話すぜ！
-　 　 　 　 　 |i i|　 　 }!　}} /／|
-　　　　 　 　 |l､{　 　j}　/,,ｨ//｜　　　　　　　『 &hellip;">
+  <meta name="description" content="今日はRailsに関するインプットの日だった. Rails編に載っているリンクは(本以外)全て読んだ. まぁ実際, 理解できたなら全部読む必要は全く無い. 各トピックで一つずつ選ぶならこんなところか. Getting Started with Rails
+Rails3事始め: I18n &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +78,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day15/">インターン15日目 Railsを理解したくて</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-21T00:00:00+09:00" pubdate data-updated="true">Mar 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日はRailsに関するインプットの日だった. <a href="https://github.com/fjordllc/tutorial/wiki/Rails%E7%B7%A8">Rails編</a>に載っているリンクは(本以外)全て読んだ. まぁ実際, 理解できたなら全部読む必要は全く無い. 各トピックで一つずつ選ぶならこんなところか.</p>
+
+<ul>
+<li><a href="http://guides.rubyonrails.org/getting_started.html">Getting Started with Rails</a></li>
+<li><a href="http://rails3try.blogspot.jp/search/label/I18n">Rails3事始め: I18n</a></li>
+<li><a href="http://ja.asciicasts.com/episodes/283-authentication-with-sorcery">ASCIIcasts – “Episode 283 – Sorceryで認証”</a></li>
+<li><a href="http://d.hatena.ne.jp/the_yokochi/20110517/1305641153">Rails本番運用で役に立つプラグイン exception_notification</a></li>
+<li><a href="http://docs.komagata.org/3880">Paperclipで画像を保存 – p0t</a></li>
+<li><a href="http://gihyo.jp/dev/serial/01/tdd/0001">和田卓人の“テスト駆動開発”講座</a></li>
+<li><a href="http://jp.rubyist.net/magazine/?0021-Rspec">Rubyist Magazine – スはスペックのス 【第 1 回】 RSpec の概要と, RSpec on Rails (モデル編)</a></li>
+</ul>
+
+
+<p>時間があったので下の本も流し読みした. バージョンが大分古いけれど(2.3ぐらい)外観を掴むのに適していたと思う.</p>
+
+<p>明日は<a href="http://guides.rubyonrails.org/getting_started.html">Getting Started with Rails</a>の通りにRailsアプリを作り, 土日に機能追加などして遊びたいと思う.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -526,130 +575,6 @@ $ git push origin feature
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day9/">インターン9日目 ローカル開発環境構築</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-12T00:00:00+09:00" pubdate data-updated="true">Mar 12<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>駒形さん(<a href="https://twitter.com/komagata">@komagata</a>)からタスクをいただいたので, 今日は準備としてローカルに怖話の開発環境を構築していた. 途中, 詰まってしまって環境構築だけで一日が終わってしまって残念.</p>
-
-<h2>ローカル開発環境を構築する</h2>
-
-<p>READMEと<a href="http://bit.ly/11duzTe">コチラ</a>を参考に.</p>
-
-<pre><code>$ rbenv install 2.0.0-p0
-$ brew install imagemagick mysql qt
-$ git clone git@github.com:fjordllc/[怖話]
-$ cd [怖話]
-$ bundle install --path vendor/bundle
-$ cp config/database.example.yml config/database.yml
-</code></pre>
-
-<p>developmentとtest環境のパスワードをconfig/database.ymlに追記する. まだmySQLの設定をしていなかった場合は, 先に下を参照して行なっておく.</p>
-
-<pre><code>development:
-  adapter: mysql2
-  encoding: utf8
-  pool: 5
-  host: localhost
-  database: kowabana_development
-  username: root
-  password: [ここに追加]
-  reconnect: true
-  socket:
-</code></pre>
-
-<p>終わったら</p>
-
-<pre><code>$ bundle exec rake kowabana:setup
-</code></pre>
-
-<p>すればいい…はずが<code>Unknown database 'kowabana_development'</code>というエラーが出て失敗する.</p>
-
-<pre><code>mysql&gt; CREATE DATABASE `kowabana_development` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;
-</code></pre>
-
-<p>として直接データベースを作ってやって,</p>
-
-<pre><code>$ bundle exec rake db:migrate
-$ bundle exec rake db:seed
-</code></pre>
-
-<p>とやってやればいいみたい. 終わったら</p>
-
-<pre><code>$ bundle exec rails s
-</code></pre>
-
-<p>として起動すればおっけー.</p>
-
-<p>テストの前には同様に</p>
-
-<pre><code>mysql&gt; CREATE DATABASE `kowabana_test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;
-</code></pre>
-
-<p>としてテスト用のデータベースを作成しなければいけないことに注意. テストは</p>
-
-<pre><code>$ bundle exec rake
-$ bundle exec rake konacha:run
-</code></pre>
-
-<p>で実行できる. テストが通らない場合は以下を試してみるといいらしい.</p>
-
-<pre><code>$ bundle exec rake kowabana:reset
-$ bundle exec rake
-</code></pre>
-
-<h3>mySQL</h3>
-
-<pre><code>$ brew install mysql
-</code></pre>
-
-<p>後に</p>
-
-<pre><code>$ brew info mysql
-</code></pre>
-
-<p>でも表示される指示にしたがって</p>
-
-<pre><code>$ unset TMPDIR
-$ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp/
-$ mysql.server start
-$ mysqladmin -u root password 'new-password'
-</code></pre>
-
-<p>としておく.</p>
-
-<p>OS起動時に自動起動するようにするにはしていないが, このあたり(<a href="http://dev.classmethod.jp/etc/macbookair-homebrew-mysql5-5-14/">参照1</a>, <a href="http://tukaikta.blog135.fc2.com/blog-entry-197.html">参照2</a>)を見れば良さそう.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -665,6 +590,10 @@ $ mysqladmin -u root password 'new-password'
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/diary-2/">考えたくない</a>
+      </li>
     
       <li class="post">
         <a href="/blog/break-or-continue-in-jquery-each/">jQuery.each内でbreakやcontinueする</a>
@@ -700,10 +629,6 @@ $ mysqladmin -u root password 'new-password'
     
       <li class="post">
         <a href="/blog/diary-1/">日記 1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/acticerecord-redefine-attr-access-method/">Active Recordで属性にアクセスするメソッドを上書きする</a>
       </li>
     
   </ul>

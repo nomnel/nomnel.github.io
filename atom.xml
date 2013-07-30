@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-25T20:40:16+09:00</updated>
+  <updated>2013-07-30T23:44:16+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[考えたくない]]></title>
+    <link href="http://nomnel.net/blog/diary-2/"/>
+    <updated>2013-07-30T23:45:00+09:00</updated>
+    <id>http://nomnel.net/blog/diary-2</id>
+    <content type="html"><![CDATA[<p>改蔵か絶望先生に「それを言うのはお前で一万人目だ」みたいなネタあったと思うんだけど、一日に考えたり決めたりできる回数って決まってると思う。</p>
+
+<p>正確にはMPみたいな感じで総量があって体調によって増減したりはするんだけど、一回考えるごとにいくらか使う。複雑なことだとより多く使う。</p>
+
+<p>KP(考えポイント)は日常生活用や仕事用という様には分けれない。どんな服を着ようかとかこの道を通って行こうとかでも使われる。人間関係で悩んだりすると仕事も進まなくなるのはこのせい。</p>
+
+<p>じゃあどうすればいいかって考えるとやっぱりKPは消費されるんだけど、考える対象を減らすことというのが自然で妥当で安直な解だと思う。服は着ないし家から出ない。人間関係はTwitterでふぁぼるだけ、ぐらいすると随分すっきりすると思う。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[jQuery.each内でbreakやcontinueする]]></title>
@@ -954,110 +969,6 @@
 
 
 <p><code>Can not eagerly load the polymorphic association</code>と表示されて失敗. 一旦ここまで.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン51日目(多分)]]></title>
-    <link href="http://nomnel.net/blog/fjord-day51/"/>
-    <updated>2013-05-20T17:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day51</id>
-    <content type="html"><![CDATA[<p>さて今日は</p>
-
-<ol>
-<li>怖話中で指定の画像が無い場合に背景がなくなる</li>
-</ol>
-
-
-<p>をやっていた. <!-- more --></p>
-
-<p>2つ詰まったところがあって,</p>
-
-<p>1つは配列の要素それぞれを使ってajax通信した後に通信結果を使って元の配列を変更したい場合, 例えば次のように書くと</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">foos = </span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
-</span><span class='line'><span class="k">for</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">idx</span> <span class="k">in</span> <span class="nx">foos</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
-</span><span class='line'>    <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
-</span><span class='line'>    <span class="nv">url: </span><span class="s">&#39;/bar&#39;</span>
-</span><span class='line'>    <span class="nv">success: </span><span class="nf">-&gt;</span>
-</span><span class='line'>      <span class="nx">foos</span><span class="p">[</span><span class="nx">idx</span><span class="p">]</span> <span class="o">=</span> <span class="nx">foo</span> <span class="o">+</span> <span class="s">&#39;baz&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>全てのsuccess呼び出し内で<code>idx = 2</code>, <code>foo = 'c'</code>となってしまうやつ. これは</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">foos = </span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
-</span><span class='line'><span class="k">for</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">idx</span> <span class="k">in</span> <span class="nx">foos</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">(foo, idx) -&gt;</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
-</span><span class='line'>      <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
-</span><span class='line'>      <span class="nv">url: </span><span class="s">&#39;/bar&#39;</span>
-</span><span class='line'>      <span class="nv">success: </span><span class="nf">-&gt;</span>
-</span><span class='line'>        <span class="nx">foos</span><span class="p">[</span><span class="nx">idx</span><span class="p">]</span> <span class="o">=</span> <span class="nx">foo</span> <span class="o">+</span> <span class="s">&#39;baz&#39;</span>
-</span><span class='line'>  <span class="p">)</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">idx</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>みたいに予め適用しといてやるとよさげ.</p>
-
-<p>もう1つは,</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">class</span> <span class="nx">Klass</span>
-</span><span class='line'>  <span class="nv">prop: </span><span class="s">&#39;foo&#39;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nv">proc1: </span><span class="nf">-&gt;</span>
-</span><span class='line'>    <span class="nv">pr2 = </span><span class="nx">@proc2</span>
-</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
-</span><span class='line'>      <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
-</span><span class='line'>      <span class="nv">url: </span><span class="s">&#39;/bar&#39;</span>
-</span><span class='line'>      <span class="nv">success: </span><span class="nf">-&gt;</span>
-</span><span class='line'>        <span class="nx">pr2</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nv">proc2: </span><span class="nf">-&gt;</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">@prop</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ってやるとsuccessの中のpr2の中で@propがundefinedになるやつ. これは単純に</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'>  <span class="nv">proc2: </span><span class="o">=&gt;</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">@prop</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>と, fat arrow使えばおーけー, 多分.</p>
 ]]></content>
   </entry>
   
