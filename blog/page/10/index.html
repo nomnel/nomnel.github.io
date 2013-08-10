@@ -9,7 +9,12 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="やったこと 今日は僕にとっての鬼門, CSSの学習をしていた. 大体のレイアウトを決めるまではいいのだが, どうも文字サイズとか間隔とかの微調整に次ぐ微調整となるとダメ. 発狂する. デザイナーさんまじすげぇ. まずはドットインストール(CSSの基礎, CSS3の基礎)を見て大体の感じを思い出す &hellip;">
+  <meta name="description" content="ざっくり箇条書きで. CSS課題の提出(結局ほぼsampleのまま)
+Terminal操作の復習に黒い画面入門を読んだ
+Try Gitをやった
+サルでも分かるgit入門を読んだ
+ドットインストール JavaScript入門を見た
+ドットインストール jQuery入門を見た &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +82,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day3/">インターン3日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T00:00:00+09:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ざっくり箇条書きで.</p>
+
+<ol>
+<li>CSS課題の提出(結局ほぼsampleのまま)</li>
+<li>Terminal操作の復習に<a href="http://fjord.jp/love/548.html">黒い画面入門</a>を読んだ</li>
+<li><a href="http://try.github.com/">Try Git</a>をやった</li>
+<li><a href="http://www.backlog.jp/git-guide/">サルでも分かるgit入門</a>を読んだ</li>
+<li><a href="http://dotinstall.com/lessons/basic_javascript">ドットインストール JavaScript入門</a>を見た</li>
+<li><a href="http://dotinstall.com/lessons/basic_jquery">ドットインストール jQuery入門</a>を見た</li>
+<li><a href="http://www.slideshare.net/hayatomizuno/jquery-7665168">ノンプログラマーのためのjQuery入門</a>を読んだ</li>
+</ol>
+
+
+<p>基本的に読んだり見たりして理解していることを確認しただけ. 特に詰まるところは(CSS以外)無かった. ただ, Gitは自分一人でしか使ったことないので, ちょっとした操作でもリファレンスが絶対に必要だろうなぁ.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -756,113 +810,6 @@ $ git clone https://github.com/nomnel/SublimeREPL-Gauche Gauche
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/wordpress-first-steps/">WordPressをインストールして初めにやったこと</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-28T00:00:00+09:00" pubdate data-updated="true">Sep 28<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>WordPressに初めてログインしたときにとりあえず行ったことをまとめた. プラグインのインストールと有効化でも述べるように, 最低でも<code>WP Multibyte Patch</code>と<code>Akismet</code>の有効化はしておく.</p>
-
-<h3>目次</h3>
-
-<ol>
-<li>パーマリンクの変更</li>
-<li>テーマのインストールと変更</li>
-<li>プラグインのインストールと有効化</li>
-<li>その他の設定変更</li>
-</ol>
-
-
-<hr />
-
-<h3>パーマリンクの変更</h3>
-
-<p>デフォルトの投稿URLは<code>http://doma.in/?p=123</code>形式でURLに情報がない. これが個人的にはイケてないので<code>http://doma.in/sample-post</code>形式に変更する.</p>
-
-<p>サイドバーの 設定 -> パーマリンク設定 を開き, 共通設定の[投稿名]にチェックを入れて[変更を保存]する. ページ上部に「パーマリンク構造を更新しました. 」と表示されるのを確認する. このとき, 「.htaccessを更新する必要があります」と表示されたらwordpressディレクトリに書き込み権限が無い -> 所有者がApacheのユーザになっていない 可能性がある.</p>
-
-<p>この状態で記事をパーマリンクで開くと404エラーになる. .htaccessを使用できるようにApacheの設定(httpd.conf)を変更する.</p>
-
-<pre><code># 設定ファイルを開く
-$ sudo vi /etc/httpd/conf/httpd.conf
-
-#  と  の間にある
-AllowOverride None
--&gt;
-AllowOverride All
-
-# httpdを再起動して設定を反映
-sudo service httpd restart
-</code></pre>
-
-<p>これで<code>http://doma.in/sample-post</code>形式で個別の投稿を表示できるようになった.</p>
-
-<hr />
-
-<h3>テーマのインストールと変更</h3>
-
-<p>サイドバーの 外観 -> テーマ を開き, 上部の[テーマのインストール]から好みのテーマを検索してインストールする. [テーマの管理]からテーマの有効化しておくことを忘れずに. 先日, <a href="http://firegoby.jp/archives/3505">無料のWordPressテーマをググって使うのは超ハイリスクなので気をつけよう！</a>という記事も出ていたので, ネット上で無料テーマを探すのはやめておいた方がいいかもしれない.</p>
-
-<hr />
-
-<h3>プラグインのインストールと有効化</h3>
-
-<p>最低でもデフォルトでインストールされている<code>WP Multibyte Patch</code>と<code>Akismet</code>は有効化しておく. Akismetについては有効化するだけではなく, <a href="http://nomnel.net/blog/wp-akismet">APIキーを取得して設定しておく</a>必要があるので注意.</p>
-
-<p>他にインストールするプラグインは, <code>WordPress プラグイン</code>等で検索すればいろんな人がまとめているページが見つかるので, それぞれ必要な物をインストールすればよい.</p>
-
-<hr />
-
-<h3>その他の設定変更</h3>
-
-<p>少なくとも, サイドバーの 設定 -> 一般 で</p>
-
-<ul>
-<li>サイトのタイトル</li>
-<li>キャッチフレーズ</li>
-<li>日付のフォーマット</li>
-<li>時刻のフォーマット</li>
-</ul>
-
-
-<p>を確認し, ディスカッション設定で</p>
-
-<ul>
-<li>この投稿に含まれるすべてのリンクへの通知を試みる</li>
-</ul>
-
-
-<p>のチェックをはずしておく. 後は必要に応じて.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -878,6 +825,10 @@ sudo service httpd restart
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/create-vagrant-base-box/">Vagrantで作ったVMからbase boxを作る</a>
+      </li>
     
       <li class="post">
         <a href="/blog/diary-2/">考えたくない</a>
@@ -913,10 +864,6 @@ sudo service httpd restart
     
       <li class="post">
         <a href="/blog/rails-db-command/">RailsでSQLiteを操作する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/diary-1/">日記 1</a>
       </li>
     
   </ul>

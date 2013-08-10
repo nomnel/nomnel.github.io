@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-07-30T23:53:30+09:00</updated>
+  <updated>2013-08-10T13:59:12+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Vagrantで作ったVMからbase boxを作る]]></title>
+    <link href="http://nomnel.net/blog/create-vagrant-base-box/"/>
+    <updated>2013-08-10T14:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/create-vagrant-base-box</id>
+    <content type="html"><![CDATA[<p><a href="http://www.vagrantbox.es/">DLしてきたbase box</a>からちょっとだけいじったものを自分用のbase boxとして持っておきたいとき.<!-- more --></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># VM_NAMEはVirtual Boxで表示されているもの(General-&gt;Name)</span>
+</span><span class='line'>vagrant package  --base VM_NAME
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とすると, カレントディレクトリに<code>package.box</code>というファイルが出来る. これがbase boxなので, あとはvagrantに登録すれば普通にVMを作成できる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>vagrant box add mybox package.box
+</span><span class='line'>mkdir <span class="nb">test</span>
+</span><span class='line'><span class="nb">cd test</span>
+</span><span class='line'>vagrant init mybox
+</span><span class='line'>vagrant up
+</span><span class='line'>vagrant ssh
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[考えたくない]]></title>
@@ -881,94 +914,6 @@
 
 
 <p>に変更.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン52日目]]></title>
-    <link href="http://nomnel.net/blog/fjord-day52/"/>
-    <updated>2013-05-23T17:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-day52</id>
-    <content type="html"><![CDATA[<p>さて今日は</p>
-
-<ol>
-<li>背景画像切り替えが出来なくなっている原因の調査</li>
-<li>ランキング入りの怖話が削除されるとトップページ、ランキングページが表示できなくなるバグ修正</li>
-<li>Twitter Cardsの申請のために各ページにog:titleを追加</li>
-<li>ブロック機能のバグ修正 (途中)</li>
-</ol>
-
-
-<p>をしていた. <!-- more --></p>
-
-<p>1は前回&#8221;怖話中で指定の画像が無い場合に背景がなくなる&#8221;の対策をした際に</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span>
-</span><span class='line'>  <span class="nv">type: </span><span class="s">&#39;get&#39;</span>
-</span><span class='line'>  <span class="nv">url: </span><span class="s">&#39;画像のURL&#39;</span>
-</span><span class='line'>  <span class="nv">success: </span><span class="nf">-&gt;</span>
-</span><span class='line'>    <span class="err">そのまま表示</span>
-</span><span class='line'>  <span class="nv">error: </span><span class="nf">-&gt;</span>
-</span><span class='line'>    <span class="err">デフォルト画像を表示</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のようにやっていたがために<code>Same Origin Policy</code>に違反するようになってしまったことが原因(本番環境では画像は<code>cdn.kowabana.jp</code>という別ドメインにある). Access-Control-Allow-Origin ヘッダーというのを<code>cdn.kowabana.jp</code>側に追加してやればいいらしいけどどうやるんだろ.</p>
-
-<p>2はそもそも怖話が削除されたときにランキングからも削除されなければいけない(はず)なので, StoryモデルからRankingモデルに<code>dependent: :destroy</code>を追加.</p>
-
-<p>3は<code>app/views/layouts/application.html.haml</code>にメタタグを追加するだけ(各ページのタイトルを生成する関数はすでにあったので).</p>
-
-<p>4はコメントしたユーザを指定してブロック出来る機能なのだけれど, ブロックしたはずのユーザのコメントも表示されているというもの(もう一度ブロックするとユニーク制約によりエラー). 怖い話, 画像, 漫画の全てにコメントをつけることが出来る仕様なので, それぞれで場合分けをしてブロックされたユーザのコメントは取得しないようにしたい. 具体的には</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">comments</span><span class="p">.</span><span class="o">*</span> <span class="k">from</span> <span class="n">comments</span>
-</span><span class='line'><span class="k">left</span> <span class="k">join</span> <span class="n">stories</span>    <span class="k">on</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Story&#39;</span>     <span class="k">and</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_id</span> <span class="o">=</span> <span class="n">stories</span><span class="p">.</span><span class="n">id</span>
-</span><span class='line'><span class="k">left</span> <span class="k">join</span> <span class="n">wallpapers</span> <span class="k">on</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Wallpaper&#39;</span> <span class="k">and</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_id</span> <span class="o">=</span> <span class="n">wallpapers</span><span class="p">.</span><span class="n">id</span>
-</span><span class='line'><span class="k">left</span> <span class="k">join</span> <span class="n">comics</span>     <span class="k">on</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Comic&#39;</span>     <span class="k">and</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_id</span> <span class="o">=</span> <span class="n">comics</span><span class="p">.</span><span class="n">id</span>
-</span><span class='line'><span class="k">where</span> <span class="n">comments</span><span class="p">.</span><span class="n">user_id</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">blocks</span><span class="p">.</span><span class="n">destination_id</span> <span class="k">from</span> <span class="n">blocks</span> <span class="k">where</span> <span class="n">blocks</span><span class="p">.</span><span class="n">source_id</span> <span class="o">=</span>
-</span><span class='line'><span class="p">(</span><span class="k">case</span> <span class="k">when</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Story&#39;</span>     <span class="k">then</span> <span class="n">stories</span><span class="p">.</span><span class="n">user_id</span>
-</span><span class='line'>      <span class="k">when</span> <span class="n">comments</span><span class="p">.</span><span class="n">commentable_type</span> <span class="o">=</span> <span class="s1">&#39;Wallpaper&#39;</span> <span class="k">then</span> <span class="n">wallpapers</span><span class="p">.</span><span class="n">user_id</span>
-</span><span class='line'>      <span class="k">else</span>                                              <span class="n">comics</span><span class="p">.</span><span class="n">user_id</span> <span class="k">end</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のようなSQLを発行できるようにしたい.</p>
-
-<p>基本的にブロック済みのコメントは表示されないはずなので, とりあえずdefault_scopeに以下のように記述してみたのだが</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">default_scope</span> <span class="o">-&gt;</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join stories    on comments.commentable_type = &quot;Story&quot;     and comments.commentable_id = stories.id &#39;</span><span class="p">)</span><span class="o">.</span>
-</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join wallpapers on comments.commentable_type = &quot;Wallpaper&quot; and comments.commentable_id = wallpapers.id &#39;</span><span class="p">)</span><span class="o">.</span>
-</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join comics     on comments.commentable_type = &quot;Comic&quot;     and comments.commentable_id = comics.id &#39;</span><span class="p">)</span><span class="o">.</span>
-</span><span class='line'>  <span class="n">where</span><span class="p">(</span><span class="s1">&#39;comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =</span>
-</span><span class='line'><span class="s1">    (case when comments.commentable_type = &quot;Story&quot; then stories.user_id when comments.commentable_type = &quot;Wallpaper&quot; then wallpapers.user_id else comics.user_id end))&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>Can not eagerly load the polymorphic association</code>と表示されて失敗. 一旦ここまで.</p>
 ]]></content>
   </entry>
   

@@ -9,12 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="独自ドメインを取得してさくらのVPSに設定した手順の覚え書き. 目次 ドメイン事業者の選択
-ドメインの取得
-ドメインのDNS設定
-DNS逆引きの設定 ドメイン事業者の選択 代表的な事業者はこれらだろうか. お名前.com
-ムームードメイン
-さくらのドメイン取得 今回はお名前.comで取得したので &hellip;">
+  <meta name="description" content="WordPressに初めてログインしたときにとりあえず行ったことをまとめた. プラグインのインストールと有効化でも述べるように, 最低でもWP Multibyte PatchとAkismetの有効化はしておく. 目次 パーマリンクの変更
+テーマのインストールと変更
+プラグインのインストールと有効化 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +79,113 @@ DNS逆引きの設定 ドメイン事業者の選択 代表的な事業者はこ
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/wordpress-first-steps/">WordPressをインストールして初めにやったこと</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-28T00:00:00+09:00" pubdate data-updated="true">Sep 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>WordPressに初めてログインしたときにとりあえず行ったことをまとめた. プラグインのインストールと有効化でも述べるように, 最低でも<code>WP Multibyte Patch</code>と<code>Akismet</code>の有効化はしておく.</p>
+
+<h3>目次</h3>
+
+<ol>
+<li>パーマリンクの変更</li>
+<li>テーマのインストールと変更</li>
+<li>プラグインのインストールと有効化</li>
+<li>その他の設定変更</li>
+</ol>
+
+
+<hr />
+
+<h3>パーマリンクの変更</h3>
+
+<p>デフォルトの投稿URLは<code>http://doma.in/?p=123</code>形式でURLに情報がない. これが個人的にはイケてないので<code>http://doma.in/sample-post</code>形式に変更する.</p>
+
+<p>サイドバーの 設定 -> パーマリンク設定 を開き, 共通設定の[投稿名]にチェックを入れて[変更を保存]する. ページ上部に「パーマリンク構造を更新しました. 」と表示されるのを確認する. このとき, 「.htaccessを更新する必要があります」と表示されたらwordpressディレクトリに書き込み権限が無い -> 所有者がApacheのユーザになっていない 可能性がある.</p>
+
+<p>この状態で記事をパーマリンクで開くと404エラーになる. .htaccessを使用できるようにApacheの設定(httpd.conf)を変更する.</p>
+
+<pre><code># 設定ファイルを開く
+$ sudo vi /etc/httpd/conf/httpd.conf
+
+#  と  の間にある
+AllowOverride None
+-&gt;
+AllowOverride All
+
+# httpdを再起動して設定を反映
+sudo service httpd restart
+</code></pre>
+
+<p>これで<code>http://doma.in/sample-post</code>形式で個別の投稿を表示できるようになった.</p>
+
+<hr />
+
+<h3>テーマのインストールと変更</h3>
+
+<p>サイドバーの 外観 -> テーマ を開き, 上部の[テーマのインストール]から好みのテーマを検索してインストールする. [テーマの管理]からテーマの有効化しておくことを忘れずに. 先日, <a href="http://firegoby.jp/archives/3505">無料のWordPressテーマをググって使うのは超ハイリスクなので気をつけよう！</a>という記事も出ていたので, ネット上で無料テーマを探すのはやめておいた方がいいかもしれない.</p>
+
+<hr />
+
+<h3>プラグインのインストールと有効化</h3>
+
+<p>最低でもデフォルトでインストールされている<code>WP Multibyte Patch</code>と<code>Akismet</code>は有効化しておく. Akismetについては有効化するだけではなく, <a href="http://nomnel.net/blog/wp-akismet">APIキーを取得して設定しておく</a>必要があるので注意.</p>
+
+<p>他にインストールするプラグインは, <code>WordPress プラグイン</code>等で検索すればいろんな人がまとめているページが見つかるので, それぞれ必要な物をインストールすればよい.</p>
+
+<hr />
+
+<h3>その他の設定変更</h3>
+
+<p>少なくとも, サイドバーの 設定 -> 一般 で</p>
+
+<ul>
+<li>サイトのタイトル</li>
+<li>キャッチフレーズ</li>
+<li>日付のフォーマット</li>
+<li>時刻のフォーマット</li>
+</ul>
+
+
+<p>を確認し, ディスカッション設定で</p>
+
+<ul>
+<li>この投稿に含まれるすべてのリンクへの通知を試みる</li>
+</ul>
+
+
+<p>のチェックをはずしておく. 後は必要に応じて.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1703,6 +1807,10 @@ $ chkconfig --list iptables
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/create-vagrant-base-box/">Vagrantで作ったVMからbase boxを作る</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/diary-2/">考えたくない</a>
       </li>
     
@@ -1736,10 +1844,6 @@ $ chkconfig --list iptables
     
       <li class="post">
         <a href="/blog/rails-db-command/">RailsでSQLiteを操作する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/diary-1/">日記 1</a>
       </li>
     
   </ul>
