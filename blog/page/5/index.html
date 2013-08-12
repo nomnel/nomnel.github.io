@@ -9,7 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="さて今日は, メールアドレスでメンバ登録したときに, welcomeメールが欲しい をした. ">
+  <meta name="description" content="さて今日は ユーザー個別ページの投稿した話の合計に下書きが含まれるので含まなくする
+怖いボタンの挙動が不自然(Ajax通信が終わる前に表示を変更していた)だったのを修正
+怖いボタンを押したらflashで通知が出る をしていた. ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +79,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day37/">インターン37日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-24T18:30:00+09:00" pubdate data-updated="true">Apr 24<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>さて今日は</p>
+
+<ol>
+<li>ユーザー個別ページの投稿した話の合計に下書きが含まれるので含まなくする</li>
+<li>怖いボタンの挙動が不自然(Ajax通信が終わる前に表示を変更していた)だったのを修正</li>
+<li>怖いボタンを押したらflashで通知が出る</li>
+</ol>
+
+
+<p>をしていた.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/fjord-day37/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -539,54 +591,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/how-to-post-on-octopress/">Octopressで新規記事を投稿する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-16T23:00:00+09:00" pubdate data-updated="true">Apr 16<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><code>source</code>ブランチで次のコマンドを入力する(zshの場合, \でエスケープが必要).</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake new_post<span class="se">\[</span><span class="s1">&#39;post title&#39;</span><span class="se">\]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/how-to-post-on-octopress/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -602,6 +606,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/centos-version-and-architecture/">CentOSでのバージョンとアーキテクチャの確認</a>
+      </li>
     
       <li class="post">
         <a href="/blog/create-vagrant-base-box/">Vagrantで作ったVMからbase boxを作る</a>
@@ -637,10 +645,6 @@
     
       <li class="post">
         <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails-db-command/">RailsでSQLiteを操作する</a>
       </li>
     
   </ul>

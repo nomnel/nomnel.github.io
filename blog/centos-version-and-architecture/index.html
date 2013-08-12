@@ -5,12 +5,19 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Debianで最新版のnginxをapt-getでインストールする - 飲んだり寝たり</title>
+  <title>CentOSでのバージョンとアーキテクチャの確認 - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="(CentOSの場合はこちら) 普通に 1
-sudo apt-get install nginx とすると, 0.7.xぐらいの古いバージョン(最新は1.4.0 @ 2013/4/24)がインストールされる. nginxのサイトをリポジトリに登録し, stableの最新版をapt- &hellip;">
+  <meta name="description" content="バージョン 1
+2
+cat /etc/redhat-release
+# -&gt; CentOS release 6.4 (Final) アーキテクチャ 1
+2
+3
+arch
+# (64bit)-&gt; x86_64
+# (32bit)-&gt; i686 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +26,7 @@ sudo apt-get install nginx とすると, 0.7.xぐらいの古いバージョン(
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get">
+  <link rel="canonical" href="http://nomnel.net/blog/centos-version-and-architecture">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
@@ -81,7 +88,7 @@ sudo apt-get install nginx とすると, 0.7.xぐらいの古いバージョン(
   
   <header>
     
-      <h1 class="entry-title">Debianで最新版のnginxをapt-getでインストールする</h1>
+      <h1 class="entry-title">CentOSでのバージョンとアーキテクチャの確認</h1>
     
     
       <p class="meta">
@@ -97,81 +104,31 @@ sudo apt-get install nginx とすると, 0.7.xぐらいの古いバージョン(
   
 
 
-<time datetime="2013-04-30T15:30:00+09:00" pubdate data-updated="true">Apr 30<span>th</span>, 2013</time>
+<time datetime="2013-08-12T16:30:00+09:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>(CentOSの場合は<a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">こちら</a>)</p>
-
-<p>普通に</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install nginx
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とすると, 0.7.xぐらいの古いバージョン(最新は1.4.0 @ 2013/4/24)がインストールされる. nginxのサイトをリポジトリに登録し, stableの最新版をapt-getでインストール出来るようにする.</p>
-
-<!-- more -->
-
-
-<p>まず, パッケージの公開鍵をダウンロードして<code>apt-key</code>で追加する. (sudoをインストールしていない場合は<a href="http://nomnel.net/blog/debian-enable-sudo/">ここ</a>を参照)</p>
+<div class="entry-content"><p>バージョン</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>wget <span class="s2">&quot;http://nginx.org/keys/nginx_signing.key&quot;</span>
-</span><span class='line'>sudo apt-key add nginx_signing.key
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>cat /etc/redhat-release
+</span><span class='line'><span class="c"># -&gt; CentOS release 6.4 (Final)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>次に, nginxのサイトをリポジトリに追加する.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo vi /etc/apt/sources.list
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>で開いたファイルに以下を追加.</p>
+<p>アーキテクチャ</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>deb http://nginx.org/packages/debian/ squeeze nginx
-</span><span class='line'>deb-src http://nginx.org/packages/debian/ squeeze nginx
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>arch
+</span><span class='line'><span class="c"># (64bit)-&gt; x86_64</span>
+</span><span class='line'><span class="c"># (32bit)-&gt; i686</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
-<p>後は登録を反映して,</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get update
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>最新版をインストールすればよい.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install nginx
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ブラウザでアクセスしてみて, <code>Welcome to nginx!</code>と表示されたら成功.</p>
-
-<p>ちなみにアンインストールは</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get remove nginx
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>参照</h3>
-
-<ul>
-<li><a href="http://www.arunchinnachamy.com/how-to-updateinstall-nginx-in-ubuntudebian/">HOW TO: Install NGINX in Ubuntu or Debian</a></li>
-<li><a href="http://server-setting.info/ubuntu/ubuntu-nginx-install.html">Ubuntu (Debian) で nginx に リバースプロキシのキャッシュ削除モジュール nginx cache purge を組み込んで使ってみる</a></li>
-</ul>
 
 </div>
 
@@ -195,12 +152,12 @@ sudo apt-get install nginx とすると, 0.7.xぐらいの古いバージョン(
   
 
 
-<time datetime="2013-04-30T15:30:00+09:00" pubdate data-updated="true">Apr 30<span>th</span>, 2013</time>
+<time datetime="2013-08-12T16:30:00+09:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/howto/'>howto</a>
+    <a class='category' href='/blog/categories/tips/'>tips</a>
   
 </span>
 
@@ -209,7 +166,7 @@ sudo apt-get install nginx とすると, 0.7.xぐらいの古いバージョン(
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/" data-via="nomnel" data-counturl="http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/centos-version-and-architecture/" data-via="nomnel" data-counturl="http://nomnel.net/blog/centos-version-and-architecture/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -222,10 +179,8 @@ sudo apt-get install nginx とすると, 0.7.xぐらいの古いバージョン(
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/fjord-day39/" title="Previous Post: インターン39日目">&laquo; インターン39日目</a>
+        <a class="basic-alignment left" href="/blog/create-vagrant-base-box/" title="Previous Post: Vagrantで作ったVMからbase boxを作る">&laquo; Vagrantで作ったVMからbase boxを作る</a>
       
-      
-        <a class="basic-alignment right" href="/blog/fjord-day41/" title="Next Post: インターン41日目">インターン41日目 &raquo;</a>
       
     </p>
   </footer>
@@ -311,8 +266,8 @@ sudo apt-get install nginx とすると, 0.7.xぐらいの古いバージョン(
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/';
-        var disqus_url = 'http://nomnel.net/blog/install-nginx-in-debian-using-apt-get/';
+        var disqus_identifier = 'http://nomnel.net/blog/centos-version-and-architecture/';
+        var disqus_url = 'http://nomnel.net/blog/centos-version-and-architecture/';
         var disqus_script = 'embed.js';
       
     (function () {

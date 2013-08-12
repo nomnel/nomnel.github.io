@@ -9,7 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日は15:30~しか参加出来なかったのでGetting Started with Railsを写経しただけで終わった. この内容で特に迷うところは無い, という程度まではRails感が養われてきたかも. この土日はGetting Started with Rails内のリンク( &hellip;">
+  <meta name="description" content="今日やっていたのは下の3つ. 以前の作業(ランキングの集計数変更)のとき, メソッド名の変更忘れしてたところを修正(プルリク済)
+iPhoneアプリのナビゲーションアイコンの位置調整(完了, 未プルリク)
+iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする(作業中 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +79,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day17/">インターン17日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-25T00:00:00+09:00" pubdate data-updated="true">Mar 25<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日やっていたのは下の3つ.</p>
+
+<ol>
+<li>以前の作業(ランキングの集計数変更)のとき, メソッド名の変更忘れしてたところを修正(プルリク済)</li>
+<li>iPhoneアプリのナビゲーションアイコンの位置調整(完了, 未プルリク)</li>
+<li>iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする(作業中)</li>
+</ol>
+
+
+<p>1はソースを眺めてるときに気づいて修正. 普段使われないメソッドの中だったので影響無くてよかった….</p>
+
+<p>2はCSSで微調整して完了.</p>
+
+<p>3はタップされたらdisableな見た目になってloading…的なgifがどこかに表示されてたら十分かな, と思って進めている. まずは”タップされたらdisableな見た目”な方から.</p>
+
+<p>擬似クラスにはタップされた”後”というのは無いみたい(:activeはタップされたとき)なので擬似クラスは諦める</p>
+
+<p>-> じゃあ直接属性付けようか</p>
+
+<p>-> aタグにはdisabled付けれない</p>
+
+<p>-> buttonに変えてみる</p>
+
+<p>-> 出来た!!</p>
+
+<p>問題は,</p>
+
+<ol>
+<li>キャッシュ効いた場合(?)にボタンがdisabledのままだった(@MacのSafari)</li>
+<li>というかaからbuttonに変えていいのか？</li>
+<li>変えて良いとしてデザイン調整がまた必要になる</li>
+</ol>
+
+
+<p>ということ. 特に2は確認しておかないと.</p>
+
+<p>後これは元々の問題だけど, 戻れない(進めない)ときにタップ出来ないようにしておく, というタスクも追加しておかないと.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -488,64 +562,6 @@ $ git push origin feature
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rails-runner-keyword-arg/">Railsのrunnerにキーワード引数を渡す</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-13T00:00:00+09:00" pubdate data-updated="true">Mar 13<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>こうする. (Ruby: 2.0.0-p0, Rails: 3.2.12)</p>
-
-<pre><code>$ rails runner "Foo::Bar.buz(fuga: 3)"
-</code></pre>
-
-<p>ちなみに</p>
-
-<pre><code>$ rails runner Foo::Bar.buz(fuga: 3)
-</code></pre>
-
-<p>みたいにダブルクォート付けないと <code>zsh: unknown sort specifier</code> みたいに怒られる.</p>
-
-<pre><code>$ rails runner Foo::Bar.buz
-</code></pre>
-
-<p>だと問題ないけど.</p>
-
-<p>コードはこんな感じを想定.</p>
-
-<pre><code>module Foo
-  class Bar
-    class
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -561,6 +577,10 @@ $ git push origin feature
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/centos-version-and-architecture/">CentOSでのバージョンとアーキテクチャの確認</a>
+      </li>
     
       <li class="post">
         <a href="/blog/create-vagrant-base-box/">Vagrantで作ったVMからbase boxを作る</a>
@@ -596,10 +616,6 @@ $ git push origin feature
     
       <li class="post">
         <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails-db-command/">RailsでSQLiteを操作する</a>
       </li>
     
   </ul>

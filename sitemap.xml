@@ -441,15 +441,19 @@
         <lastmod>2013-08-10T13:59:06+09:00</lastmod>
     </url>
     <url>
+        <loc>http://nomnel.net/blog/centos-version-and-architecture/</loc>
+        <lastmod>2013-08-12T16:30:04+09:00</lastmod>
+    </url>
+    <url>
         <loc>http://nomnel.net/robots.txt</loc>
         <lastmod>2013-05-04T16:41:24+09:00</lastmod>
     </url>
     <url>
         <loc>http://nomnel.net/</loc>
-        <lastmod>2013-08-10T13:59:06+09:00</lastmod>
+        <lastmod>2013-08-12T16:30:04+09:00</lastmod>
     </url>
     <url>
         <loc>http://nomnel.net/blog/archives/</loc>
-        <lastmod>2013-08-10T13:59:06+09:00</lastmod>
+        <lastmod>2013-08-12T16:30:04+09:00</lastmod>
     </url>
 </urlset>

@@ -9,7 +9,15 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="DLしてきたbase boxからちょっとだけいじったものを自分用のbase boxとして持っておきたいとき.">
+  <meta name="description" content="バージョン 1
+2
+cat /etc/redhat-release
+# -&gt; CentOS release 6.4 (Final) アーキテクチャ 1
+2
+3
+arch
+# (64bit)-&gt; x86_64
+# (32bit)-&gt; i686 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +85,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/centos-version-and-architecture/">CentOSでのバージョンとアーキテクチャの確認</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-12T16:30:00+09:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>バージョン</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>cat /etc/redhat-release
+</span><span class='line'><span class="c"># -&gt; CentOS release 6.4 (Final)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アーキテクチャ</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>arch
+</span><span class='line'><span class="c"># (64bit)-&gt; x86_64</span>
+</span><span class='line'><span class="c"># (32bit)-&gt; i686</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -570,70 +632,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rails-db-command/">RailsでSQLiteを操作する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-13T20:00:00+09:00" pubdate data-updated="true">Jul 13<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>MySQLだと<code>mysql -u root -p DATABASE_NAME</code>とかすれば直接操作出来るんだけどSQLiteだとどうすんのかなー, って思ってたら</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>rails db
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>でいいっぽい. もちろんMySQLをDBに指定していたら上のコマンドでMySQLが起動される.</p>
-
-<p>ちなみに</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>終了
-</span><span class='line'>.exit or .quit
-</span><span class='line'>
-</span><span class='line'>テーブル一覧
-</span><span class='line'>.tables
-</span><span class='line'>
-</span><span class='line'>その他コマンド
-</span><span class='line'>.help
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -647,6 +645,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/centos-version-and-architecture/">CentOSでのバージョンとアーキテクチャの確認</a>
+      </li>
     
       <li class="post">
         <a href="/blog/create-vagrant-base-box/">Vagrantで作ったVMからbase boxを作る</a>
@@ -682,10 +684,6 @@
     
       <li class="post">
         <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails-db-command/">RailsでSQLiteを操作する</a>
       </li>
     
   </ul>

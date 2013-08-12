@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tips | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/tips/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-08-10T13:59:12+09:00</updated>
+  <updated>2013-08-12T16:30:14+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CentOSでのバージョンとアーキテクチャの確認]]></title>
+    <link href="http://nomnel.net/blog/centos-version-and-architecture/"/>
+    <updated>2013-08-12T16:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/centos-version-and-architecture</id>
+    <content type="html"><![CDATA[<p>バージョン</p>
+
+<p>```sh
+cat /etc/redhat-release</p>
+
+<h1>-> CentOS release 6.4 (Final)</h1>
+
+<p>```</p>
+
+<p>アーキテクチャ</p>
+
+<p>```sh
+arch</p>
+
+<h1>(64bit)-> x86_64</h1>
+
+<h1>(32bit)-> i686</h1>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[jQuery.each内でbreakやcontinueする]]></title>
@@ -102,49 +129,6 @@ BookCover.all.each do |cover|
 ```</p>
 
 <p>のようにすれば特定のクラスのデータだけ再生成できる.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rails4でObserverを使う]]></title>
-    <link href="http://nomnel.net/blog/rails4-observer/"/>
-    <updated>2013-07-14T16:45:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails4-observer</id>
-    <content type="html"><![CDATA[<p>Rails4ではobserversが削除されているので, 使用したい場合は<code>rails-observer</code>gemをインストールする.</p>
-
-<p><code>ruby
-gem 'rails-observers'
-</code></p>
-
-<p>callbackで</p>
-
-<p>```ruby
-class Hoge &lt; ActiveRecord::Base
-  before_save do</p>
-
-<pre><code># 何か処理
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>や</p>
-
-<p>```ruby
-class Hoge &lt; ActiveRecord::Base
-  before_save :some_action</p>
-
-<p>  def some_action</p>
-
-<pre><code># 何か処理
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>のようにしてもよい.</p>
 ]]></content>
   </entry>
   
