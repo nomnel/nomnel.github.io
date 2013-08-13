@@ -9,8 +9,10 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="sourceブランチで次のコマンドを入力する(zshの場合, \でエスケープが必要). 1
-$ rake new_post\[&#39;post title&#39;\] ">
+  <meta name="description" content="今日やったこと 256 INTERNSのプラクティスを地味に並べ替えた
+一部のプラクティス(これとか)の書式を整えた
+capybaraを使ってrequest specを書く (挫折)
+sorceryを使ってユーザー認証を実装する (途中) ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +80,55 @@ $ rake new_post\[&#39;post title&#39;\] ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day32/">インターン32日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-17T19:00:00+09:00" pubdate data-updated="true">Apr 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>今日やったこと</h3>
+
+<ol>
+<li><a href="http://256interns.com/practices">256 INTERNSのプラクティス</a>を地味に並べ替えた</li>
+<li>一部のプラクティス(<a href="http://256interns.com/practices/28">これ</a>とか)の書式を整えた</li>
+<li><a href="http://256interns.com/practices/47">capybaraを使ってrequest specを書く</a> (挫折)</li>
+<li><a href="http://256interns.com/practices/40">sorceryを使ってユーザー認証を実装する</a> (途中)</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/fjord-day32/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -574,76 +625,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day24/">インターン24日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-04T00:00:00+09:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>今日やったこと</h3>
-
-<ol>
-<li><a href="http://256interns.com/practices/34">ActionControllerを理解する – 256 INTERNS</a></li>
-<li><a href="http://256interns.com/practices/38">Railsのroutesを理解する – 256 INTERNS</a></li>
-<li><a href="http://256interns.com/practices/37">ActiveSupportを理解する – 256 INTERNS</a></li>
-</ol>
-
-
-<p>全て英文ドキュメントなので, 実際のRailsアプリと照らし合わせつつ読み進めた(3はまだ途中). こう書いたらこうなる, 的な例示がメインのため, コードが多くて読みやすかった. 全て覚えたわけではないので, 困ったら参照することにする.</p>
-
-<h3>反省点, 気付いたこと</h3>
-
-<ol>
-<li>読んでいるだけの日を作らない</li>
-<li>Lingrを自分のメモ帳にしない</li>
-<li>リモートリポジトリにpushしたものはrebaseしない</li>
-</ol>
-
-
-<p>ずっと英語を読んでいたので集中力が続かず, 時間を有効に活用できなかった. コード書きなども混ぜてメリハリをつけたほうが良さ気(1). 2は256 INTERNSの気になったところをLingrにメモとして書いていたこと. issuesを使うべき. 3は昨日のことだけれど, プルリクしたものにチェックコメントをもらって修正するときに<code>rebase</code>してリモートに<code>push -f</code>してしまった. rebaseせず, 修正分のコミットを追加すればいいとのこと. そういえばどこかで見たはずなのに焦って飛んでしまっていた. 反省.</p>
-
-<h3>明日やること</h3>
-
-<p>英語のドキュメント読む系は, 夜などの空いている時間に読むことにする(進行が遅すぎるので).</p>
-
-<ol>
-<li><a href="http://256interns.com/practices/28">「プログラミング入門 – Rubyを使って」のテストをrspecで書く – 256 INTERNS</a></li>
-<li><a href="http://256interns.com/practices/46">rspecを使ってRailsアプリのテストを書く – 256 INTERNS</a></li>
-<li><a href="http://256interns.com/practices/40">sorceryを使ってユーザー認証を作る – 256 INTERNS</a></li>
-<li><a href="http://256interns.com/practices/41">sorceryを使ってTwitter認証を作る – 256 INTERNS</a></li>
-</ol>
-
-
-<p>最低2まで, 標準3まで…かな. どれぐらい時間かかったかもチェックしていきたい.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -659,6 +640,10 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/centos-version-and-architecture/">CentOSでのバージョンとアーキテクチャの確認</a>
@@ -694,10 +679,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     
       <li class="post">
         <a href="/blog/rails-many-to-many-relationship/">Railsで多対多の関係を表現する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
       </li>
     
   </ul>

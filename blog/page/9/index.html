@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="こうする. (Ruby: 2.0.0-p0, Rails: 3.2.12) $ rails runner "Foo::Bar.buz(fuga: 3)" ちなみに $ rails runner Foo::Bar.buz(fuga: 3) みたいにダブルクォート付けないと zsh: unknown &hellip;">
+  <meta name="description" content="今日で個別のランキングページで11位以下の怖い話を表示する作業が完了した. プライベートリポジトリへのプルリクをどうすればいいか分からなくてちょっと時間がかかったけど(調べた結果), 無事マージされて一安心. 次はiPhone(Safari限定?)でアクセスした場合に, 上部にApp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day11/">インターン11日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-14T00:00:00+09:00" pubdate data-updated="true">Mar 14<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日で個別のランキングページで11位以下の怖い話を表示する作業が完了した. プライベートリポジトリへのプルリクをどうすればいいか分からなくてちょっと時間がかかったけど(<a href="http://nomnel.net/blog/pull-req-to-github-private-repo/">調べた結果</a>), 無事マージされて一安心.</p>
+
+<p>次はiPhone(Safari限定?)でアクセスした場合に, 上部にApp Storeへのリンクを表示するやつを追加する作業をすることに.</p>
+
+<p>アレ, Smart App Bannerって言うらしい(名前分からなくて画像検索で探した). 実装自体は簡単で</p>
+
+<p>をhtmlに追加するだけらしいので, Railsでどのファイルが対応しているか調べるだけで良さ気. 明日朝には完了させよう.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -705,71 +747,6 @@ PermitRootLogin no
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/debian-enable-japanese/">Debianのコンソールで日本語を表示</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://nomnel.net/blog/debian-enable-sudo/">Debianでsudoを使えるように</a>の続き.</p>
-
-<p>例えば <code>man ls</code> とするとlsコマンドのマニュアルが表示されるが, 説明が文字化けしている(多分, インストール時に日本語を選択したので). jfbtermを使えば文字化けしないとのことなのでjfbtermをインストールする(<a href="https://github.com/fjordllc/tutorial/wiki/Jfbterm/73d3becd458ebe4ca79ab234cb187319d51132cf">参考</a>).</p>
-
-<pre><code>$ sudo apt-get install xfonts-base
-
-(この3行は $ sudo echo vga16fb &gt;&gt; /etc/modules がPermission diniedされたため )
-$ su
-# echo vga16fb &gt;&gt; /etc/modules  # 起動時にvga16fbを読み込むように
-# exit
-
-$ sudo reboot
-$ sudo apt-get install jfbterm
-$ jfbterm
-</code></pre>
-
-<p>これで日本語も文字化けせず表示できるようになる. しかし, ログインの度に<code>jfbterm</code>と入力し, 切り替わるのを待つのはちょっと面倒. 別に英語表記でもいいやと思ったので, <a href="http://www.fulldigit.net/content/view/23/20/">[Debianセットアップ]ロケールの設定変更</a>を参考にデフォルトロケールを未設定(英語)にして, コンソールで日本語を使わないようにしておく.</p>
-
-<pre><code>$ sudo dpkg-reconfigure locales
-</code></pre>
-
-<p>1ページ目は特に変更する必要は無いので, 左下のを選択する.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/dpkg-reconfigure-locales1.jpeg" alt="dpkg-reconfigure-locales1" /></p>
-
-<p>2ページ目ではNone(中央一番上)を選択する.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/dpkg-reconfigure-locales2.jpeg" alt="dpkg-reconfigure-locales2" /></p>
-
-<p>これで再起動すると設定が適用されて, <code>man ls</code>もすべて英語で表示される.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -785,6 +762,10 @@ $ jfbterm
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/centos-version-and-architecture/">CentOSでのバージョンとアーキテクチャの確認</a>
@@ -820,10 +801,6 @@ $ jfbterm
     
       <li class="post">
         <a href="/blog/rails-many-to-many-relationship/">Railsで多対多の関係を表現する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
       </li>
     
   </ul>

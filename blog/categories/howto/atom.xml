@@ -4,7 +4,7 @@
   <title><![CDATA[Category: howto | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/howto/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-08-12T16:30:14+09:00</updated>
+  <updated>2013-08-14T02:48:27+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,50 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GaucheのHEADをインストールする]]></title>
+    <link href="http://nomnel.net/blog/gauche-head/"/>
+    <updated>2013-08-14T02:45:00+09:00</updated>
+    <id>http://nomnel.net/blog/gauche-head</id>
+    <content type="html"><![CDATA[<p>math.primeとかdotimesで回数だけ指定出来るようになってたりとかあるので開発版のGaucheを使いたい.<!-- more --></p>
+
+<p>まず, 最新版のGaucheが必要なのでインストール.</p>
+
+<p><code>sh
+brew install gauche
+</code></p>
+
+<p>で開発版をgithubから持ってくる.</p>
+
+<p><code>sh
+git clone git@github.com:shirok/Gauche.git
+</code></p>
+
+<p>インストール方法は<code>HACKING</code>というファイルを参照する. 今回は</p>
+
+<p><code>sh
+./DIST gen
+</code></p>
+
+<p>してから, いつもどおり</p>
+
+<p><code>sh
+./configure
+make
+make install
+</code></p>
+
+<p>すればよかった.</p>
+
+<p>```sh
+gosh -V</p>
+
+<h1>-> Gauche scheme shell, version 0.9.4_pre3 [utf-8,pthreads], x86_64-apple-darwin12.4.0</h1>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Vagrantで作ったVMからbase boxを作る]]></title>
@@ -135,51 +179,6 @@ Charset: UTF-8
 <p>終わったら<code>Test configuration by sending test e-mail</code>にチェックを入れて, <code>Test e-mail recipient</code>に送信先アドレスを入力し, <code>Test configuration</code>をクリックしてテスト送信を行う. <code>Email was successfully sent</code>を表示されたら成功.</p>
 
 <p><code>Save</code>もしくは<code>Apply</code>をクリックして設定を保存しておくのを忘れずに.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rails4でturbolinksを使わない]]></title>
-    <link href="http://nomnel.net/blog/rails4-no-turbolinks/"/>
-    <updated>2013-05-29T15:04:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails4-no-turbolinks</id>
-    <content type="html"><![CDATA[<p><code>rails new</code>するときにturbolinksがbundlerでインストールされるので, 嫌なら<code>--skip-bundle</code>オプションを付けて作成する.</p>
-
-<p><code>sh
-bundle exec rails new APPNAME --skip-bundle
-</code></p>
-
-<p>でまず, <code>Gemfile</code>から</p>
-
-<p><code>ruby
-gem 'turbolinks'
-</code></p>
-
-<p>の行をコメントアウト.</p>
-
-<p>次に<code>app/assets/javascripts/application.js</code>で</p>
-
-<p><code>javascript
-//= require turbolinks
-</code></p>
-
-<p>の行を削除.</p>
-
-<p>最後に<code>app/views/layouts/application.html.erb</code>で</p>
-
-<p><code>erb
-&lt;%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" =&gt; true %&gt;
-&lt;%= javascript_include_tag "application", "data-turbolinks-track" =&gt; true %&gt;
-</code></p>
-
-<p>となっている箇所を</p>
-
-<p><code>erb
-&lt;%= stylesheet_link_tag    "application", media: "all" %&gt;
-&lt;%= javascript_include_tag "application" %&gt;
-</code></p>
-
-<p>に変更.</p>
 ]]></content>
   </entry>
   

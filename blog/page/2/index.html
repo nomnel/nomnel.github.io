@@ -9,10 +9,13 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="MySQLだとmysql -u root -p DATABASE_NAMEとかすれば直接操作出来るんだけどSQLiteだとどうすんのかなー, って思ってたら 1
-rails db でいいっぽい. もちろんMySQLをDBに指定していたら上のコマンドでMySQLが起動される. ちなみに 1
+  <meta name="description" content="Rails4ではobserversが削除されているので, 使用したい場合はrails-observergemをインストールする. 1
+gem &#39;rails-observers&#39; callbackで 1
 2
-3 &hellip;">
+3
+4
+5
+class Hoge &lt; ActiveRecord:: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +83,83 @@ rails db でいいっぽい. もちろんMySQLをDBに指定していたら上�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails4-observer/">Rails4でObserverを使う</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-14T16:45:00+09:00" pubdate data-updated="true">Jul 14<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Rails4ではobserversが削除されているので, 使用したい場合は<code>rails-observer</code>gemをインストールする.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails-observers&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>callbackで</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Hoge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">before_save</span> <span class="k">do</span>
+</span><span class='line'>    <span class="c1"># 何か処理</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>や</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Hoge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">before_save</span> <span class="ss">:some_action</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">some_action</span>
+</span><span class='line'>    <span class="c1"># 何か処理</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>のようにしてもよい.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -479,47 +559,6 @@ rails db でいいっぽい. もちろんMySQLをDBに指定していたら上�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-days-53/">インターン(53) ブロック機能のバグ修正</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-04T17:00:00+09:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>何日目か考えるのが面倒なので単なる連番にする.</p>
-
-<p>前回の作業週から取り組んでいた<a href="http://nomnel.net/blog/fjord-day52/">ブロック機能のバグ修正</a>の話. ブロックしたユーザが非表示にならず, 再度ブロックするとDBのユニーク制約に違反してエラーになるのが原因だった.</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/fjord-days-53/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -535,6 +574,10 @@ rails db でいいっぽい. もちろんMySQLをDBに指定していたら上�
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/centos-version-and-architecture/">CentOSでのバージョンとアーキテクチャの確認</a>
@@ -570,10 +613,6 @@ rails db でいいっぽい. もちろんMySQLをDBに指定していたら上�
     
       <li class="post">
         <a href="/blog/rails-many-to-many-relationship/">Railsで多対多の関係を表現する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails4-observer/">Rails4でObserverを使う</a>
       </li>
     
   </ul>

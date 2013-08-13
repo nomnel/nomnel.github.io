@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-08-12T16:30:14+09:00</updated>
+  <updated>2013-08-14T02:48:27+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GaucheのHEADをインストールする]]></title>
+    <link href="http://nomnel.net/blog/gauche-head/"/>
+    <updated>2013-08-14T02:45:00+09:00</updated>
+    <id>http://nomnel.net/blog/gauche-head</id>
+    <content type="html"><![CDATA[<p>math.primeとかdotimesで回数だけ指定出来るようになってたりとかあるので開発版のGaucheを使いたい.<!-- more --></p>
+
+<p>まず, 最新版のGaucheが必要なのでインストール.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>brew install gauche
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で開発版をgithubから持ってくる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git clone git@github.com:shirok/Gauche.git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インストール方法は<code>HACKING</code>というファイルを参照する. 今回は</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>./DIST gen
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>してから, いつもどおり</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>./configure
+</span><span class='line'>make
+</span><span class='line'>make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すればよかった.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>gosh -V
+</span><span class='line'><span class="c"># -&gt; Gauche scheme shell, version 0.9.4_pre3 [utf-8,pthreads], x86_64-apple-darwin12.4.0</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CentOSでのバージョンとアーキテクチャの確認]]></title>
@@ -847,48 +897,6 @@
 
 
 <p>便利.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン(53) ブロック機能のバグ修正]]></title>
-    <link href="http://nomnel.net/blog/fjord-days-53/"/>
-    <updated>2013-06-04T17:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-days-53</id>
-    <content type="html"><![CDATA[<p>何日目か考えるのが面倒なので単なる連番にする.</p>
-
-<p>前回の作業週から取り組んでいた<a href="http://nomnel.net/blog/fjord-day52/">ブロック機能のバグ修正</a>の話. ブロックしたユーザが非表示にならず, 再度ブロックするとDBのユニーク制約に違反してエラーになるのが原因だった.<!-- more --></p>
-
-<p>なのでブロック済みユーザのコメントは取得しないようにしようと試みる. 怖話では, 怖い話(Story), 怖い画像(Wallpaper), 怖い漫画(Comic)のそれぞれにコメントを付けることが出来(acts_as_commentable), ブロックは投稿したユーザからコメントしたユーザへの一方向になっている. また, 管理者以外のユーザがブロック済みユーザのコメントを見ることは無いはずなのでCommentクラスのdefault_scopeに</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">default_scope</span> <span class="o">-&gt;</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join stories    on comments.commentable_type = &quot;Story&quot;     and comments.commentable_id = stories.id &#39;</span><span class="p">)</span><span class="o">.</span>
-</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join wallpapers on comments.commentable_type = &quot;Wallpaper&quot; and comments.commentable_id = wallpapers.id &#39;</span><span class="p">)</span><span class="o">.</span>
-</span><span class='line'>  <span class="n">joins</span><span class="p">(</span><span class="s1">&#39;left join comics     on comments.commentable_type = &quot;Comic&quot;     and comments.commentable_id = comics.id &#39;</span><span class="p">)</span><span class="o">.</span>
-</span><span class='line'>  <span class="n">where</span><span class="p">(</span><span class="s1">&#39;comments.user_id not in (select blocks.destination_id from blocks where blocks.source_id =</span>
-</span><span class='line'><span class="s1">    (case when comments.commentable_type = &quot;Story&quot;     then stories.user_id</span>
-</span><span class='line'><span class="s1">          when comments.commentable_type = &quot;Wallpaper&quot; then wallpapers.user_id</span>
-</span><span class='line'><span class="s1">          else                                              comics.user_id end))&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>と書いた.</p>
-
-<p>これで&#8221;ブロック済みユーザのコメントは取得しない&#8221;という目的は達成されるのだが, 今度は<code>includes(:commentable)</code>とすると<code>ActiveRecord::EagerLoadPolymorphicError - Can not eagerly load the polymorphic association :commentable</code>となってしまう.</p>
-
-<p>回避する方法は分からなかったのだが, 現状<code>includes(:commentable)</code>が必要になる箇所はトップページ(/), コメント一覧ページ(/comments), 怖い漫画のトップページ(/comics)であり, 特にトップページは表示回数が多いはずなのでRailsやその他のキャッシュで対処出来ないかな…という淡い期待でそのままにした.</p>
-
-<p>何か他にいい方法無いかな…</p>
 ]]></content>
   </entry>
   
