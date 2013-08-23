@@ -9,10 +9,20 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日やったこと 256 INTERNSのプラクティスを地味に並べ替えた
-一部のプラクティス(これとか)の書式を整えた
-capybaraを使ってrequest specを書く (挫折)
-sorceryを使ってユーザー認証を実装する (途中) ">
+  <meta name="description" content="こんな感じに失敗するとき, 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+$ rake generate
+## Generating Site with Jekyll
+identical source/stylesheets/screen.css
+Configuration from /Users/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +90,72 @@ sorceryを使ってユーザー認証を実装する (途中) ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/octopress-cant-generate-including-multibyte-url/">Octopressでrake generateに失敗する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-18T02:00:00+09:00" pubdate data-updated="true">Apr 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>こんな感じに失敗するとき,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake generate
+</span><span class='line'><span class="c">## Generating Site with Jekyll</span>
+</span><span class='line'>identical <span class="nb">source</span>/stylesheets/screen.css
+</span><span class='line'>Configuration from /Users/nomnel/nomnel.github.io/_config.yml
+</span><span class='line'>Building site: <span class="nb">source</span> -&gt; public
+</span><span class='line'>Liquid Exception: invalid byte sequence in UTF-8 in atom.xml
+</span><span class='line'>
+</span><span class='line'><span class="o">{</span>スタックトレースがずらずら<span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>Build Failed
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/octopress-cant-generate-including-multibyte-url/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -566,65 +642,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day26/">インターン26日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-09T00:00:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>もう日付も変わってしまったけれど, 今日(4月9日月曜日)の日記. そういえば先週の金曜は体調不良で早退したので日記書いてなかった. 体調, 回復する気配無い.</p>
-
-<h3>今日</h3>
-
-<p>さて今日は”怖い話に表紙を付けれるようにする”. うん, まだなんだ…. と言っても機能の実装自体は終わっているのだけれど. じゃあ何をやっていたかというと</p>
-
-<ol>
-<li>JavaScriptをこねこね</li>
-<li>ボタンやらの大きさや配置やらをCSSでなんとかかんとか</li>
-<li>Hamlをなんやかんや</li>
-</ol>
-
-
-<p>1.はよく似た3つの処理を1つにまとめたもの(a)と, aに似てるけど似ていない, でもやっぱり似てる処理(b)をなんとか共通化してまとめれないか, という試み. 分岐をたっぷりこさえるか, 関数を渡しまくるかしなければならず(僕の想像の範囲では), 挫折. 2.はそのまま. 挫折. 3.は</p>
-
-<p>みたいに書きたい場所がいくつかあったときに, helperでくくりだしたいんだけど,</p>
-
-<p>のように<code>image_tag nil</code>を使うと<code>src='/assets/'</code>になって, 毎回, 無駄な通信して404のログをコンソールに残すはめになってしまうので断念. (helperは.rbなので%img使えないし)</p>
-
-<p>そんなことで時間ばかりが過ぎてしまって, ほとんど何も進まず. デザインを一旦断念してコミットすることにしたときは22時近く. 申し訳なさしかない….</p>
-
-<h3>明日</h3>
-
-<p>表紙の方は保留として, 別のことをする. 気付いたらFulcrumにタスクが2つほど増えていたので進めていかないと. バグ扱いのものが割り当てられていたので, そこから始めることにしよう.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -640,6 +657,10 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/learn-you-a-haskell-for-great-good/">すごいH本を読んだ</a>
+      </li>
     
       <li class="post">
         <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
@@ -675,10 +696,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     
       <li class="post">
         <a href="/blog/paperclip-refresh-missing-styles/">Paperclipのsytlesやconvert_optionsの変更を既存のデータにも適用する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails-many-to-many-relationship/">Railsで多対多の関係を表現する</a>
       </li>
     
   </ul>

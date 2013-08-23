@@ -9,8 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日も昨日からの続きで, ”iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする”作業. 一言で言うと, 詰まってる. やりたいこと タップした反応としてアイコンを赤くする
-これ以上戻れない(進めない)ときはアイコンをdisableな見た目にする. ので, &hellip;">
+  <meta name="description" content="37signals謹製のPowというRackサーバを使うと, シンボリックリンクを貼るだけでバーチャルホストで切って開発できる. 環境 pow: 0.4.0
+Rails: 3.2.12
+rbenv: 0.4.0 インストール ターミナルで以下を実行するだけ. $ curl get.pow.cx &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +79,101 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/pow-install/">PowでRailsアプリにバーチャルホストなアクセス</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-26T00:00:00+09:00" pubdate data-updated="true">Mar 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>37signals謹製の<a href="http://pow.cx/">Pow</a>というRackサーバを使うと, シンボリックリンクを貼るだけでバーチャルホストで切って開発できる.</p>
+
+<h2>環境</h2>
+
+<pre><code>pow: 0.4.0
+Rails: 3.2.12
+rbenv: 0.4.0
+</code></pre>
+
+<h2>インストール</h2>
+
+<p>ターミナルで以下を実行するだけ.</p>
+
+<pre><code>$ curl get.pow.cx | sh
+</code></pre>
+
+<p>ちなみにアンインストールは</p>
+
+<pre><code>$ curl get.pow.cx/uninstall.sh | sh
+</code></pre>
+
+<h2>起動</h2>
+
+<p>インストール出来たら, <code>~/.pow/</code>にプロジェクトのシンボリックリンクを作る.</p>
+
+<pre><code>$ cd ~/.pow/
+$ ln -s /PATH/TO/project project
+</code></pre>
+
+<p>これで<a href="">http://project.dev/</a>にアクセスすると自動でアプリケーションが起動して表示される.</p>
+
+<h2>rbenvを使っている場合</h2>
+
+<p>こんなエラーが出たら</p>
+
+<pre><code>Error starting application
+Your Rack app raised an exception when Pow tried to run it.
+
+LoadError: no such file to load -- bundler/setup
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `require'
+</code></pre>
+
+<p>システムのRubyを見てしまっているようなので, <code>~/.powconfig</code>を作成して以下を記述する</p>
+
+<pre><code>export PATH="/Users/[username]/.rbenv/shims:/Users/[username]/.rbenv/bin:$PATH"
+</code></pre>
+
+<p>で, 反映のさせ方が分からない(<code>source ~/.powconfig</code>ではない)ので仕方なくMacを再起動. 今度はエラーなく表示された.</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://pow.cx/">公式サイト</a></li>
+<li><a href="http://pow.cx/manual.html">マニュアル</a></li>
+<li><a href="https://github.com/37signals/pow/wiki/Troubleshooting">トラブルシューティング</a></li>
+<li><a href="https://github.com/37signals/pow/wiki/Installation">ソースからインストールする場合</a></li>
+<li><a href="http://d.hatena.ne.jp/passingloop/20110926/reviewing_pow_installation">Pow をインストールするとシステムに何をされるのか確認する – passingloopの日記</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -552,53 +648,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/pull-req-to-github-private-repo/">GitHubのプライベートリポジトリにプルリクするまで</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-14T00:00:00+09:00" pubdate data-updated="true">Mar 14<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>初めてしたことで忘れそうなので.</p>
-
-<pre><code>$ git clone git@github.com:user/repo.git
-
-$ git checkout -b feature
-
-## なんやかんや作業
-
-$ git push origin feature
-</code></pre>
-
-<p>の後, ブラウザでプルリクすればよい.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -614,6 +663,10 @@ $ git push origin feature
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/learn-you-a-haskell-for-great-good/">すごいH本を読んだ</a>
+      </li>
     
       <li class="post">
         <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
@@ -649,10 +702,6 @@ $ git push origin feature
     
       <li class="post">
         <a href="/blog/paperclip-refresh-missing-styles/">Paperclipのsytlesやconvert_optionsの変更を既存のデータにも適用する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails-many-to-many-relationship/">Railsで多対多の関係を表現する</a>
       </li>
     
   </ul>

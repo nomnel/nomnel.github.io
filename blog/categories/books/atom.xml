@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: books | 飲んだり寝たり]]></title>
+  <link href="http://nomnel.net/blog/categories/books/atom.xml" rel="self"/>
+  <link href="http://nomnel.net/"/>
+  <updated>2013-08-23T14:16:13+09:00</updated>
+  <id>http://nomnel.net/</id>
+  <author>
+    <name><![CDATA[nomnel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[すごいH本を読んだ]]></title>
+    <link href="http://nomnel.net/blog/learn-you-a-haskell-for-great-good/"/>
+    <updated>2013-08-23T14:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/learn-you-a-haskell-for-great-good</id>
+    <content type="html"><![CDATA[<p>すごいHaskellたのしく学ぼう!を読んだ.</p>
+
+<iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=nomnel11-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4274068854" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
+
+<p>他にやるべきことがあるのに逃避的に取り組むと普段より集中できて便利. と言っても本当に読んだだけ(写経とかしてない)なのに2日かかった.</p>
+
+<p>散々言われていると思うけど, とても分かりやすく書かれていると感じた. 毎度きちんと説明してくれるので, ビクビクしていたように(圏論の)前提知識は必要ではない. Haskellによる実装(型も)を載せてくれているのが何よりもありがたいかもしれない.</p>
+
+<p>モナドやファンクターなど, Haskellerな人たちが発する暗号についてゆるふわでも理解できるようになりたいと思ってこの本を読んだけどその目的は達成されたと思う. あと, 抽象をきれいに組み合わせている感じがとても良くてHaskellやりたさが高まった.</p>
+
+<p>ゆるふわなので定義をメモして置かなかったのは後悔している. 次に逃避するときにもう一度読みなおしてきちんと理解したい. あと圏論したい.</p>
+]]></content>
+  </entry>
+  
+</feed>
