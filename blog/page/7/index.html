@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="もう日付も変わってしまったけれど, 今日(4月9日月曜日)の日記. そういえば先週の金曜は体調不良で早退したので日記書いてなかった. 体調, 回復する気配無い. 今日 さて今日は”怖い話に表紙を付けれるようにする”. うん, まだなんだ…. と言っても機能の実装自体は終わっているのだけれど. &hellip;">
+  <meta name="description" content="今日は町田さんに”怖い話に表紙を付けれるようにする”のデザイン入れをお願いして, ”怖話のメンバ登録時にエラー”が出ていたものの原因究明とその対策をした. エラーはこんな感じ registrations#create (ActiveRecord::RecordNotUnique) "Mysql2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day27/">インターン27日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-09T00:00:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日は町田さんに”怖い話に表紙を付けれるようにする”のデザイン入れをお願いして, ”怖話のメンバ登録時にエラー”が出ていたものの原因究明とその対策をした. エラーはこんな感じ</p>
+
+<pre><code>registrations#create (ActiveRecord::RecordNotUnique) "Mysql2::Error: Duplicate entry 'hoge@fuga.com...
+
+An ActiveRecord::RecordNotUnique occurred in registrations#create:
+</code></pre>
+
+<p>原因と対策は<a href="http://nomnel.net/blog/rails-record-not-unique-and-disable-with-option/">ActiveRecord::RecordNotUnique例外の発生をdisable_withで防ぐ</a>に書いた通り.</p>
+
+<p>全てのsubmitで<code>disabel_with</code>オプションを使用するように修正してプルリクした.</p>
+
+<p>明日は今やっている作業を終わらして, SNSとの連携解除機能に取り組むつもり.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -658,60 +705,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day19/">インターン19日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-27T00:00:00+09:00" pubdate data-updated="true">Mar 27<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>さて, ”iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする”タスクは, タップしたらアイコンを赤くするだけで良い, ということになった. 助かった…. history APIはまだ対応していないとのこと. ふむふむ</p>
-
-<p>昼からは”話に表紙画像を設定できるようにする”タスクをやろうと思って, 該当部分のコードを眺めて弄っていた. 今度は表紙画像が背景より前面に来ないところで困っている. いつになったら僕のHTML&amp;CSS力は上がるのか.</p>
-
-<p>作業の計画は, まだ何も相談していないのでアレだけど</p>
-
-<ol>
-<li>全ての話にデフォルトの表紙が付くようにする(デフォルトで無しもありえる)</li>
-<li>怖い話を投稿する際に表紙画像を選択できるようにする</li>
-</ol>
-
-
-<p>という感じだと思っている. 上の手順でいいとすると, さらに相談する必要があるのは</p>
-
-<ol>
-<li>どの画像をデフォルトにするか, もしくはデフォルトでは無しにするか</li>
-<li>表紙はどうやって指定するか</li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -727,6 +720,10 @@ end
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/a-technique-for-producing-ideas/">「アイデアのつくり方」を読んだ</a>
+      </li>
     
       <li class="post">
         <a href="/blog/learn-you-a-haskell-for-great-good/">すごいH本を読んだ</a>
@@ -762,10 +759,6 @@ end
     
       <li class="post">
         <a href="/blog/ruby-multi-values-to-each-block/">Rubyでeachのブロックに複数の値を渡す</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/paperclip-refresh-missing-styles/">Paperclipのsytlesやconvert_optionsの変更を既存のデータにも適用する</a>
       </li>
     
   </ul>

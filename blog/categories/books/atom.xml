@@ -4,7 +4,7 @@
   <title><![CDATA[Category: books | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/books/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-08-23T14:33:40+09:00</updated>
+  <updated>2013-08-23T16:47:44+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,54 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[「アイデアのつくり方」を読んだ]]></title>
+    <link href="http://nomnel.net/blog/a-technique-for-producing-ideas/"/>
+    <updated>2013-08-23T17:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/a-technique-for-producing-ideas</id>
+    <content type="html"><![CDATA[<p>アイデアのつくり方を読んだ.</p>
+
+<iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=nomnel11-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4484881047" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
+
+<!-- more -->
+
+
+<p>52ページの本文(本全体は102ページ)にエッセンスが詰められている.</p>
+
+<p>それによると, アイデアの原理とは</p>
+
+<ol>
+<li>アイデアとは既存の要素の新しい組み合わせ以外のなにものでもない</li>
+<li>新しい組み合わせを作りだす才能は事物の関連性をみつけだす才能によって高められる</li>
+</ol>
+
+
+<p>であり, アイデアをつくりだす方法は</p>
+
+<ol>
+<li>資料を収集する</li>
+<li>資料を咀嚼する</li>
+<li>問題を放棄する</li>
+<li>アイデアが訪れる</li>
+<li>アイデアを現実に具体化する</li>
+</ol>
+
+
+<p>の5つのステップを辿ることである, という.</p>
+
+<p>当たり前のことだと感じるだろうが, 本質だけを抜き出すと当たり前のように簡単なことになってしまう, というのはよくあることだと思う. しかし, 「説明は簡単至極だが実際にコレを実行するとなると最も困難な種類の知能労働が必要なので, この公式を手に入れたといっても, 誰もがこれを使いこなすというわけにはいかないということである. 」と筆者も言うように実践出来る人は少ないだろう.</p>
+
+<p>個人的には, アイデアをつくりだすことが天才に限られた能力ではなく, 上達が可能な技術であるということに希望を感じた.</p>
+
+<p>というのも, <a href="http://nomnel.net/blog/develop-web-service/">自分でWebサービスを作ろうとしたとき</a>, ソーシャル要素のあるサービスが全く思いつかなかったのだけれど, <a href="http://internkyuden.tumblr.com/post/58597061613/web">別のFjordインターン生が作っているサービス</a>ではすごくいい感じのソーシャル性があって, すごいと言いたい反面, 自分が残念に思えてやる気を無くしていたからだ.</p>
+
+<p>しかしアイデアをつくりだす第一歩に「資料を収集する」とあるように, ひきこもり無職の自分にはそんなサービスを思いつくための資料(経験)がそもそも足りていないわけで, 家から出て新しい趣味を見つけアクティブに活動し友人達と触れ合えってウェーイすれば自分にもアイデアを得られるかもしれない!!やった!!ウェーイｗｗｗ</p>
+
+<p>絶望だった.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[すごいH本を読んだ]]></title>
