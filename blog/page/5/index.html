@@ -9,7 +9,8 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="さて今日は, 怖い話を執筆中にページを離脱した場合, 警告を出す をした. ">
+  <meta name="description" content="(CentOSの場合はこちら) 普通に 1
+sudo apt-get install nginx とすると, 0.7.xぐらいの古いバージョン(最新は1.4.0 @ 2013/4/24)がインストールされる. nginxのサイトをリポジトリに登録し, stableの最新版をapt- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-nginx-in-debian-using-apt-get/">Debianで最新版のnginxをapt-getでインストールする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-30T15:30:00+09:00" pubdate data-updated="true">Apr 30<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>(CentOSの場合は<a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">こちら</a>)</p>
+
+<p>普通に</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install nginx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とすると, 0.7.xぐらいの古いバージョン(最新は1.4.0 @ 2013/4/24)がインストールされる. nginxのサイトをリポジトリに登録し, stableの最新版をapt-getでインストール出来るようにする.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/install-nginx-in-debian-using-apt-get/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -513,56 +564,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/wordpress-to-octopress/">WordpressからOctopressに移行する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-19T01:30:00+09:00" pubdate data-updated="true">Apr 19<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://wired.jp/2013/04/15/huge-attack-on-wordpress-sites-could-spawn-never-before-seen-super-botnet/">この前のWordpressサイトへの大規模攻撃</a>で, 僕のところにもアラートメールがいっぱい飛んできて嫌になってしまったので, Github Pages + Octopress(画像はDropboxのpublicフォルダ)に移行することにした.</p>
-
-<h3>目次</h3>
-
-<ol>
-<li>Octopressのセットアップ</li>
-<li>記事の移行</li>
-<li>カスタムドメインの設定</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/wordpress-to-octopress/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -578,6 +579,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ios-appreviewz/">AppReviewz for iOSというサイトを作りました</a>
+      </li>
     
       <li class="post">
         <a href="/blog/a-technique-for-producing-ideas/">「アイデアのつくり方」を読んだ</a>
@@ -613,10 +618,6 @@
     
       <li class="post">
         <a href="/blog/rails-multi-table-includes/">Railsで複数テーブルに跨ってincludesする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/ruby-multi-values-to-each-block/">Rubyでeachのブロックに複数の値を渡す</a>
       </li>
     
   </ul>
