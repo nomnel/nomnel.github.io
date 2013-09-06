@@ -9,20 +9,10 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="配列で渡す. 1
-2
-3
-4
-5
-6
-7
-8
-[[1, 2], [3, 4]].each{|a, b| puts b}
-# 2
-# 4 # ちなみに
-[[1, 2], [3, 4]].each{|a| puts a[1]}
-# 2
-# 4 ">
+  <meta name="description" content="例えばA has_many BsかつB has_one Cであるとき 1
+A.all.includes(bs: :c) とすればよい. さらにB has_many Dsであれば 1
+A.all.includes(bs: [:c, :ds]) となる.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,6 +80,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-multi-table-includes/">Railsで複数テーブルに跨ってincludesする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-20T23:00:00+09:00" pubdate data-updated="true">Jul 20<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>例えば<code>A has_many Bs</code>かつ<code>B has_one C</code>であるとき</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">A</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">bs</span><span class="p">:</span> <span class="ss">:c</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とすればよい. さらに<code>B has_many Ds</code>であれば</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">A</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">bs</span><span class="p">:</span> <span class="o">[</span><span class="ss">:c</span><span class="p">,</span> <span class="ss">:ds</span><span class="o">]</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>となる.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -581,45 +621,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/jenkins-notification-using-gmail/">Jenkinsでビルド失敗時にGmailで通知する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-14T00:00:00+09:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Manage Jenkins -> Configure Systemを開き, E-mail Notification欄に以下のように記述する.</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/jenkins-notification-using-gmail/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -635,6 +636,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ios-appreviewz/">AppReviewz for iOSというサイトを作りました</a>
@@ -670,10 +675,6 @@
     
       <li class="post">
         <a href="/blog/develop-web-service/">Webサービスを作ってみる</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/rails-multi-table-includes/">Railsで複数テーブルに跨ってincludesする</a>
       </li>
     
   </ul>

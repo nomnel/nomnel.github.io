@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-08-26T19:37:50+09:00</updated>
+  <updated>2013-09-06T18:42:56+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[惚れさせLingrというbotを作った]]></title>
+    <link href="http://nomnel.net/blog/release-horesase-lingr/"/>
+    <updated>2013-09-06T18:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/release-horesase-lingr</id>
+    <content type="html"><![CDATA[<p>関西Ruby会議に行ってやる気満々だったのにネットとPCの無い日々が続いたのでむしゃくしゃして作りました.</p>
+
+<p><img src="http://gyazo.com/151a258e4ec459499fd999852c7f513e.png" alt="" /></p>
+
+<!-- more -->
+
+
+<h3>何これ</h3>
+
+<p>「misawa」と呟くと<a href="http://jigokuno.com/">地獄のミサワの女に惚れさす名言集</a>からランダムに投稿するLingr用のbotです.</p>
+
+<h3>なんで作ったの</h3>
+
+<p><a href="http://regional.rubykaigi.org/kansai05">関西Ruby会議05</a>の<a href="https://twitter.com/takehiro0740">フルタイムの学生さん</a>発表中にLingrとは違うチャットサービスで動いている画像が出てきました. 直接顔を合さずリモートで働いていると空気感がうんちゃらかんちゃらになるので冗談みたいなものが混じってると良い的なことを仰ってて, いいなーLingrにも欲しいなーもうあるかなーかぶってもいいかーと思って作りました.</p>
+
+<h3>どう使うの</h3>
+
+<p>LingrのOwner権限を持っている部屋に<a href="http://lingr.com/bot/horesase">horesase</a>を招待してください. その部屋で「misawa」とのみ投稿すると名言が返ってきます.</p>
+
+<h3>なにで作ったの</h3>
+
+<p>Sinatra + PostgreSQL on Herokuです. Sinatraほぼ初めてでしたがシンプルでいいですね.</p>
+
+<h3>どれぐらいで作ったの</h3>
+
+<p>途中ハマるところがあって4時間ぐらいかかりました.</p>
+
+<h3>コード</h3>
+
+<p><a href="https://github.com/nomnel/horesase-lingr">Github</a>にあります.</p>
+
+<h3>最後に</h3>
+
+<p><a href="https://twitter.com/nomnel">nomnel</a>は就職先を募集しています！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[AppReviewz for iOSというサイトを作りました]]></title>
@@ -925,41 +967,6 @@
 </pre></td><td class='code'><pre><code class='sh'><span class='line'>git branch new-branch origin/new-branch
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Jenkinsでビルド失敗時にGmailで通知する]]></title>
-    <link href="http://nomnel.net/blog/jenkins-notification-using-gmail/"/>
-    <updated>2013-06-14T00:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/jenkins-notification-using-gmail</id>
-    <content type="html"><![CDATA[<p>Manage Jenkins -> Configure Systemを開き, E-mail Notification欄に以下のように記述する.<!-- more --></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>SMTP server: smtp.gmail.com
-</span><span class='line'>Default user e-mail suffix: 空白</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>Advanced...</code>をクリックして, 詳細設定を表示し,<code>use SMTP Authentication</code>にチェックを入れて,</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>User Name: [USERNAME]@gmail.com
-</span><span class='line'>Password: 上のパスワード
-</span><span class='line'>Use SSL: チェックを入れる
-</span><span class='line'>SMTP Port: 465
-</span><span class='line'>Reply-To Address: [USERNAME]@gmail.com
-</span><span class='line'>Charset: UTF-8</span></code></pre></td></tr></table></div></figure>
-
-
-<p>終わったら<code>Test configuration by sending test e-mail</code>にチェックを入れて, <code>Test e-mail recipient</code>に送信先アドレスを入力し, <code>Test configuration</code>をクリックしてテスト送信を行う. <code>Email was successfully sent</code>を表示されたら成功.</p>
-
-<p><code>Save</code>もしくは<code>Apply</code>をクリックして設定を保存しておくのを忘れずに.</p>
 ]]></content>
   </entry>
   
