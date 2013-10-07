@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-09-06T18:42:56+09:00</updated>
+  <updated>2013-10-07T21:30:46+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -668,14 +668,14 @@
     <link href="http://nomnel.net/blog/rails4-observer/"/>
     <updated>2013-07-14T16:45:00+09:00</updated>
     <id>http://nomnel.net/blog/rails4-observer</id>
-    <content type="html"><![CDATA[<p>Rails4ではobserversが削除されているので, 使用したい場合は<code>rails-observer</code>gemをインストールする.</p>
+    <content type="html"><![CDATA[<p>Rails4ではobserversが削除されているので, 使用したい場合は<code>rails-observers</code>gemをインストールする.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails-observers&#39;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>callbackで</p>
+<p>もしくはActiveRecordのcallbackで</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
