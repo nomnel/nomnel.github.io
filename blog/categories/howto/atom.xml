@@ -4,7 +4,7 @@
   <title><![CDATA[Category: howto | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/howto/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-10-07T21:30:46+09:00</updated>
+  <updated>2013-10-21T21:20:24+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,46 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SinatraでHello Worldするまで]]></title>
+    <link href="http://nomnel.net/blog/sinatra-hello-world/"/>
+    <updated>2013-10-21T21:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/sinatra-hello-world</id>
+    <content type="html"><![CDATA[<p>Gemfile作ってbundle installする.</p>
+
+<p>```ruby
+source 'https://rubygems.org'</p>
+
+<p>gem 'sinatra'
+```</p>
+
+<p>本体書く. app.rbに書くとする.</p>
+
+<p>```ruby
+require 'sinatra'</p>
+
+<p>get '/' do
+  'Hello World!'
+end
+```</p>
+
+<p>config.ru書く.</p>
+
+<p><code>ruby
+require './app'
+run Sinatra::Application
+</code></p>
+
+<p>起動する.</p>
+
+<p><code>
+bundle exec rackup
+</code></p>
+
+<p>で, <code>http://localhost:9292</code>にブラウザでアクセス.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GaucheのHEADをインストールする]]></title>
@@ -150,35 +190,6 @@ rails db
 <p>その他コマンド
 .help
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Jenkinsでビルド失敗時にGmailで通知する]]></title>
-    <link href="http://nomnel.net/blog/jenkins-notification-using-gmail/"/>
-    <updated>2013-06-14T00:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/jenkins-notification-using-gmail</id>
-    <content type="html"><![CDATA[<p>Manage Jenkins -> Configure Systemを開き, E-mail Notification欄に以下のように記述する.<!-- more --></p>
-
-<p><code>
-SMTP server: smtp.gmail.com
-Default user e-mail suffix: 空白
-</code></p>
-
-<p><code>Advanced...</code>をクリックして, 詳細設定を表示し,<code>use SMTP Authentication</code>にチェックを入れて,</p>
-
-<p><code>
-User Name: [USERNAME]@gmail.com
-Password: 上のパスワード
-Use SSL: チェックを入れる
-SMTP Port: 465
-Reply-To Address: [USERNAME]@gmail.com
-Charset: UTF-8
-</code></p>
-
-<p>終わったら<code>Test configuration by sending test e-mail</code>にチェックを入れて, <code>Test e-mail recipient</code>に送信先アドレスを入力し, <code>Test configuration</code>をクリックしてテスト送信を行う. <code>Email was successfully sent</code>を表示されたら成功.</p>
-
-<p><code>Save</code>もしくは<code>Apply</code>をクリックして設定を保存しておくのを忘れずに.</p>
 ]]></content>
   </entry>
   

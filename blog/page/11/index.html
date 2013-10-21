@@ -9,9 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="まとめ的に. まず, Package ControlをSublime Text 2にインストールする. 次に以下の3つをPackage Controlを使ってインストールする. Gauche (シンタックスハイライト)
-SublimeREPL (REPL)
-lispindent (インデント) &hellip;">
+  <meta name="description" content="今日からFJORD, LLCのリモートインターンシップに参加させていただくことになった. これは日報のようなもの. 10:00頃, インターン応募フォームから申込み, 13:00頃に「参加していいよー」的なメールをいただいて14:00頃から参加. 結果が早くて助かる… &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +77,88 @@ lispindent (インデント) &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day1/">インターン1日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-28T00:00:00+09:00" pubdate data-updated="true">Feb 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日から<a href="http://fjord.jp/">FJORD, LLC</a>のリモートインターンシップに参加させていただくことになった. これは日報のようなもの.</p>
+
+<p>10:00頃, <a href="http://intern-fantasy.herokuapp.com/">インターン応募フォーム</a>から申込み, 13:00頃に「参加していいよー」的なメールをいただいて14:00頃から参加. 結果が早くて助かる…メールいただくまでめっちゃ緊張してたのは内緒の話.</p>
+
+<p>インターン中のカリキュラムは<a href="https://github.com/fjordllc/tutorial/wiki">こんな感じ</a>みたい. 今日はプログラマー・デザイナー共通チュートリアルの中の</p>
+
+<ol>
+<li>環境を整えること</li>
+<li>HTMLの基本の勉強</li>
+</ol>
+
+
+<p>をしていた. 環境はすでに大体揃っていたので, Lingrにアカウントを作って, Mac, iPhone用アプリをそれぞれインストールしたぐらい.</p>
+
+<p>HTMLの基本は, 参考サイト(<a href="http://www.kanzaki.com/docs/htminfo.html">ごく簡単なHTMLの説明</a>, <a href="http://www.html5.jp/tag/elements/">HTML要素のリファレンス</a>とか)を見た上で, 課題として素のテキストをHTMLで書き直すというもの.</p>
+
+<p>HTML自体は前職の研修でもやっていたがうろ覚えで不安があったので, 参考サイトをざっと読んだ. 眠い. <a href="http://dotinstall.com/lessons/basic_html">ドットインストール HTMLの基礎</a>も見た. 寝た.</p>
+
+<p>仕方ないので, 一度適当に書いた上で分からないところを調べるようにした. 特に分からなかったのはsectionとarticleの違い. <a href="http://webcre8.jp/think/html5-section-outline.html">このページ</a>によると, &#8220;ページ内の独立したコンテンツとしてみなせる部分にはarticleを使いましょう&#8221;とのこと. 後でもう一度読んで理解しておく.</p>
+
+<p>結果, 提出した課題は<a href="https://gist.github.com/nomnel/5054601">コチラ</a>で, レビューをいただいたのは<a href="https://gist.github.com/nomnel/5055277">コチラ</a>.</p>
+
+<p>レビューで直してもらったところは</p>
+
+<ol>
+<li><code>&lt;/li&gt;&lt;li&gt;</code>のようにしない</li>
+<li>テーブルでは行の要素ごとに改行する</li>
+<li><code>&lt;th&gt;</code>使え(これは忘れてた)</li>
+</ol>
+
+
+<p>説明が悪いので分かりにくいけど, 2.は</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;tr&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;th&gt;</span>豚肉(薄切り)<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;td&gt;</span>300g<span class="nt">&lt;/td&gt;</span>
+</span><span class='line'><span class="nt">&lt;/tr&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>的な意味. 参考にさせていただきます.</p>
+
+<p>レビューもらった時点で18:00前位だったので, 次(CSS)に進むのは翌日ということにしてブログにまとめを書いている.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1133,131 +1213,6 @@ sudo service httpd restart
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/vi-minimum-knowledge/">vi(vim)の最低限の使い方</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Unix系のOS(Linux, FreeBSD, Mac OSなど)の設定はテキストファイルで記述されている. よって, 設定ファイルを編集するにはテキストファイルを扱えるエディタなら何を使ってもよい. が, viはUnixならどのシステムにもインストールされているので, 基本的にはviを使う. 特にサーバを扱うなら, 簡単な編集はviでできるようになっておこう.</p>
-
-<p>ここでは設定ファイルを編集するのに必要最低限な知識を説明する.</p>
-
-<h3>目次</h3>
-
-<ol>
-<li>モード</li>
-<li>何か困ったことが起きたら</li>
-<li>カーソル移動と文字の削除</li>
-<li>文字の入力</li>
-<li>検索</li>
-<li>保存と終了</li>
-</ol>
-
-
-<hr />
-
-<h3>モード</h3>
-
-<p>viにはモードという概念があり, モードによって出来ることが違い, キーを押したときの動作も違う. とりあえず, コマンドモードと入力モードの2つを覚えておくとよい.</p>
-
-<ul>
-<li>コマンドモード = カーソル移動, コピー, ペースト, 削除やundo, redoなどの編集操作</li>
-<li>入力モード = 文字の入力</li>
-</ul>
-
-
-<p>コマンドモード -> 入力モードには<code>i</code>, 入力モード -> コマンドモードには<code>esc</code>で, それぞれ切り替えることができる.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/vi-mode.jpeg" alt="コマンドモードと入力モードの切り替え" /></p>
-
-<p>なお, ファイルを開いた状態ではコマンドモードになっている.</p>
-
-<hr />
-
-<h3>何か困ったことが起きたら</h3>
-
-<p><strong>とりあえず</strong><code>esc</code>を押して(連打も可)コマンドモードに戻る. 次に<strong>落ち着いて</strong><code>:q!</code>と入力する. 後でも説明するがこれは<code>保存せずに強制終了</code>するコマンドなので, 何も変更せずにターミナルに戻ることができる. <strong>深呼吸して</strong>落ち着いたら, もう一度viでファイルを開き, <strong>最初からやり直せばよい</strong>.</p>
-
-<hr />
-
-<h3>カーソル移動と文字の削除</h3>
-
-<p>カーソルを移動するには, コマンドモードで<code>h</code>, <code>j</code>, <code>k</code>, <code>l</code>を入力する. それぞれ, <code>左</code>, <code>下</code>, <code>上</code>, <code>右</code>に対応している.</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/3379166/blog-image/vi-hjkl.jpeg" alt="hjklと上下左右の対応" /></p>
-
-<p>また, 文字を削除するにはコマンドモードで<code>x</code>, <code>X</code>を入力する. それぞれ, カーソル位置の文字を削除(delete), カーソルの前の文字を削除(backspace)する.</p>
-
-<p>※ 現在なら, 大抵のviで入力モードでカーソルキーやdelete, backspaceキーを押せば期待通りに動く. しかしviに慣れるほど, コマンドモードに一度戻って移動した方が早くなるだろう.</p>
-
-<hr />
-
-<h3>文字の入力</h3>
-
-<p>コマンドモードで<code>i</code>を入力して入力モードに入る(どうしようもなく不安なら:とりあえず<code>esc</code>して<code>i</code>). その後は普通に入力すればよい. 入力が終わったら<code>esc</code>でコマンドモードに戻っておくのもよいかもしれない.</p>
-
-<hr />
-
-<h3>検索</h3>
-
-<p>コマンドモードで<code>/</code>を入力すると, 左下に<code>/</code>の記号が表示される. この状態で検索したい文字を入力して<code>Enter</code>すると, 最初にヒットした行に移動する. 次のヒットに移動するのは<code>n</code>, 前のヒットには<code>N</code>で戻ることができる.</p>
-
-<p>例えば下の2行目のコメントを外したいときは,</p>
-
-<pre><code>## FooBar is a sample variable.
-#FooBar 12345
-</code></pre>
-
-<p>まずコマンドモードで<code>/</code>を入力し, <code>FooBar</code>と入力して<code>Enter</code>を押す. すると1行目の”F”にカーソルが移動するので, <code>n</code>を入力して2行目の”F”に移動する. <code>h</code>で1文字戻って<code>x</code>でコメントを削除する(もちろん<code>X</code>でもよい).</p>
-
-<hr />
-
-<h3>保存と終了</h3>
-
-<p>まず, 下の例を見てほしい. すべてコマンドモードから行なっている.</p>
-
-<ul>
-<li><code>:wq</code> -> 保存してファイルを閉じる</li>
-<li><code>:wq!</code> -> 強制保存して強制的にファイルを閉じる</li>
-<li><code>:q!</code> -> 強制的にファイルを閉じる</li>
-</ul>
-
-
-<p>実際に使うのは, ほとんど1つ目と3つ目だろう. 最初の<code>:</code>(コロン)は誤って操作しないように必要だ, ぐらいにとりあえずは考えておけばよい. <code>w</code>は保存(write), <code>q</code>は終了(quit)を表している. さらに<code>!</code>がつけば, それらの処理を強制的に(例えば, ファイルの変更を”無視して”終了)行う. もちろん<code>:w!</code>や<code>:q</code>も使うことができる.</p>
-
-<hr />
-
-<p>viはなかなか癖のあるエディタだが, すべての操作をキーボードのみで高速に行えるため, 現在でもよく使われている. 今回説明した以外にも多くのコマンドがあるので, 慣れてきたら調べてみるとよいだろう.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -1273,6 +1228,10 @@ sudo service httpd restart
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>
+      </li>
     
       <li class="post">
         <a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a>
@@ -1308,10 +1267,6 @@ sudo service httpd restart
     
       <li class="post">
         <a href="/blog/break-or-continue-in-jquery-each/">jQuery.each内でbreakやcontinueする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/develop-web-service/">Webサービスを作ってみる</a>
       </li>
     
   </ul>

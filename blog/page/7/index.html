@@ -9,7 +9,8 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="ActiveRecord::RecordNotUnique例外 (参考: Rails でDBの重複エラーが発生した場合の対処について – QA@IT) RailsでModelの属性にvalidates_uniqueness_ofを設定しても, &hellip;">
+  <meta name="description" content="正確にはシンタックス定義別に, だけれども. 設定したい言語のファイルを開く(シンタックスを対象の言語に設定する)
+Preferences > Settings – More > Syntax Specific – User として言語別の設定ファイル(.sublime-settings)を開く &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/st2-indentation-settings-per-syntax/">Sublime Text2で言語別にインデント幅を設定する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-09T00:00:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>正確にはシンタックス定義別に, だけれども.</p>
+
+<ol>
+<li>設定したい言語のファイルを開く(シンタックスを対象の言語に設定する)</li>
+<li>Preferences > Settings – More > Syntax Specific – User として言語別の設定ファイル(.sublime-settings)を開く</li>
+<li>インデントの設定を記述して保存</li>
+</ol>
+
+
+<p>インデントの設定は</p>
+
+<pre><code>{
+    "tab_size": 4,
+    "translate_tabs_to_spaces": true,
+    "trim_trailing_white_space_on_save": true
+}
+</code></pre>
+
+<p>みたいな感じになる. (参考: <a href="http://www.sublimetext.com/docs/2/indentation.html">Indentation Settings – Sublime Text 2 Documentation</a>)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -574,99 +629,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rails-column-with-references-confusion/">Railsでカラムを追加する際にreferencesを指定するとdb:migrateが通らない
-</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-29T00:00:00+09:00" pubdate data-updated="true">Mar 29<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Stack Overflowに<a href="http://stackoverflow.com/questions/13381896/rails-column-with-references-confusion">全く同じ状態の投稿</a>があったのでその通りにして解決. 一応こちらにも書いておく.</p>
-
-<h3>現象</h3>
-
-<p>次のようにreferencesを指定してmigrationファイルを生成したとき,</p>
-
-<pre><code>$ rails g migration AddUserCategoryToUsers user_category:references
-
-
-class AddUserCategoryToUsers &lt; ActiveRecord::Migration
-  def change
-    add_column :users, :user_category, :references, :default =&gt; 1
-  end
-end
-</code></pre>
-
-<p>db:migrateに失敗する.</p>
-
-<pre><code>$ rake db:migrate
-
-
-==  AddUserCategoryToUsers: migrating ==============================================
--- add_column(:users, :user_category, :references, {:default=&gt;1})
-rake aborted!
-An error has occurred, all later migrations canceled:
-
-Mysql2::Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references DEFAULT 1' at line 1: ALTER TABLE `users` ADD `user_category` references DEFAULT 1
-
-.
-.
-.
-</code></pre>
-
-<h3>解決</h3>
-
-<p>.referencesメソッドは下のようなテーブル定義のときにしか使えないらしい.</p>
-
-<pre><code>class AddUserCategoryToUsers &lt; ActiveRecord::Migration
-  def change
-    change_table :users do |t|
-      t.references :user_category, :default =&gt; 1
-    end
-  end
-end
-</code></pre>
-
-<p>なので, こんな風にカラムを直接指定してやる必要がある.</p>
-
-<pre><code>class AddUserCategoryToUsers &lt; ActiveRecord::Migration
-  def change
-    add_column :users, :user_category_id, :integer, :default =&gt; 1
-    add_index :users, :user_category_id # インデックスを貼る場合
-  end
-end
-</code></pre>
-
-<p>後, モデルの関連付けは自分でやる必要がある.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -682,6 +644,10 @@ end
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>
+      </li>
     
       <li class="post">
         <a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a>
@@ -717,10 +683,6 @@ end
     
       <li class="post">
         <a href="/blog/break-or-continue-in-jquery-each/">jQuery.each内でbreakやcontinueする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/develop-web-service/">Webサービスを作ってみる</a>
       </li>
     
   </ul>

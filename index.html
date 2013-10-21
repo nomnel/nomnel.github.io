@@ -9,7 +9,15 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="関西Ruby会議に行ってやる気満々だったのにネットとPCの無い日々が続いたのでむしゃくしゃして作りました. ">
+  <meta name="description" content="Gemfile作ってbundle installする. 1
+2
+3
+source &#39;https://rubygems.org&#39; gem &#39;sinatra&#39; 本体書く. app.rbに書くとする. 1
+2
+3
+4
+5
+require &#39;sinatra&#39 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +85,84 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-21T21:30:00+09:00" pubdate data-updated="true">Oct 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gemfile作ってbundle installする.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;sinatra&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>本体書く. app.rbに書くとする.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="s1">&#39;Hello World!&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>config.ru書く.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;./app&#39;</span>
+</span><span class='line'><span class="n">run</span> <span class="ss">Sinatra</span><span class="p">:</span><span class="ss">:Application</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>起動する.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rackup</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で, <code>http://localhost:9292</code>にブラウザでアクセス.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -477,45 +563,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/develop-web-service/">Webサービスを作ってみる</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-24T12:30:00+09:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>先週からインターンはお休みをいただいてWebサービスを作っている. </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/develop-web-service/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -529,6 +576,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>
+      </li>
     
       <li class="post">
         <a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a>
@@ -564,10 +615,6 @@
     
       <li class="post">
         <a href="/blog/break-or-continue-in-jquery-each/">jQuery.each内でbreakやcontinueする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/develop-web-service/">Webサービスを作ってみる</a>
       </li>
     
   </ul>
