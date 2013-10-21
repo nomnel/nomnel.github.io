@@ -4,7 +4,7 @@
   <title><![CDATA[Category: sinatra | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/sinatra/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-10-21T21:44:48+09:00</updated>
+  <updated>2013-10-21T21:48:33+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -18,7 +18,7 @@
     <link href="http://nomnel.net/blog/sinatra-active-record/"/>
     <updated>2013-10-21T21:45:00+09:00</updated>
     <id>http://nomnel.net/blog/sinatra-active-record</id>
-    <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>の続きとして. SQLiteの場合.</p>
+    <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>の続きとして. SQLiteの場合. <!-- more --></p>
 
 <p>Gemfileに以下を追加してbundle installする.</p>
 
@@ -107,7 +107,12 @@ bundle exec rackup
     <link href="http://nomnel.net/blog/sinatra-hello-world/"/>
     <updated>2013-10-21T21:30:00+09:00</updated>
     <id>http://nomnel.net/blog/sinatra-hello-world</id>
-    <content type="html"><![CDATA[<p>Gemfile作ってbundle installする.</p>
+    <content type="html"><![CDATA[<p>続き-> <a href="http://nomnel.net/blog/sinatra-active-record/">SinatraでActiveRecord使う</a></p>
+
+<!-- more -->
+
+
+<p>Gemfile作ってbundle installする.</p>
 
 <p>```ruby
 source 'https://rubygems.org'</p>

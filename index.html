@@ -9,10 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="SinatraでHello Worldするまでの続きとして. SQLiteの場合. Gemfileに以下を追加してbundle installする. 1
-2
-gem &#39;sinatra-activerecord&#39;
-gem &#39;sqlite3&#39; DB接続部分を書く. &hellip;">
+  <meta name="description" content="SinatraでHello Worldするまでの続きとして. SQLiteの場合. ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -109,117 +106,12 @@ gem &#39;sqlite3&#39; DB接続部分を書く. &hellip;">
   </header>
 
 
-  <div class="entry-content"><p><a href="http://nomnel.net/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>の続きとして. SQLiteの場合.</p>
-
-<p>Gemfileに以下を追加してbundle installする.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;sinatra-activerecord&#39;</span>
-</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;sqlite3&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>DB接続部分を書く. とりあえずapp.rbに書いた.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;active_record&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">(</span>
-</span><span class='line'>  <span class="ss">adapter</span><span class="p">:</span> <span class="s1">&#39;sqlite3&#39;</span><span class="p">,</span>
-</span><span class='line'>  <span class="ss">database</span><span class="p">:</span> <span class="s1">&#39;development.sqlite3&#39;</span>
-</span><span class='line'><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 以下省略</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Rakefile書く.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra/activerecord/rake&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;./app&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>これで<code>rake db:migrate</code>とか出来るようになった. 今回はとりあえずusersテーブル作る. <code>rake -T</code>すれば可能なコマンド一覧が見れる.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">create_migration</span> <span class="no">NAME</span><span class="o">=</span><span class="n">create_users</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>するとdb/migrateの中にmigrationファイルが作られるので編集する.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CreateUsers</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">change</span>
-</span><span class='line'>    <span class="n">create_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>終わったらDBに反映.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>app.rbで使ってみる.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># 上は省略</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="s2">&quot;Hello </span><span class="si">#{</span><span class="no">User</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s2"> users!&quot;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>あとは</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rackup</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>して, <code>http://localhost:9292</code>にアクセスして確認.</p>
-</div>
+  <div class="entry-content"><p><a href="http://nomnel.net/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>の続きとして. SQLiteの場合. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/sinatra-active-record/">続きを読む</a>
+    </footer>
   
 
 
@@ -253,51 +145,14 @@ gem &#39;sqlite3&#39; DB接続部分を書く. &hellip;">
   </header>
 
 
-  <div class="entry-content"><p>Gemfile作ってbundle installする.</p>
+  <div class="entry-content"><p>続き-> <a href="http://nomnel.net/blog/sinatra-active-record/">SinatraでActiveRecord使う</a></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;sinatra&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>本体書く. app.rbに書くとする.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="s1">&#39;Hello World!&#39;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>config.ru書く.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;./app&#39;</span>
-</span><span class='line'><span class="n">run</span> <span class="ss">Sinatra</span><span class="p">:</span><span class="ss">:Application</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>起動する.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rackup</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>で, <code>http://localhost:9292</code>にブラウザでアクセス.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/sinatra-hello-world/">続きを読む</a>
+    </footer>
   
 
 
