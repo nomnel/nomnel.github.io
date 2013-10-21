@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-10-21T21:20:24+09:00</updated>
+  <updated>2013-10-21T21:44:48+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,123 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SinatraでActiveRecord使う]]></title>
+    <link href="http://nomnel.net/blog/sinatra-active-record/"/>
+    <updated>2013-10-21T21:45:00+09:00</updated>
+    <id>http://nomnel.net/blog/sinatra-active-record</id>
+    <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>の続きとして. SQLiteの場合.</p>
+
+<p>Gemfileに以下を追加してbundle installする.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;sinatra-activerecord&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;sqlite3&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>DB接続部分を書く. とりあえずapp.rbに書いた.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;active_record&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">(</span>
+</span><span class='line'>  <span class="ss">adapter</span><span class="p">:</span> <span class="s1">&#39;sqlite3&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">database</span><span class="p">:</span> <span class="s1">&#39;development.sqlite3&#39;</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 以下省略</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Rakefile書く.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra/activerecord/rake&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;./app&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これで<code>rake db:migrate</code>とか出来るようになった. 今回はとりあえずusersテーブル作る. <code>rake -T</code>すれば可能なコマンド一覧が見れる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">create_migration</span> <span class="no">NAME</span><span class="o">=</span><span class="n">create_users</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>するとdb/migrateの中にmigrationファイルが作られるので編集する.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CreateUsers</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">change</span>
+</span><span class='line'>    <span class="n">create_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>終わったらDBに反映.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>app.rbで使ってみる.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># 上は省略</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="s2">&quot;Hello </span><span class="si">#{</span><span class="no">User</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s2"> users!&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>あとは</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rackup</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>して, <code>http://localhost:9292</code>にアクセスして確認.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SinatraでHello Worldするまで]]></title>
@@ -854,147 +971,6 @@
 
 
 <p>のように定義しようとすると<code>ねーむってなぁに？</code>って怒られるからだ. 多分(確認すればいいのだけど), <code>method_missing</code>で処理してるんだと思う.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[インターン(54) 怖話ブログの日付フォーマット修正]]></title>
-    <link href="http://nomnel.net/blog/fjord-days-54/"/>
-    <updated>2013-06-17T15:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/fjord-days-54</id>
-    <content type="html"><![CDATA[<p>「怖話ブログの日付フォーマットがおかしい」に取り組んだ記録.<!-- more --></p>
-
-<p><a href="http://blog.kowabana.jp/">怖話ブログ</a>で日付フォーマットが<code>dd/mm/yyyy</code>になっているのを<code>yyyy/mm/dd</code>に修正する作業.</p>
-
-<h3>成功ルート</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>git clone git@github.com:fjordllc/blog-kowabana-jp.git
-</span><span class='line'><span class="nb">cd </span>blog-kowabana-jp
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>で<code>bundle install</code>すると</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>Fetching gem metadata from http://rubygems.org/.........
-</span><span class='line'><span class="c"># 中略</span>
-</span><span class='line'>Could not find sinatra-content-for-0.2 in any of the sources
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>となって失敗するので(<a href="#fail1">迷走1へ</a>), lokkaのmasterをmergeしてみる.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>git remote add lokka git@github.com:lokka/lokka.git
-</span><span class='line'>git fetch lokka
-</span><span class='line'>git merge lokka/master
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>すると<code>bundle install</code>成功!</p>
-
-<p>次に<code>bundle exec rackup</code>して実画面でも確認してみる -> 問題なし</p>
-
-<p>最後にテスト通るか確認しておく(<a href="#fail2">迷走2へ</a>).</p>
-
-<p>無事全てのテストがパスしたのでpush.</p>
-
-<p>ちなみに変更は以下のように形式を指定してやっただけ.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">-        &lt;p class=&quot;date&quot;&gt;</span><span class="cp">&lt;%=</span> <span class="n">l</span> <span class="n">post</span><span class="o">.</span><span class="n">created_at</span><span class="o">.</span><span class="n">to_time</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
-</span><span class='line'><span class="x">+        &lt;p class=&quot;date&quot;&gt;</span><span class="cp">&lt;%=</span> <span class="n">post</span><span class="o">.</span><span class="n">created_at</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y/%m/%d&quot;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3><a name="fail1">迷走1</a></h3>
-
-<ol>
-<li>Gemfileから<code>sinatra-content-for</code>を消してみよう</li>
-<li>-> なんやかんやダメ</li>
-<li>テンプレートの変更のみやし, 素のlokkaにテンプレートコピって確認すればええやろ</li>
-<li>-> <a href="https://twitter.com/komagata">@komagata</a>「( ◠‿◠ )☛ なわけねーだろ」僕「▂▅▇█▓▒░(&#8216;ω&#8217;)░▒▓█▇▅▂」</li>
-<li><a href="https://twitter.com/komagata">@komagata</a>「lokkaのmasterをmergeすればいんじゃね?」僕「( ﾟдﾟ)ﾊｯ!」</li>
-</ol>
-
-
-<h3><a name="fail2">迷走2</a></h3>
-
-<p><code>bundle exec rake</code>しても</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>syck has been removed
-</span><span class='line'>Delete Database...
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とのみ表示されてspecが実行されない(前回の作業週ではここで力尽きた). (今回の作業週でも<code>git merge lokka/master</code>して更新している)不思議に思って<code>-t</code>オプションを付けてみると</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>syck has been removed
-</span><span class='line'>** Invoke default <span class="o">(</span>first_time<span class="o">)</span>
-</span><span class='line'>** Invoke spec:setup <span class="o">(</span>first_time<span class="o">)</span>
-</span><span class='line'>** Execute spec:setup
-</span><span class='line'>** Invoke db:delete <span class="o">(</span>first_time<span class="o">)</span>
-</span><span class='line'>** Execute db:delete
-</span><span class='line'>Delete Database...
-</span><span class='line'>** Invoke spec <span class="o">(</span>first_time, not_needed<span class="o">)</span>
-</span><span class='line'>** Execute default
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>と表示される. 比較のためlokkaにも同様にしてみると</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>syck has been removed
-</span><span class='line'>** Invoke default <span class="o">(</span>first_time<span class="o">)</span>
-</span><span class='line'>** Invoke spec:setup <span class="o">(</span>first_time<span class="o">)</span>
-</span><span class='line'>** Execute spec:setup
-</span><span class='line'>** Invoke db:delete <span class="o">(</span>first_time<span class="o">)</span>
-</span><span class='line'>** Execute db:delete
-</span><span class='line'>Delete Database...
-</span><span class='line'>** Invoke spec <span class="o">(</span>first_time<span class="o">)</span>
-</span><span class='line'>** Invoke spec:setup
-</span><span class='line'>** Execute spec
-</span><span class='line'>** Execute default
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li><code>Invoke spec</code>の<code>not_needed</code>が怪しい!!</li>
-<li>-> rakeのソースコードへ</li>
-<li>-> 分からない</li>
-<li>-> 気分転換に新しい環境でやり直してみよう!!</li>
-<li>-> <code>bundle exec rake</code>でspecが実行される</li>
-<li>-> (ﾟДﾟ)ﾊｧ?</li>
-</ol>
-
 ]]></content>
   </entry>
   

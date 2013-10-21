@@ -4,7 +4,7 @@
   <title><![CDATA[Category: sinatra | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/sinatra/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-10-21T21:20:24+09:00</updated>
+  <updated>2013-10-21T21:44:48+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,95 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SinatraでActiveRecord使う]]></title>
+    <link href="http://nomnel.net/blog/sinatra-active-record/"/>
+    <updated>2013-10-21T21:45:00+09:00</updated>
+    <id>http://nomnel.net/blog/sinatra-active-record</id>
+    <content type="html"><![CDATA[<p><a href="http://nomnel.net/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>の続きとして. SQLiteの場合.</p>
+
+<p>Gemfileに以下を追加してbundle installする.</p>
+
+<p><code>ruby
+gem 'sinatra-activerecord'
+gem 'sqlite3'
+</code></p>
+
+<p>DB接続部分を書く. とりあえずapp.rbに書いた.</p>
+
+<p>```ruby
+require 'sinatra'
+require 'active_record'</p>
+
+<p>ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: 'development.sqlite3'
+)</p>
+
+<h1>以下省略</h1>
+
+<p>```</p>
+
+<p>Rakefile書く.</p>
+
+<p><code>ruby
+require 'sinatra/activerecord/rake'
+require './app'
+</code></p>
+
+<p>これで<code>rake db:migrate</code>とか出来るようになった. 今回はとりあえずusersテーブル作る. <code>rake -T</code>すれば可能なコマンド一覧が見れる.</p>
+
+<p><code>
+bundle exec rake db:create_migration NAME=create_users
+</code></p>
+
+<p>するとdb/migrateの中にmigrationファイルが作られるので編集する.</p>
+
+<p>```ruby
+class CreateUsers &lt; ActiveRecord::Migration
+  def change</p>
+
+<pre><code>create_table :users do |t|
+  t.string :name
+
+  t.timestamps
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>終わったらDBに反映.</p>
+
+<p><code>
+bundle exec rake db:migrate
+</code></p>
+
+<p>app.rbで使ってみる.</p>
+
+<p>```ruby</p>
+
+<h1>上は省略</h1>
+
+<p>class User &lt; ActiveRecord::Base
+end</p>
+
+<p>get '/' do
+  "Hello #{User.count} users!"
+end
+```</p>
+
+<p>あとは</p>
+
+<p><code>
+bundle exec rackup
+</code></p>
+
+<p>して, <code>http://localhost:9292</code>にアクセスして確認.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SinatraでHello Worldするまで]]></title>
