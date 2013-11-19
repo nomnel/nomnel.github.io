@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-10-21T21:48:33+09:00</updated>
+  <updated>2013-11-20T08:56:11+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Sublime Text 2で日本語の変換候補をTabで選択]]></title>
+    <link href="http://nomnel.net/blog/st2-japanese-input/"/>
+    <updated>2013-11-20T09:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/st2-japanese-input</id>
+    <content type="html"><![CDATA[<p>Sublime Text 2で日本語入力をする際, Tabで変換候補を選べない問題を解決する.</p>
+
+<p><code>Preferences &gt; Key Bindings - Default</code>を選択すると<code>Default (OSX).sublime-keymap</code>(Macの場合)というファイルが開くので, 93~99行目辺りにある</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{ "keys": ["tab"], "command": "insert_best_completion", "args": {"default": "\t", "exact": true} },
+</span><span class='line'>{ "keys": ["tab"], "command": "insert_best_completion", "args": {"default": "\t", "exact": false},
+</span><span class='line'>  "context":
+</span><span class='line'>  [
+</span><span class='line'>      { "key": "setting.tab_completion", "operator": "equal", "operand": true }
+</span><span class='line'>  ]
+</span><span class='line'>},</span></code></pre></td></tr></table></div></figure>
+
+
+<p>をコメントアウトして保存.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SinatraでActiveRecord使う]]></title>
@@ -931,51 +960,6 @@
     <content type="html"><![CDATA[<p>ブログしばらく書いてないと思ったら一ヶ月ぐらい書いてなかった. しばらく書いてないと次書くときは高度なこと書かなきゃいけない気がして余計書きにくい. Railsで多対多の関係表現するのどうするんだっけとかいつも忘れるのでメモっておきたいんだけど書いてないとこれじゃショボすぎるからやめとこうと思って書かない. 結果またググることになる.</p>
 
 <p>といっても自分で制限かけてるだけだから普段からショボいこと書いてたら遠慮なくショボいこと書けるようになると思った. 日記だとどう頑張ってもショボいことしか書けないけど書くと一日の振り返り出来そうだし都合良い. あと毎日続けたいので出来るだけ考えなくても書けるようにしたい. <a href="https://twitter.com/hitode909">趣味はマリンスポーツです</a>さんの<a href="http://hitode909.hatenablog.com/">日記</a>ぽい文体だとダラダラ書ける感じがして良い. そのうちもっと楽なの思いつくかもしれないけどとりあえずこんな書き方でやろうと思う.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Active Recordで属性にアクセスするメソッドを上書きする]]></title>
-    <link href="http://nomnel.net/blog/acticerecord-redefine-attr-access-method/"/>
-    <updated>2013-06-18T22:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/acticerecord-redefine-attr-access-method</id>
-    <content type="html"><![CDATA[<p>RailsでUserモデルがあってそれがnameという属性を持っているとする. このとき例えば, User#nameの値を条件fooによって変えたいとき,<!-- more --></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">name</span>
-</span><span class='line'>    <span class="n">foo</span> <span class="p">?</span> <span class="nb">self</span><span class="o">[</span><span class="ss">:name</span><span class="o">]</span> <span class="p">:</span> <span class="s1">&#39;some special value&#39;</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のようにnameメソッドを<a href="#caution">上書き</a>してやればよい.</p>
-
-<p>ちなみに<code>self[:name]</code>の<code>[]</code>は<code>read_attribute</code>のaliasで, 別に<code>write_attribute</code>もあるらしい(<a href="http://blog.eiel.info/blog/2012/12/17/read-attribute-activerecord/">参考</a>).</p>
-
-<p><a name="caution">※</a> 上書きというよりは先に定義していると言った方が正確だと思う. というのもaround aliasを使って</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="k">alias</span> <span class="ss">:org_name</span> <span class="ss">:name</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">name</span>
-</span><span class='line'>    <span class="n">foo</span> <span class="p">?</span> <span class="n">org_name</span> <span class="p">:</span> <span class="s1">&#39;some special value&#39;</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のように定義しようとすると<code>ねーむってなぁに？</code>って怒られるからだ. 多分(確認すればいいのだけど), <code>method_missing</code>で処理してるんだと思う.</p>
 ]]></content>
   </entry>
   

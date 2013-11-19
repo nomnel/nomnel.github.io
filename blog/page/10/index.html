@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日から作業週. まずはじめに怖話を一通り使ってみて, 気になったこと, こうした方がいいと思ったことなど. 基本的にソースは自分だし, 過去ログも見ていないので見当違いなことも多々あると思う. ごめんなさい. 怖話とは 合同会社フィヨルドが運営するユーザ投稿型の怖い話まとめサイト. 話ごとに「 &hellip;">
+  <meta name="description" content="駒形さん(@komagata)からタスクをいただいたので, 今日は準備としてローカルに怖話の開発環境を構築していた. 途中, 詰まってしまって環境構築だけで一日が終わってしまって残念. ローカル開発環境を構築する READMEとコチラを参考に. $ rbenv install 2.0.0-p0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,130 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day9/">インターン9日目 ローカル開発環境構築</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-12T00:00:00+09:00" pubdate data-updated="true">Mar 12<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>駒形さん(<a href="https://twitter.com/komagata">@komagata</a>)からタスクをいただいたので, 今日は準備としてローカルに怖話の開発環境を構築していた. 途中, 詰まってしまって環境構築だけで一日が終わってしまって残念.</p>
+
+<h2>ローカル開発環境を構築する</h2>
+
+<p>READMEと<a href="http://bit.ly/11duzTe">コチラ</a>を参考に.</p>
+
+<pre><code>$ rbenv install 2.0.0-p0
+$ brew install imagemagick mysql qt
+$ git clone git@github.com:fjordllc/[怖話]
+$ cd [怖話]
+$ bundle install --path vendor/bundle
+$ cp config/database.example.yml config/database.yml
+</code></pre>
+
+<p>developmentとtest環境のパスワードをconfig/database.ymlに追記する. まだmySQLの設定をしていなかった場合は, 先に下を参照して行なっておく.</p>
+
+<pre><code>development:
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  host: localhost
+  database: kowabana_development
+  username: root
+  password: [ここに追加]
+  reconnect: true
+  socket:
+</code></pre>
+
+<p>終わったら</p>
+
+<pre><code>$ bundle exec rake kowabana:setup
+</code></pre>
+
+<p>すればいい…はずが<code>Unknown database 'kowabana_development'</code>というエラーが出て失敗する.</p>
+
+<pre><code>mysql&gt; CREATE DATABASE `kowabana_development` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;
+</code></pre>
+
+<p>として直接データベースを作ってやって,</p>
+
+<pre><code>$ bundle exec rake db:migrate
+$ bundle exec rake db:seed
+</code></pre>
+
+<p>とやってやればいいみたい. 終わったら</p>
+
+<pre><code>$ bundle exec rails s
+</code></pre>
+
+<p>として起動すればおっけー.</p>
+
+<p>テストの前には同様に</p>
+
+<pre><code>mysql&gt; CREATE DATABASE `kowabana_test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;
+</code></pre>
+
+<p>としてテスト用のデータベースを作成しなければいけないことに注意. テストは</p>
+
+<pre><code>$ bundle exec rake
+$ bundle exec rake konacha:run
+</code></pre>
+
+<p>で実行できる. テストが通らない場合は以下を試してみるといいらしい.</p>
+
+<pre><code>$ bundle exec rake kowabana:reset
+$ bundle exec rake
+</code></pre>
+
+<h3>mySQL</h3>
+
+<pre><code>$ brew install mysql
+</code></pre>
+
+<p>後に</p>
+
+<pre><code>$ brew info mysql
+</code></pre>
+
+<p>でも表示される指示にしたがって</p>
+
+<pre><code>$ unset TMPDIR
+$ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp/
+$ mysql.server start
+$ mysqladmin -u root password 'new-password'
+</code></pre>
+
+<p>としておく.</p>
+
+<p>OS起動時に自動起動するようにするにはしていないが, このあたり(<a href="http://dev.classmethod.jp/etc/macbookair-homebrew-mysql5-5-14/">参照1</a>, <a href="http://tukaikta.blog135.fc2.com/blog-entry-197.html">参照2</a>)を見れば良さそう.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -667,57 +791,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day2/">インターン2日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-01T00:00:00+09:00" pubdate data-updated="true">Mar 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>やったこと</h3>
-
-<p>今日は僕にとっての鬼門, CSSの学習をしていた. 大体のレイアウトを決めるまではいいのだが, どうも文字サイズとか間隔とかの微調整に次ぐ微調整となるとダメ. 発狂する. デザイナーさんまじすげぇ.</p>
-
-<p>まずはドットインストール(<a href="http://dotinstall.com/lessons/basic_css">CSSの基礎</a>, <a href="http://dotinstall.com/lessons/basic_css3">CSS3の基礎</a>)を見て大体の感じを思い出す. 動画を1.5倍や2倍速にして見れることに気づいたので大分楽になった(やり方は後で). その他の参照ページでは<a href="https://speakerdeck.com/ken_c_lo/zurui-design">ズルいデザインテクニック</a>が面白かった, Sassいいなー. <a href="http://www.slideshare.net/marippe/ss-9003317">色彩センスのいらない配色講座</a>については, 以前, 本(↓)で読んだことがあったので復習的に.</p>
-
-<h3>課題</h3>
-
-<p>さて今回の提出課題は, 指定のhtmlファイルにあてるcssファイルを書く, というもの. 例のごとく大体のレイアウトまでは出来たが, 文字サイズとか間隔の微調整で発狂. 仕方ないので, 数字についてはサンプルからコピペすることに.</p>
-
-<p>途中経過は<a href="https://gist.github.com/nomnel/5063166">コチラ</a>のGistのRevisionsにある. box-shadowなど, CSS3的な部分はまだ完成していないので, 週末の間に完成させておく.</p>
-
-<h3>Youtube(ドットインストール)を倍速再生する</h3>
-
-<p><a href="http://www.youtube.com/html5">ここ</a>で「HTML5 試用版を有効にする」をクリックする.
-すると動画の画質を設定するところで速度を選択できるようになる.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -733,6 +806,10 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/st2-japanese-input/">Sublime Text 2で日本語の変換候補をTabで選択</a>
+      </li>
     
       <li class="post">
         <a href="/blog/sinatra-active-record/">SinatraでActiveRecord使う</a>
@@ -768,10 +845,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     
       <li class="post">
         <a href="/blog/create-vagrant-base-box/">Vagrantで作ったVMからbase boxを作る</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/diary-2/">考えたくない</a>
       </li>
     
   </ul>

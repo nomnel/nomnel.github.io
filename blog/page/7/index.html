@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日は”怖い・コメント時のメールで画像エラー”となる原因を調べていた. まず, 現状確認. 4/8に怖話から来た通知メールを見ると, 確かにアイコン画像が表示されていなくて, そのパスは http://kowabana.jp/system/users/icons/:id/normal な形式. で &hellip;">
+  <meta name="description" content="さて今日は, まず, 怖話のプルリクで実装待ちのものがあり, 昨晩寝れなかったのでやっておいた. 朝は病院だった. 昼から&#8221;SNSの連携解除&#8221;機能を追加しようと思っていたが, 別の人も同じ作業を進めていたのが発覚して取りやめ. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day30/">インターン30日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-12T19:00:00+09:00" pubdate data-updated="true">Apr 12<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>さて今日は,</p>
+
+<p>まず, 怖話のプルリクで実装待ちのものがあり, 昨晩寝れなかったのでやっておいた.</p>
+
+<p>朝は病院だった. 昼から&#8221;SNSの連携解除&#8221;機能を追加しようと思っていたが, 別の人も同じ作業を進めていたのが発覚して取りやめ. コードを眺めている間にちょっとバグっぽいものを発見したので, とりあえず修正してプルリクしておいた.</p>
+
+<p>その後は, RSSフィードを使ってIFTTTで&#8221;怖い話を投稿FBとTwitterに自動投稿&#8221;という作業を引き継いで進めることに. RSSフィードがうまく動かないという問題があったので元のアンテナサイトを見てみると, 2012年以降更新されている気配がない. アンテナサイト新しく作ったほうがいいかもですねーなんて町田さんと話していたら, じゃあそれもお願いってなってうへぁー.</p>
+
+<p>が, 30分ほど席外している間に町田さんがアンテナサイト作ってRSSフィードまで準備してくださっていた.</p>
+
+<p>(;つД⊂)ｺﾞｼｺﾞｼ (ﾟДﾟ)え？</p>
+
+<p>やったッ！！さすが<a href="https://twitter.com/machida">@machida</a>！おれたちにできない事を平然とやってのけるッ！そこにシビれる！あこがれるｩ！</p>
+
+<p>…というわけで, そのRSSフィードを使ってIFTTTに登録. 結果は後で確認しておく.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -595,44 +645,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day22/">インターン22日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-02T00:00:00+09:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今日は<a href="http://256interns.com/practices/33">Getting Started with RailsにしたがってRailsアプリを作る</a>をした. 本当はもっと進めるつもりだったのだけれど, <a href="https://github.com/fjordllc/interns">256 INTERNSのコード</a>をいじっていたらついつい楽しくなってしまって…かまけてしまった.</p>
-
-<p>作業は相変わらず遅い. が, 学習の成果か何かしたいときにどこを見るべきかという感覚(Rails感？)は前より身についてきた気がする. 実装力がまだまだ弱いので, もっとコードを書いて早くRails初心者から抜け出せるようにしたい.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -648,6 +660,10 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/st2-japanese-input/">Sublime Text 2で日本語の変換候補をTabで選択</a>
+      </li>
     
       <li class="post">
         <a href="/blog/sinatra-active-record/">SinatraでActiveRecord使う</a>
@@ -683,10 +699,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     
       <li class="post">
         <a href="/blog/create-vagrant-base-box/">Vagrantで作ったVMからbase boxを作る</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/diary-2/">考えたくない</a>
       </li>
     
   </ul>
