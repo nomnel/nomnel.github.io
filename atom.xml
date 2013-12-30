@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2013-12-30T21:50:46+09:00</updated>
+  <updated>2013-12-30T23:49:56+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -75,7 +75,7 @@
 
 <p>このときChromeとかは<code>/opt/homebrew-cask/Caskroom/google-chrome/stable-channel/Google Chrome.app</code>から<code>/Users/nomnel/Applications</code>にリンクはられる感じになる. (KeyRemap4MacBookとか<code>/Applications</code>に直接入るのもある).</p>
 
-<p>なのですでにインストールされてるアプリをさらにbrewで入れても(多分)大丈夫.</p>
+<p>なのですでにインストールされてるアプリをさらにbrewで入れても(多分)大丈夫. <code>brew bundle</code>終わったあとにかぶったやつだけ消せばいいと思う.</p>
 ]]></content>
   </entry>
   
