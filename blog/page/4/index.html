@@ -9,10 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="さて今日は 背景画像切り替えが出来なくなっている原因の調査
-ランキング入りの怖話が削除されるとトップページ、ランキングページが表示できなくなるバグ修正
-Twitter Cardsの申請のために各ページにog:titleを追加
-ブロック機能のバグ修正 (途中) をしていた. ">
+  <meta name="description" content="rails newするときにturbolinksがbundlerでインストールされるので, 嫌なら--skip-bundleオプションを付けて作成する. 1
+bundle exec rails new APPNAME --skip-bundle でまず, Gemfileから 1
+gem &#39; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +79,85 @@ Twitter Cardsの申請のために各ページにog:titleを追加
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails4-no-turbolinks/">Rails4でturbolinksを使わない</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-29T15:04:00+09:00" pubdate data-updated="true">May 29<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>rails new</code>するときにturbolinksがbundlerでインストールされるので, 嫌なら<code>--skip-bundle</code>オプションを付けて作成する.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>bundle <span class="nb">exec </span>rails new APPNAME --skip-bundle
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>でまず, <code>Gemfile</code>から</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;turbolinks&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>の行をコメントアウト.</p>
+
+<p>次に<code>app/assets/javascripts/application.js</code>で</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//= require turbolinks</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>の行を削除.</p>
+
+<p>最後に<code>app/views/layouts/application.html.erb</code>で</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s2">&quot;application&quot;</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;data-turbolinks-track&quot;</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s2">&quot;application&quot;</span><span class="p">,</span> <span class="s2">&quot;data-turbolinks-track&quot;</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>となっている箇所を</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s2">&quot;application&quot;</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s2">&quot;all&quot;</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s2">&quot;application&quot;</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>に変更.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -533,55 +611,6 @@ Twitter Cardsの申請のために各ページにog:titleを追加
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day42/">インターン42日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-02T17:20:00+09:00" pubdate data-updated="true">May 2<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>さて今日は,</p>
-
-<ol>
-<li><a href="http://nomnel.net/blog/install-nginx-in-centos6-using-yum/">CentOS6で最新版のnginxをyumでインストールする</a></li>
-<li><a href="http://nomnel.net/blog/install-jenkins/">Jenkins氏をさくらVPSに招聘する</a></li>
-</ol>
-
-
-<p>をした. Jenkinsを入れたのは, せっかくwebサービスを作るなら継続的インテグレーションも経験したいと思ったからだ.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/fjord-day42/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -597,6 +626,10 @@ Twitter Cardsの申請のために各ページにog:titleを追加
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ruby-keyword-args/">Rubyのキーワード引数はハッシュで渡せる話</a>
+      </li>
     
       <li class="post">
         <a href="/blog/boxen-to-brewfile/">BoxenやめてBrewfile+homebrew-caskにした</a>
@@ -634,10 +667,6 @@ Twitter Cardsの申請のために各ページにog:titleを追加
         <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/centos-version-and-architecture/">CentOSでのバージョンとアーキテクチャの確認</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -651,7 +680,7 @@ Twitter Cardsの申請のために各ページにog:titleを追加
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - nomnel -
+  Copyright &copy; 2014 - nomnel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

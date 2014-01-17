@@ -9,8 +9,8 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="今日は学習週なので, 「プログラミング入門 - Rubyを使って」のテストをrspecで書く
-rspecを使ってRailsアプリのテストを書く をやった. ">
+  <meta name="description" content="sourceブランチで次のコマンドを入力する(zshの場合, \でエスケープが必要). 1
+$ rake new_post\[&#39;post title&#39;\] ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,54 @@ rspecを使ってRailsアプリのテストを書く をやった. ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/how-to-post-on-octopress/">Octopressで新規記事を投稿する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-16T23:00:00+09:00" pubdate data-updated="true">Apr 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>source</code>ブランチで次のコマンドを入力する(zshの場合, \でエスケープが必要).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake new_post<span class="se">\[</span><span class="s1">&#39;post title&#39;</span><span class="se">\]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/how-to-post-on-octopress/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -596,52 +644,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rails-change-each-page-title/">Railsでページごとにtitleタグを書き換える</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-03T00:00:00+09:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Railsでページごとにtitleタグを書き換えるには<code>content_for</code>を使う.</p>
-
-<p>まず, app/views/layouts/application.html.hamlに<code>yield</code>を使って値を埋め込めるようにする.</p>
-
-<p>これで, 各viewファイルから<code>content_for(:title)</code>を使って値を渡すことができるようになった.</p>
-
-<p>実際に使うときは, app/helpers/application_helper.rbにヘルパーメソッド(title)を加えておくと</p>
-
-<p>app/views/post/show.html.haml等で</p>
-
-<p>とするだけなので便利.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -657,6 +659,10 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/ruby-keyword-args/">Rubyのキーワード引数はハッシュで渡せる話</a>
+      </li>
     
       <li class="post">
         <a href="/blog/boxen-to-brewfile/">BoxenやめてBrewfile+homebrew-caskにした</a>
@@ -694,10 +700,6 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
         <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/centos-version-and-architecture/">CentOSでのバージョンとアーキテクチャの確認</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -711,7 +713,7 @@ An ActiveRecord::RecordNotUnique occurred in registrations#create:
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - nomnel -
+  Copyright &copy; 2014 - nomnel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
