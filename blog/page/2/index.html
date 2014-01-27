@@ -9,15 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="バージョン 1
-2
-cat /etc/redhat-release
-# -&gt; CentOS release 6.4 (Final) アーキテクチャ 1
-2
-3
-arch
-# (64bit)-&gt; x86_64
-# (32bit)-&gt; i686 ">
+  <meta name="description" content="math.primeとかdotimesで回数だけ指定出来るようになってたりとかあるので開発版のGaucheを使いたい.">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +77,45 @@ arch
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/gauche-head/">GaucheのHEADをインストールする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-14T02:45:00+09:00" pubdate data-updated="true">Aug 14<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>math.primeとかdotimesで回数だけ指定出来るようになってたりとかあるので開発版のGaucheを使いたい.</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/gauche-head/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -555,83 +586,6 @@ arch
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rails4-observer/">Rails4でObserverを使う</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-14T16:45:00+09:00" pubdate data-updated="true">Jul 14<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rails4ではobserversが削除されているので, 使用したい場合は<code>rails-observers</code>gemをインストールする.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails-observers&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>もしくはActiveRecordのcallbackで</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Hoge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">before_save</span> <span class="k">do</span>
-</span><span class='line'>    <span class="c1"># 何か処理</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>や</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Hoge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">before_save</span> <span class="ss">:some_action</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">some_action</span>
-</span><span class='line'>    <span class="c1"># 何か処理</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のようにしてもよい.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -647,6 +601,10 @@ arch
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/activerecord-group-count-order/">ActiveRecordでgroup byしてそのcount順にorder byする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-keyword-args/">Rubyのキーワード引数はハッシュで渡せる話</a>
@@ -682,10 +640,6 @@ arch
     
       <li class="post">
         <a href="/blog/learn-you-a-haskell-for-great-good/">すごいH本を読んだ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
       </li>
     
   </ul>

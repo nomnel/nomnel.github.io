@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tips | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/tips/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2014-01-17T09:34:42+09:00</updated>
+  <updated>2014-01-27T16:53:03+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ActiveRecordでgroup byしてそのcount順にorder byする]]></title>
+    <link href="http://nomnel.net/blog/activerecord-group-count-order/"/>
+    <updated>2014-01-27T17:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/activerecord-group-count-order</id>
+    <content type="html"><![CDATA[<p>タイトル分かりにくいけどこういうこと.</p>
+
+<p><code>ruby
+Foo.group(:bar).order(:bar).count(:bar)
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[BoxenやめてBrewfile+homebrew-caskにした]]></title>
@@ -133,27 +146,6 @@ $.each obj, (i, val) ->
   # breakの代わり
   return false if i == 1
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Railsで複数テーブルに跨ってincludesする]]></title>
-    <link href="http://nomnel.net/blog/rails-multi-table-includes/"/>
-    <updated>2013-07-20T23:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails-multi-table-includes</id>
-    <content type="html"><![CDATA[<p>例えば<code>A has_many Bs</code>かつ<code>B has_one C</code>であるとき</p>
-
-<p><code>ruby
-A.all.includes(bs: :c)
-</code></p>
-
-<p>とすればよい. さらに<code>B has_many Ds</code>であれば</p>
-
-<p><code>ruby
-A.all.includes(bs: [:c, :ds])
-</code></p>
-
-<p>となる.</p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Railsでページごとにtitleタグを書き換えるにはcontent_forを使う. まず, app/views/layouts/application.html.hamlにyieldを使って値を埋め込めるようにする. これで, 各viewファイルからcontent_for(:title) &hellip;">
+  <meta name="description" content="今日やったこと ActionControllerを理解する – 256 INTERNS
+Railsのroutesを理解する – 256 INTERNS
+ActiveSupportを理解する – 256 INTERNS 全て英文ドキュメントなので, 実際のRailsアプリと照らし合わせつつ読み進めた &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +79,76 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/fjord-day24/">インターン24日目</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T00:00:00+09:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>今日やったこと</h3>
+
+<ol>
+<li><a href="http://256interns.com/practices/34">ActionControllerを理解する – 256 INTERNS</a></li>
+<li><a href="http://256interns.com/practices/38">Railsのroutesを理解する – 256 INTERNS</a></li>
+<li><a href="http://256interns.com/practices/37">ActiveSupportを理解する – 256 INTERNS</a></li>
+</ol>
+
+
+<p>全て英文ドキュメントなので, 実際のRailsアプリと照らし合わせつつ読み進めた(3はまだ途中). こう書いたらこうなる, 的な例示がメインのため, コードが多くて読みやすかった. 全て覚えたわけではないので, 困ったら参照することにする.</p>
+
+<h3>反省点, 気付いたこと</h3>
+
+<ol>
+<li>読んでいるだけの日を作らない</li>
+<li>Lingrを自分のメモ帳にしない</li>
+<li>リモートリポジトリにpushしたものはrebaseしない</li>
+</ol>
+
+
+<p>ずっと英語を読んでいたので集中力が続かず, 時間を有効に活用できなかった. コード書きなども混ぜてメリハリをつけたほうが良さ気(1). 2は256 INTERNSの気になったところをLingrにメモとして書いていたこと. issuesを使うべき. 3は昨日のことだけれど, プルリクしたものにチェックコメントをもらって修正するときに<code>rebase</code>してリモートに<code>push -f</code>してしまった. rebaseせず, 修正分のコミットを追加すればいいとのこと. そういえばどこかで見たはずなのに焦って飛んでしまっていた. 反省.</p>
+
+<h3>明日やること</h3>
+
+<p>英語のドキュメント読む系は, 夜などの空いている時間に読むことにする(進行が遅すぎるので).</p>
+
+<ol>
+<li><a href="http://256interns.com/practices/28">「プログラミング入門 – Rubyを使って」のテストをrspecで書く – 256 INTERNS</a></li>
+<li><a href="http://256interns.com/practices/46">rspecを使ってRailsアプリのテストを書く – 256 INTERNS</a></li>
+<li><a href="http://256interns.com/practices/40">sorceryを使ってユーザー認証を作る – 256 INTERNS</a></li>
+<li><a href="http://256interns.com/practices/41">sorceryを使ってTwitter認証を作る – 256 INTERNS</a></li>
+</ol>
+
+
+<p>最低2まで, 標準3まで…かな. どれぐらい時間かかったかもチェックしていきたい.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -678,86 +750,6 @@ LoadError: no such file to load -- bundler/setup
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/fjord-day18/">インターン18日目</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-26T00:00:00+09:00" pubdate data-updated="true">Mar 26<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今日も昨日からの続きで, ”iPhoneアプリのナビゲーションアイコンをタップしたときに何か反応があるようにする”作業. 一言で言うと, 詰まってる.</p>
-
-<h4>やりたいこと</h4>
-
-<ul>
-<li>タップした反応としてアイコンを赤くする</li>
-<li>これ以上戻れない(進めない)ときはアイコンをdisableな見た目にする.</li>
-</ul>
-
-
-<p>ので, 前もってCSS(Sass)に以下の様に記述している(抜粋).</p>
-
-<p>でこれに対してCoffeeScriptで</p>
-
-<p>としている(参考: <a href="http://la.ma.la/blog/diary_200609011825.htm">history.backが成功したかどうかを判別する</a>). これでいいのでは…と思っているのだけど</p>
-
-<h4>現状</h4>
-
-<p>こんな感じ.</p>
-
-<p>ブラウザ</p>
-
-<p>consoleの表示</p>
-
-<p>アイコンの色</p>
-
-<p>Chrome(@Mac)</p>
-
-<p>start -> unload</p>
-
-<p>デフォルト -> 赤</p>
-
-<p>Safari(@iPhone Simulator)</p>
-
-<p>start -> not moved -> unload</p>
-
-<p>デフォルト -> 一瞬赤 -> disable</p>
-
-<p>Safari(@Mac)</p>
-
-<p>start -> not moved</p>
-
-<p>デフォルト</p>
-
-<p>最悪iPhoneが動けばいいのだけど, ちょっとどうしたものか.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -773,6 +765,10 @@ LoadError: no such file to load -- bundler/setup
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/activerecord-group-count-order/">ActiveRecordでgroup byしてそのcount順にorder byする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-keyword-args/">Rubyのキーワード引数はハッシュで渡せる話</a>
@@ -808,10 +804,6 @@ LoadError: no such file to load -- bundler/setup
     
       <li class="post">
         <a href="/blog/learn-you-a-haskell-for-great-good/">すごいH本を読んだ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
       </li>
     
   </ul>

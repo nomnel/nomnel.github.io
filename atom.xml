@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2014-01-17T09:34:42+09:00</updated>
+  <updated>2014-01-27T16:53:03+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ActiveRecordでgroup byしてそのcount順にorder byする]]></title>
+    <link href="http://nomnel.net/blog/activerecord-group-count-order/"/>
+    <updated>2014-01-27T17:00:00+09:00</updated>
+    <id>http://nomnel.net/blog/activerecord-group-count-order</id>
+    <content type="html"><![CDATA[<p>タイトル分かりにくいけどこういうこと.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Foo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="ss">:bar</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="ss">:bar</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="ss">:bar</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rubyのキーワード引数はハッシュで渡せる話]]></title>
@@ -1024,56 +1038,6 @@
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rails4でObserverを使う]]></title>
-    <link href="http://nomnel.net/blog/rails4-observer/"/>
-    <updated>2013-07-14T16:45:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails4-observer</id>
-    <content type="html"><![CDATA[<p>Rails4ではobserversが削除されているので, 使用したい場合は<code>rails-observers</code>gemをインストールする.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails-observers&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>もしくはActiveRecordのcallbackで</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Hoge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">before_save</span> <span class="k">do</span>
-</span><span class='line'>    <span class="c1"># 何か処理</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>や</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Hoge</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">before_save</span> <span class="ss">:some_action</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">some_action</span>
-</span><span class='line'>    <span class="c1"># 何か処理</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のようにしてもよい.</p>
 ]]></content>
   </entry>
   

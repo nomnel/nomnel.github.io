@@ -9,43 +9,8 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="タイトルの通りなんだけどRailsでparamsを渡したらうまくいかなかったのでまとめてみた. 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37 &hellip;">
+  <meta name="description" content="タイトル分かりにくいけどこういうこと. 1
+Foo.group(:bar).order(:bar).count(:bar) ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +78,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/activerecord-group-count-order/">ActiveRecordでgroup byしてそのcount順にorder byする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-27T17:00:00+09:00" pubdate data-updated="true">Jan 27<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>タイトル分かりにくいけどこういうこと.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Foo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="ss">:bar</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="ss">:bar</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="ss">:bar</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -588,45 +594,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/gauche-head/">GaucheのHEADをインストールする</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-14T02:45:00+09:00" pubdate data-updated="true">Aug 14<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>math.primeとかdotimesで回数だけ指定出来るようになってたりとかあるので開発版のGaucheを使いたい.</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/gauche-head/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -640,6 +607,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/activerecord-group-count-order/">ActiveRecordでgroup byしてそのcount順にorder byする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/ruby-keyword-args/">Rubyのキーワード引数はハッシュで渡せる話</a>
@@ -675,10 +646,6 @@
     
       <li class="post">
         <a href="/blog/learn-you-a-haskell-for-great-good/">すごいH本を読んだ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/gauche-head/">GaucheのHEADをインストールする</a>
       </li>
     
   </ul>
