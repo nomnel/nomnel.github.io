@@ -9,10 +9,10 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="さくらのVPSでApacheをインストール, 設定する手順の覚え書き. 目次 インストールと自動起動の有効化
+  <meta name="description" content="さくらのVPSでMySQLをインストール, 設定した手順の覚え書き. 目次 インストールと自動起動の有効化
 設定ファイルの編集
-不要なモジュールの無効化
-起動と確認 インストールと自動起動の有効化 yumでインストールする. $ sudo yum -y install httpd # &hellip;">
+起動と初期設定 インストールと自動起動の有効化 yumでインストールする. $ sudo yum -y install mysql-server # バージョン確認
+$ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,134 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-mysql/">MySQLのインストールと設定(CentOS 6)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-26T00:00:00+09:00" pubdate data-updated="true">Sep 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>さくらのVPSでMySQLをインストール, 設定した手順の覚え書き.</p>
+
+<hr />
+
+<h3>目次</h3>
+
+<ol>
+<li>インストールと自動起動の有効化</li>
+<li>設定ファイルの編集</li>
+<li>起動と初期設定</li>
+</ol>
+
+
+<hr />
+
+<h3>インストールと自動起動の有効化</h3>
+
+<p>yumでインストールする.</p>
+
+<pre><code>$ sudo yum -y install mysql-server
+
+# バージョン確認
+$ mysql --version  # -&gt; 5.1.61
+</code></pre>
+
+<p>自動起動を有効にする.</p>
+
+<pre><code>$ sudo chkconfig mysqld on
+
+# チェック
+$ chkconfig --list mysqld
+# -&gt; 3がonになっていればOK
+</code></pre>
+
+<hr />
+
+<h3>設定ファイルの編集</h3>
+
+<p>設定ファイルのバックアップをとってから編集する.</p>
+
+<pre><code>$ sudo cp /etc/my.cnf /etc/my.cnf.org
+$ sudo vi /etc/my.cnf
+</code></pre>
+
+<p>変更内容は以下.</p>
+
+<pre><code># symbolic-links=0 と [mysqld_safe] の間の行に以下を挿入
+
+character_set_server=utf8
+default-storage-engine=InnoDB
+innodb_file_per_table
+[mysql]
+default-character-set=utf8
+[mysqldump]
+default-character-set=utf8
+</code></pre>
+
+<hr />
+
+<h3>起動と初期設定</h3>
+
+<p>mysqldを起動し,</p>
+
+<pre><code>$ sudo service mysqld start
+</code></pre>
+
+<p>rootのパスワード設定とその他初期処理を行う.</p>
+
+<pre><code>$ mysql_secure_installation
+</code></pre>
+
+<p>内容と順番は以下.</p>
+
+<ol>
+<li>rootのパスワードを聞かれる -> 未設定なので空白のままEnter</li>
+<li>rootのパスワードを設定するか -> Y と入力してEnter</li>
+<li>rootのパスワード入力(2回)</li>
+<li>anonymousユーザを削除するか -> Y と入力してEnter</li>
+<li>リモートからのrootログインを禁止するか -> Y と入力してEnter</li>
+<li>テスト用の’test’データベースを削除するか -> Y と入力してEnter</li>
+<li>設定を反映するか -> Y と入力してEnter</li>
+</ol>
+
+
+<p>終わったら動作確認として一度ログインしてみる.</p>
+
+<pre><code>$ mysql -u root -p
+</code></pre>
+
+<p>パスワードを聞かれるので先ほど設定したパスワードを入力する. 終了するときは</p>
+
+<pre><code>mysql&gt; exit
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -639,6 +767,10 @@ $ chkconfig --list iptables
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/sunspot-limit-of-facets/">sunspotでfacetの数に制限があった</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/activerecord-group-count-order/">ActiveRecordでgroup byしてそのcount順にorder byする</a>
       </li>
     
@@ -672,10 +804,6 @@ $ chkconfig --list iptables
     
       <li class="post">
         <a href="/blog/a-technique-for-producing-ideas/">「アイデアのつくり方」を読んだ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/learn-you-a-haskell-for-great-good/">すごいH本を読んだ</a>
       </li>
     
   </ul>

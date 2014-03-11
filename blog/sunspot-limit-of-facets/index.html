@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>GitHubのプライベートリポジトリにプルリクするまで - 飲んだり寝たり</title>
+  <title>sunspotでfacetの数に制限があった - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="初めてしたことで忘れそうなので. $ git clone git@github.com:user/repo.git $ git checkout -b feature ## なんやかんや作業 $ git push origin feature の後, ブラウザでプルリクすればよい.
+  <meta name="description" content="facetはデフォルトだと100件までしか取れない. 1
+facet(:hoge, limit: -1) みたいにlimitに負の値を与えると制限無しになる.
 ">
   
 
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nomnel.net/blog/pull-req-to-github-private-repo">
+  <link rel="canonical" href="http://nomnel.net/blog/sunspot-limit-of-facets">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
@@ -81,7 +82,7 @@
   
   <header>
     
-      <h1 class="entry-title">GitHubのプライベートリポジトリにプルリクするまで</h1>
+      <h1 class="entry-title">sunspotでfacetの数に制限があった</h1>
     
     
       <p class="meta">
@@ -97,25 +98,21 @@
   
 
 
-<time datetime="2013-03-14T00:00:00+09:00" pubdate data-updated="true">Mar 14<span>th</span>, 2013</time>
+<time datetime="2014-03-11T22:30:00+09:00" pubdate data-updated="true">Mar 11<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>初めてしたことで忘れそうなので.</p>
+<div class="entry-content"><p>facetはデフォルトだと100件までしか取れない.</p>
 
-<pre><code>$ git clone git@github.com:user/repo.git
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">facet</span><span class="p">(</span><span class="ss">:hoge</span><span class="p">,</span> <span class="ss">limit</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-$ git checkout -b feature
 
-## なんやかんや作業
-
-$ git push origin feature
-</code></pre>
-
-<p>の後, ブラウザでプルリクすればよい.</p>
+<p>みたいにlimitに負の値を与えると制限無しになる.</p>
 </div>
 
 
@@ -138,12 +135,12 @@ $ git push origin feature
   
 
 
-<time datetime="2013-03-14T00:00:00+09:00" pubdate data-updated="true">Mar 14<span>th</span>, 2013</time>
+<time datetime="2014-03-11T22:30:00+09:00" pubdate data-updated="true">Mar 11<span>th</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/howto/'>howto</a>
+    <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/sunspot/'>sunspot</a>
   
 </span>
 
@@ -152,7 +149,7 @@ $ git push origin feature
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/pull-req-to-github-private-repo/" data-via="nomnel" data-counturl="http://nomnel.net/blog/pull-req-to-github-private-repo/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/sunspot-limit-of-facets/" data-via="nomnel" data-counturl="http://nomnel.net/blog/sunspot-limit-of-facets/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -165,14 +162,18 @@ $ git push origin feature
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/fjord-day11/" title="Previous Post: インターン11日目">&laquo; インターン11日目</a>
+        <a class="basic-alignment left" href="/blog/activerecord-group-count-order/" title="Previous Post: ActiveRecordでgroup byしてそのcount順にorder byする">&laquo; ActiveRecordでgroup byしてそのcount順にorder byする</a>
       
-      
-        <a class="basic-alignment right" href="/blog/fjord-day12/" title="Next Post: インターン12日目">インターン12日目 &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -247,7 +248,10 @@ $ git push origin feature
       var disqus_shortname = 'nomnel';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nomnel.net/blog/sunspot-limit-of-facets/';
+        var disqus_url = 'http://nomnel.net/blog/sunspot-limit-of-facets/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

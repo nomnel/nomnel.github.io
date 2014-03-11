@@ -9,8 +9,9 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="タイトル分かりにくいけどこういうこと. 1
-Foo.group(:bar).order(:bar).count(:bar) ">
+  <meta name="description" content="facetはデフォルトだと100件までしか取れない. 1
+facet(:hoge, limit: -1) みたいにlimitに負の値を与えると制限無しになる.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +79,49 @@ Foo.group(:bar).order(:bar).count(:bar) ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/sunspot-limit-of-facets/">sunspotでfacetの数に制限があった</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-11T22:30:00+09:00" pubdate data-updated="true">Mar 11<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>facetはデフォルトだと100件までしか取れない.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">facet</span><span class="p">(</span><span class="ss">:hoge</span><span class="p">,</span> <span class="ss">limit</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>みたいにlimitに負の値を与えると制限無しになる.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -550,50 +594,6 @@ Foo.group(:bar).order(:bar).count(:bar) ">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/learn-you-a-haskell-for-great-good/">すごいH本を読んだ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-23T14:00:00+09:00" pubdate data-updated="true">Aug 23<span>rd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>すごいHaskellたのしく学ぼう!を読んだ.</p>
-
-<iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=nomnel11-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4274068854" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/learn-you-a-haskell-for-great-good/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -607,6 +607,10 @@ Foo.group(:bar).order(:bar).count(:bar) ">
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/sunspot-limit-of-facets/">sunspotでfacetの数に制限があった</a>
+      </li>
     
       <li class="post">
         <a href="/blog/activerecord-group-count-order/">ActiveRecordでgroup byしてそのcount順にorder byする</a>
@@ -642,10 +646,6 @@ Foo.group(:bar).order(:bar).count(:bar) ">
     
       <li class="post">
         <a href="/blog/a-technique-for-producing-ideas/">「アイデアのつくり方」を読んだ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/learn-you-a-haskell-for-great-good/">すごいH本を読んだ</a>
       </li>
     
   </ul>

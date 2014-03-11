@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2014-01-27T16:53:03+09:00</updated>
+  <updated>2014-03-11T22:22:48+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[sunspotでfacetの数に制限があった]]></title>
+    <link href="http://nomnel.net/blog/sunspot-limit-of-facets/"/>
+    <updated>2014-03-11T22:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/sunspot-limit-of-facets</id>
+    <content type="html"><![CDATA[<p>facetはデフォルトだと100件までしか取れない.</p>
+
+<p><code>ruby
+facet(:hoge, limit: -1)
+</code></p>
+
+<p>みたいにlimitに負の値を与えると制限無しになる.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SinatraでActiveRecord使う]]></title>
