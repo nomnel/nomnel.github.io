@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2014-03-11T22:22:48+09:00</updated>
+  <updated>2014-06-01T16:32:50+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[add_reference来てた]]></title>
+    <link href="http://nomnel.net/blog/rails-add-reference/"/>
+    <updated>2014-06-01T16:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails-add-reference</id>
+    <content type="html"><![CDATA[<p>Rails4.0からadd_reference使えるようになってた.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rails g migration AddPiyoToHoges piyo:refernces
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とかすると</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddPiyoToHoges</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">change</span>
+</span><span class='line'>    <span class="n">add_reference</span> <span class="ss">:hoges</span><span class="p">,</span> <span class="ss">:piyo</span><span class="p">,</span> <span class="ss">index</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>なファイルが出来て</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rails db:migrate
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると<code>db/schema.rb</code>で</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="s2">&quot;hoges&quot;</span><span class="p">,</span> <span class="ss">force</span><span class="p">:</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">integer</span>  <span class="s2">&quot;piyo_id&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">add_index</span> <span class="s2">&quot;hoges&quot;</span><span class="p">,</span> <span class="o">[</span><span class="s2">&quot;piyo_id&quot;</span><span class="o">]</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;index_hoges_on_piyo_id&quot;</span><span class="p">,</span> <span class="ss">using</span><span class="p">:</span> <span class="ss">:btree</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>みたいになる. 便利.</p>
+
+<h3>参考</h3>
+
+<p><a href="http://railsdoc.com/references/add_reference">add_reference - リファレンス - Railsドキュメント</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[sunspotでfacetの数に制限があった]]></title>
@@ -969,37 +1026,6 @@
 </span><span class='line'><span class="c1"># 4</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Paperclipのsytlesやconvert_optionsの変更を既存のデータにも適用する]]></title>
-    <link href="http://nomnel.net/blog/paperclip-refresh-missing-styles/"/>
-    <updated>2013-07-18T11:35:00+09:00</updated>
-    <id>http://nomnel.net/blog/paperclip-refresh-missing-styles</id>
-    <content type="html"><![CDATA[<p>例えば<a href="http://nomnel.net/blog/fjord-day35/">後付で投稿画像を640px x 640pxに統一するようにした</a>ときなど. 既存のデータにもその変更を反映したいときは</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>rake paperclip:refresh:missing_styles
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とすればPaperclipで管理している全てのデータ(original以外)を現在のルールで再生成してくれる. ただこれだと変更に関係ないクラスも(ex: BookCoverだけ変更したのにUserImageも)再生成されるので非効率. なので</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">BookCover</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">cover</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">cover</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">reprocess!</span><span class="p">(</span><span class="o">*</span><span class="kp">nil</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">if</span> <span class="n">cover</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">present?</span>
-</span><span class='line'>    <span class="c1"># エラー処理</span>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のようにすれば特定のクラスのデータだけ再生成できる.</p>
 ]]></content>
   </entry>
   

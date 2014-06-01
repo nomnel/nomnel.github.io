@@ -9,13 +9,8 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompanyUser(アルファベット順にならべる)を使う. それぞれコードは以下のようになる. 1
-2
-3
-4
-5
-# app/models/user.rb
-class &hellip;">
+  <meta name="description" content="例えば後付で投稿画像を640px x 640pxに統一するようにしたときなど. 既存のデータにもその変更を反映したいときは 1
+rake paperclip:refresh:missing_styles とすればPaperclipで管理している全てのデータ(original以外) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +78,64 @@ class &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/paperclip-refresh-missing-styles/">Paperclipのsytlesやconvert_optionsの変更を既存のデータにも適用する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T11:35:00+09:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>例えば<a href="http://nomnel.net/blog/fjord-day35/">後付で投稿画像を640px x 640pxに統一するようにした</a>ときなど. 既存のデータにもその変更を反映したいときは</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rake paperclip:refresh:missing_styles
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とすればPaperclipで管理している全てのデータ(original以外)を現在のルールで再生成してくれる. ただこれだと変更に関係ないクラスも(ex: BookCoverだけ変更したのにUserImageも)再生成されるので非効率. なので</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">BookCover</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">cover</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">cover</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">reprocess!</span><span class="p">(</span><span class="o">*</span><span class="kp">nil</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">cover</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">present?</span>
+</span><span class='line'>    <span class="c1"># エラー処理</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>のようにすれば特定のクラスのデータだけ再生成できる.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -562,45 +615,6 @@ class &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ruby-get-subclasses/">Rubyでサブクラスの取得</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-05T16:00:00+09:00" pubdate data-updated="true">Jun 5<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>直接の子クラスのみなら</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/ruby-get-subclasses/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -616,6 +630,10 @@ class &hellip;">
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-add-reference/">add_reference来てた</a>
+      </li>
     
       <li class="post">
         <a href="/blog/sunspot-limit-of-facets/">sunspotでfacetの数に制限があった</a>
@@ -651,10 +669,6 @@ class &hellip;">
     
       <li class="post">
         <a href="/blog/ios-appreviewz/">AppReviewz for iOSというサイトを作りました</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/a-technique-for-producing-ideas/">「アイデアのつくり方」を読んだ</a>
       </li>
     
   </ul>

@@ -5,18 +5,17 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>jQuery.each内でbreakやcontinueする - 飲んだり寝たり</title>
+  <title>add_reference来てた - 飲んだり寝たり</title>
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="1
+  <meta name="description" content="Rails4.0からadd_reference使えるようになってた. 1
+$ rails g migration AddPiyoToHoges piyo:refernces とかすると 1
 2
 3
 4
 5
-6
-7
-$.each obj, (i, val) -&gt; # continueの代わり return true if i == 1 $.each obj, (i, val) -&gt; # breakの代わり return false if i == 1 ">
+class AddPiyoToHoges &lt; ActiveRecord:: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -25,7 +24,7 @@ $.each obj, (i, val) -&gt; # continueの代わり return true if i == 1 $.each o
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nomnel.net/blog/break-or-continue-in-jquery-each">
+  <link rel="canonical" href="http://nomnel.net/blog/rails-add-reference">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="飲んだり寝たり" type="application/atom+xml">
@@ -87,7 +86,7 @@ $.each obj, (i, val) -&gt; # continueの代わり return true if i == 1 $.each o
   
   <header>
     
-      <h1 class="entry-title">jQuery.each内でbreakやcontinueする</h1>
+      <h1 class="entry-title">add_reference来てた</h1>
     
     
       <p class="meta">
@@ -103,29 +102,62 @@ $.each obj, (i, val) -&gt; # continueの代わり return true if i == 1 $.each o
   
 
 
-<time datetime="2013-07-25T20:30:00+09:00" pubdate data-updated="true">Jul 25<span>th</span>, 2013</time>
+<time datetime="2014-06-01T16:30:00+09:00" pubdate data-updated="true">Jun 1<span>st</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="entry-content"><p>Rails4.0からadd_reference使えるようになってた.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rails g migration AddPiyoToHoges piyo:refernces
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とかすると</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">each</span> <span class="nx">obj</span><span class="p">,</span> <span class="nf">(i, val) -&gt;</span>
-</span><span class='line'>  <span class="c1"># continueの代わり</span>
-</span><span class='line'>  <span class="k">return</span> <span class="kc">true</span> <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">1</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">$</span><span class="p">.</span><span class="nx">each</span> <span class="nx">obj</span><span class="p">,</span> <span class="nf">(i, val) -&gt;</span>
-</span><span class='line'>  <span class="c1"># breakの代わり</span>
-</span><span class='line'>  <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddPiyoToHoges</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">change</span>
+</span><span class='line'>    <span class="n">add_reference</span> <span class="ss">:hoges</span><span class="p">,</span> <span class="ss">:piyo</span><span class="p">,</span> <span class="ss">index</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>なファイルが出来て</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rails db:migrate
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると<code>db/schema.rb</code>で</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="s2">&quot;hoges&quot;</span><span class="p">,</span> <span class="ss">force</span><span class="p">:</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">integer</span>  <span class="s2">&quot;piyo_id&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">add_index</span> <span class="s2">&quot;hoges&quot;</span><span class="p">,</span> <span class="o">[</span><span class="s2">&quot;piyo_id&quot;</span><span class="o">]</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;index_hoges_on_piyo_id&quot;</span><span class="p">,</span> <span class="ss">using</span><span class="p">:</span> <span class="ss">:btree</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>みたいになる. 便利.</p>
+
+<h3>参考</h3>
+
+<p><a href="http://railsdoc.com/references/add_reference">add_reference - リファレンス - Railsドキュメント</a></p>
 </div>
 
 
@@ -148,12 +180,12 @@ $.each obj, (i, val) -&gt; # continueの代わり return true if i == 1 $.each o
   
 
 
-<time datetime="2013-07-25T20:30:00+09:00" pubdate data-updated="true">Jul 25<span>th</span>, 2013</time>
+<time datetime="2014-06-01T16:30:00+09:00" pubdate data-updated="true">Jun 1<span>st</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/tips/'>tips</a>
+    <a class='category' href='/blog/categories/rails/'>rails</a>
   
 </span>
 
@@ -162,7 +194,7 @@ $.each obj, (i, val) -&gt; # continueの代わり return true if i == 1 $.each o
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/break-or-continue-in-jquery-each/" data-via="nomnel" data-counturl="http://nomnel.net/blog/break-or-continue-in-jquery-each/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nomnel.net/blog/rails-add-reference/" data-via="nomnel" data-counturl="http://nomnel.net/blog/rails-add-reference/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -175,10 +207,8 @@ $.each obj, (i, val) -&gt; # continueの代わり return true if i == 1 $.each o
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/develop-web-service/" title="Previous Post: Webサービスを作ってみる">&laquo; Webサービスを作ってみる</a>
+        <a class="basic-alignment left" href="/blog/sunspot-limit-of-facets/" title="Previous Post: sunspotでfacetの数に制限があった">&laquo; sunspotでfacetの数に制限があった</a>
       
-      
-        <a class="basic-alignment right" href="/blog/diary-2/" title="Next Post: 考えたくない">考えたくない &raquo;</a>
       
     </p>
   </footer>
@@ -264,8 +294,8 @@ $.each obj, (i, val) -&gt; # continueの代わり return true if i == 1 $.each o
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://nomnel.net/blog/break-or-continue-in-jquery-each/';
-        var disqus_url = 'http://nomnel.net/blog/break-or-continue-in-jquery-each/';
+        var disqus_identifier = 'http://nomnel.net/blog/rails-add-reference/';
+        var disqus_url = 'http://nomnel.net/blog/rails-add-reference/';
         var disqus_script = 'embed.js';
       
     (function () {

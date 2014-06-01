@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2014-03-11T22:22:48+09:00</updated>
+  <updated>2014-06-01T16:32:50+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,54 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[add_reference来てた]]></title>
+    <link href="http://nomnel.net/blog/rails-add-reference/"/>
+    <updated>2014-06-01T16:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails-add-reference</id>
+    <content type="html"><![CDATA[<p>Rails4.0からadd_reference使えるようになってた.</p>
+
+<p><code>sh
+$ rails g migration AddPiyoToHoges piyo:refernces
+</code></p>
+
+<p>とかすると</p>
+
+<p>```ruby
+class AddPiyoToHoges &lt; ActiveRecord::Migration
+  def change</p>
+
+<pre><code>add_reference :hoges, :piyo, index: true
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>なファイルが出来て</p>
+
+<p><code>sh
+$ rails db:migrate
+</code></p>
+
+<p>すると<code>db/schema.rb</code>で</p>
+
+<p>```ruby
+create_table "hoges", force: true do |t|
+  t.integer  "piyo_id"
+end</p>
+
+<p>add_index "hoges", ["piyo_id"], name: "index_hoges_on_piyo_id", using: :btree
+```</p>
+
+<p>みたいになる. 便利.</p>
+
+<h3>参考</h3>
+
+<p><a href="http://railsdoc.com/references/add_reference">add_reference - リファレンス - Railsドキュメント</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ActiveRecordでgroup byしてそのcount順にorder byする]]></title>
@@ -113,49 +161,6 @@ end
   belongs_to :user
 end
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rails4でObserverを使う]]></title>
-    <link href="http://nomnel.net/blog/rails4-observer/"/>
-    <updated>2013-07-14T16:45:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails4-observer</id>
-    <content type="html"><![CDATA[<p>Rails4ではobserversが削除されているので, 使用したい場合は<code>rails-observers</code>gemをインストールする.</p>
-
-<p><code>ruby
-gem 'rails-observers'
-</code></p>
-
-<p>もしくはActiveRecordのcallbackで</p>
-
-<p>```ruby
-class Hoge &lt; ActiveRecord::Base
-  before_save do</p>
-
-<pre><code># 何か処理
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>や</p>
-
-<p>```ruby
-class Hoge &lt; ActiveRecord::Base
-  before_save :some_action</p>
-
-<p>  def some_action</p>
-
-<pre><code># 何か処理
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>のようにしてもよい.</p>
 ]]></content>
   </entry>
   

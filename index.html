@@ -9,9 +9,13 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="facetはデフォルトだと100件までしか取れない. 1
-facet(:hoge, limit: -1) みたいにlimitに負の値を与えると制限無しになる.
-">
+  <meta name="description" content="Rails4.0からadd_reference使えるようになってた. 1
+$ rails g migration AddPiyoToHoges piyo:refernces とかすると 1
+2
+3
+4
+5
+class AddPiyoToHoges &lt; ActiveRecord:: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +83,90 @@ facet(:hoge, limit: -1) みたいにlimitに負の値を与えると制限無し
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-add-reference/">add_reference来てた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-01T16:30:00+09:00" pubdate data-updated="true">Jun 1<span>st</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Rails4.0からadd_reference使えるようになってた.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rails g migration AddPiyoToHoges piyo:refernces
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とかすると</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddPiyoToHoges</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">change</span>
+</span><span class='line'>    <span class="n">add_reference</span> <span class="ss">:hoges</span><span class="p">,</span> <span class="ss">:piyo</span><span class="p">,</span> <span class="ss">index</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>なファイルが出来て</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rails db:migrate
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると<code>db/schema.rb</code>で</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="s2">&quot;hoges&quot;</span><span class="p">,</span> <span class="ss">force</span><span class="p">:</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">integer</span>  <span class="s2">&quot;piyo_id&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">add_index</span> <span class="s2">&quot;hoges&quot;</span><span class="p">,</span> <span class="o">[</span><span class="s2">&quot;piyo_id&quot;</span><span class="o">]</span><span class="p">,</span> <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;index_hoges_on_piyo_id&quot;</span><span class="p">,</span> <span class="ss">using</span><span class="p">:</span> <span class="ss">:btree</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>みたいになる. 便利.</p>
+
+<h3>参考</h3>
+
+<p><a href="http://railsdoc.com/references/add_reference">add_reference - リファレンス - Railsドキュメント</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -550,50 +638,6 @@ facet(:hoge, limit: -1) みたいにlimitに負の値を与えると制限無し
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/a-technique-for-producing-ideas/">「アイデアのつくり方」を読んだ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-23T17:00:00+09:00" pubdate data-updated="true">Aug 23<span>rd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>アイデアのつくり方を読んだ.</p>
-
-<iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=nomnel11-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4484881047" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/a-technique-for-producing-ideas/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -607,6 +651,10 @@ facet(:hoge, limit: -1) みたいにlimitに負の値を与えると制限無し
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-add-reference/">add_reference来てた</a>
+      </li>
     
       <li class="post">
         <a href="/blog/sunspot-limit-of-facets/">sunspotでfacetの数に制限があった</a>
@@ -642,10 +690,6 @@ facet(:hoge, limit: -1) みたいにlimitに負の値を与えると制限無し
     
       <li class="post">
         <a href="/blog/ios-appreviewz/">AppReviewz for iOSというサイトを作りました</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/a-technique-for-producing-ideas/">「アイデアのつくり方」を読んだ</a>
       </li>
     
   </ul>
