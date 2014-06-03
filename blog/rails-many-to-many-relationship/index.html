@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompanyUser(アルファベット順にならべる)を使う. それぞれコードは以下のようになる. 1
+  <meta name="description" content="例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompaniesUser(アルファベット順にならべる)を使う. それぞれコードは以下のようになる. 1
 2
 3
 4
@@ -109,7 +109,7 @@ class &hellip;">
   </header>
 
 
-<div class="entry-content"><p>例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompanyUser(アルファベット順にならべる)を使う.</p>
+<div class="entry-content"><p>例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompaniesUser(アルファベット順にならべる)を使う.</p>
 
 <p>それぞれコードは以下のようになる.</p>
 
@@ -120,8 +120,8 @@ class &hellip;">
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/user.rb</span>
 </span><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:company_users</span>
-</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:companies</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:company_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:companies_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:companies</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:companies_users</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -135,8 +135,8 @@ class &hellip;">
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/company.rb</span>
 </span><span class='line'><span class="k">class</span> <span class="nc">Company</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:company_users</span>
-</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:company_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:companies_users</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:companies_users</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -148,8 +148,8 @@ class &hellip;">
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/company_user.rb</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">CompanyUser</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># app/models/companies_user.rb</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">CompaniesUser</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
 </span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:company</span>
 </span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:user</span>
 </span><span class='line'><span class="k">end</span>
