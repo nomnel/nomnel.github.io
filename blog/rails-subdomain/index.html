@@ -130,6 +130,13 @@ Rails.application.routes.draw do constraints subdomain: &#39;admin&#39; do names
 
 
 <p><code>admin.example.com</code>でアクセスできて, コントローラは<code>app/controllers/admin/top_controller.rb</code>になる.</p>
+
+<p>開発用には<code>/etc/hosts (Macだと/private/etc/hosts)</code>を次のように書き換えておく.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>127.0.0.1       localhost lvh.me admin.lvh.me
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
