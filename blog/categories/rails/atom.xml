@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2014-07-03T14:06:15+09:00</updated>
+  <updated>2014-08-16T19:28:42+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Railsでサブドメインを使ってルーティングを分ける]]></title>
+    <link href="http://nomnel.net/blog/rails-subdomain/"/>
+    <updated>2014-08-16T19:30:00+09:00</updated>
+    <id>http://nomnel.net/blog/rails-subdomain</id>
+    <content type="html"><![CDATA[<p>ざっとこんな感じ.</p>
+
+<p>```ruby
+Rails.application.routes.draw do
+  constraints subdomain: 'admin' do</p>
+
+<pre><code>namespace :admin, path: '/' do
+  root 'top#index'
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>コントローラは<code>app/controllers/admin/top_controller.rb</code>になる.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[add_reference来てた]]></title>
@@ -120,47 +144,6 @@ BookCover.all.each do |cover|
 ```</p>
 
 <p>のようにすれば特定のクラスのデータだけ再生成できる.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Railsで多対多の関係を表現する]]></title>
-    <link href="http://nomnel.net/blog/rails-many-to-many-relationship/"/>
-    <updated>2013-07-14T17:00:00+09:00</updated>
-    <id>http://nomnel.net/blog/rails-many-to-many-relationship</id>
-    <content type="html"><![CDATA[<p>例えばUserモデルとCompanyモデルが多対多(お互いhas_many)の関係であることを表現するときは, 中間のモデルCompaniesUser(アルファベット順にならべる)を使う.</p>
-
-<p>それぞれコードは以下のようになる.</p>
-
-<p>```ruby</p>
-
-<h1>app/models/user.rb</h1>
-
-<p>class User &lt; ActiveRecord::Base
-  has_many :companies_users
-  has_many :companies, through: :companies_users
-end
-```</p>
-
-<p>```ruby</p>
-
-<h1>app/models/company.rb</h1>
-
-<p>class Company &lt; ActiveRecord::Base
-  has_many :companies_users
-  has_many :users, through: :companies_users
-end
-```</p>
-
-<p>```ruby</p>
-
-<h1>app/models/companies_user.rb</h1>
-
-<p>class CompaniesUser &lt; ActiveRecord::Base
-  belongs_to :company
-  belongs_to :user
-end
-```</p>
 ]]></content>
   </entry>
   

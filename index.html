@@ -9,13 +9,14 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Rails4.0からadd_reference使えるようになってた. 1
-$ rails g migration AddPiyoToHoges piyo:refernces とかすると 1
+  <meta name="description" content="ざっとこんな感じ. 1
 2
 3
 4
 5
-class AddPiyoToHoges &lt; ActiveRecord:: &hellip;">
+6
+7
+Rails.application.routes.draw do constraints subdomain: &#39;admin&#39; do namespace :admin, path: &#39;/&#39; do root &#39; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +84,61 @@ class AddPiyoToHoges &lt; ActiveRecord:: &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/rails-subdomain/">Railsでサブドメインを使ってルーティングを分ける</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-16T19:30:00+09:00" pubdate data-updated="true">Aug 16<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ざっとこんな感じ.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">constraints</span> <span class="ss">subdomain</span><span class="p">:</span> <span class="s1">&#39;admin&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">namespace</span> <span class="ss">:admin</span><span class="p">,</span> <span class="ss">path</span><span class="p">:</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">root</span> <span class="s1">&#39;top#index&#39;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>コントローラは<code>app/controllers/admin/top_controller.rb</code>になる.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -595,49 +651,6 @@ class AddPiyoToHoges &lt; ActiveRecord:: &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/ios-appreviewz/">AppReviewz for iOSというサイトを作りました</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-26T14:00:00+09:00" pubdate data-updated="true">Aug 26<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rails4で<a href="http://ios.appreviewz.net/">AppReviewz for iOS</a>というサイトを作りました. 初めて作ったwebサービスです.</p>
-
-<p><img src="http://gyazo.com/e13ffef560d063d3dc1ca46e71c94f87.png" alt="" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/ios-appreviewz/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -651,6 +664,10 @@ class AddPiyoToHoges &lt; ActiveRecord:: &hellip;">
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/rails-subdomain/">Railsでサブドメインを使ってルーティングを分ける</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rails-add-reference/">add_reference来てた</a>
@@ -686,10 +703,6 @@ class AddPiyoToHoges &lt; ActiveRecord:: &hellip;">
     
       <li class="post">
         <a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/ios-appreviewz/">AppReviewz for iOSというサイトを作りました</a>
       </li>
     
   </ul>
