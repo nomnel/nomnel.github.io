@@ -4,7 +4,7 @@
   <title><![CDATA[飲んだり寝たり]]></title>
   <link href="http://nomnel.net/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2014-08-16T19:55:38+09:00</updated>
+  <updated>2014-08-16T20:09:21+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -39,12 +39,7 @@
 
 <p><code>admin.example.com</code>でアクセスできて, コントローラは<code>app/controllers/admin/top_controller.rb</code>になる.</p>
 
-<p>開発用には<code>/etc/hosts (Macだと/private/etc/hosts)</code>を次のように書き換えておく.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>127.0.0.1       localhost lvh.me admin.lvh.me
-</span></code></pre></td></tr></table></div></figure>
-
+<p>開発時は<a href="http://admin.lvh.me:3000/">admin.lvh.me:3000</a>にアクセスすればよい.</p>
 ]]></content>
   </entry>
   
