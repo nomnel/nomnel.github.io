@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2014-08-16T20:09:21+09:00</updated>
+  <updated>2014-09-04T23:42:43+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -12,6 +12,99 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Re: 接客と委譲とオープンクラス]]></title>
+    <link href="http://nomnel.net/blog/open-class-and-delegation/"/>
+    <updated>2014-09-04T23:45:00+09:00</updated>
+    <id>http://nomnel.net/blog/open-class-and-delegation</id>
+    <content type="html"><![CDATA[<p>委譲とオープンクラスを接客で例示する、という話が<a href="http://shgam.hatenadiary.jp/entry/2014/09/04/020405">【Ruby】接客と委譲</a>(元は「接客と委譲とオープンクラス」)で書かれていてすごくいい例示だと思ったんだけど, なんかちょっと違うなーと思ったところがあったので書いてみる. 設定とかは本家を参照してほしい.</p>
+
+<p>```ruby</p>
+
+<h1>チーフ</h1>
+
+<p>class Chief
+  def initialize</p>
+
+<pre><code>@info = { "トイレ" =&gt; "2F東3扉前", "喫煙所" =&gt; "1F西門外"}
+</code></pre>
+
+<p>  end
+  def answer(target)</p>
+
+<pre><code>puts "#{target}は#{@info[target]}にございます。"
+</code></pre>
+
+<p>  end
+end</p>
+
+<h1>日雇いバイト</h1>
+
+<p>class PartTimer
+  def initialize(chief)</p>
+
+<pre><code>@chief = chief
+</code></pre>
+
+<p>  end
+end</p>
+
+<h1>チーフのヤマダさん</h1>
+
+<p>yamada = Chief.new</p>
+
+<h1>日雇いバイトのタナカさん。担当チーフはヤマダさん</h1>
+
+<p>tanaka = PartTimer.new(yamada)</p>
+
+<h1>お客さんにトイレの場所を質問されたヤマダさん</h1>
+
+<h1>答えようとするのですが、教えられて(定義されて)ないのでパニックになります</h1>
+
+<p>tanaka.answer('トイレ')</p>
+
+<h1>=> NoMethodError: undefined method `answer' for #&lt;PartTimer:0x007fa67d23ea58></h1>
+
+<h1>ヤマダさん「タナカさん、分からなかったらお客さんにちょっと待っていただいて、私に聞いてください」</h1>
+
+<h1>タナカさんは、自分では解決出来ないときの対処法を教えられます</h1>
+
+<h1>既存のクラスを拡張(オープンクラス)</h1>
+
+<p>class PartTimer
+  def method_missing(name, *args)</p>
+
+<pre><code>puts "少々お待ちください、ただいま分かる者に確認いたします…"
+@chief.__send__ name, *args
+</code></pre>
+
+<p>  end
+end</p>
+
+<h1>今度は喫煙所の場所を聞かれたヤマダさん</h1>
+
+<h1>自分では分からないのでチーフに確認し、その答えをお客さんに伝えます。</h1>
+
+<p>tanaka.answer('喫煙所')</p>
+
+<h1>少々お待ちください、ただいま分かる者に確認いたします…</h1>
+
+<h1>喫煙所は1F西門外にございます。</h1>
+
+<h1>めでたしめでたし</h1>
+
+<p>```</p>
+
+<h3>ポイント</h3>
+
+<ul>
+<li>一度定義したクラスに、オープンクラスによって新たなメソッドを定義している</li>
+<li>method_missingの中でchiefに処理を移譲している</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[sunspotでfacetの数に制限があった]]></title>

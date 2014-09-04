@@ -9,10 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="チュートリアルのインフラ編を進めていた. つもりだった. 5日目(一昨日)やったこと. Debian (squeeze) 64bitをVirtualBoxにインストール
-Debianでsudoを使えるように
-Debianのコンソールで日本語を表示
-Debianにsshのインストール 6日目(昨日 &hellip;">
+  <meta name="description" content="Debianを最小構成(CUIのみ)でインストールする. 準備 Debianインストーラのisoファイルをダウンロード. 今回はSmaller CDsのamd64版を選択(50MB). VirtualBoxをダウンロードしてインストール. VMの作成 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +77,98 @@ Debianにsshのインストール 6日目(昨日 &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/install-debian-to-virtualbox/">Debian (squeeze) 64bit をVirtualBoxにインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-08T00:00:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Debianを最小構成(CUIのみ)でインストールする.</p>
+
+<h3>準備</h3>
+
+<p><a href="http://www.debian.org/distrib/netinst">Debianインストーラのisoファイル</a>をダウンロード. 今回はSmaller CDsのamd64版を選択(50MB).</p>
+
+<p><a href="https://www.virtualbox.org/">VirtualBox</a>をダウンロードしてインストール.</p>
+
+<h3>VMの作成</h3>
+
+<p>VirtualBoxを起動して新規にVMを作成する. 設定内容は下記. VM名,
+OSのType, Version以外はデフォルトのまま.</p>
+
+<ul>
+<li>VM名: Debian64</li>
+<li>OS type: Linux</li>
+<li>OS version: Debian (64 bit)</li>
+<li>メモリ: 384MB</li>
+<li>virtual hard driveを作るか: create a virtual hard drive now</li>
+<li>hard driveのfile type: VDI (VirtualBox Disk Image)</li>
+<li>Storageの容量確保方法: Dynamically allocated</li>
+<li>ファイル名と最大サイズ: Debian64(VM名と同じ), 8GB</li>
+</ul>
+
+
+<h3>Debianのインストール</h3>
+
+<p>作成したVMのCD/DVDドライブにダウンロードしたisoファイルをセットしてVMを起動. 作業用ユーザはnomnelとしているが適当に読み替えてほしい.</p>
+
+<ul>
+<li>Install</li>
+<li>言語選択: Japanese – 日本語</li>
+<li>場所: 日本</li>
+<li>キーボード配置: 米国(英語キーボードの場合)</li>
+<li>ホスト名: debian (デフォルト)</li>
+<li>ドメイン名: 空白</li>
+<li>ミラーの国選択: 日本</li>
+<li>ミラーの選択: ftp.jp.debian.org</li>
+<li>プロキシ: 空白(無い場合)</li>
+<li>rootパスワード:</li>
+<li>rootパスワードの確認入力:</li>
+<li>ユーザの本名: nomnel</li>
+<li>ユーザ名: nomnel</li>
+<li>ユーザのパスワード:</li>
+<li>ユーザのパスワードの確認入力:</li>
+<li>パーティショニングの方法: ガイド – ディスク全体を使う</li>
+<li>パーティショニングするディスクの選択:</li>
+<li>パーティショニング機構: すべてのファイルを1つのパーティションに(初心者ユーザには推奨)</li>
+<li>パッケージ利用調査に参加: いいえ</li>
+<li>インストールするソフトウェアの選択: 標準システムユーティリティのみ</li>
+<li>マスターブートレコードにGRUBブートローダをインストール: はい</li>
+</ul>
+
+
+<p>インストールが終わったら一度シャットダウンしてスナップショットをとっておくとよいかも.</p>
+
+<p>次-> <a href="http://nomnel.net/blog/debian-enable-sudo/">Debianでsudoを使えるように</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -651,55 +740,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/st2-gauche/">Sublime Text 2でGaucheコードを書くために</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-23T00:00:00+09:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>まとめ的に.</p>
-
-<p>まず, <a href="http://wbond.net/sublime_packages/package_control">Package Control</a>をSublime Text 2にインストールする.</p>
-
-<p>次に以下の3つをPackage Controlを使ってインストールする.</p>
-
-<ul>
-<li><a href="https://github.com/nomnel/Sublime-Gauche-Syntax">Gauche</a> (シンタックスハイライト)</li>
-<li><a href="https://github.com/wuub/SublimeREPL">SublimeREPL</a> (REPL)</li>
-<li><a href="https://github.com/odyssomay/sublime-lispindent">lispindent</a> (インデント)</li>
-</ul>
-
-
-<p>以上.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -715,6 +755,10 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/open-class-and-delegation/">Re: 接客と委譲とオープンクラス</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rails-subdomain/">Railsでサブドメインを使ってルーティングを分ける</a>
@@ -750,10 +794,6 @@ $ echo 'export PATH=/usr/local/bin:$PATH' &gt;&gt; ~/.zshrc
     
       <li class="post">
         <a href="/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a>
       </li>
     
   </ul>

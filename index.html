@@ -9,14 +9,16 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="ざっとこんな感じ. 1
+  <meta name="description" content="委譲とオープンクラスを接客で例示する、という話が【Ruby】接客と委譲(元は「接客と委譲とオープンクラス」)で書かれていてすごくいい例示だと思ったんだけど, なんかちょっと違うなーと思ったところがあったので書いてみる. 設定とかは本家を参照してほしい. 1
 2
 3
 4
 5
 6
 7
-Rails.application.routes.draw do constraints subdomain: &#39;admin&#39; do namespace :admin, path: &#39;/&#39; do root &#39; &hellip;">
+8
+9
+10 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +86,143 @@ Rails.application.routes.draw do constraints subdomain: &#39;admin&#39; do names
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/open-class-and-delegation/">Re: 接客と委譲とオープンクラス</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-04T23:45:00+09:00" pubdate data-updated="true">Sep 4<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>委譲とオープンクラスを接客で例示する、という話が<a href="http://shgam.hatenadiary.jp/entry/2014/09/04/020405">【Ruby】接客と委譲</a>(元は「接客と委譲とオープンクラス」)で書かれていてすごくいい例示だと思ったんだけど, なんかちょっと違うなーと思ったところがあったので書いてみる. 設定とかは本家を参照してほしい.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># チーフ</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Chief</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class='line'>    <span class="vi">@info</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;トイレ&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;2F東3扉前&quot;</span><span class="p">,</span> <span class="s2">&quot;喫煙所&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;1F西門外&quot;</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">answer</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">target</span><span class="si">}</span><span class="s2">は</span><span class="si">#{</span><span class="vi">@info</span><span class="o">[</span><span class="n">target</span><span class="o">]</span><span class="si">}</span><span class="s2">にございます。&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 日雇いバイト</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">PartTimer</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">chief</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@chief</span> <span class="o">=</span> <span class="n">chief</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># チーフのヤマダさん</span>
+</span><span class='line'><span class="n">yamada</span> <span class="o">=</span> <span class="no">Chief</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="c1"># 日雇いバイトのタナカさん。担当チーフはヤマダさん</span>
+</span><span class='line'><span class="n">tanaka</span> <span class="o">=</span> <span class="no">PartTimer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">yamada</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># お客さんにトイレの場所を質問されたヤマダさん</span>
+</span><span class='line'><span class="c1"># 答えようとするのですが、教えられて(定義されて)ないのでパニックになります</span>
+</span><span class='line'><span class="n">tanaka</span><span class="o">.</span><span class="n">answer</span><span class="p">(</span><span class="s1">&#39;トイレ&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># =&gt; NoMethodError: undefined method `answer&#39; for #&lt;PartTimer:0x007fa67d23ea58&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># ヤマダさん「タナカさん、分からなかったらお客さんにちょっと待っていただいて、私に聞いてください」</span>
+</span><span class='line'><span class="c1"># タナカさんは、自分では解決出来ないときの対処法を教えられます</span>
+</span><span class='line'><span class="c1"># 既存のクラスを拡張(オープンクラス)</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">PartTimer</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;少々お待ちください、ただいま分かる者に確認いたします…&quot;</span>
+</span><span class='line'>    <span class="vi">@chief</span><span class="o">.</span><span class="n">__send__</span> <span class="nb">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 今度は喫煙所の場所を聞かれたヤマダさん</span>
+</span><span class='line'><span class="c1"># 自分では分からないのでチーフに確認し、その答えをお客さんに伝えます。</span>
+</span><span class='line'><span class="n">tanaka</span><span class="o">.</span><span class="n">answer</span><span class="p">(</span><span class="s1">&#39;喫煙所&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># 少々お待ちください、ただいま分かる者に確認いたします…</span>
+</span><span class='line'><span class="c1"># 喫煙所は1F西門外にございます。</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># めでたしめでたし</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ポイント</h3>
+
+<ul>
+<li>一度定義したクラスに、オープンクラスによって新たなメソッドを定義している</li>
+<li>method_missingの中でchiefに処理を移譲している</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -610,49 +749,6 @@ Rails.application.routes.draw do constraints subdomain: &#39;admin&#39; do names
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-06T18:30:00+09:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>関西Ruby会議に行ってやる気満々だったのにネットとPCの無い日々が続いたのでむしゃくしゃして作りました.</p>
-
-<p><img src="http://gyazo.com/151a258e4ec459499fd999852c7f513e.png" alt="" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/release-horesase-lingr/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -666,6 +762,10 @@ Rails.application.routes.draw do constraints subdomain: &#39;admin&#39; do names
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/open-class-and-delegation/">Re: 接客と委譲とオープンクラス</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rails-subdomain/">Railsでサブドメインを使ってルーティングを分ける</a>
@@ -701,10 +801,6 @@ Rails.application.routes.draw do constraints subdomain: &#39;admin&#39; do names
     
       <li class="post">
         <a href="/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a>
       </li>
     
   </ul>

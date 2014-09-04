@@ -9,7 +9,7 @@
   <meta name="author" content="nomnel">
 
   
-  <meta name="description" content="Rails4でAppReviewz for iOSというサイトを作りました. 初めて作ったwebサービスです. ">
+  <meta name="description" content="関西Ruby会議に行ってやる気満々だったのにネットとPCの無い日々が続いたのでむしゃくしゃして作りました. ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-06T18:30:00+09:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>関西Ruby会議に行ってやる気満々だったのにネットとPCの無い日々が続いたのでむしゃくしゃして作りました.</p>
+
+<p><img src="http://gyazo.com/151a258e4ec459499fd999852c7f513e.png" alt="" /></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/release-horesase-lingr/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -473,56 +516,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/rails-multi-table-includes/">Railsで複数テーブルに跨ってincludesする</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-20T23:00:00+09:00" pubdate data-updated="true">Jul 20<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>例えば<code>A has_many Bs</code>かつ<code>B has_one C</code>であるとき</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">A</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">bs</span><span class="p">:</span> <span class="ss">:c</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とすればよい. さらに<code>B has_many Ds</code>であれば</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">A</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">bs</span><span class="p">:</span> <span class="o">[</span><span class="ss">:c</span><span class="p">,</span> <span class="ss">:ds</span><span class="o">]</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>となる.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -538,6 +531,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/open-class-and-delegation/">Re: 接客と委譲とオープンクラス</a>
+      </li>
     
       <li class="post">
         <a href="/blog/rails-subdomain/">Railsでサブドメインを使ってルーティングを分ける</a>
@@ -573,10 +570,6 @@
     
       <li class="post">
         <a href="/blog/sinatra-hello-world/">SinatraでHello Worldするまで</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/release-horesase-lingr/">惚れさせLingrというbotを作った</a>
       </li>
     
   </ul>
