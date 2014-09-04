@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | 飲んだり寝たり]]></title>
   <link href="http://nomnel.net/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://nomnel.net/"/>
-  <updated>2014-09-04T23:47:57+09:00</updated>
+  <updated>2014-09-04T23:59:16+09:00</updated>
   <id>http://nomnel.net/</id>
   <author>
     <name><![CDATA[nomnel]]></name>
@@ -18,7 +18,7 @@
     <link href="http://nomnel.net/blog/open-class-and-delegation/"/>
     <updated>2014-09-04T23:45:00+09:00</updated>
     <id>http://nomnel.net/blog/open-class-and-delegation</id>
-    <content type="html"><![CDATA[<p>委譲とオープンクラスを接客で例示する、という話が<a href="http://shgam.hatenadiary.jp/entry/2014/09/04/020405">【Ruby】接客と委譲</a>(元は「接客と委譲とオープンクラス」)で書かれていてすごくいい例示だと思ったんだけど, なんかちょっと違うなーと思ったところがあったので書いてみる. 設定とかは本家を参照してほしい.</p>
+    <content type="html"><![CDATA[<p>委譲とオープンクラスを接客で例示する、という話が<a href="http://shgam.hatenadiary.jp/entry/2014/09/04/020405">【Ruby】接客と委譲</a>(元は「接客と委譲とオープンクラス」だったかな)で書かれていてすごくいい例示だと思ったんだけど, なんかちょっと違うなーと思ったところがあったので書いてみる. 設定とかは本家を参照してほしい.</p>
 
 <p>```ruby</p>
 
