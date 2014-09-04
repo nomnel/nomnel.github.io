@@ -162,8 +162,9 @@
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># チーフ</span>
 </span><span class='line'><span class="k">class</span> <span class="nc">Chief</span>
 </span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span>
-</span><span class='line'>    <span class="vi">@info</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;トイレ&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;2F東3扉前&quot;</span><span class="p">,</span> <span class="s2">&quot;喫煙所&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;1F西門外&quot;</span><span class="p">}</span>
+</span><span class='line'>    <span class="vi">@info</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;トイレ&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;2F東3扉前&quot;</span><span class="p">,</span> <span class="s2">&quot;喫煙所&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;1F西門外&quot;</span> <span class="p">}</span>
 </span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
 </span><span class='line'>  <span class="k">def</span> <span class="nf">answer</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
 </span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">target</span><span class="si">}</span><span class="s2">は</span><span class="si">#{</span><span class="vi">@info</span><span class="o">[</span><span class="n">target</span><span class="o">]</span><span class="si">}</span><span class="s2">にございます。&quot;</span>
 </span><span class='line'>  <span class="k">end</span>
@@ -180,7 +181,6 @@
 </span><span class='line'><span class="n">yamada</span> <span class="o">=</span> <span class="no">Chief</span><span class="o">.</span><span class="n">new</span>
 </span><span class='line'><span class="c1"># 日雇いバイトのタナカさん。担当チーフはヤマダさん</span>
 </span><span class='line'><span class="n">tanaka</span> <span class="o">=</span> <span class="no">PartTimer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">yamada</span><span class="p">)</span>
-</span><span class='line'>
 </span><span class='line'>
 </span><span class='line'><span class="c1"># お客さんにトイレの場所を質問されたヤマダさん</span>
 </span><span class='line'><span class="c1"># 答えようとするのですが、教えられて(定義されて)ないのでパニックになります</span>
